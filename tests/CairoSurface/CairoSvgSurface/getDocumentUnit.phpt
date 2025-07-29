@@ -26,5 +26,5 @@ try {
 }
 ?>
 --EXPECTF--
-int(7)
+int(0)
 Cairo\Surface\Svg::getDocumentUnit() expects exactly 0 arguments, 1 given

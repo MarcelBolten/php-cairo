@@ -43,6 +43,6 @@ object(Cairo\FontType)#%d (2) {
     int(4)
   }
   ["__value"]=>
-  int(1)
+  int(4)
 }
 Cairo\ScaledFont::getType() expects exactly 0 arguments, 1 given
