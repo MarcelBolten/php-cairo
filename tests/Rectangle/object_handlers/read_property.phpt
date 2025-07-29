@@ -26,4 +26,6 @@ int(1)
 int(2)
 int(3)
 int(4)
+
+Deprecated: Creation of dynamic property Cairo\Rectangle::$banana is deprecated in /src/php-cairo/tests/Rectangle/object_handlers/read_property.php on line 11
 string(5) "fruit"

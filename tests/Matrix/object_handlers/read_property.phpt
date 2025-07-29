@@ -30,4 +30,6 @@ float(5)
 float(2)
 float(4)
 float(6)
+
+Deprecated: Creation of dynamic property Cairo\Matrix::$banana is deprecated in /src/php-cairo/tests/Matrix/object_handlers/read_property.php on line 13
 string(5) "fruit"
