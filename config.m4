@@ -59,7 +59,7 @@ if test "$PHP_CAIRO" != "no"; then
                     FREETYPE_LIBS="$LDFLAGS `$PKG_CONFIG --libs freetype2`"
                     FREETYPE_INCS="$CFLAGS `$PKG_CONFIG --cflags-only-I freetype2`"
                     PHP_EVAL_INCLINE($FREETYPE_INCS)
-                    PHP_EVAL_LIBLINE($FREETYPE_LIBS, FREETYPE_SHARED_LIBADD)
+                    PHP_EVAL_LIBLINE($FREETYPE_LIBS, CAIRO_SHARED_LIBADD)
                     AC_DEFINE(HAVE_FREETYPE, 1, [whether freetype2 exists in the system])
                 fi
 
@@ -70,7 +70,7 @@ if test "$PHP_CAIRO" != "no"; then
                     FONTCONFIG_LIBS="$LDFLAGS `$PKG_CONFIG --libs fontconfig`"
                     FONTCONFIG_INCS="$CFLAGS `$PKG_CONFIG --cflags-only-I fontconfig`"
                     PHP_EVAL_INCLINE($FONTCONFIG_INCS)
-                    PHP_EVAL_LIBLINE($FONTCONFIG_LIBS, FONTCONFIG_SHARED_LIBADD)
+                    PHP_EVAL_LIBLINE($FONTCONFIG_LIBS, CAIRO_SHARED_LIBADD)
                     AC_DEFINE(HAVE_FONTCONFIG, 1, [whether fontconfig exists in the system])
                 fi
 
@@ -81,7 +81,7 @@ if test "$PHP_CAIRO" != "no"; then
                     LIBJPEG_LIBS="$LDFLAGS `$PKG_CONFIG --libs libjpeg`"
                     LIBJPEG_INCS="$CFLAGS `$PKG_CONFIG --cflags-only-I libjpeg`"
                     PHP_EVAL_INCLINE($LIBJPEG_INCS)
-                    PHP_EVAL_LIBLINE($LIBJPEG_LIBS, LIBJPEG_SHARED_LIBADD)
+                    PHP_EVAL_LIBLINE($LIBJPEG_LIBS, CAIRO_SHARED_LIBADD)
                     AC_DEFINE(HAVE_LIBJPEG, 1, [whether libjpeg exists in the system])
                 fi
 
