@@ -114,7 +114,7 @@ object(Cairo\Status)#%d (2) {
     ["DEVICE_FINISHED"]=>
     int(37)
     ["LAST_STATUS"]=>
-    int(43)
+    int(45)
     ["JBIG2_GLOBAL_MISSING"]=>
     int(38)
     ["WIN32_GDI_ERROR"]=>
