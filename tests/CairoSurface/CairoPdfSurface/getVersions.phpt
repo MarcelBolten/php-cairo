@@ -21,10 +21,14 @@ try {
 }
 ?>
 --EXPECTF--
-array(2) {
+array(4) {
   [0]=>
   int(0)
   [1]=>
   int(1)
+  [2]=>
+  int(2)
+  [3]=>
+  int(3)
 }
 Cairo\Surface\Pdf::getVersions() expects exactly 0 %s, 1 given
