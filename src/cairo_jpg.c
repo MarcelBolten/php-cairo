@@ -1,4 +1,4 @@
-/* Copyright 2018 Bernhard R. Fischer, 4096R/8E24F29D <bf@abenteuerland.at>
+/* Copyright 2018-2024 Bernhard R. Fischer, 4096R/8E24F29D <bf@abenteuerland.at>
  *
  * This file is part of Cairo_JPG.
  *
@@ -29,10 +29,10 @@
  * To compile this code you need to have installed the packages libcairo2-dev
  * and libjpeg-dev. Compile with the following to create an object file to link
  * with your code:
- * gcc -std=c99 -Wall -c `pkg-config cairo libjpeg --cflags --libs` cairo_jpg.c
+ * gcc -std=c99 -Wall -c `pkg-config cairo libjpeg --cflags` cairo_jpg.c
  * Use the following command to include the main() function and create an
  * executable for testing of this code:
- * gcc -std=c99 -Wall -o cairo_jpg -DCAIRO_JPEG_MAIN `pkg-config cairo libjpeg --cflags --libs` cairo_jpg.c
+ * gcc -std=c99 -Wall -o cairo_jpg -DCAIRO_JPEG_MAIN `pkg-config cairo libjpeg --cflags` cairo_jpg.c `pkg-config cairo libjpeg --libs`
  *
  * @author Bernhard R. Fischer, 4096R/8E24F29D bf@abenteuerland.at
  * @version 2020/01/18
@@ -48,7 +48,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#if defined(_WIN32) || defined(_WIN64) 
+#if defined(_WIN32) || defined(_WIN64)
 #include <io.h>
 #else
 #include <unistd.h>
@@ -90,7 +90,7 @@
 #endif
 
 /*! Define this to test jpeg creation with non-image surfaces. This is only for
- * testing and is to be used together with CAIRO_JPEG_MAIN.  
+ * testing and is to be used together with CAIRO_JPEG_MAIN.
  */
 #undef CAIRO_JPEG_TEST_SIMILAR
 #if defined(CAIRO_JPEG_TEST_SIMILAR) && defined(CAIRO_JPEG_MAIN)
@@ -340,7 +340,7 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg_mem(void *data, size_t len
    struct jpeg_error_mgr jerr;
    JSAMPROW row_pointer[1];
    cairo_surface_t *sfc;
- 
+
    // initialize jpeg decompression structures
    cinfo.err = jpeg_std_error(&jerr);
    jpeg_create_decompress(&cinfo);
@@ -416,7 +416,7 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg_stream(cairo_read_func_t r
    ssize_t len, rlen;
    int eof = 0;
 
-   // read all data into memory buffer in blocks of CAIRO_JPEG_IO_BLOCK_SIZE 
+   // read all data into memory buffer in blocks of CAIRO_JPEG_IO_BLOCK_SIZE
    for (len = 0, data = NULL; !eof; len += rlen)
    {
       // grow memory buffer and check for error
