@@ -28,9 +28,9 @@ if test "$PHP_CAIRO" != "no"; then
   condition="$CAIRO_CHECK_DIR$CAIRO_TEST_FILE"
 
   if test -r $condition; then
-   CAIRO_DIR=$CAIRO_CHECK_DIR
-     CFLAGS="$CFLAGS -I$CAIRO_DIR/include"
-   LDFLAGS=`$CAIRO_DIR/bin/cairo-config --libs`
+    CAIRO_DIR=$CAIRO_CHECK_DIR
+    CFLAGS="$CFLAGS -I$CAIRO_DIR/include"
+    LDFLAGS=`$CAIRO_DIR/bin/cairo-config --libs`
   else
     AC_MSG_CHECKING(for pkg-config)
 
@@ -74,16 +74,10 @@ if test "$PHP_CAIRO" != "no"; then
                     AC_DEFINE(HAVE_FONTCONFIG, 1, [whether fontconfig exists in the system])
                 fi
 
-                AC_MSG_CHECKING(for libjpeg)
-                if $PKG_CONFIG --exists libjpeg; then
-                    libjpeg_version_full=`$PKG_CONFIG --modversion libjpeg`
-                    AC_MSG_RESULT([found $libjpeg_version_full])
-                    LIBJPEG_LIBS="$LDFLAGS `$PKG_CONFIG --libs libjpeg`"
-                    LIBJPEG_INCS="$CFLAGS `$PKG_CONFIG --cflags-only-I libjpeg`"
-                    PHP_EVAL_INCLINE($LIBJPEG_INCS)
-                    PHP_EVAL_LIBLINE($LIBJPEG_LIBS, CAIRO_SHARED_LIBADD)
-                    AC_DEFINE(HAVE_LIBJPEG, 1, [whether libjpeg exists in the system])
-                fi
+                PKG_CHECK_MODULES([LIBJPEG], [libjpeg])
+                PHP_EVAL_INCLINE([$LIBJPEG_CFLAGS])
+                PHP_EVAL_LIBLINE([$LIBJPEG_LIBS], [CAIRO_SHARED_LIBADD])
+                AC_DEFINE([HAVE_LIBJPEG], [1], [whether libjpeg exists in the system])
 
             else
                 AC_MSG_RESULT(too old)
