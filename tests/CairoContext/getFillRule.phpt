@@ -26,15 +26,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-object(Cairo\FillRule)#%d (2) {
-  ["__elements"]=>
-  array(2) {
-    ["WINDING"]=>
-    int(0)
-    ["EVEN_ODD"]=>
-    int(1)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\FillRule::WINDING)
 Cairo\Context::getFillRule() expects exactly 0 %s, 1 given

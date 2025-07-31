@@ -41,17 +41,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-object(Cairo\FillRule)#%d (2) {
-  ["__elements"]=>
-  array(2) {
-    ["WINDING"]=>
-    int(0)
-    ["EVEN_ODD"]=>
-    int(1)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\FillRule::EVEN_ODD)
 Cairo\Context::setFillRule() expects exactly 1 argument, 0 given
 Cairo\Context::setFillRule() expects exactly 1 argument, 2 given
-Cairo\Context::setFillRule(): Argument #1 ($fillrule) must be of type int, array given
+Cairo\Context::setFillRule(): Argument #1 ($fillrule) must be of type Cairo\FillRule, array given

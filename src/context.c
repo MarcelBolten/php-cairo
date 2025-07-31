@@ -19,6 +19,8 @@
 #include <cairo.h>
 #include <php.h>
 #include <zend_exceptions.h>
+#include <zend_enum.h>
+#include <zend_interfaces.h>
 
 #include <ext/eos_datastructures/php_eos_datastructures_api.h>
 
@@ -781,26 +783,19 @@ ZEND_END_ARG_INFO()
 PHP_METHOD(CairoContext, setFillRule)
 {
     cairo_context_object *context_object;
-    zend_long fillrule = 0;
-    zval *fillrule_enum;
+    cairo_fill_rule_t fillrule;
+    zval *fillrule_case;
 
-    if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET | ZEND_PARSE_PARAMS_THROW,
-            ZEND_NUM_ARGS(), "O", &fillrule_enum, ce_cairo_fillrule) == FAILURE) {
-        if (zend_parse_parameters_throw(ZEND_NUM_ARGS(), "l", &fillrule) == FAILURE) {
-            return;
-        } else {
-            if (!php_eos_datastructures_check_value(ce_cairo_fillrule, fillrule)) {
-                return;
-            }
-        }
-    } else {
-        fillrule = php_eos_datastructures_get_enum_value(fillrule_enum);
-    }
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(fillrule_case, ce_cairo_fillrule)
+    ZEND_PARSE_PARAMETERS_END();
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
         return;
     }
+
+    fillrule = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(fillrule_case)));
 
     cairo_set_fill_rule(context_object->context, fillrule);
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -812,6 +807,7 @@ PHP_METHOD(CairoContext, setFillRule)
 PHP_METHOD(CairoContext, getFillRule)
 {
     cairo_context_object *context_object;
+    cairo_fill_rule_t fillrule;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -820,8 +816,32 @@ PHP_METHOD(CairoContext, getFillRule)
         return;
     }
 
-    object_init_ex(return_value, ce_cairo_fillrule);
-    php_eos_datastructures_set_enum_value(return_value, cairo_get_fill_rule(context_object->context));
+    // get the current fill rule from cairo context
+    fillrule = cairo_get_fill_rule(context_object->context);
+
+    //convert to zval
+    zval backing_value;
+    ZVAL_LONG(&backing_value, fillrule);
+
+
+    // create a new instance of \Cairo\FillRule with the current fill rule
+    zval retval;
+    zval fillrule_case;
+    zend_call_method_with_1_params(NULL, ce_cairo_fillrule, NULL, "from", &retval, &backing_value);
+
+    if (Z_TYPE(retval) == IS_OBJECT) {
+        ZVAL_COPY(&fillrule_case, &retval);
+    } else {
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Failed to create \\Cairo\\FillRule object from cairo fill rule value: %d",
+            fillrule
+        );
+        RETURN_NULL();
+    }
+
+    zval_ptr_dtor(&retval);
+
+    RETURN_ZVAL(&fillrule_case, 1, 1);
 }
 /* }}}  */
 
@@ -3093,7 +3113,7 @@ static const zend_function_entry cairo_context_methods[] =
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_context)
 {
-    zend_class_entry context_ce, fillrule_ce, linecap_ce, linejoin_ce, operator_ce;
+    zend_class_entry context_ce, linecap_ce, linejoin_ce, operator_ce;
 
     memcpy(&cairo_context_object_handlers,
         zend_get_std_object_handlers(),
@@ -3108,16 +3128,19 @@ PHP_MINIT_FUNCTION(cairo_context)
     ce_cairo_context->create_object = cairo_context_create_object;
 
     /* FillRule */
-    INIT_NS_CLASS_ENTRY(fillrule_ce, CAIRO_NAMESPACE, "FillRule", NULL);
-    ce_cairo_fillrule = zend_register_internal_class_ex(&fillrule_ce, php_eos_datastructures_get_enum_ce());
-    ce_cairo_fillrule->ce_flags |= ZEND_ACC_FINAL;
+    ce_cairo_fillrule = zend_register_internal_enum(
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "FillRule"),
+        IS_LONG,
+        NULL
+    );
 
-    #define CAIRO_FILLRULE_DECLARE_ENUM(name) \
-        zend_declare_class_constant_long(ce_cairo_fillrule, #name, \
-        sizeof(#name)-1, CAIRO_FILL_RULE_## name);
+    #define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \
+        zval enum_case_ ## name ## _value; \
+        ZVAL_LONG(&enum_case_ ## name ## _value, CAIRO_FILL_RULE_ ## name); \
+        zend_enum_add_case_cstr(ce_cairo_fillrule, #name, &enum_case_ ## name ## _value);
 
-    CAIRO_FILLRULE_DECLARE_ENUM(WINDING);
-    CAIRO_FILLRULE_DECLARE_ENUM(EVEN_ODD);
+    CAIRO_FILLRULE_DECLARE_ENUM_CASE(WINDING);
+    CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);
 
 
     /* LineCap */
