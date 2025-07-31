@@ -24,7 +24,7 @@ try {
 --EXPECTF--
 object(Cairo\Status)#%d (2) {
   ["__elements"]=>
-  array(44) {
+  array(46) {
     ["SUCCESS"]=>
     int(0)
     ["NO_MEMORY"]=>
@@ -113,6 +113,10 @@ object(Cairo\Status)#%d (2) {
     int(39)
     ["TAG_ERROR"]=>
     int(42)
+    ["DWRITE_ERROR"]=>
+    int(43)
+    ["SVG_FONT_ERROR"]=>
+    int(44)
   }
   ["__value"]=>
   int(0)
