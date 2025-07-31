@@ -41,16 +41,16 @@ cairo_context_object *cairo_context_fetch_object(zend_object *object) {
 }
 
 cairo_context_object *cairo_context_object_get(zval *zv) {
-    
+
     cairo_context_object *object = Z_CAIRO_CONTEXT_P(zv);
-    
+
     if (object->context == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
             "Internal context object missing in %s, you must call parent::__construct in extended classes",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }
-    
+
     return object;
 }
 
@@ -172,7 +172,7 @@ ZEND_BEGIN_ARG_INFO(CairoContext___construct_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void __construct(object surface) 
+/* {{{ proto void __construct(object surface)
    Returns new CairoContext object on the requested surface */
 PHP_METHOD(CairoContext, __construct)
 {
@@ -542,7 +542,7 @@ ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::setPattern(CairoPattern object)
    previous method-name was setSource()
-   Sets the source pattern within context to source. 
+   Sets the source pattern within context to source.
    This pattern will then be used for any subsequent drawing operation until a new source pattern is set. */
 PHP_METHOD(CairoContext, setPattern)
 {
@@ -1152,7 +1152,7 @@ PHP_METHOD(CairoContext, clip)
 /* }}} */
 
 /* {{{ proto boolean \Cairo\Context::inClip(double x, double y)
-   Tests whether the given point is inside the area that would be visible 
+   Tests whether the given point is inside the area that would be visible
    through the current clip
  */
 PHP_METHOD(CairoContext, inClip)
@@ -2253,7 +2253,7 @@ PHP_METHOD(CairoContext, glyphPath)
     glyphs_hash = Z_ARRVAL_P(php_glyphs);
     num_glyphs = zend_hash_num_elements(glyphs_hash);
     glyphs_array = ecalloc(num_glyphs, sizeof(cairo_glyph_t));
-    
+
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
@@ -2276,8 +2276,8 @@ ZEND_BEGIN_ARG_INFO(CairoContext_showGlyphs_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::showGlyphs(array glyphs)
-   A drawing operator that generates the shape from an array of glyphs, 
-   rendered according to the current font face, font size (font matrix), 
+   A drawing operator that generates the shape from an array of glyphs,
+   rendered according to the current font face, font size (font matrix),
    and font options. */
 PHP_METHOD(CairoContext, showGlyphs)
 {
@@ -2326,10 +2326,10 @@ ZEND_BEGIN_ARG_INFO(CairoContext_showTextGlyphs_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::showTextGlyphs(string text, array glyphs, array clusters)
-   This operation has rendering effects similar to cairo_show_glyphs() but, if 
+   This operation has rendering effects similar to cairo_show_glyphs() but, if
    the target surface supports it, uses the provided text and cluster mapping to
-   embed the text for the glyphs shown in the output. If the target does not 
-   support the extended attributes, this function acts like the basic 
+   embed the text for the glyphs shown in the output. If the target does not
+   support the extended attributes, this function acts like the basic
    cairo_show_glyphs() as if it had been passed glyphs and num_glyphs. */
 PHP_METHOD(CairoContext, showTextGlyphs)
 {
@@ -2373,13 +2373,13 @@ PHP_METHOD(CairoContext, showTextGlyphs)
         glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
     }
     ZEND_HASH_FOREACH_END();
-    
+
     /* Clusters */
     i = 0;
     clusters_hash = Z_ARRVAL_P(php_clusters);
     num_clusters = zend_hash_num_elements(clusters_hash);
     clusters_array = ecalloc(num_clusters, sizeof(cairo_text_cluster_t));
-    
+
     /* iterate over the array, each value inside MUST be an instance of CairoCluster */
     ZEND_HASH_FOREACH_VAL(clusters_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_text_cluster) {
@@ -2419,7 +2419,7 @@ PHP_METHOD(CairoContext, textPath)
     if (!context_object) {
         return;
     }
-    
+
     cairo_text_path(context_object->context, (const char *)string);
     php_cairo_throw_exception(cairo_status(context_object->context));
 }
@@ -2571,7 +2571,7 @@ ZEND_BEGIN_ARG_INFO(CairoContext_setFontSize_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::setFontSize(double size)
-        Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously 
+        Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously
         set with cairo_set_font_size() or cairo_set_font_matrix() */
 PHP_METHOD(CairoContext, setFontSize)
 {
@@ -2618,7 +2618,7 @@ PHP_METHOD(CairoContext, setFontMatrix)
     if (!context_object) {
         return;
     }
-    
+
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
     cairo_set_font_matrix(context_object->context, matrix_object->matrix);
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -2703,7 +2703,7 @@ PHP_METHOD(CairoContext, setFontOptions)
 /* }}} */
 
 /* {{{ proto CairoFontOptions object \Cairo\Context::getFontOptions()
-       Retrieves the font options selected by the context. 
+       Retrieves the font options selected by the context.
        If no font options have been selected or set then the default options will be returned. */
 PHP_METHOD(CairoContext, getFontOptions)
 {
@@ -2794,7 +2794,7 @@ PHP_METHOD(CairoContext, getFontFace)
     if (!Z_ISNULL(context_object->font_face) &&
         !Z_ISUNDEF(context_object->font_face) &&
         Z_REFCOUNT(context_object->font_face) > 0) {
-        
+
             zval_ptr_dtor(return_value);
             ZVAL_COPY(return_value, &context_object->font_face);
             /* Otherwise we spawn a new object */
@@ -2874,7 +2874,7 @@ PHP_METHOD(CairoContext, setScaledFont)
 /* }}} */
 
 /* {{{ proto CairoScaledFont object \Cairo\Context::getScaledFont()
-       Retrieves the scaled font face selected by the context.  
+       Retrieves the scaled font face selected by the context.
        If no scaled font has been selected or set then the default face will be returned.  */
 PHP_METHOD(CairoContext, getScaledFont)
 {
@@ -2892,7 +2892,7 @@ PHP_METHOD(CairoContext, getScaledFont)
     if (!Z_ISNULL(context_object->scaled_font) &&
         !Z_ISUNDEF(context_object->scaled_font) &&
         Z_REFCOUNT(context_object->scaled_font) > 0) {
-        
+
             zval_ptr_dtor(return_value);
             ZVAL_COPY(return_value, &context_object->scaled_font);
             /* Otherwise we spawn a new object */
