@@ -61,42 +61,45 @@ static cairo_rectangle_t *php_cairo_make_rectangle(zval *val)
     Cairo\Surface\Recording Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoRecordingSurface___construct_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, content)
-	ZEND_ARG_INFO(0, extents)
+ZEND_BEGIN_ARG_INFO_EX(CairoRecordingSurface___construct_args, ZEND_SEND_BY_VAL, 0, 1)
+    ZEND_ARG_OBJ_INFO(0, content, \\Cairo\\Surface\\Content, 0)
+    ZEND_ARG_INFO(0, extents)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto \Cairo\RecordingSurface::__construct(int content, array extents)
+/* {{{ proto \Cairo\RecordingSurface::__construct(\Cairo\Surface\Content content, array extents)
        Returns new CairoRecordingSurface */
 PHP_METHOD(CairoRecordingSurface, __construct)
 {
-	zend_long content;
-	cairo_surface_object *surface_object;
-        cairo_rectangle_t *rectangle = NULL;
-	zval *extents = NULL;
+    zval *content;
+    cairo_surface_object *surface_object;
+    cairo_rectangle_t *rectangle = NULL;
+    zval *extents = NULL;
 
-        ZEND_PARSE_PARAMETERS_START(1,2)
-                Z_PARAM_LONG(content)
-                Z_PARAM_OPTIONAL
-                Z_PARAM_ARRAY(extents)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(1, 2)
+        Z_PARAM_OBJECT_OF_CLASS(content, ce_cairo_content)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_ARRAY(extents)
+    ZEND_PARSE_PARAMETERS_END();
 
-	if (extents != NULL) {
-		rectangle = php_cairo_make_rectangle(extents);
-	}
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-	surface_object->surface = cairo_recording_surface_create(content, rectangle);
+    if (extents != NULL) {
+        rectangle = php_cairo_make_rectangle(extents);
+    }
 
-	if (rectangle != NULL) {
-		efree(rectangle);
-	}
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
 
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object->surface = cairo_recording_surface_create(
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(content))),
+        rectangle
+    );
+
+    if (rectangle != NULL) {
+        efree(rectangle);
+    }
+
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
