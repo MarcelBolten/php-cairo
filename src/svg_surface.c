@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -93,45 +91,49 @@ PHP_METHOD(CairoSvgSurface, __construct)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoSvgSurface_restrictToVersion_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, version)
+    ZEND_ARG_OBJ_INFO(0, version, Cairo\\Surface\\Svg\\Version, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Surface\Svg::restrictToVersion(int version)
+/* {{{ proto void \Cairo\Surface\Svg::restrictToVersion(\Cairo\Surface\Svg\Version version)
        Restricts the generated SVG file to version. This should be called before any drawing takes place on the surface */
 PHP_METHOD(CairoSvgSurface, restrictToVersion)
 {
-	zend_long version;
-	cairo_surface_object *surface_object;
-        
-        ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(version)
-        ZEND_PARSE_PARAMETERS_END();
+    cairo_surface_object *surface_object;
+    zval *version;
 
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(version, ce_cairo_svgversion)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_svg_surface_restrict_to_version(surface_object->surface, version);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_svg_surface_restrict_to_version(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))
+    );
+
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoSvgSurface_versionToString_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, version)
+    ZEND_ARG_OBJ_INFO(0, version, Cairo\\Surface\\Svg\\Version, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Surface\Svg::versionToString(int version)
+/* {{{ proto string \Cairo\Surface\Svg::versionToString(\Cairo\Surface\Svg\Version version)
        Get the string representation of the given version id. This function will return NULL if version isn't valid. */
 PHP_METHOD(CairoSvgSurface, versionToString)
 {
-	zend_long version;
+    zval *version;
 
-	ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(version)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(version, ce_cairo_svgversion)
+    ZEND_PARSE_PARAMETERS_END();
 
-	RETURN_STRING(cairo_svg_version_to_string(version));
+    RETURN_STRING(cairo_svg_version_to_string(Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))));
 }
 /* }}} */
 
@@ -143,17 +145,19 @@ ZEND_END_ARG_INFO()
        Used to retrieve the list of supported versions */
 PHP_METHOD(CairoSvgSurface, getVersions)
 {
-	const cairo_svg_version_t *versions = 0;
-	int version_count = 0, i = 0;
+    const cairo_svg_version_t *versions = 0;
+    int version_count = 0, i = 0;
+    zval svg_version_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	cairo_svg_get_versions(&versions, &version_count);
-	array_init(return_value);
+    cairo_svg_get_versions(&versions, &version_count);
+    array_init(return_value);
 
-	for (i = 0; i < version_count; i++) {
-		add_next_index_long(return_value, versions[i]);
-	}
+    for (i = 0; i < version_count; i++) {
+        svg_version_case = php_enum_from_cairo_c_enum(ce_cairo_svgversion, versions[i]);
+        add_next_index_zval(return_value, &svg_version_case);
+    }
 }
 /* }}} */
 
@@ -161,49 +165,56 @@ PHP_METHOD(CairoSvgSurface, getVersions)
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 
 ZEND_BEGIN_ARG_INFO(CairoSvgSurface_setDocumentUnit_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, unit)
+    ZEND_ARG_OBJ_INFO(0, unit, Cairo\\Surface\\Svg\\Unit, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto array \Cairo\Surface\Svg::setDocumentUnit(\Cairo\Surface\Svg\Unit unit)
        ... */
 PHP_METHOD(CairoSvgSurface, setDocumentUnit)
 {
-        cairo_surface_object *surface_object;
-	zend_long unit;
+    cairo_surface_object *surface_object;
+    zval *unit;
 
-	ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(unit)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        if(!php_eos_datastructures_check_value(ce_cairo_svgunit, unit)) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Svg::setDocumentUnit(): Argument #1 ($unit) is not a valid Cairo\\Surface\\Svg\\Unit constant.", 0);
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(unit, ce_cairo_svgunit)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_svg_surface_set_document_unit(surface_object->surface, unit);
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_svg_surface_set_document_unit(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(unit)))
+    );
 }
 /* }}} */
 
-/* {{{ proto array \Cairo\Surface\Svg::getDocumentUnit()
+/* {{{ proto \Cairo\Surface\SVG\Unit \Cairo\Surface\Svg::getDocumentUnit()
        ... */
 PHP_METHOD(CairoSvgSurface, getDocumentUnit)
 {
-        cairo_surface_object *surface_object;
+    cairo_surface_object *surface_object;
+    zval svg_unit_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
-        
-        surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        /* should it better return an enum object? */
-	RETURN_LONG(cairo_svg_surface_get_document_unit(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    svg_unit_case = php_enum_from_cairo_c_enum(
+        ce_cairo_svgunit,
+        cairo_svg_surface_get_document_unit(surface_object->surface)
+    );
+
+    if (Z_TYPE(svg_unit_case) == IS_OBJECT) {
+        RETURN_ZVAL(&svg_unit_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 #endif
@@ -229,47 +240,41 @@ static const zend_function_entry cairo_svg_surface_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_svg_surface)
 {
-	zend_class_entry surface_ce, version_ce, unit_ce;
+    zend_class_entry surface_ce;
 
-        /* Svg-Surface */
-	INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Svg"), cairo_svg_surface_methods);
-	ce_cairo_svgsurface = zend_register_internal_class_ex(&surface_ce, ce_cairo_surface);
-        
-        /* Svg-Version */
-        INIT_NS_CLASS_ENTRY(version_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Version")), NULL);
-	ce_cairo_svgversion = zend_register_internal_class_ex(&version_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_svgversion->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_SVG_VERSION_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_svgversion, #name, \
-            sizeof(#name)-1, CAIRO_SVG_## name);
+    /* Svg-Surface */
+    INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Svg"), cairo_svg_surface_methods);
+    ce_cairo_svgsurface = zend_register_internal_class_ex(&surface_ce, ce_cairo_surface);
 
-        CAIRO_SVG_VERSION_DECLARE_ENUM(VERSION_1_1);
-        CAIRO_SVG_VERSION_DECLARE_ENUM(VERSION_1_2);
-        
-        /* Svg-Unit */
-        #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-            INIT_NS_CLASS_ENTRY(unit_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Unit")), NULL);
-            ce_cairo_svgunit = zend_register_internal_class_ex(&unit_ce, php_eos_datastructures_get_enum_ce());
-            ce_cairo_svgunit->ce_flags |= ZEND_ACC_FINAL;
+    /* Svg-Version */
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Version")), ce_cairo_svgversion);
 
-            #define CAIRO_SVG_UNIT_DECLARE_ENUM(name) \
-                zend_declare_class_constant_long(ce_cairo_svgunit, #name, \
-                sizeof(#name)-1, CAIRO_SVG_UNIT_## name);
+    #define CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(name) \
+        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgversion, CAIRO_SVG)
 
-            CAIRO_SVG_UNIT_DECLARE_ENUM(USER);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(EM);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(EX);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(PX);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(IN);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(CM);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(MM);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(PT);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(PC);
-            CAIRO_SVG_UNIT_DECLARE_ENUM(PERCENT);
-        #endif
+    CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_1);
+    CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_2);
 
-	return SUCCESS;
+    /* Svg-Unit */
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Unit")), ce_cairo_svgunit);
+
+    #define CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgunit, CAIRO_SVG_UNIT)
+
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(USER);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EM);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EX);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PX);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(IN);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(CM);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(MM);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PT);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PC);
+    CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PERCENT);
+#endif
+
+    return SUCCESS;
 }
 
 #endif
