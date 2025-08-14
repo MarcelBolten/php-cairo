@@ -172,21 +172,16 @@ ZEND_END_ARG_INFO()
    Returns new CairoContext object on the requested surface */
 PHP_METHOD(CairoContext, __construct)
 {
-    zval *surface_zval = NULL;
+    zval *surface_zval;
     cairo_context_object *context_object;
     cairo_surface_object *surface_object;
 
-    ZEND_PARSE_PARAMETERS_START(0,1)
-        Z_PARAM_OPTIONAL
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(surface_zval, ce_cairo_surface)
     ZEND_PARSE_PARAMETERS_END();
 
     context_object = Z_CAIRO_CONTEXT_P(getThis());
     if (!context_object) {
-        return;
-    }
-
-    if (surface_zval == NULL) {
         return;
     }
 
