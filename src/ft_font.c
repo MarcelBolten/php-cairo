@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
