@@ -279,19 +279,18 @@ PHP_METHOD(CairoContext, pushGroup)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoContext_pushGroupWithContent_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, content)
+    ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Context::pushGroupWithContent(int content)
+/* {{{ proto void \Cairo\Context::pushGroupWithContent(\Cairo\Surface\Content content)
    Temporarily redirects drawing to an intermediate surface known as a group. */
 PHP_METHOD(CairoContext, pushGroupWithContent)
 {
-    /* should be cairo_content_t but we need a long */
-    zend_long content;
     cairo_context_object *context_object;
+    zval *content;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_LONG(content)
+        Z_PARAM_OBJECT_OF_CLASS(content, ce_cairo_content)
     ZEND_PARSE_PARAMETERS_END();
 
     context_object = cairo_context_object_get(getThis());
@@ -299,7 +298,10 @@ PHP_METHOD(CairoContext, pushGroupWithContent)
         return;
     }
 
-    cairo_push_group_with_content(context_object->context, content);
+    cairo_push_group_with_content(
+        context_object->context,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(content)))
+    );
     php_cairo_throw_exception(cairo_status(context_object->context));
 }
 /* }}} */
@@ -2517,26 +2519,26 @@ PHP_METHOD(CairoContext, getPathExtents)
 /* Text items */
 
 ZEND_BEGIN_ARG_INFO_EX(CairoContext_selectFontFace_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_INFO(0, family)
-    ZEND_ARG_INFO(0, slant)
-    ZEND_ARG_INFO(0, weight)
+    ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, slant, Cairo\\FontSlant, 0, "Cairo\\FontSlant::NORMAL")
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, weight, Cairo\\FontWeight, 0, "Cairo\\FontWeight::NORMAL")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::selectFontFace(string family, CairoFontSlant slant, CairoFontWeight weight)
         Selects a family and style of font from a simplified description as a family name, slant and weight. */
 PHP_METHOD(CairoContext, selectFontFace)
 {
-    long slant, weight;
+    zval *slant = NULL;
+    zval *weight = NULL;
     size_t family_len;
     char *family, *cairo_family;
     cairo_context_object *context_object;
-    bool slant_is_null = 1, weight_is_null = 1;
 
-    ZEND_PARSE_PARAMETERS_START(1,3)
+    ZEND_PARSE_PARAMETERS_START(1, 3)
         Z_PARAM_STRING(family, family_len)
         Z_PARAM_OPTIONAL
-        Z_PARAM_LONG_OR_NULL(slant, slant_is_null)
-        Z_PARAM_LONG_OR_NULL(weight, weight_is_null)
+        Z_PARAM_OBJECT_OF_CLASS(slant, ce_cairo_fontslant)
+        Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)
     ZEND_PARSE_PARAMETERS_END();
 
     context_object = cairo_context_object_get(getThis());
@@ -2544,16 +2546,17 @@ PHP_METHOD(CairoContext, selectFontFace)
         return;
     }
 
-    if (slant_is_null) {
-        slant = CAIRO_FONT_SLANT_NORMAL;
-    }
-
-    if (weight_is_null) {
-        weight = CAIRO_FONT_WEIGHT_NORMAL;
-    }
-
     cairo_family = estrdup(family);
-    cairo_select_font_face(context_object->context, family, slant, weight);
+    cairo_select_font_face(
+        context_object->context,
+        family,
+        slant
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))
+            : CAIRO_FONT_SLANT_NORMAL,
+        weight
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
+            : CAIRO_FONT_WEIGHT_NORMAL
+    );
     efree(cairo_family);
 }
 /* }}} */
