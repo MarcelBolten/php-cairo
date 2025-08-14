@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -84,20 +82,29 @@ PHP_METHOD(CairoFontFace, __construct)
        Returns the current integer status of the CairoFontFace */
 PHP_METHOD(CairoFontFace, getStatus)
 {
-	cairo_font_face_object *font_face_object;
+    cairo_font_face_object *font_face_object;
+    zval status_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
-	if(!font_face_object) {
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object) {
             return;
-        }
-        if(cairo_font_face_object_get(getThis()) == NULL) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_status);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_face_status(font_face_object->font_face));
+    }
+    if (cairo_font_face_object_get(getThis()) == NULL) {
+        return;
+    }
+
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_font_face_status(font_face_object->font_face)
+    );
+
+    if (Z_TYPE(status_case) == IS_OBJECT) {
+        RETURN_ZVAL(&status_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -105,20 +112,28 @@ PHP_METHOD(CairoFontFace, getStatus)
        Returns the current integer type of the Cairo\FontFace backend */
 PHP_METHOD(CairoFontFace, getType)
 {
-	cairo_font_face_object *font_face_object;
+    cairo_font_face_object *font_face_object;
+    zval fonttype_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
-	if(!font_face_object) {
-            return;
-        }
-        if(cairo_font_face_object_get(getThis()) == NULL) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_fonttype);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_face_get_type(font_face_object->font_face));
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object
+        || cairo_font_face_object_get(getThis()) == NULL
+    ) {
+        return;
+    }
+
+    fonttype_case = php_enum_from_cairo_c_enum(
+        ce_cairo_fonttype,
+        cairo_font_face_get_type(font_face_object->font_face)
+    );
+
+    if (Z_TYPE(fonttype_case) == IS_OBJECT) {
+        RETURN_ZVAL(&fonttype_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -218,36 +233,37 @@ static const zend_function_entry cairo_font_face_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_font_face)
 {
-	zend_class_entry fontface_ce, fonttype_ce;
+    zend_class_entry fontface_ce;
 
-        memcpy(&cairo_font_face_object_handlers,
-                    zend_get_std_object_handlers(),
-                    sizeof(zend_object_handlers));
+    memcpy(&cairo_font_face_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
-        /* FontFace */
-        cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);
-        cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;
-        cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;
-        
-	INIT_NS_CLASS_ENTRY(fontface_ce, CAIRO_NAMESPACE, "FontFace", cairo_font_face_methods);
-        ce_cairo_fontface = zend_register_internal_class(&fontface_ce);
-        ce_cairo_fontface->create_object = cairo_font_face_create_object;
-	ce_cairo_fontface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
-        
-        /* FontType */
-	INIT_NS_CLASS_ENTRY(fonttype_ce, CAIRO_NAMESPACE, "FontType", NULL);
-        ce_cairo_fonttype = zend_register_internal_class_ex(&fonttype_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_fonttype->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_FONTTYPE_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_fonttype, #name, \
-            sizeof(#name)-1, CAIRO_FONT_TYPE_## name);
-        
-	CAIRO_FONTTYPE_DECLARE_ENUM(TOY);
-	CAIRO_FONTTYPE_DECLARE_ENUM(FT);
-	CAIRO_FONTTYPE_DECLARE_ENUM(WIN32);
-	CAIRO_FONTTYPE_DECLARE_ENUM(QUARTZ);
-	CAIRO_FONTTYPE_DECLARE_ENUM(USER);
+    /* FontFace */
+    cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);
+    cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;
+    cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;
 
-	return SUCCESS;
+    INIT_NS_CLASS_ENTRY(fontface_ce, CAIRO_NAMESPACE, "FontFace", cairo_font_face_methods);
+    ce_cairo_fontface = zend_register_internal_class(&fontface_ce);
+    ce_cairo_fontface->create_object = cairo_font_face_create_object;
+    ce_cairo_fontface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
+
+    /* FontType */
+    CAIRO_REGISTER_ENUM_LONG(FontType, ce_cairo_fonttype);
+
+    #define CAIRO_FONTTYPE_DECLARE_ENUM_CASE(name) \
+        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fonttype, CAIRO_FONT_TYPE)
+
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(TOY);
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(FT);
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(WIN32);
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(QUARTZ);
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(USER);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+    CAIRO_FONTTYPE_DECLARE_ENUM_CASE(DWRITE);
+#endif
+
+    return SUCCESS;
 }
