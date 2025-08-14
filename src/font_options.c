@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -145,19 +143,28 @@ PHP_METHOD(CairoFontOptions, __construct)
 
 /* {{{ proto void \Cairo\FontOptions::getStatus(void)
         Checks whether an error has previously occurred for this font options object.*/
-PHP_METHOD(CairoFontOptions, getStatus) 
+PHP_METHOD(CairoFontOptions, getStatus)
 {
-	cairo_font_options_object *font_options_object;
-	
-	ZEND_PARSE_PARAMETERS_NONE();
+    cairo_font_options_object *font_options_object;
+    zval status_case;
 
-	font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-        object_init_ex(return_value, ce_cairo_status);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_options_status(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_font_options_status(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(status_case) == IS_OBJECT) {
+        RETURN_ZVAL(&status_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -237,216 +244,232 @@ PHP_METHOD(CairoFontOptions, equal)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoFontOptions_setAntialias_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, antialias)
+    ZEND_ARG_INFO(0, antialias)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\FontOptions::setAntialias(void)
+/* {{{ proto void \Cairo\FontOptions::setAntialias(\Cairo\Antialias::Good)
         Sets the antialiasing mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, setAntialias) 
+PHP_METHOD(CairoFontOptions, setAntialias)
 {
-	zend_long antialias = CAIRO_ANTIALIAS_DEFAULT;
-	cairo_font_options_object *font_options_object;
-	zval *antialias_enum;
+    cairo_font_options_object *font_options_object;
+    zval *antialias_case;
 
-	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &antialias_enum, ce_cairo_antialias) == FAILURE) {
-		if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &antialias) == FAILURE) {
-                        //no value given -> set to default
-		} else {
-			if(!php_eos_datastructures_check_value(ce_cairo_antialias, antialias)) {
-				return;
-			}
-		}
-	} else {
-		antialias = php_eos_datastructures_get_enum_value(antialias_enum);
-	}
-        
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-                return;
-        }
-	
-	cairo_font_options_set_antialias(font_options_object->font_options, antialias);
-	php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(antialias_case, ce_cairo_antialias)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    cairo_font_options_set_antialias(
+        font_options_object->font_options,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(antialias_case)))
+    );
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
 /* {{{ proto int \Cairo\FontOptions::getAntialias(void)
         Gets the antialiasing mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, getAntialias) 
+PHP_METHOD(CairoFontOptions, getAntialias)
 {
-	cairo_font_options_object *font_options_object;
-	
-        ZEND_PARSE_PARAMETERS_NONE();
-        
-	font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-        object_init_ex(return_value, ce_cairo_antialias);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_options_get_antialias(font_options_object->font_options));
-        
+    cairo_font_options_object *font_options_object;
+    zval antialias_case;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    antialias_case = php_enum_from_cairo_c_enum(
+        ce_cairo_antialias,
+        cairo_font_options_get_antialias(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(antialias_case) == IS_OBJECT) {
+        RETURN_ZVAL(&antialias_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_setSubpixelOrder_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, subpixel_order)
+ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setSubpixelOrder_args, ZEND_SEND_BY_VAL, 0, 0)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, subpixel_order, Cairo\\SubpixelOrder, 0, "Cairo\\SubpixelOrder::Default")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\FontOptions::setSubpixelOrder(void)
         Sets the subpixel order for the font options object.*/
-PHP_METHOD(CairoFontOptions, setSubpixelOrder) 
+PHP_METHOD(CairoFontOptions, setSubpixelOrder)
 {
-	zend_long subpixel_order = CAIRO_SUBPIXEL_ORDER_DEFAULT;
-	cairo_font_options_object *font_options_object;
-	zval *subpixel_order_enum;
+    cairo_font_options_object *font_options_object;
+    zval *subpixel_order_case = NULL;
 
-	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &subpixel_order_enum, ce_cairo_subpixelorder) == FAILURE) {
-		if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &subpixel_order) == FAILURE) {
-			//no value given -> set to default
-		} else {
-			if(!php_eos_datastructures_check_value(ce_cairo_subpixelorder, subpixel_order)) {
-				return;
-			}
-		}
-	} else {
-		subpixel_order = php_eos_datastructures_get_enum_value(subpixel_order_enum);
-	}
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-	cairo_font_options_set_subpixel_order(font_options_object->font_options, subpixel_order);
-	php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_OBJECT_OF_CLASS(subpixel_order_case, ce_cairo_subpixelorder)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    cairo_font_options_set_subpixel_order(
+        font_options_object->font_options,
+        subpixel_order_case
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(subpixel_order_case)))
+            : CAIRO_SUBPIXEL_ORDER_DEFAULT
+    );
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
 /* {{{ proto int \Cairo\FontOptions::getSubpixelOrder(void)
         Gets the subpixel order for the font options object.*/
-PHP_METHOD(CairoFontOptions, getSubpixelOrder) 
+PHP_METHOD(CairoFontOptions, getSubpixelOrder)
 {
-	cairo_font_options_object *font_options_object;
+    cairo_font_options_object *font_options_object;
+    zval subpixel_order_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-        object_init_ex(return_value, ce_cairo_subpixelorder);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_options_get_subpixel_order(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    subpixel_order_case = php_enum_from_cairo_c_enum(
+        ce_cairo_subpixelorder,
+        cairo_font_options_get_subpixel_order(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(subpixel_order_case) == IS_OBJECT) {
+        RETURN_ZVAL(&subpixel_order_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_setHintStyle_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, hint_style)
+ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setHintStyle_args, ZEND_SEND_BY_VAL, 0, 0)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, hint_style, Cairo\\HintStyle, 0, "Cairo\\HintStyle::Default")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\FontOptions::setHintStyle(void)
         Sets the hint style for font outlines for the font options object.*/
-PHP_METHOD(CairoFontOptions, setHintStyle) 
+PHP_METHOD(CairoFontOptions, setHintStyle)
 {
-	zend_long hint_style = CAIRO_HINT_STYLE_DEFAULT;
-	cairo_font_options_object *font_options_object;
-	zval *hint_style_enum;
+    cairo_font_options_object *font_options_object;
+    zval *hint_style_case = NULL;
 
-	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &hint_style_enum, ce_cairo_hintstyle) == FAILURE) {
-		if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &hint_style) == FAILURE) {
-			//no value given -> set to default
-		} else {
-			if(!php_eos_datastructures_check_value(ce_cairo_hintstyle, hint_style)) {
-				return;
-			}
-		}
-	} else {
-		hint_style = php_eos_datastructures_get_enum_value(hint_style_enum);
-	}
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-	cairo_font_options_set_hint_style(font_options_object->font_options, hint_style);
-	php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_OBJECT_OF_CLASS(hint_style_case, ce_cairo_hintstyle)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    cairo_font_options_set_hint_style(
+        font_options_object->font_options,
+        hint_style_case
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(hint_style_case)))
+            : CAIRO_HINT_STYLE_DEFAULT
+    );
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
 /* {{{ proto int \Cairo\FontOptions::getHintStyle(void)
         Gets the hint style for font outlines for the font options object.*/
-PHP_METHOD(CairoFontOptions, getHintStyle) 
+PHP_METHOD(CairoFontOptions, getHintStyle)
 {
-	cairo_font_options_object *font_options_object;
+    cairo_font_options_object *font_options_object;
+    zval hint_style_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-        object_init_ex(return_value, ce_cairo_hintstyle);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_options_get_hint_style(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    hint_style_case = php_enum_from_cairo_c_enum(
+        ce_cairo_hintstyle,
+        cairo_font_options_get_hint_style(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(hint_style_case) == IS_OBJECT) {
+        RETURN_ZVAL(&hint_style_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_setHintMetrics_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, hint_metrics)
+ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setHintMetrics_args, ZEND_SEND_BY_VAL, 0, 0)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, hint_metrics, Cairo\\HintMetrics, 0, "Cairo\\HintMetrics::Default")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\FontOptions::setHintMetrics(void)
         Sets the metrics hinting mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, setHintMetrics) 
+PHP_METHOD(CairoFontOptions, setHintMetrics)
 {
-        zend_long hint_metrics = CAIRO_HINT_METRICS_DEFAULT;
-	cairo_font_options_object *font_options_object;
-        zval *hint_metrics_enum;
+    cairo_font_options_object *font_options_object;
+    zval *hint_metrics_case = NULL;
 
-	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &hint_metrics_enum, ce_cairo_hintmetrics) == FAILURE) {
-		if (zend_parse_parameters(ZEND_NUM_ARGS(), "|l", &hint_metrics) == FAILURE) {
-			//no value given -> set to default
-		} else {
-			if(!php_eos_datastructures_check_value(ce_cairo_hintmetrics, hint_metrics)) {
-				return;
-			}
-		}
-	} else {
-		hint_metrics = php_eos_datastructures_get_enum_value(hint_metrics_enum);
-	}
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-	cairo_font_options_set_hint_metrics(font_options_object->font_options, hint_metrics);
-	php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_OBJECT_OF_CLASS(hint_metrics_case, ce_cairo_hintmetrics)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    cairo_font_options_set_hint_metrics(
+        font_options_object->font_options,
+        hint_metrics_case
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(hint_metrics_case)))
+            : CAIRO_HINT_METRICS_DEFAULT
+    );
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
 /* {{{ proto int \Cairo\FontOptions::getHintMetrics(void)
         Gets the metrics hinting mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, getHintMetrics) 
+PHP_METHOD(CairoFontOptions, getHintMetrics)
 {
-	cairo_font_options_object *font_options_object;
-	
-	ZEND_PARSE_PARAMETERS_NONE();
-	
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-        object_init_ex(return_value, ce_cairo_hintmetrics);
-        php_eos_datastructures_set_enum_value(return_value, cairo_font_options_get_hint_metrics(font_options_object->font_options));
+    cairo_font_options_object *font_options_object;
+    zval hint_metrics_case;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    hint_metrics_case = php_enum_from_cairo_c_enum(
+        ce_cairo_hintmetrics,
+        cairo_font_options_get_hint_metrics(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(hint_metrics_case) == IS_OBJECT) {
+        RETURN_ZVAL(&hint_metrics_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -536,84 +559,73 @@ static const zend_function_entry cairo_font_options_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_font_options)
 {
-	zend_class_entry fontoptions_ce, hintstyle_ce, hintmetrics_ce, antialias_ce, subpixelorder_ce;
+    zend_class_entry fontoptions_ce;
 
-        memcpy(&cairo_font_options_object_handlers,
-                    zend_get_std_object_handlers(),
-                    sizeof(zend_object_handlers));
-        
-        /* FontOptions */
-        cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);
-        cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;
-        
-        INIT_NS_CLASS_ENTRY(fontoptions_ce, CAIRO_NAMESPACE, "FontOptions", cairo_font_options_methods);
-        fontoptions_ce.create_object = cairo_font_options_create_object;
-        ce_cairo_fontoptions = zend_register_internal_class(&fontoptions_ce);
-        
-        
-        /* Antialias */
-	INIT_NS_CLASS_ENTRY(antialias_ce, CAIRO_NAMESPACE, "Antialias", NULL);
-        ce_cairo_antialias = zend_register_internal_class_ex(&antialias_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_antialias->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_ANTIALIAS_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_antialias, #name, \
-            sizeof(#name)-1, CAIRO_ANTIALIAS_## name);
+    memcpy(&cairo_font_options_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
-        CAIRO_ANTIALIAS_DECLARE_ENUM(DEFAULT);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(NONE);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(GRAY);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(SUBPIXEL);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(FAST);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(GOOD);
-        CAIRO_ANTIALIAS_DECLARE_ENUM(BEST);
-        
-        
-        /* SubPixelOrder */
-	INIT_NS_CLASS_ENTRY(subpixelorder_ce, CAIRO_NAMESPACE, "SubPixelOrder", NULL);
-        ce_cairo_subpixelorder = zend_register_internal_class_ex(&subpixelorder_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_subpixelorder->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_SUBPIXELORDER_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_subpixelorder, #name, \
-            sizeof(#name)-1, CAIRO_SUBPIXEL_ORDER_## name);
-            
-        CAIRO_SUBPIXELORDER_DECLARE_ENUM(DEFAULT);
-        CAIRO_SUBPIXELORDER_DECLARE_ENUM(RGB);
-        CAIRO_SUBPIXELORDER_DECLARE_ENUM(BGR);
-        CAIRO_SUBPIXELORDER_DECLARE_ENUM(VRGB);
-        CAIRO_SUBPIXELORDER_DECLARE_ENUM(VBGR);
-        
-        
-        /* HintStyle */
-	INIT_NS_CLASS_ENTRY(hintstyle_ce, CAIRO_NAMESPACE, "HintStyle", NULL);
-        ce_cairo_hintstyle = zend_register_internal_class_ex(&hintstyle_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_hintstyle->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_HINTSTYLE_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_hintstyle, #name, \
-            sizeof(#name)-1, CAIRO_HINT_STYLE_## name);
+    /* FontOptions */
+    cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);
+    cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;
 
-        CAIRO_HINTSTYLE_DECLARE_ENUM(DEFAULT);
-        CAIRO_HINTSTYLE_DECLARE_ENUM(NONE);
-        CAIRO_HINTSTYLE_DECLARE_ENUM(SLIGHT);
-        CAIRO_HINTSTYLE_DECLARE_ENUM(MEDIUM);
-        CAIRO_HINTSTYLE_DECLARE_ENUM(FULL);
+    INIT_NS_CLASS_ENTRY(fontoptions_ce, CAIRO_NAMESPACE, "FontOptions", cairo_font_options_methods);
+    fontoptions_ce.create_object = cairo_font_options_create_object;
+    ce_cairo_fontoptions = zend_register_internal_class(&fontoptions_ce);
 
-        
-        /* HintMetrics */
-        INIT_NS_CLASS_ENTRY(hintmetrics_ce, CAIRO_NAMESPACE, "HintMetrics", NULL);
-        ce_cairo_hintmetrics = zend_register_internal_class_ex(&hintmetrics_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_hintmetrics->ce_flags |= ZEND_ACC_FINAL;
 
-        #define CAIRO_HINTMETRICS_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_hintmetrics, #name, \
-            sizeof(#name)-1, CAIRO_HINT_METRICS_## name);
+    /* Antialias */
+    CAIRO_REGISTER_ENUM_LONG(Antialias, ce_cairo_antialias);
 
-        CAIRO_HINTMETRICS_DECLARE_ENUM(DEFAULT);
-        CAIRO_HINTMETRICS_DECLARE_ENUM(OFF);
-        CAIRO_HINTMETRICS_DECLARE_ENUM(ON);
+#define CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_antialias, CAIRO_ANTIALIAS)
 
-	return SUCCESS;
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(DEFAULT);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(NONE);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(GRAY);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(SUBPIXEL);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(FAST);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(GOOD);
+    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(BEST);
+
+
+    /* SubPixelOrder */
+    CAIRO_REGISTER_ENUM_LONG(SubPixelOrder, ce_cairo_subpixelorder);
+
+#define CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_subpixelorder, CAIRO_SUBPIXEL_ORDER)
+
+    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(DEFAULT);
+    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(RGB);
+    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(BGR);
+    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(VRGB);
+    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(VBGR);
+
+
+    /* HintStyle */
+    CAIRO_REGISTER_ENUM_LONG(HintStyle, ce_cairo_hintstyle);
+
+#define CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintstyle, CAIRO_HINT_STYLE)
+
+    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(DEFAULT);
+    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(NONE);
+    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(SLIGHT);
+    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(MEDIUM);
+    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(FULL);
+
+
+    /* HintMetrics */
+    CAIRO_REGISTER_ENUM_LONG(HintMetrics, ce_cairo_hintmetrics);
+
+#define CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintmetrics, CAIRO_HINT_METRICS)
+
+    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(DEFAULT);
+    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(OFF);
+    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(ON);
+
+    return SUCCESS;
 }
 /* }}} */
