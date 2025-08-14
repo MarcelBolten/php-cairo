@@ -202,7 +202,6 @@ PHP_METHOD(CairoContext, __construct)
 PHP_METHOD(CairoContext, getStatus)
 {
     cairo_context_object *context_object;
-    cairo_status_t status;
     zval status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
@@ -212,9 +211,10 @@ PHP_METHOD(CairoContext, getStatus)
         return;
     }
 
-    status = cairo_status(context_object->context);
-
-    status_case = php_enum_from_cairo_c_enum(ce_cairo_status, status);
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_status(context_object->context)
+    );
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
