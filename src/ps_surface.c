@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -120,24 +118,32 @@ PHP_METHOD(CairoPsSurface, setSize)
 }
 /* }}} */
 
+ZEND_BEGIN_ARG_INFO_EX(CairoPsSurface_restrictToLevel_args, ZEND_SEND_BY_VAL, 0, 0)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, level, Cairo\\Surface\\Ps\\Level, 0, "Cairo\\Surface\\Ps\\Level::LEVEL_2")
+ZEND_END_ARG_INFO()
+
 /* {{{ proto void CairoPsSurface->restrictToLevel(int level)
        Restricts the generated PostSript file to level. */
 PHP_METHOD(CairoPsSurface, restrictToLevel)
 {
-	cairo_surface_object *surface_object;
-	zend_long level = CAIRO_PS_LEVEL_2;
+    cairo_surface_object *surface_object;
+    zval *level;
 
-        ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(level)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_OBJECT_OF_CLASS(level, ce_cairo_pslevel)
+    ZEND_PARSE_PARAMETERS_END();
 
-	surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
 
-	cairo_ps_surface_restrict_to_level(surface_object->surface, level);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    cairo_ps_surface_restrict_to_level(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(level)))
+    );
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -253,38 +259,37 @@ PHP_METHOD(CairoPsSurface, dscComment)
        Used to retrieve the list of supported levels. See cairo_ps_surface_restrict_to_level(). */
 PHP_METHOD(CairoPsSurface, getLevels)
 {
-	const cairo_ps_level_t *levels;
-	int num_levels, i;
+    const cairo_ps_level_t *levels;
+    int num_levels, i;
+    zval ps_level_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	cairo_ps_get_levels(&levels, &num_levels);
-	array_init(return_value);
-	for(i = 0; i < num_levels; i++) {
-		add_next_index_long(return_value, levels[i]);
-	}
+    cairo_ps_get_levels(&levels, &num_levels);
+
+    array_init(return_value);
+    for (i = 0; i < num_levels; i++) {
+        ps_level_case = php_enum_from_cairo_c_enum(ce_cairo_pslevel, levels[i]);
+        add_next_index_zval(return_value, &ps_level_case);
+    }
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoPsSurface_long_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, level)
+    ZEND_ARG_OBJ_INFO(0, level, Cairo\\Surface\\Ps\\Level, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto string CairoPsSurface::levelToString(level)
+/* {{{ proto string \Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level level)
        Get the string representation of the given level id. */
 PHP_METHOD(CairoPsSurface, levelToString)
 {
-	zend_long level;
+    zval *level;
 
-        ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(level)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(level, ce_cairo_pslevel)
+    ZEND_PARSE_PARAMETERS_END();
 
-        if( level > CAIRO_PS_LEVEL_3 ) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Ps::levelToString(): level-parameter is invalid. Maximum level is 1.", CAIRO_PS_LEVEL_3);
-            return;
-        }
-	RETURN_STRING(cairo_ps_level_to_string(level));
+    RETURN_STRING(cairo_ps_level_to_string(Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(level)))));
 }
 /* }}} */
 
@@ -299,7 +304,7 @@ ZEND_END_ARG_INFO()
 static const zend_function_entry cairo_ps_surface_methods[] = {
 	PHP_ME(CairoPsSurface, __construct, CairoPsSurface___construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
 	PHP_ME(CairoPsSurface, setSize, CairoPsSurface_setSize_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoPsSurface, restrictToLevel, CairoPsSurface_long_args, ZEND_ACC_PUBLIC)
+	PHP_ME(CairoPsSurface, restrictToLevel, CairoPsSurface_restrictToLevel_args, ZEND_ACC_PUBLIC)
 	PHP_ME(CairoPsSurface, getLevels, CairoPsSurface_method_no_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(CairoPsSurface, levelToString, CairoPsSurface_long_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(CairoPsSurface, setEps, CairoPsSurface_setEps_args, ZEND_ACC_PUBLIC)
@@ -314,24 +319,21 @@ static const zend_function_entry cairo_ps_surface_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_ps_surface)
 {
-	zend_class_entry pssurface_ce;
-	zend_class_entry pslevel_ce;
+    zend_class_entry pssurface_ce;
 
-	INIT_NS_CLASS_ENTRY(pssurface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Ps"), cairo_ps_surface_methods);
-	ce_cairo_pssurface = zend_register_internal_class_ex(&pssurface_ce, ce_cairo_surface);
+    INIT_NS_CLASS_ENTRY(pssurface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Ps"), cairo_ps_surface_methods);
+    ce_cairo_pssurface = zend_register_internal_class_ex(&pssurface_ce, ce_cairo_surface);
 
-        INIT_NS_CLASS_ENTRY(pslevel_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Ps", "Level")), NULL);
-        ce_cairo_pslevel = zend_register_internal_class_ex(&pslevel_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_pslevel->ce_flags |= ZEND_ACC_FINAL;
+    /* Ps Level */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Ps\\Level, ce_cairo_pslevel);
 
-        #define CAIRO_PSLEVEL_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_pslevel, #name, \
-            sizeof(#name)-1, CAIRO_PS_## name);
+#define CAIRO_PSLEVEL_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pslevel, CAIRO_PS)
 
-        CAIRO_PSLEVEL_DECLARE_ENUM(LEVEL_2);
-        CAIRO_PSLEVEL_DECLARE_ENUM(LEVEL_3);
+    CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_2);
+    CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_3);
 
-	return SUCCESS;
+    return SUCCESS;
 }
 
 #endif
