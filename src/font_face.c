@@ -78,7 +78,7 @@ PHP_METHOD(CairoFontFace, __construct)
 }
 /* }}} */
 
-/* {{{ proto long \Cairo\FontFace::getStatus()
+/* {{{ proto \Cairo\Status \Cairo\FontFace::getStatus()
        Returns the current integer status of the CairoFontFace */
 PHP_METHOD(CairoFontFace, getStatus)
 {

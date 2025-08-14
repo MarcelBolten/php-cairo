@@ -197,7 +197,7 @@ PHP_METHOD(CairoContext, __construct)
 }
 /* }}} */
 
-/* {{{ proto long \Cairo\Context::getStatus()
+/* {{{ proto \Cairo\Status \Cairo\Context::getStatus()
    Returns the current integer status of the CairoContext */
 PHP_METHOD(CairoContext, getStatus)
 {

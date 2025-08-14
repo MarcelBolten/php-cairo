@@ -118,7 +118,7 @@ PHP_METHOD(CairoPattern, __construct)
 ZEND_BEGIN_ARG_INFO(CairoPattern_getStatus_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto long \Cairo\Pattern::getStatus()
+/* {{{ proto \Cairo\Status \Cairo\Pattern::getStatus()
    Returns the current integer status of the CairoPattern */
 PHP_METHOD(CairoPattern, getStatus)
 {
