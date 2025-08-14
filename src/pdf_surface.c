@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -96,25 +94,20 @@ PHP_METHOD(CairoPdfSurface, __construct)
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_versionToString_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, version)
+    ZEND_ARG_OBJ_INFO(0, version, Cairo\\Surface\\Pdf\\Version, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto string \Cairo\Surface\Pdf::versionToString(int version)
        Get the string representation of the given version id. This function will return NULL if version isn't valid. */
 PHP_METHOD(CairoPdfSurface, versionToString)
 {
-	zend_long version;
+    zval *version;
 
-	ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(version)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(version, ce_cairo_pdfversion)
+    ZEND_PARSE_PARAMETERS_END();
 
-        if(!php_eos_datastructures_check_value(ce_cairo_pdfversion, version)) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Pdf::versionToString(): Argument #1 ($version) is not a valid Cairo\\Surface\\Pdf\\Version constant.", 0);
-            return;
-        }
-        
-	RETURN_STRING(cairo_pdf_version_to_string(version));
+    RETURN_STRING(cairo_pdf_version_to_string(Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))));
 }
 /* }}} */
 
@@ -171,41 +164,40 @@ PHP_METHOD(CairoPdfSurface, setSize)
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_restrictToVersion_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, version)
+    ZEND_ARG_OBJ_INFO(0, version, Cairo\\Surface\\Pdf\\Version, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Surface\Pdf::restrictToVersion(int version)
        Restricts the generated PDF file to version. */
 PHP_METHOD(CairoPdfSurface, restrictToVersion)
 {
-	cairo_surface_object *surface_object;
-        zend_long version;
-        
-        ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(version);
-        ZEND_PARSE_PARAMETERS_END();
-        
-        if(!php_eos_datastructures_check_value(ce_cairo_pdfversion, version)) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Pdf::restrictToVersion(): Argument #1 ($version) is not a valid Cairo\\Surface\\Pdf\\Version constant.", 0);
-            return;
-        }
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    cairo_surface_object *surface_object;
+    zval *version;
 
-	cairo_pdf_surface_restrict_to_version(surface_object->surface, version);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(version, ce_cairo_pdfversion);
+    ZEND_PARSE_PARAMETERS_END();
+
+
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_pdf_surface_restrict_to_version(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))
+    );
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_addOutline_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, parent_id)
-        ZEND_ARG_INFO(0, name)
-        ZEND_ARG_INFO(0, link_attribs)
-        ZEND_ARG_INFO(0, outline_flag)
+    ZEND_ARG_INFO(0, parent_id)
+    ZEND_ARG_INFO(0, name)
+    ZEND_ARG_INFO(0, link_attribs)
+    ZEND_ARG_OBJ_INFO(0, outline_flag, Cairo\\Surface\\Pdf\\OutlineFlags, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto int \Cairo\Surface\Pdf::addOutline(int parent_id, string name, string link_attr, int outline_flag])
@@ -216,69 +208,70 @@ ZEND_END_ARG_INFO()
        Returns the id for the added item. */
 PHP_METHOD(CairoPdfSurface, addOutline)
 {
-	cairo_surface_object *surface_object;
-        zend_long parent_id, outline_flag;
-        char *name, *linkAttribs;
-        size_t name_len, linkAttribs_len;
-        
-        ZEND_PARSE_PARAMETERS_START(4,4)
-                Z_PARAM_LONG(parent_id);
-                Z_PARAM_STRING(name, name_len)
-                Z_PARAM_STRING(linkAttribs, linkAttribs_len)
-                Z_PARAM_LONG(outline_flag);
-        ZEND_PARSE_PARAMETERS_END();
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        if(!php_eos_datastructures_check_value(ce_cairo_pdf_outlineflag, outline_flag)) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Pdf::addOutline(): Argument #4 ($outline_flag) is not a valid Cairo\\Surface\\Pdf\\OutlineFlags constant.", 0);
-            return;
-        }
+    cairo_surface_object *surface_object;
+    zend_long parent_id;
+    zval *outline_flag;
+    char *name, *linkAttribs;
+    size_t name_len, linkAttribs_len;
 
-	RETVAL_LONG( cairo_pdf_surface_add_outline(surface_object->surface, parent_id, (const char *)name, (const char *)linkAttribs, outline_flag) );
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    ZEND_PARSE_PARAMETERS_START(4, 4)
+        Z_PARAM_LONG(parent_id);
+        Z_PARAM_STRING(name, name_len)
+        Z_PARAM_STRING(linkAttribs, linkAttribs_len)
+        Z_PARAM_OBJECT_OF_CLASS(outline_flag, ce_cairo_pdf_outlineflag);
+    ZEND_PARSE_PARAMETERS_END();
+
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    RETVAL_LONG(cairo_pdf_surface_add_outline(
+        surface_object->surface,
+        parent_id,
+        (const char *)name,
+        (const char *)linkAttribs,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(outline_flag)))
+    ));
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
 
-ZEND_BEGIN_ARG_INFO(CairoPdfSurface_setMetadata_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, metadata_constant)
-        ZEND_ARG_INFO(0, metadata)
+ZEND_BEGIN_ARG_INFO_EX(CairoPdfSurface_setMetadata_args, ZEND_SEND_BY_VAL, 0, 1)
+    ZEND_ARG_OBJ_INFO(0, metadata_constant, Cairo\\Surface\\Pdf\\Metadata, 0)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, metadata, IS_STRING, 0, "\"\"")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Surface\Pdf::setMetadata(int metadata_constant [, string metadata])
        Set document metadata.
-       The CAIRO_PDF_METADATA_CREATE_DATE and CAIRO_PDF_METADATA_MOD_DATE values must be in ISO-8601 format: YYYY-MM-DDThh:mm:ss.
+       The values for the CAIRO_PDF_METADATA_CREATE_DATE and CAIRO_PDF_METADATA_MOD_DATE fields must be in ISO-8601 format: YYYY-MM-DDThh:mm:ss.
        An optional timezone of the form "[+/-]hh:mm" or "Z" for UTC time can be appended.
        All other metadata values can be any UTF-8 string. */
 PHP_METHOD(CairoPdfSurface, setMetadata)
 {
-	cairo_surface_object *surface_object;
-        zend_long metadata_const;
-        char *metadata = "";
-        size_t metadata_len;
-        
-        ZEND_PARSE_PARAMETERS_START(1,2)
-                Z_PARAM_LONG(metadata_const);
-                Z_PARAM_OPTIONAL;
-                Z_PARAM_STRING(metadata, metadata_len)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        if(!php_eos_datastructures_check_value(ce_cairo_pdf_metadata, metadata_const)) {
-            zend_throw_exception(zend_ce_value_error, "Cairo\\Surface\\Pdf::setMetadata(): Argument #1 ($metadata_constant) is not a valid Cairo\\Surface\\Pdf\\Metadata constant.", 0);
-            return;
-        }
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    cairo_surface_object *surface_object;
+    zval *metadata_const;
+    char *metadata = "";
+    size_t metadata_len;
 
-	cairo_pdf_surface_set_metadata(surface_object->surface, metadata_const, (const char *)metadata);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    ZEND_PARSE_PARAMETERS_START(1, 2)
+        Z_PARAM_OBJECT_OF_CLASS(metadata_const, ce_cairo_pdf_metadata);
+        Z_PARAM_OPTIONAL;
+        Z_PARAM_STRING(metadata, metadata_len)
+    ZEND_PARSE_PARAMETERS_END();
+
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_pdf_surface_set_metadata(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(metadata_const))),
+        (const char *)metadata
+    );
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -363,70 +356,68 @@ const zend_function_entry cairo_pdf_surface_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_pdf_surface)
 {
-	zend_class_entry pdf_ce, version_ce, outline_ce, outlineflags_ce, metadata_ce;
+    zend_class_entry pdf_ce;
 
-        INIT_NS_CLASS_ENTRY(pdf_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Pdf"), cairo_pdf_surface_methods);
-	ce_cairo_pdfsurface = zend_register_internal_class_ex(&pdf_ce, ce_cairo_surface);
-	ce_cairo_pdfsurface->create_object = cairo_surface_create_object;
-        
-        /* PDF-Versions */
-        INIT_NS_CLASS_ENTRY(version_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Version")), NULL);
-        ce_cairo_pdfversion = zend_register_internal_class_ex(&version_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_pdfversion->ce_flags |= ZEND_ACC_FINAL;
+    INIT_NS_CLASS_ENTRY(pdf_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Pdf"), cairo_pdf_surface_methods);
+    ce_cairo_pdfsurface = zend_register_internal_class_ex(&pdf_ce, ce_cairo_surface);
+    ce_cairo_pdfsurface->create_object = cairo_surface_create_object;
 
-        #define CAIRO_PDF_VERSIONS_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_pdfversion, #name, \
-            sizeof(#name)-1, CAIRO_PDF_## name);
+    /* PDF-Versions */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Version, ce_cairo_pdfversion);
 
-        CAIRO_PDF_VERSIONS_DECLARE_ENUM(VERSION_1_4);
-        CAIRO_PDF_VERSIONS_DECLARE_ENUM(VERSION_1_5);
-            
+#define CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdfversion, CAIRO_PDF)
 
-        #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+    CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_4);
+    CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_5);
 
-            /* Outline */
-            INIT_NS_CLASS_ENTRY(outline_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Outline")), NULL);
-            ce_cairo_pdf_outline = zend_register_internal_class_ex(&outline_ce, php_eos_datastructures_get_enum_ce());
-            ce_cairo_pdf_outline->ce_flags |= ZEND_ACC_FINAL;
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+    CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_6);
+    CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_7);
+#endif
 
-            #define CAIRO_PDF_OUTLINE_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_pdf_outline, #name, \
-		sizeof(#name)-1, CAIRO_PDF_OUTLINE_## name);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+    /* Outline: OUTLINE_ROOT as a constant of the Pdf class */
+    zend_declare_class_constant_long(
+        ce_cairo_pdfsurface,
+        "OUTLINE_ROOT", sizeof("OUTLINE_ROOT")-1,
+        CAIRO_PDF_OUTLINE_ROOT
+    );
+    /* Outline */
+//     CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Outline, ce_cairo_pdf_outline);
 
-            CAIRO_PDF_OUTLINE_DECLARE_ENUM(ROOT);
-            
-            /* Outline-Flags */
-            INIT_NS_CLASS_ENTRY(outlineflags_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "OutlineFlags")), NULL);
-            ce_cairo_pdf_outlineflag = zend_register_internal_class_ex(&outlineflags_ce, php_eos_datastructures_get_enum_ce());
-            ce_cairo_pdf_outlineflag->ce_flags |= ZEND_ACC_FINAL;
+// #define CAIRO_PDF_OUTLINE_DECLARE_ENUM_CASE(name) \
+//     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outline, CAIRO_PDF_OUTLINE)
 
-            #define CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_pdf_outlineflag, #name, \
-		sizeof(#name)-1, CAIRO_PDF_OUTLINE_FLAG_## name);
+//     CAIRO_PDF_OUTLINE_DECLARE_ENUM_CASE(ROOT);
 
-            CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM(OPEN);
-            CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM(BOLD);
-            CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM(ITALIC);
-            
-            /* Metadata */
-            INIT_NS_CLASS_ENTRY(metadata_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Metadata")), NULL);
-            ce_cairo_pdf_metadata = zend_register_internal_class_ex(&metadata_ce, php_eos_datastructures_get_enum_ce());
-            ce_cairo_pdf_metadata->ce_flags |= ZEND_ACC_FINAL;
 
-            #define CAIRO_PDF_METADATA_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_pdf_metadata, #name, \
-		sizeof(#name)-1, CAIRO_PDF_METADATA_## name);
+    /* Outline-Flags */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\OutlineFlags, ce_cairo_pdf_outlineflag);
 
-            CAIRO_PDF_METADATA_DECLARE_ENUM(TITLE);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(AUTHOR);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(SUBJECT);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(KEYWORDS);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(CREATOR);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(CREATE_DATE);
-            CAIRO_PDF_METADATA_DECLARE_ENUM(MOD_DATE);
-        #endif
-            
-	return SUCCESS;
+#define CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outlineflag, CAIRO_PDF_OUTLINE_FLAG)
+
+    CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(OPEN);
+    CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(BOLD);
+    CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(ITALIC);
+
+    /* Metadata */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Metadata, ce_cairo_pdf_metadata);
+
+#define CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_metadata, CAIRO_PDF_METADATA)
+
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(TITLE);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(AUTHOR);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(SUBJECT);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(KEYWORDS);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATOR);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATE_DATE);
+    CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(MOD_DATE);
+#endif
+
+    return SUCCESS;
 }
 
 #endif
