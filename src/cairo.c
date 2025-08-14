@@ -46,7 +46,34 @@ const char* php_cairo_get_ft_error(int error) {
 
 #endif
 
-/* {{{ proto int \Cairo\version(void) 
+zval php_enum_from_cairo_c_enum(
+    zend_class_entry *enum_ce,
+    long c_enum_value
+) {
+    zval php_enum;
+    zval backing_value;
+    zval retval;
+
+    ZVAL_LONG(&backing_value, c_enum_value);
+
+    zend_call_method_with_1_params(NULL, enum_ce, NULL, "from", &retval, &backing_value);
+
+    if (Z_TYPE(retval) == IS_OBJECT) {
+        ZVAL_COPY(&php_enum, &retval);
+    } else {
+        ZVAL_NULL(&php_enum);
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Failed to create %s object from value: %ld",
+            ZSTR_VAL(enum_ce->name),
+            c_enum_value
+        );
+    }
+
+    zval_ptr_dtor(&retval);
+    return php_enum;
+}
+
+/* {{{ proto int \Cairo\version(void)
        Returns an integer version number of the cairo library being used */
 PHP_FUNCTION(version)
 {

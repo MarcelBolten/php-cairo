@@ -16,6 +16,8 @@
 #define PHP_CAIRO_INTERNAL_H
 
 #include <php.h>
+#include <zend_enum.h>
+#include <zend_interfaces.h>
 #include <cairo.h>
 
 #if defined(CAIRO_HAS_QUARTZ_FONT)
@@ -279,6 +281,16 @@ PHP_MINIT_FUNCTION(cairo_ps_surface);
 PHP_MINIT_FUNCTION(cairo_path);
 PHP_MINIT_FUNCTION(cairo_context);
 PHP_MINIT_FUNCTION(cairo_text_cluster);
+
+#define CAIRO_REGISTER_ENUM_LONG(name, ce) \
+    ce = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, #name), IS_LONG, NULL);
+
+#define CAIRO_GENERIC_LONG_ENUM_CASE(name, ce, cairo_prefix) \
+    zval enum_case_ ## cairo_prefix ## _ ## name ## _value; \
+    ZVAL_LONG(&enum_case_ ## cairo_prefix ## _ ## name ## _value, cairo_prefix ## _ ## name); \
+    zend_enum_add_case_cstr(ce, #name, &enum_case_ ## cairo_prefix ## _ ## name ## _value);
+
+extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
 
 #endif /* PHP_CAIRO_INTERNAL_H */
 

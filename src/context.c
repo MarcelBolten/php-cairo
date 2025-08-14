@@ -19,8 +19,6 @@
 #include <cairo.h>
 #include <php.h>
 #include <zend_exceptions.h>
-#include <zend_enum.h>
-#include <zend_interfaces.h>
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
@@ -160,33 +158,6 @@ zend_object* cairo_context_create_object(zend_class_entry *ce)
     return return_value;
 }
 /* }}} */
-
-zval php_enum_from_cairo_c_enum(
-    zend_class_entry *enum_ce,
-    long c_enum_value
-) {
-    zval php_enum;
-    zval backing_value;
-    zval retval;
-
-    ZVAL_LONG(&backing_value, c_enum_value);
-
-    zend_call_method_with_1_params(NULL, enum_ce, NULL, "from", &retval, &backing_value);
-
-    if (Z_TYPE(retval) == IS_OBJECT) {
-        ZVAL_COPY(&php_enum, &retval);
-    } else {
-        ZVAL_NULL(&php_enum);
-        zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Failed to create %s object from value: %ld",
-            ZSTR_VAL(enum_ce->name),
-            c_enum_value
-        );
-    }
-
-    zval_ptr_dtor(&retval);
-    return php_enum;
-}
 
 /* ----------------------------------------------------------------
     Cairo\Context Class API
@@ -3152,16 +3123,6 @@ PHP_MINIT_FUNCTION(cairo_context)
     INIT_NS_CLASS_ENTRY(context_ce, CAIRO_NAMESPACE, "Context", cairo_context_methods);
     ce_cairo_context = zend_register_internal_class(&context_ce);
     ce_cairo_context->create_object = cairo_context_create_object;
-
-    #define CAIRO_REGISTER_ENUM_LONG(name, ce) \
-        ce = zend_register_internal_enum( \
-            ZEND_NS_NAME(CAIRO_NAMESPACE, #name), IS_LONG, NULL \
-        );
-
-    #define CAIRO_GENERIC_LONG_ENUM_CASE(name, ce, cairo_prefix) \
-        zval enum_case_ ## name ## _value; \
-        ZVAL_LONG(&enum_case_ ## name ## _value, cairo_prefix ## _ ## name); \
-        zend_enum_add_case_cstr(ce, #name, &enum_case_ ## name ## _value);
 
     /* FillRule */
     CAIRO_REGISTER_ENUM_LONG(FillRule, ce_cairo_fillrule);
