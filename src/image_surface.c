@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -33,9 +31,9 @@ zend_class_entry *ce_cairo_format;
 ------------------------------------------------------------------*/
 
 ZEND_BEGIN_ARG_INFO(CairoImageSurface___construct_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, format)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct(int format, int width, int height)
@@ -43,94 +41,103 @@ ZEND_END_ARG_INFO()
        Initially the surface contents are set to 0. */
 PHP_METHOD(CairoImageSurface, __construct)
 {
-	zend_long format, width, height;
-	cairo_surface_object *surface_object;
+    zend_long width, height;
+    cairo_surface_object *surface_object;
+    zval *format_case;
 
-        ZEND_PARSE_PARAMETERS_START(3,3)
-                Z_PARAM_LONG(format)
-                Z_PARAM_LONG(width)
-                Z_PARAM_LONG(height)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(3, 3)
+        Z_PARAM_OBJECT_OF_CLASS(format_case, ce_cairo_format)
+        Z_PARAM_LONG(width)
+        Z_PARAM_LONG(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
-	surface_object->surface = cairo_image_surface_create(format, width, height);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    surface_object->surface = cairo_image_surface_create(
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case))),
+        width,
+        height
+    );
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO_EX(CairoImageSurface_createForData_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 4)
-	ZEND_ARG_INFO(0, data)
-	ZEND_ARG_INFO(0, format)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_TYPE_INFO(0, data, IS_STRING, 0)
+    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
+    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+    ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto \Cairo\Surface\Image Object \Cairo\Surface\Image::createForData(string data, int format, int width, int height, int stride)
+/* {{{ proto \Cairo\Surface\Image Object \Cairo\Surface\Image::createForData(string data, Cairo\Surface\ImageFormat format, int width, int height, int stride)
        Creates an image surface for the provided pixel data. */
 PHP_METHOD(CairoImageSurface, createForData)
 {
-	/* NOTE: we have to keep the data buffer around, so we put it in the cairo_surface_object */
-	char *data;
-	size_t data_len;
-	zend_long format, width, height, stride = -1;
-	cairo_surface_object *surface_object;
+    /* NOTE: we have to keep the data buffer around, so we put it in the cairo_surface_object */
+    char *data;
+    size_t data_len;
+    zend_long format, width, height, stride = -1;
+    cairo_surface_object *surface_object;
+    zval *format_case;
 
-        ZEND_PARSE_PARAMETERS_START(4,4)
-                Z_PARAM_STRING(data, data_len)
-                Z_PARAM_LONG(format)
-                Z_PARAM_LONG(width)
-                Z_PARAM_LONG(height)
-        ZEND_PARSE_PARAMETERS_END();
-	
-	if (format < 0) {
-		zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid format", 0);
-		return;
-	}
+    ZEND_PARSE_PARAMETERS_START(4, 4)
+        Z_PARAM_STRING(data, data_len)
+        Z_PARAM_OBJECT_OF_CLASS(format_case, ce_cairo_format)
+        Z_PARAM_LONG(width)
+        Z_PARAM_LONG(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	if (width < 1 || height < 1) {
-		zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions", 0);
-		return;
-	}
-	
-	if (stride >= INT_MAX || stride < -1) {
-		zend_error(E_WARNING, "Invalid stride for Cairo\\Surface\\Image::createForData().");
-		return;
-	}
+    format = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case)));
 
-	/* Figure out our stride */
-	/* This is the way the stride SHOULD be done */
-	stride = cairo_format_stride_for_width (format, width);
+    if (format < 0) {
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid format", 0);
+        return;
+    }
 
-	if (stride <= 0) {
-		zend_error(E_WARNING, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData().");
-		return;
-	}
+    if (width < 1 || height < 1) {
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions", 0);
+        return;
+    }
 
-	/* Create the object, stick in the buffer and surface, check our status */
-	object_init_ex(return_value, ce_cairo_imagesurface);
-	surface_object = Z_CAIRO_SURFACE_P(return_value);
-        
-	if(!surface_object) {
-		return;
-        }
-        
-	/* allocate our internal surface object buffer - has to be left lying around until we destroy the image */
-	surface_object->buffer = safe_emalloc(stride * height, sizeof(char), 0);
-        
-	if(surface_object->buffer == NULL) {
-		zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): Could not allocate memory for buffer", 0);
-		return;
-	}
+    if (stride >= INT_MAX || stride < -1) {
+        zend_error(E_WARNING, "Invalid stride for Cairo\\Surface\\Image::createForData().");
+        return;
+    }
 
-	/* copy our data into the buffer */
-	surface_object->buffer = memcpy(surface_object->buffer, data, data_len);
-	
-        /* create our surface and check for errors */
-	surface_object->surface = cairo_image_surface_create_for_data((unsigned char*)surface_object->buffer, format, width, height, stride);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    /* Figure out our stride */
+    /* This is the way the stride SHOULD be done */
+    stride = cairo_format_stride_for_width(format, width);
+
+    if (stride <= 0) {
+        zend_error(E_WARNING, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData().");
+        return;
+    }
+
+    /* Create the object, stick in the buffer and surface, check our status */
+    object_init_ex(return_value, ce_cairo_imagesurface);
+    surface_object = Z_CAIRO_SURFACE_P(return_value);
+
+    if (!surface_object) {
+        return;
+    }
+
+    /* allocate our internal surface object buffer - has to be left lying around until we destroy the image */
+    surface_object->buffer = safe_emalloc(stride * height, sizeof(char), 0);
+
+    if (surface_object->buffer == NULL) {
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): Could not allocate memory for buffer", 0);
+        return;
+    }
+
+    /* copy our data into the buffer */
+    surface_object->buffer = memcpy(surface_object->buffer, data, data_len);
+
+    /* create our surface and check for errors */
+    surface_object->surface = cairo_image_surface_create_for_data((unsigned char*)surface_object->buffer, format, width, height, stride);
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -163,19 +170,28 @@ PHP_METHOD(CairoImageSurface, getData)
        Get the format of the surface */
 PHP_METHOD(CairoImageSurface, getFormat)
 {
-	cairo_surface_object *surface_object;
+    cairo_surface_object *surface_object;
+    zval format_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
 
-        object_init_ex(return_value, ce_cairo_format);
-        php_eos_datastructures_set_enum_value(return_value, cairo_image_surface_get_format(surface_object->surface));
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+
+    format_case = php_enum_from_cairo_c_enum(
+        ce_cairo_format,
+        cairo_image_surface_get_format(surface_object->surface)
+    );
+
+    if (Z_TYPE(format_case) == IS_OBJECT) {
+        RETURN_ZVAL(&format_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -390,31 +406,32 @@ static const zend_function_entry cairo_format_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_image_surface)
 {
-        zend_class_entry ce, format_ce;
+    zend_class_entry ce, format_ce;
 
-	INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Image"), cairo_imagesurface_methods);
-	ce_cairo_imagesurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Image"), cairo_imagesurface_methods);
+    ce_cairo_imagesurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
 
-        INIT_NS_CLASS_ENTRY(format_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "ImageFormat"), cairo_format_methods);
-	ce_cairo_format = zend_register_internal_class_ex(&format_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_format->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_FORMAT_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_format, #name, \
-            sizeof(#name)-1, CAIRO_FORMAT_## name);
+    ce_cairo_format = zend_register_internal_enum(
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface\\ImageFormat"),
+        IS_LONG,
+        cairo_format_methods
+    );
 
-        CAIRO_FORMAT_DECLARE_ENUM(ARGB32);
-        CAIRO_FORMAT_DECLARE_ENUM(RGB24);
-        CAIRO_FORMAT_DECLARE_ENUM(A8);
-        CAIRO_FORMAT_DECLARE_ENUM(A1);
-        CAIRO_FORMAT_DECLARE_ENUM(RGB16_565);
-        CAIRO_FORMAT_DECLARE_ENUM(RGB30);
-        
-        #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 17, 0)
-            CAIRO_FORMAT_DECLARE_ENUM(RGBA128F);
-            CAIRO_FORMAT_DECLARE_ENUM(RGB96F);
-        #endif
-        
-	return SUCCESS;
+#define CAIRO_FORMAT_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_format, CAIRO_FORMAT)
+
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(ARGB32);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB24);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(A8);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(A1);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB16_565);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB30);
+
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 17, 2)
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGBA128F);
+    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB96F);
+#endif
+
+    return SUCCESS;
 }
 /* }}} */
