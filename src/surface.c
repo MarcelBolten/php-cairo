@@ -1012,7 +1012,7 @@ PHP_MINIT_FUNCTION(cairo_surface)
     ce_cairo_surface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
     /* CairoContent */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Content, ce_cairo_content);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", "Content"), ce_cairo_content);
 
 #define CAIRO_CONTENT_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_content, CAIRO_CONTENT)
@@ -1023,7 +1023,7 @@ PHP_MINIT_FUNCTION(cairo_surface)
 
 
     /* SurfaceType */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Type, ce_cairo_surfacetype);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", "Type"), ce_cairo_surfacetype);
 
 #define CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_surfacetype, CAIRO_SURFACE_TYPE)

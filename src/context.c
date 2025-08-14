@@ -3123,7 +3123,7 @@ PHP_MINIT_FUNCTION(cairo_context)
     ce_cairo_context->create_object = cairo_context_create_object;
 
     /* FillRule */
-    CAIRO_REGISTER_ENUM_LONG(FillRule, ce_cairo_fillrule);
+    CAIRO_REGISTER_ENUM_LONG("FillRule", ce_cairo_fillrule);
 
     #define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \
         CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fillrule, CAIRO_FILL_RULE)
@@ -3132,7 +3132,7 @@ PHP_MINIT_FUNCTION(cairo_context)
     CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);
 
     /* LineCap */
-    CAIRO_REGISTER_ENUM_LONG(LineCap, ce_cairo_linecap);
+    CAIRO_REGISTER_ENUM_LONG("LineCap", ce_cairo_linecap);
 
     #define CAIRO_LINECAP_DECLARE_ENUM_CASE(name) \
         CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linecap, CAIRO_LINE_CAP)
@@ -3142,7 +3142,7 @@ PHP_MINIT_FUNCTION(cairo_context)
     CAIRO_LINECAP_DECLARE_ENUM_CASE(SQUARE);
 
     /* LineJoin */
-    CAIRO_REGISTER_ENUM_LONG(LineJoin, ce_cairo_linejoin);
+    CAIRO_REGISTER_ENUM_LONG("LineJoin", ce_cairo_linejoin);
 
     #define CAIRO_LINEJOIN_DECLARE_ENUM_CASE(name) \
         CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linejoin, CAIRO_LINE_JOIN)
@@ -3152,7 +3152,7 @@ PHP_MINIT_FUNCTION(cairo_context)
     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(BEVEL);
 
     /* Operator */
-    CAIRO_REGISTER_ENUM_LONG(Operator, ce_cairo_operator);
+    CAIRO_REGISTER_ENUM_LONG("Operator", ce_cairo_operator);
 
     #define CAIRO_OPERATOR_DECLARE_ENUM_CASE(name) \
         CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_operator, CAIRO_OPERATOR)

@@ -128,7 +128,7 @@ PHP_MINIT_FUNCTION(cairo_path)
     ce_cairo_path = zend_register_internal_class(&path_ce);
 
     /* Path\DataType */
-    CAIRO_REGISTER_ENUM_LONG(Path\\DataType, ce_cairo_path_datatype);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Path", "DataType"), ce_cairo_path_datatype);
 
 #define CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_path_datatype, CAIRO_PATH)

@@ -325,7 +325,7 @@ PHP_MINIT_FUNCTION(cairo_ps_surface)
     ce_cairo_pssurface = zend_register_internal_class_ex(&pssurface_ce, ce_cairo_surface);
 
     /* Ps Level */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Ps\\Level, ce_cairo_pslevel);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Ps", "Level")), ce_cairo_pslevel);
 
 #define CAIRO_PSLEVEL_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pslevel, CAIRO_PS)

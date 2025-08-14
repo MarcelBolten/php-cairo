@@ -365,7 +365,7 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
     ce_cairo_pdfsurface->create_object = cairo_surface_create_object;
 
     /* PDF-Versions */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Version, ce_cairo_pdfversion);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Version")), ce_cairo_pdfversion);
 
 #define CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdfversion, CAIRO_PDF)
@@ -386,7 +386,7 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
         CAIRO_PDF_OUTLINE_ROOT
     );
     /* Outline */
-//     CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Outline, ce_cairo_pdf_outline);
+//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Outline")), ce_cairo_pdf_outline);
 
 // #define CAIRO_PDF_OUTLINE_DECLARE_ENUM_CASE(name) \
 //     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outline, CAIRO_PDF_OUTLINE)
@@ -395,7 +395,7 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
 
 
     /* Outline-Flags */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\OutlineFlags, ce_cairo_pdf_outlineflag);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "OutlineFlags")), ce_cairo_pdf_outlineflag);
 
 #define CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outlineflag, CAIRO_PDF_OUTLINE_FLAG)
@@ -405,7 +405,7 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(ITALIC);
 
     /* Metadata */
-    CAIRO_REGISTER_ENUM_LONG(Surface\\Pdf\\Metadata, ce_cairo_pdf_metadata);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Metadata")), ce_cairo_pdf_metadata);
 
 #define CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_metadata, CAIRO_PDF_METADATA)

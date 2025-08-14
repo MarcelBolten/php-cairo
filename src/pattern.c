@@ -1424,7 +1424,7 @@ PHP_MINIT_FUNCTION(cairo_pattern)
 
 
     // Pattern Type
-    CAIRO_REGISTER_ENUM_LONG(Pattern\\Type, ce_cairo_pattern_type);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Pattern", "Type"), ce_cairo_pattern_type);
 
 #define CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pattern_type, CAIRO_PATTERN_TYPE)
@@ -1438,7 +1438,7 @@ PHP_MINIT_FUNCTION(cairo_pattern)
 
 
     // Extend
-    CAIRO_REGISTER_ENUM_LONG(Extend, ce_cairo_extend);
+    CAIRO_REGISTER_ENUM_LONG("Extend", ce_cairo_extend);
 
 #define CAIRO_EXTEND_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_extend, CAIRO_EXTEND)
@@ -1450,7 +1450,7 @@ PHP_MINIT_FUNCTION(cairo_pattern)
 
 
     // Filter
-    CAIRO_REGISTER_ENUM_LONG(Filter, ce_cairo_filter);
+    CAIRO_REGISTER_ENUM_LONG("Filter", ce_cairo_filter);
 
 #define CAIRO_FILTER_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_filter, CAIRO_FILTER)

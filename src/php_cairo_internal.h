@@ -283,7 +283,7 @@ PHP_MINIT_FUNCTION(cairo_context);
 PHP_MINIT_FUNCTION(cairo_text_cluster);
 
 #define CAIRO_REGISTER_ENUM_LONG(name, ce) \
-    ce = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, #name), IS_LONG, NULL);
+    ce = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, name), IS_LONG, NULL);
 
 #define CAIRO_GENERIC_LONG_ENUM_CASE(name, ce, cairo_prefix) \
     zval enum_case_ ## cairo_prefix ## _ ## name ## _value; \

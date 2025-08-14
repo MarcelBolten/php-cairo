@@ -778,7 +778,7 @@ PHP_MINIT_FUNCTION(cairo_region)
 
 
     /* Region\Overlap */
-    CAIRO_REGISTER_ENUM_LONG(Region\\Overlap, ce_cairo_region_overlap);
+    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Region", "Overlap"), ce_cairo_region_overlap);
 
     #define CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(name) \
         CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_region_overlap, CAIRO_REGION_OVERLAP)

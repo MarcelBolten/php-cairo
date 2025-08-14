@@ -175,7 +175,7 @@ PHP_MINIT_FUNCTION(cairo_font)
     ce_cairo_toyfontface->create_object = cairo_font_face_create_object;
 
     /* FontSlant */
-    CAIRO_REGISTER_ENUM_LONG(FontSlant, ce_cairo_fontslant);
+    CAIRO_REGISTER_ENUM_LONG("FontSlant", ce_cairo_fontslant);
 
 #define CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontslant, CAIRO_FONT_SLANT)
@@ -185,7 +185,7 @@ PHP_MINIT_FUNCTION(cairo_font)
     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(OBLIQUE);
 
     /* FontWeight */
-    CAIRO_REGISTER_ENUM_LONG(FontWeight, ce_cairo_fontweight);
+    CAIRO_REGISTER_ENUM_LONG("FontWeight", ce_cairo_fontweight);
 
 #define CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontweight, CAIRO_FONT_WEIGHT)

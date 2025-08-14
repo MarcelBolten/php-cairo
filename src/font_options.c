@@ -576,7 +576,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
 
 
     /* Antialias */
-    CAIRO_REGISTER_ENUM_LONG(Antialias, ce_cairo_antialias);
+    CAIRO_REGISTER_ENUM_LONG("Antialias", ce_cairo_antialias);
 
 #define CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_antialias, CAIRO_ANTIALIAS)
@@ -591,7 +591,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
 
 
     /* SubPixelOrder */
-    CAIRO_REGISTER_ENUM_LONG(SubPixelOrder, ce_cairo_subpixelorder);
+    CAIRO_REGISTER_ENUM_LONG("SubPixelOrder", ce_cairo_subpixelorder);
 
 #define CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_subpixelorder, CAIRO_SUBPIXEL_ORDER)
@@ -604,7 +604,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
 
 
     /* HintStyle */
-    CAIRO_REGISTER_ENUM_LONG(HintStyle, ce_cairo_hintstyle);
+    CAIRO_REGISTER_ENUM_LONG("HintStyle", ce_cairo_hintstyle);
 
 #define CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintstyle, CAIRO_HINT_STYLE)
@@ -617,7 +617,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
 
 
     /* HintMetrics */
-    CAIRO_REGISTER_ENUM_LONG(HintMetrics, ce_cairo_hintmetrics);
+    CAIRO_REGISTER_ENUM_LONG("HintMetrics", ce_cairo_hintmetrics);
 
 #define CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintmetrics, CAIRO_HINT_METRICS)
