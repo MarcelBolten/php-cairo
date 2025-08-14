@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -124,17 +122,26 @@ ZEND_END_ARG_INFO()
    Returns the current integer status of the CairoPattern */
 PHP_METHOD(CairoPattern, getStatus)
 {
-	cairo_pattern_object *pattern_object;
+    cairo_pattern_object *pattern_object;
+    zval status_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
 
-	object_init_ex(return_value, ce_cairo_status);
-	php_eos_datastructures_set_enum_value(return_value, cairo_pattern_status(pattern_object->pattern));
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_pattern_status(pattern_object->pattern)
+    );
+
+    if (Z_TYPE(status_case) == IS_OBJECT) {
+        RETURN_ZVAL(&status_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -145,17 +152,26 @@ ZEND_END_ARG_INFO()
    This function returns the Cairo\Pattern\Type of a pattern */
 PHP_METHOD(CairoPattern, getType)
 {
-	cairo_pattern_object *pattern_object;
+    cairo_pattern_object *pattern_object;
+    zval pattern_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
 
-	object_init_ex(return_value, ce_cairo_pattern_type);
-	php_eos_datastructures_set_enum_value(return_value, cairo_pattern_get_type(pattern_object->pattern));
+    pattern_case = php_enum_from_cairo_c_enum(
+        ce_cairo_pattern_type,
+        cairo_pattern_get_type(pattern_object->pattern)
+    );
+
+    if (Z_TYPE(pattern_case) == IS_OBJECT) {
+        RETURN_ZVAL(&pattern_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 
 /* }}} */
@@ -167,54 +183,55 @@ ZEND_END_ARG_INFO()
        Gets the current extend mode for a pattern */
 PHP_METHOD(CairoPattern, getExtend)
 {
-	cairo_pattern_object *pattern_object;
+    cairo_pattern_object *pattern_object;
+    zval extend_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
 
-	object_init_ex(return_value, ce_cairo_extend);
-	php_eos_datastructures_set_enum_value(return_value, cairo_pattern_get_extend(pattern_object->pattern));
+    extend_case = php_enum_from_cairo_c_enum(
+        ce_cairo_extend,
+        cairo_pattern_get_extend(pattern_object->pattern)
+    );
+
+    if (Z_TYPE(extend_case) == IS_OBJECT) {
+        RETURN_ZVAL(&extend_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoPattern_setExtend_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, extend)
+    ZEND_ARG_OBJ_INFO(0, extend, Cairo\\Extend, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Pattern::setExtend(object|int extend)
        Sets the mode to be used for drawing outside the area of a pattern */
 PHP_METHOD(CairoPattern, setExtend)
 {
-	cairo_pattern_object *pattern_object;
-	zend_long extend = 0;
-	zval *extend_enum;
-        
-        if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &extend_enum, ce_cairo_extend) == FAILURE) {
-		if (zend_parse_parameters_throw(ZEND_NUM_ARGS(), "l", &extend) == FAILURE) {
-                    return;
-                } else {
-			if(!php_eos_datastructures_check_value(ce_cairo_extend, extend)) {
-				return;
-			}
-		}
-	} else {
-		extend = php_eos_datastructures_get_enum_value(extend_enum);
-	}
+    cairo_pattern_object *pattern_object;
+    zval *extend_case;
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(extend_case, ce_cairo_extend)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_pattern_set_extend(pattern_object->pattern, extend);
-        php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern) );
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
+
+    cairo_pattern_set_extend(
+        pattern_object->pattern,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(extend_case)))
+    );
+    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
 }
-
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoPattern_getFilter_args, ZEND_SEND_BY_VAL)
@@ -224,52 +241,54 @@ ZEND_END_ARG_INFO()
        Gets the current filter mode for a pattern */
 PHP_METHOD(CairoPattern, getFilter)
 {
-	cairo_pattern_object *pattern_object;
+    cairo_pattern_object *pattern_object;
+    zval filter_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
 
-	object_init_ex(return_value, ce_cairo_filter);
-	php_eos_datastructures_set_enum_value(return_value, cairo_pattern_get_filter(pattern_object->pattern));
+    filter_case = php_enum_from_cairo_c_enum(
+        ce_cairo_filter,
+        cairo_pattern_get_filter(pattern_object->pattern)
+    );
+
+    if (Z_TYPE(filter_case) == IS_OBJECT) {
+        RETURN_ZVAL(&filter_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoPattern_setFilter_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, filter)
+    ZEND_ARG_OBJ_INFO(0, filter, Cairo\\Filter, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Pattern::setFilter(object|int filter)
+/* {{{ proto void \Cairo\Pattern::setFilter(Cairo\Filter filter)
        Sets the filter to be used for resizing when using this pattern  */
 PHP_METHOD(CairoPattern, setFilter)
 {
-	cairo_pattern_object *pattern_object;
-	zend_long filter = 0;
-	zval *filter_enum;
-        
-	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET|ZEND_PARSE_PARAMS_THROW,
-		ZEND_NUM_ARGS(), "O", &filter_enum, ce_cairo_filter) == FAILURE) {
-		if (zend_parse_parameters_throw(ZEND_NUM_ARGS(), "l", &filter) == FAILURE) {
-			return;
-		} else {
-			if(!php_eos_datastructures_check_value(ce_cairo_filter, filter)) {
-				return;
-			}
-		}
-	} else {
-		filter = php_eos_datastructures_get_enum_value(filter_enum);
-	}
+    cairo_pattern_object *pattern_object;
+    zval *filter_case;
 
-	pattern_object = cairo_pattern_object_get(getThis());
-	if(!pattern_object) {
-		return;
-	}
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(filter_case, ce_cairo_filter)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_pattern_set_filter(pattern_object->pattern, filter);
-        php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern) );
+    pattern_object = cairo_pattern_object_get(getThis());
+    if (!pattern_object) {
+        return;
+    }
+
+    cairo_pattern_set_filter(
+        pattern_object->pattern,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(filter_case)))
+    );
+    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
 }
 
 /* }}} */
@@ -1354,100 +1373,96 @@ const zend_function_entry cairo_pattern_raster_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_pattern)
 {
-	zend_class_entry pattern_ce,
-                         gradient_ce,
-                         solid_ce,
-                         linear_ce,
-                         radial_ce,
-                         surface_ce,
-                         mesh_ce,
-                         raster_ce,
-                         pattern_type_ce,
-                         extend_ce,
-                         filter_ce;
+    zend_class_entry pattern_ce,
+        gradient_ce,
+        solid_ce,
+        linear_ce,
+        radial_ce,
+        surface_ce,
+        mesh_ce,
+        raster_ce;
 
-	memcpy(&cairo_pattern_object_handlers,
-		   zend_get_std_object_handlers(),
-		   sizeof(zend_object_handlers));
+    memcpy(&cairo_pattern_object_handlers,
+           zend_get_std_object_handlers(),
+           sizeof(zend_object_handlers));
 
-	cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);
-	cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;
+    cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);
+    cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;
 
-	INIT_NS_CLASS_ENTRY(pattern_ce, CAIRO_NAMESPACE, "Pattern", cairo_pattern_methods);
-	ce_cairo_pattern = zend_register_internal_class(&pattern_ce);
-	ce_cairo_pattern->create_object = cairo_pattern_create_object;
-	ce_cairo_pattern->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
+    INIT_NS_CLASS_ENTRY(pattern_ce, CAIRO_NAMESPACE, "Pattern", cairo_pattern_methods);
+    ce_cairo_pattern = zend_register_internal_class(&pattern_ce);
+    ce_cairo_pattern->create_object = cairo_pattern_create_object;
+    ce_cairo_pattern->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
-	INIT_NS_CLASS_ENTRY(solid_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Solid"), cairo_pattern_solid_methods);
-	ce_cairo_pattern_solid = zend_register_internal_class_ex(&solid_ce, ce_cairo_pattern);
+    INIT_NS_CLASS_ENTRY(solid_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Solid"), cairo_pattern_solid_methods);
+    ce_cairo_pattern_solid = zend_register_internal_class_ex(&solid_ce, ce_cairo_pattern);
 
-	INIT_NS_CLASS_ENTRY(gradient_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Gradient"), cairo_pattern_gradient_methods);
-	ce_cairo_pattern_gradient = zend_register_internal_class_ex(&gradient_ce, ce_cairo_pattern);
-	ce_cairo_pattern_gradient->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
+    INIT_NS_CLASS_ENTRY(gradient_ce, CAIRO_NAMESPACE,
+        ZEND_NS_NAME("Pattern", "Gradient"),
+        cairo_pattern_gradient_methods);
+    ce_cairo_pattern_gradient = zend_register_internal_class_ex(&gradient_ce, ce_cairo_pattern);
+    ce_cairo_pattern_gradient->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
-	INIT_NS_CLASS_ENTRY(radial_ce, CAIRO_NAMESPACE,
-		ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Radial")),
-		cairo_pattern_gradient_radial_methods);
-	ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&radial_ce, ce_cairo_pattern_gradient);
+    INIT_NS_CLASS_ENTRY(radial_ce, CAIRO_NAMESPACE,
+        ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Radial")),
+        cairo_pattern_gradient_radial_methods);
+    ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&radial_ce, ce_cairo_pattern_gradient);
 
-	INIT_NS_CLASS_ENTRY(linear_ce, CAIRO_NAMESPACE,
-		ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Linear")),
-		cairo_pattern_gradient_linear_methods);
-	ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&linear_ce, ce_cairo_pattern_gradient);
+    INIT_NS_CLASS_ENTRY(linear_ce, CAIRO_NAMESPACE,
+        ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Linear")),
+        cairo_pattern_gradient_linear_methods);
+    ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&linear_ce, ce_cairo_pattern_gradient);
 
-	INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Surface"), cairo_pattern_surface_methods);
-	ce_cairo_pattern_surface = zend_register_internal_class_ex(&surface_ce, ce_cairo_pattern);
+    INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Surface"), cairo_pattern_surface_methods);
+    ce_cairo_pattern_surface = zend_register_internal_class_ex(&surface_ce, ce_cairo_pattern);
 
-	INIT_NS_CLASS_ENTRY(mesh_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Mesh"), cairo_pattern_mesh_methods);
-	ce_cairo_pattern_mesh = zend_register_internal_class_ex(&mesh_ce, ce_cairo_pattern);
+    INIT_NS_CLASS_ENTRY(mesh_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Mesh"), cairo_pattern_mesh_methods);
+    ce_cairo_pattern_mesh = zend_register_internal_class_ex(&mesh_ce, ce_cairo_pattern);
 
-	INIT_NS_CLASS_ENTRY(raster_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "RasterSource"), cairo_pattern_raster_methods);
-	ce_cairo_pattern_raster = zend_register_internal_class_ex(&raster_ce, ce_cairo_pattern);
+    INIT_NS_CLASS_ENTRY(raster_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "RasterSource"), cairo_pattern_raster_methods);
+    ce_cairo_pattern_raster = zend_register_internal_class_ex(&raster_ce, ce_cairo_pattern);
 
-	INIT_NS_CLASS_ENTRY(pattern_type_ce,  CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Type"), NULL);
-	ce_cairo_pattern_type = zend_register_internal_class_ex(&pattern_type_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_pattern_type->ce_flags |= ZEND_ACC_FINAL;
 
-	#define CAIRO_PATTERN_TYPE_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_pattern_type, #name, \
-		sizeof(#name)-1, CAIRO_PATTERN_TYPE_## name);
+    // Pattern Type
+    CAIRO_REGISTER_ENUM_LONG(Pattern\\Type, ce_cairo_pattern_type);
 
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(SOLID);
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(SURFACE);
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(LINEAR);
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(RADIAL);
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(MESH);
-	CAIRO_PATTERN_TYPE_DECLARE_ENUM(RASTER_SOURCE);
+#define CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pattern_type, CAIRO_PATTERN_TYPE)
 
-	INIT_NS_CLASS_ENTRY(extend_ce,  CAIRO_NAMESPACE, "Extend", NULL);
-	ce_cairo_extend = zend_register_internal_class_ex(&extend_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_extend->ce_flags |= ZEND_ACC_FINAL;
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SOLID);
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SURFACE);
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(LINEAR);
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RADIAL);
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(MESH);
+    CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RASTER_SOURCE);
 
-	#define CAIRO_EXEND_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_extend, #name, \
-		sizeof(#name)-1, CAIRO_EXTEND_## name);
 
-	CAIRO_EXEND_DECLARE_ENUM(NONE);
-	CAIRO_EXEND_DECLARE_ENUM(REPEAT);
-	CAIRO_EXEND_DECLARE_ENUM(REFLECT);
-	CAIRO_EXEND_DECLARE_ENUM(PAD);
+    // Extend
+    CAIRO_REGISTER_ENUM_LONG(Extend, ce_cairo_extend);
 
-	INIT_NS_CLASS_ENTRY(filter_ce,  CAIRO_NAMESPACE, "Filter", NULL);
-	ce_cairo_filter = zend_register_internal_class_ex(&filter_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_filter->ce_flags |= ZEND_ACC_FINAL;
+#define CAIRO_EXTEND_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_extend, CAIRO_EXTEND)
 
-	#define CAIRO_FILTER_DECLARE_ENUM(name) \
-		zend_declare_class_constant_long(ce_cairo_filter, #name, \
-		sizeof(#name)-1, CAIRO_FILTER_## name);
+    CAIRO_EXTEND_DECLARE_ENUM_CASE(NONE);
+    CAIRO_EXTEND_DECLARE_ENUM_CASE(REPEAT);
+    CAIRO_EXTEND_DECLARE_ENUM_CASE(REFLECT);
+    CAIRO_EXTEND_DECLARE_ENUM_CASE(PAD);
 
-	CAIRO_FILTER_DECLARE_ENUM(FAST);
-	CAIRO_FILTER_DECLARE_ENUM(GOOD);
-	CAIRO_FILTER_DECLARE_ENUM(BEST);
-	CAIRO_FILTER_DECLARE_ENUM(NEAREST);
-	CAIRO_FILTER_DECLARE_ENUM(BILINEAR);
-	CAIRO_FILTER_DECLARE_ENUM(GAUSSIAN);
 
-	return SUCCESS;
+    // Filter
+    CAIRO_REGISTER_ENUM_LONG(Filter, ce_cairo_filter);
+
+#define CAIRO_FILTER_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_filter, CAIRO_FILTER)
+
+    CAIRO_FILTER_DECLARE_ENUM_CASE(FAST);
+    CAIRO_FILTER_DECLARE_ENUM_CASE(GOOD);
+    CAIRO_FILTER_DECLARE_ENUM_CASE(BEST);
+    CAIRO_FILTER_DECLARE_ENUM_CASE(NEAREST);
+    CAIRO_FILTER_DECLARE_ENUM_CASE(BILINEAR);
+    CAIRO_FILTER_DECLARE_ENUM_CASE(GAUSSIAN);
+
+    return SUCCESS;
 }
 
 /*
