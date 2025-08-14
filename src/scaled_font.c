@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -174,21 +172,30 @@ PHP_METHOD(CairoScaledFont, __construct)
 }
 /* }}} */
 
-/* {{{ proto long \Cairo\ScaledFont::getStatus()
+/* {{{ proto \Cairo\Status \Cairo\ScaledFont::getStatus()
        Returns the current integer status of the CairoScaledFont */
 PHP_METHOD(CairoScaledFont, getStatus)
 {
-	cairo_scaled_font_object *scaled_font_object;
+    cairo_scaled_font_object *scaled_font_object;
+    zval status_case;
 
-        ZEND_PARSE_PARAMETERS_NONE();
-        
-	scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
-	if(!scaled_font_object) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_status);
-        php_eos_datastructures_set_enum_value(return_value, cairo_scaled_font_status(scaled_font_object->scaled_font));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    if (!scaled_font_object) {
+        return;
+    }
+
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_scaled_font_status(scaled_font_object->scaled_font)
+    );
+
+    if (Z_TYPE(status_case) == IS_OBJECT) {
+        RETURN_ZVAL(&status_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -466,17 +473,26 @@ PHP_METHOD(CairoScaledFont, getScaleMatrix)
        Returns the current integer type of the CairoScaledFont backend */
 PHP_METHOD(CairoScaledFont, getType)
 {
-	cairo_scaled_font_object *scaled_font_object;
+    cairo_scaled_font_object *scaled_font_object;
+    zval font_type_case;
 
-        ZEND_PARSE_PARAMETERS_NONE();
-        
-	scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
-	if(!scaled_font_object) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_fonttype);
-        php_eos_datastructures_set_enum_value(return_value, cairo_scaled_font_get_type(scaled_font_object->scaled_font));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    if (!scaled_font_object) {
+        return;
+    }
+
+    font_type_case = php_enum_from_cairo_c_enum(
+        ce_cairo_fonttype,
+        cairo_scaled_font_get_type(scaled_font_object->scaled_font)
+    );
+
+    if (Z_TYPE(font_type_case) == IS_OBJECT) {
+        RETURN_ZVAL(&font_type_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
