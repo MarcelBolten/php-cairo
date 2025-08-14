@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -66,82 +64,94 @@ PHP_METHOD(CairoSurface, __construct) {
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoSurface_createSimilar_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, content)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0) // TODO: Perhaps add default value?
+    ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto CairoSurface object \Cairo\Surface::createSimilar(int content, double width, double height)
+/* {{{ proto CairoSurface object \Cairo\Surface::createSimilar(\Cairo\Content content, double width, double height)
        Create a new surface that is as compatible as possible with an existing surface. */
 PHP_METHOD(CairoSurface, createSimilar)
 {
-	cairo_surface_object *surface_object, *new_surface_object;
-	cairo_surface_t *new_surface;
-	zend_long content;
-	double width, height;
+    cairo_surface_object *surface_object, *new_surface_object;
+    cairo_surface_t *new_surface;
+    zval *content;
+    double width, height;
 
-        ZEND_PARSE_PARAMETERS_START(3,3)
-                Z_PARAM_LONG(content)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
-        
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-	new_surface = cairo_surface_create_similar(surface_object->surface, content, width, height);
+    ZEND_PARSE_PARAMETERS_START(3, 3)
+        Z_PARAM_OBJECT_OF_CLASS(content, ce_cairo_content)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	/* we can't always rely on the same type of surface being returned, so we use php_cairo_get_surface_ce */
-        object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
-	new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-        
-	if(!new_surface_object) {
-		return;
-        }
-        
-	new_surface_object->surface = new_surface;
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    new_surface = cairo_surface_create_similar(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(content))),
+        width,
+        height
+    );
+
+    /* we can't always rely on the same type of surface being returned, so we use php_cairo_get_surface_ce */
+    object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
+    new_surface_object = Z_CAIRO_SURFACE_P(return_value);
+
+    if (!new_surface_object) {
+        return;
+    }
+
+    new_surface_object->surface = new_surface;
 }
 /* }}} */
 
 
 ZEND_BEGIN_ARG_INFO(CairoSurface_createSimilarImage_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, format)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0) // TODO: Perhaps add default value?
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto CairoSurface object \Cairo\Surface::createSimilarImage(int format, double width, double height)
+/* {{{ proto CairoSurface object \Cairo\Surface::createSimilarImage(\Cairo\Format format, double width, double height)
        Create a new image surface that is as compatible as possible for uploading to and the use in conjunction with an existing surface.
        Unlike cairo_surface_create_similar() the new image surface won't inherit the device scale from other. */
 PHP_METHOD(CairoSurface, createSimilarImage)
 {
-	cairo_surface_object *surface_object, *new_surface_object;
-	cairo_surface_t *new_surface;
-	zend_long format;
-	double width, height;
+    cairo_surface_object *surface_object, *new_surface_object;
+    cairo_surface_t *new_surface;
+    double width, height;
+    zval *format;
 
-        ZEND_PARSE_PARAMETERS_START(3,3)
-                Z_PARAM_LONG(format)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
-        
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-	new_surface = cairo_surface_create_similar_image(surface_object->surface, format, width, height);
+    ZEND_PARSE_PARAMETERS_START(3, 3)
+        Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-        /* --> because of used method php_cairo_get_surface_ce() should always give 'ce_cairo_imagesurface' */
-        object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
-	new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-        
-	if(!new_surface_object) {
-		return;
-        }
-        
-	new_surface_object->surface = new_surface;
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    new_surface = cairo_surface_create_similar_image(
+        surface_object->surface,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),
+        width,
+        height
+    );
+
+    /* --> because of used method php_cairo_get_surface_ce() should always give 'ce_cairo_imagesurface' */
+    object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
+    new_surface_object = Z_CAIRO_SURFACE_P(return_value);
+
+    if (!new_surface_object) {
+        return;
+    }
+
+    new_surface_object->surface = new_surface;
 }
 /* }}} */
 
@@ -186,21 +196,30 @@ PHP_METHOD(CairoSurface, createForRectangle)
 /* }}} */
 
 
-/* {{{ proto int \Cairo\Surface::getStatus()
+/* {{{ proto \Cairo\Status \Cairo\Surface::getStatus()
        Checks whether an error has previously occurred for this surface. */
 PHP_METHOD(CairoSurface, getStatus)
 {
-	cairo_surface_object *surface_object;
+    cairo_surface_object *surface_object;
+    zval status_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_status);
-        php_eos_datastructures_set_enum_value(return_value, cairo_surface_status(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    status_case = php_enum_from_cairo_c_enum(
+        ce_cairo_status,
+        cairo_surface_status(surface_object->surface)
+    );
+
+    if (Z_TYPE(status_case) == IS_OBJECT) {
+        RETURN_ZVAL(&status_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -263,21 +282,30 @@ PHP_METHOD(CairoSurface, getFontOptions)
 }
 /* }}} */
 
-/* {{{ proto int \Cairo\Surface::getContent()
-       This function returns the content type of surface which indicates whether the surface contains color and/or alpha information.  */
+/* {{{ proto \Cairo\Content \Cairo\Surface::getContent()
+       This function returns the content type of surface which indicates whether the surface contains color and/or alpha information. */
 PHP_METHOD(CairoSurface, getContent)
 {
-	cairo_surface_object *surface_object;
+    cairo_surface_object *surface_object;
+    zval content_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_content);
-        php_eos_datastructures_set_enum_value(return_value, cairo_surface_get_content(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    content_case = php_enum_from_cairo_c_enum(
+        ce_cairo_content,
+        cairo_surface_get_content(surface_object->surface)
+    );
+
+    if (Z_TYPE(content_case) == IS_OBJECT) {
+        RETURN_ZVAL(&content_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -481,21 +509,30 @@ PHP_METHOD(CairoSurface, getFallbackResolution)
 }
 /* }}} */
 
-/* {{{ proto int \Cairo\Surface::getType()
+/* {{{ proto \Cairo\Surface\Type \Cairo\Surface::getType()
        This function returns the type of the backend used to create a surface. */
 PHP_METHOD(CairoSurface, getType)
 {
-	cairo_surface_object *surface_object;
+    cairo_surface_object *surface_object;
+    zval surface_case;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-	surface_object = cairo_surface_object_get(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        object_init_ex(return_value, ce_cairo_surfacetype);
-        php_eos_datastructures_set_enum_value(return_value, cairo_surface_get_type(surface_object->surface));
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    surface_case = php_enum_from_cairo_c_enum(
+        ce_cairo_surfacetype,
+        cairo_surface_get_type(surface_object->surface)
+    );
+
+    if (Z_TYPE(surface_case) == IS_OBJECT) {
+        RETURN_ZVAL(&surface_case, 1, 1);
+    } else {
+        RETURN_NULL();
+    }
 }
 /* }}} */
 
@@ -959,71 +996,65 @@ static const zend_function_entry cairo_surface_methods[] = {
 
 
 /* {{{ PHP_MINIT_FUNCTION */
-PHP_MINIT_FUNCTION(cairo_surface) 
+PHP_MINIT_FUNCTION(cairo_surface)
 {
-        zend_class_entry surface_ce, content_ce, type_ce;
+    zend_class_entry surface_ce;
 
-        //memcpy(&cairo_surface_object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
-        memcpy(&cairo_surface_object_handlers, zend_get_std_object_handlers(), sizeof(cairo_surface_object_handlers));
-        
-        /* Surface */
-        cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);
-        cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;
+    memcpy(&cairo_surface_object_handlers, zend_get_std_object_handlers(), sizeof(cairo_surface_object_handlers));
 
-        INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, "Surface", cairo_surface_methods);
-        ce_cairo_surface = zend_register_internal_class(&surface_ce);
-        ce_cairo_surface->create_object = cairo_surface_create_object;
-        ce_cairo_surface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
-        
-        /* CairoContent */
-        INIT_NS_CLASS_ENTRY(content_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Content"), NULL);
-	ce_cairo_content = zend_register_internal_class_ex(&content_ce, php_eos_datastructures_get_enum_ce());
-	ce_cairo_content->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_CONTENT_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_content, #name, \
-            sizeof(#name)-1, CAIRO_CONTENT_## name);
-            
-        CAIRO_CONTENT_DECLARE_ENUM(COLOR);
-        CAIRO_CONTENT_DECLARE_ENUM(ALPHA);
-        CAIRO_CONTENT_DECLARE_ENUM(COLOR_ALPHA);
-        
-        /* SurfaceType */
-        INIT_NS_CLASS_ENTRY(type_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Type"), NULL);
-        ce_cairo_surfacetype = zend_register_internal_class_ex(&type_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_surfacetype->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_SURFACETYPE_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_surfacetype, #name, \
-            sizeof(#name)-1, CAIRO_SURFACE_TYPE_## name);
-            
-        CAIRO_SURFACETYPE_DECLARE_ENUM(IMAGE);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(PDF);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(PS);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(XLIB);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(XCB);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(GLITZ);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(QUARTZ);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(WIN32);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(BEOS);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(DIRECTFB);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(SVG);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(OS2);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(WIN32_PRINTING);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(QUARTZ_IMAGE);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(SCRIPT);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(QT);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(RECORDING);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(VG);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(GL);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(DRM);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(TEE);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(XML);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(SKIA);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(SUBSURFACE);
-        CAIRO_SURFACETYPE_DECLARE_ENUM(COGL);
-        
-        return SUCCESS;
+    /* Surface */
+    cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);
+    cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;
+
+    INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, "Surface", cairo_surface_methods);
+    ce_cairo_surface = zend_register_internal_class(&surface_ce);
+    ce_cairo_surface->create_object = cairo_surface_create_object;
+    ce_cairo_surface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
+
+    /* CairoContent */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Content, ce_cairo_content);
+
+#define CAIRO_CONTENT_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_content, CAIRO_CONTENT)
+
+    CAIRO_CONTENT_DECLARE_ENUM_CASE(COLOR);
+    CAIRO_CONTENT_DECLARE_ENUM_CASE(ALPHA);
+    CAIRO_CONTENT_DECLARE_ENUM_CASE(COLOR_ALPHA);
+
+
+    /* SurfaceType */
+    CAIRO_REGISTER_ENUM_LONG(Surface\\Type, ce_cairo_surfacetype);
+
+#define CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_surfacetype, CAIRO_SURFACE_TYPE)
+
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(IMAGE);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(PDF);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(PS);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XLIB);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XCB);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(GLITZ);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QUARTZ);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(WIN32);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(BEOS);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(DIRECTFB);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SVG);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(OS2);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(WIN32_PRINTING);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QUARTZ_IMAGE);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SCRIPT);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QT);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(RECORDING);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(VG);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(GL);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(DRM);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(TEE);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XML);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SKIA);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SUBSURFACE);
+    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(COGL);
+
+    return SUCCESS;
 }
 
 /*
