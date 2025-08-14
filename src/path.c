@@ -20,8 +20,6 @@
 #include <php.h>
 #include <zend_exceptions.h>
 
-#include <ext/eos_datastructures/php_eos_datastructures_api.h>
-
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
 
@@ -114,34 +112,32 @@ zend_class_entry * php_cairo_get_path_ce()
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_path)
 {
-	zend_class_entry path_ce, datatype_ce;
+	zend_class_entry path_ce;
 
-        memcpy(&cairo_path_object_handlers,
-                    zend_get_std_object_handlers(),
-                    sizeof(zend_object_handlers));
-        
-        /* Path */
-        cairo_path_object_handlers.offset = XtOffsetOf(cairo_path_object, std);
-        cairo_path_object_handlers.free_obj = cairo_path_free_obj;
-        
-        INIT_NS_CLASS_ENTRY(path_ce, CAIRO_NAMESPACE, "Path", NULL);
-        path_ce.create_object = cairo_path_create_object;
-        ce_cairo_path = zend_register_internal_class(&path_ce);
+    memcpy(&cairo_path_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
-        /* Path\DataType */
-        INIT_NS_CLASS_ENTRY(datatype_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Path", "DataType"), NULL);
-        ce_cairo_path_datatype = zend_register_internal_class_ex(&datatype_ce, php_eos_datastructures_get_enum_ce());
-        ce_cairo_path_datatype->ce_flags |= ZEND_ACC_FINAL;
-        
-        #define CAIRO_PATH_DATATYPE_DECLARE_ENUM(name) \
-            zend_declare_class_constant_long(ce_cairo_path_datatype, #name, \
-            sizeof(#name)-1, CAIRO_PATH_## name);
-        
-        CAIRO_PATH_DATATYPE_DECLARE_ENUM(MOVE_TO);
-        CAIRO_PATH_DATATYPE_DECLARE_ENUM(LINE_TO);
-        CAIRO_PATH_DATATYPE_DECLARE_ENUM(CURVE_TO);
-        CAIRO_PATH_DATATYPE_DECLARE_ENUM(CLOSE_PATH);
-        
+    /* Path */
+    cairo_path_object_handlers.offset = XtOffsetOf(cairo_path_object, std);
+    cairo_path_object_handlers.free_obj = cairo_path_free_obj;
+
+    INIT_NS_CLASS_ENTRY(path_ce, CAIRO_NAMESPACE, "Path", NULL);
+    path_ce.create_object = cairo_path_create_object;
+    ce_cairo_path = zend_register_internal_class(&path_ce);
+
+    /* Path\DataType */
+    CAIRO_REGISTER_ENUM_LONG(Path\\DataType, ce_cairo_path_datatype);
+
+#define CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_path_datatype, CAIRO_PATH)
+
+    CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(MOVE_TO);
+    CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(LINE_TO);
+    CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(CURVE_TO);
+    CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(CLOSE_PATH);
+
 	return SUCCESS;
 }
 /* }}} */
