@@ -141,7 +141,7 @@ PHP_METHOD(CairoRecordingSurface, getExtents)
 {
     cairo_surface_object *surface_object;
     cairo_rectangle_object *rectangle_object;
-        cairo_rectangle_t *rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
+    cairo_rectangle_t *rectangle;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -149,6 +149,8 @@ PHP_METHOD(CairoRecordingSurface, getExtents)
     if (!surface_object) {
         return;
     }
+
+    rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
 
     if (cairo_recording_surface_get_extents(surface_object->surface, rectangle) == IS_FALSE) {
         efree(rectangle);
