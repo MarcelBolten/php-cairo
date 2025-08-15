@@ -12,7 +12,7 @@ $surfaceSize = sqrt(($size - 2 * $pad) * ($size - 2 * $pad) / 2);
 $surface = new Image(ImageFormat::ARGB32, $size, $size);
 $context = new Context($surface);
 
-$s = new Image(ImageFormat::RGB24, $surfaceSize, $surfaceSize);
+$s = new Image(ImageFormat::RGB24, (int) $surfaceSize, (int) $surfaceSize);
 $con2 = new Context($s);
 
 $con2->setSourceRgb(1, 1, 1);

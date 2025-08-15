@@ -32,8 +32,8 @@ zend_class_entry *ce_cairo_format;
 
 ZEND_BEGIN_ARG_INFO(CairoImageSurface___construct_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
+    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+    ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct(int format, int width, int height)
