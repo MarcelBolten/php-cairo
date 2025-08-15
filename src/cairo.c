@@ -257,20 +257,20 @@ PHP_MSHUTDOWN_FUNCTION(cairo)
 /* {{{ PHP_MINFO_FUNCTION */
 PHP_MINFO_FUNCTION(cairo)
 {
-	php_info_print_table_start();
-	php_info_print_table_header(2, "Cairo Graphics Library Bindings", "enabled");
-	php_info_print_table_colspan_header(2,
+    php_info_print_table_start();
+    php_info_print_table_header(2, "Cairo Graphics Library Bindings", "enabled");
+    php_info_print_table_header(1,
 #ifdef COMPILE_DL_CAIRO
 		"compiled as dynamic module"
 #else
-		"compiled as static module"
+        "compiled as static module"
 #endif
-        );
-	php_info_print_table_row(2, "Cairo Library Version", CAIRO_VERSION_STRING);
-	php_info_print_table_row(2, "Extension Version", PHP_CAIRO_VERSION);
-	php_info_print_table_colspan_header(2, "Surface Backends Available");
-	php_info_print_table_row(2, "Image Surface", "enabled");
-	php_info_print_table_row(2, "PNG Support",
+    );
+    php_info_print_table_row(2, "Cairo Library Version", CAIRO_VERSION_STRING);
+    php_info_print_table_row(2, "Extension Version", PHP_CAIRO_VERSION);
+    php_info_print_table_row(1, "Surface Backends Available");
+    php_info_print_table_row(2, "Image Surface", "enabled");
+    php_info_print_table_row(2, "PNG Support",
 #ifdef CAIRO_HAS_PNG_FUNCTIONS
 		"enabled"
 #else
@@ -332,9 +332,9 @@ PHP_MINFO_FUNCTION(cairo)
 #else
 		"disabled"
 #endif
-		);
-	php_info_print_table_colspan_header(2, "Font Backends Available");
-	php_info_print_table_row(2, "Freetype Fonts",
+    );
+    php_info_print_table_row(1, "Font Backends Available");
+    php_info_print_table_row(2, "Freetype Fonts",
 #if defined(CAIRO_HAS_FT_FONT) && defined(HAVE_FREETYPE)
 		"enabled"
 #else

@@ -11,10 +11,10 @@ $ext->info();
 cairo
 
 Cairo Graphics Library Bindings => enabled
-                        compiled as %s module                        
+compiled as %s module
 Cairo Library Version => 1.%d.%d
 Extension Version => %s
-                        Surface Backends Available                        
+Surface Backends Available
 Image Surface => %s
 PNG Support => %s
 JPEG Support => %s
@@ -25,7 +25,7 @@ Quartz (MacOSX) Surface => %s
 SVG Surface => %s
 Win32 Surface => %s
 Recording Surface => %s
-                         Font Backends Available                         
+Font Backends Available
 Freetype Fonts => %s
 Quartz Fonts => %s
 Win32 Fonts => %s
