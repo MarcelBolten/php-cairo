@@ -254,7 +254,7 @@ PHP_METHOD(CairoImageSurface, getStride)
 
 ZEND_BEGIN_ARG_INFO(CairoFormat_strideForWidth_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, format)
-	ZEND_ARG_INFO(0, width)
+    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto int CairoFormat::strideForWidth(long format, long width)

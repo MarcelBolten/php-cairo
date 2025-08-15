@@ -150,7 +150,7 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoPsSurface_setEps_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, level)
+    ZEND_ARG_INFO(0, eps)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void CairoPsSurface->setEps(boolean eps)

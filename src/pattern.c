@@ -104,7 +104,7 @@ zend_class_entry* php_cairo_get_pattern_ce(cairo_pattern_t *pattern)
     Cairo\Pattern Class API
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO(CairoPattern___construct_args, ZEND_SEND_BY_VAL)
+ZEND_BEGIN_ARG_INFO_EX(CairoPattern___construct_args, ZEND_SEND_BY_VAL, 0, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void contruct()
@@ -696,7 +696,7 @@ PHP_METHOD(CairoPatternGradientLinear, getPoints)
     \Cairo\Pattern\Surface Class API
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO(CairoPatternSurface___construct_args, ZEND_SEND_BY_VAL)
+ZEND_BEGIN_ARG_INFO_EX(CairoPatternSurface___construct_args, ZEND_SEND_BY_VAL, 0, 0)
     ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
 ZEND_END_ARG_INFO()
 

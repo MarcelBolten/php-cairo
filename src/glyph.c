@@ -78,10 +78,10 @@ cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)
     \Cairo\Glyph Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoGlyph____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-        ZEND_ARG_INFO(0, index)
-	ZEND_ARG_INFO(0, x)
-	ZEND_ARG_INFO(0, y)
+ZEND_BEGIN_ARG_INFO_EX(CairoGlyph____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+    ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 1)
+    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 1)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct(int index [, float x, float y])

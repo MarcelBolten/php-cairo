@@ -853,7 +853,7 @@ PHP_METHOD(CairoContext, getFillRule)
 /* }}}  */
 
 ZEND_BEGIN_ARG_INFO(CairoContext_setLineCap_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, linecap)
+    ZEND_ARG_OBJ_INFO(0, linecap, Cairo\\LineCap, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::setLineCap(\Cairo\LineCap::Butt)
@@ -2584,7 +2584,7 @@ PHP_METHOD(CairoContext, selectFontFace)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoContext_setFontSize_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, size)
+    ZEND_ARG_TYPE_INFO(0, size, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::setFontSize(double size)

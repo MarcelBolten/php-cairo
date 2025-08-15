@@ -53,7 +53,7 @@ cairo_surface_object *cairo_surface_object_get(zval *zv)
     Cairo\Pattern Class API
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO(CairoSurface___construct_args, ZEND_SEND_BY_VAL)
+ZEND_BEGIN_ARG_INFO_EX(CairoSurface___construct_args, ZEND_SEND_BY_VAL, 0, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void contruct()
@@ -593,8 +593,8 @@ PHP_METHOD(CairoSurface, hasShowTextGlyphs)
 /* }}} */
 
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_mapToImage_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, rectangle)
+ZEND_BEGIN_ARG_INFO_EX(CairoSurface_mapToImage_args, ZEND_SEND_BY_VAL, 0, 0)
+    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto CairoSurface object \Cairo\Surface::mapToImage([\Cairo\Rectangle rectangle])
@@ -725,9 +725,9 @@ PHP_METHOD(CairoSurface, writeToPng)
 
 #ifdef CAIRO_HAS_JPEG_FUNCTIONS
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_writeToJpeg_args, ZEND_SEND_BY_VAL)
+ZEND_BEGIN_ARG_INFO_EX(CairoSurface_writeToJpeg_args, ZEND_SEND_BY_VAL, 0, 1)
     ZEND_ARG_INFO(0, file)
-        ZEND_ARG_INFO(0, quality)
+    ZEND_ARG_TYPE_INFO(0, quality, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto int \Cairo\Surface::writeToJpeg(file|resource file)

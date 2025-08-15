@@ -105,12 +105,12 @@ cairo_matrix_t *cairo_matrix_object_get_matrix(zval *zv)
 ------------------------------------------------------------------*/
 
 ZEND_BEGIN_ARG_INFO_EX(CairoMatrix____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-        ZEND_ARG_INFO(0, xx)
-	ZEND_ARG_INFO(0, yx)
-	ZEND_ARG_INFO(0, xy)
-	ZEND_ARG_INFO(0, yy)
-	ZEND_ARG_INFO(0, x0)
-	ZEND_ARG_INFO(0, y0)
+    ZEND_ARG_TYPE_INFO(0, xx, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, yx, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, xy, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, yy, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, x0, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, y0, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct([float xx, float yx, float xy, float yy, float x0, float y0])
@@ -165,8 +165,8 @@ PHP_METHOD(CairoMatrix, initIdentity)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_initTranslate_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, tx)
-	ZEND_ARG_INFO(0, ty)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, tx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, ty, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto object \Cairo\Matrix::initTranslate(float tx, float ty)
@@ -190,8 +190,8 @@ PHP_METHOD(CairoMatrix, initTranslate)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_initScale_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, sx)
-	ZEND_ARG_INFO(0, sy)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sy, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto object \Cairo\Matrix::initScale(float sx, float sy)
@@ -215,7 +215,7 @@ PHP_METHOD(CairoMatrix, initScale)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_initRotate_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, radians)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, radians, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto object \Cairo\Matrix::initRotate(float radians)
@@ -237,8 +237,8 @@ PHP_METHOD(CairoMatrix, initRotate)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_translate_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, tx)
-	ZEND_ARG_INFO(0, ty)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, tx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, ty, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void CairoMatrix->translate(float tx, float ty)
@@ -265,8 +265,8 @@ PHP_METHOD(CairoMatrix, translate)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_scale_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, sx)
-	ZEND_ARG_INFO(0, sy)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sy, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void CairoMatrix->scale(float sx, float sy)
@@ -293,7 +293,7 @@ PHP_METHOD(CairoMatrix, scale)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_rotate_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, radians)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, radians, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void CairoMatrix->rotate(float radians)
@@ -343,8 +343,8 @@ PHP_METHOD(CairoMatrix, invert)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_multiply_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, matrix1)
-	ZEND_ARG_INFO(0, matrix2)
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, matrix1, CairoMatrix, 1, "null")
+    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, matrix2, CairoMatrix, 1, "null")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto CairoMatrix \Cairo\Matrix::multiply(CairoMatrix matrix1, CairoMatrix matrix2)
@@ -374,8 +374,8 @@ PHP_METHOD(CairoMatrix, multiply)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_transform_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, dx)
-	ZEND_ARG_INFO(0, dy)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, dx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, dy, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto array CairoMatrix->transformDistance(float dx, float dy)
