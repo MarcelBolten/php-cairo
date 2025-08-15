@@ -319,7 +319,7 @@ PHP_METHOD(CairoContext, pushGroupWithContent)
 }
 /* }}} */
 
-/* {{{ proto CairoPattern object \Cairo\Context::popGroup()
+/* {{{ proto Cairo\Pattern object \Cairo\Context::popGroup()
    Terminates the redirection and returns a new pattern containing the results of all drawing operations performed to the group. */
 PHP_METHOD(CairoContext, popGroup)
 {
@@ -362,7 +362,7 @@ PHP_METHOD(CairoContext, popGroupToSource)
 }
 /* }}} */
 
-/* {{{ proto CairoSurface object \Cairo\Context::getGroupSurface()
+/* {{{ proto Cairo\Surface object \Cairo\Context::getGroupSurface()
    previous method-name was getGroupTarget()
    Gets the current destination surface for the context. */
 PHP_METHOD(CairoContext, getGroupSurface)
@@ -640,7 +640,7 @@ ZEND_BEGIN_ARG_INFO(CairoContext_setAntialias_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, antialias)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Context::setAntialias(\Cairo\Antialias::Default)
+/* {{{ proto void \Cairo\Context::setAntialias(\Cairo\Antialias antialias)
    Set the antialiasing mode of the rasterizer used for drawing shapes. */
 PHP_METHOD(CairoContext, setAntialias)
 {

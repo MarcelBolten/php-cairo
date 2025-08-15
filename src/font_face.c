@@ -108,7 +108,7 @@ PHP_METHOD(CairoFontFace, getStatus)
 }
 /* }}} */
 
-/* {{{ proto long \Cairo\FontFace::getType()
+/* {{{ proto \Cairo\FontFace \Cairo\FontFace::getType()
        Returns the current integer type of the Cairo\FontFace backend */
 PHP_METHOD(CairoFontFace, getType)
 {

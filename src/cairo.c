@@ -92,7 +92,7 @@ PHP_FUNCTION(version_string)
 }
 /* }}} */
 
-/* {{{ proto array \Cairo::version(void)
+/* {{{ proto int \Cairo::version(void)
        Returns an integer version number of the cairo library being used */
 PHP_METHOD(Cairo, version)
 {
@@ -102,7 +102,7 @@ PHP_METHOD(Cairo, version)
 }
 /* }}} */
 
-/* {{{ proto array \Cairo::versionString(void)
+/* {{{ proto string \Cairo::versionString(void)
        Returns a string version of the cairo library being used */
 PHP_METHOD(Cairo, versionString)
 {
