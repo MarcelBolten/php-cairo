@@ -329,7 +329,7 @@ PHP_METHOD(CairoScaledFont, getGlyphExtents)
 /* }}} */
 
 /* {{{ proto \Cairo\FontFace object \Cairo\ScaledFont::getFontFace()
-       Retrieves the font face used to create the scaled font.  */
+       Retrieves the font face used to create the scaled font. */
 PHP_METHOD(CairoScaledFont, getFontFace)
 {
     cairo_scaled_font_object *scaled_font_object;
@@ -365,7 +365,7 @@ PHP_METHOD(CairoScaledFont, getFontFace)
 /* }}} */
 
 /* {{{ proto \Cairo\FontOptions object \Cairo\ScaledFont::getFontOptions()
-       Retrieves the font options used to create the scaled font.  */
+       Retrieves the font options used to create the scaled font. */
 PHP_METHOD(CairoScaledFont, getFontOptions)
 {
     cairo_scaled_font_object *scaled_font_object;

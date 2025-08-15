@@ -124,27 +124,35 @@ PHP_METHOD(Cairo, availableSurfaces)
 #ifdef CAIRO_HAS_PNG_FUNCTIONS
     add_next_index_string(return_value, "PNG");
 #endif
+
 #ifdef CAIRO_HAS_JPEG_FUNCTIONS
     add_next_index_string(return_value, "JPEG");
 #endif
+
 #ifdef CAIRO_HAS_PDF_SURFACE
     add_next_index_string(return_value, "PDF");
 #endif
+
 #ifdef CAIRO_HAS_PS_SURFACE
     add_next_index_string(return_value, "PS");
 #endif
+
 #ifdef CAIRO_HAS_SVG_SURFACE
     add_next_index_string(return_value, "SVG");
 #endif
+
 #ifdef CAIRO_HAS_XLIB_SURFACE
     add_next_index_string(return_value, "XLIB");
 #endif
+
 #ifdef CAIRO_HAS_RECORDING_SURFACE
     add_next_index_string(return_value, "RECORDING");
 #endif
+
 #ifdef CAIRO_HAS_QUARTZ_SURFACE
     add_next_index_string(return_value, "QUARTZ");
 #endif
+
 #ifdef CAIRO_HAS_WIN32_SURFACE
     add_next_index_string(return_value, "WIN32");
 #endif
@@ -193,8 +201,7 @@ const zend_function_entry cairo_methods[] = {
 };
 /* }}} */
 
-/* {{{ PHP_MINIT_FUNCTION
- */
+/* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo)
 {
     zend_class_entry ce;

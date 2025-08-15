@@ -577,7 +577,7 @@ PHP_METHOD(CairoSurface, copyPage)
 
 /* {{{ proto bool \Cairo\Surface::hasShowTextGlyphs()
        Returns whether the surface supports sophisticated cairo_show_text_glyphs() operations
-       Users can use this function to avoid computing UTF-8 text and cluster mapping if the target surface does not use it.  */
+       Users can use this function to avoid computing UTF-8 text and cluster mapping if the target surface does not use it. */
 PHP_METHOD(CairoSurface, hasShowTextGlyphs)
 {
     cairo_surface_object *surface_object;

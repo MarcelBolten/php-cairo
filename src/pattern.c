@@ -270,7 +270,7 @@ ZEND_BEGIN_ARG_INFO(CairoPattern_setFilter_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Pattern::setFilter(Cairo\Filter filter)
-       Sets the filter to be used for resizing when using this pattern  */
+       Sets the filter to be used for resizing when using this pattern */
 PHP_METHOD(CairoPattern, setFilter)
 {
     cairo_pattern_object *pattern_object;
@@ -790,7 +790,7 @@ ZEND_BEGIN_ARG_INFO(CairoPatternMesh___construct_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void contruct()
-    Returns new \Cairo\Pattern\Mesh  */
+    Returns new \Cairo\Pattern\Mesh */
 PHP_METHOD(CairoPatternMesh, __construct)
 {
     cairo_pattern_object *pattern_object;
@@ -914,7 +914,7 @@ ZEND_END_ARG_INFO()
 
 /* {{{  proto void \Cairo\Pattern\Mesh::curveTo(float x1, float y1, float x2,
  *           float y2, float x3, float y3)
-   cubic bezier spline added to current path  */
+   cubic bezier spline added to current path */
 PHP_METHOD(CairoPatternMesh, curveTo)
 {
     cairo_pattern_object *pattern_object;
