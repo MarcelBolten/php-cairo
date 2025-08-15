@@ -18,7 +18,6 @@ if test "$PHP_CAIRO" != "no"; then
     PHP_INSTALL_HEADERS(ext/cairo, $EXT_CAIRO_HEADERS)
   ])
 
-  PHP_ADD_EXTENSION_DEP(cairo, eos_datastructures)
 
   if test "$PHP_CAIRO" != "no"; then
       CAIRO_CHECK_DIR=$PHP_CAIRO
