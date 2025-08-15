@@ -28,6 +28,7 @@ zend_class_entry *ce_cairo_subpixelorder;
 zend_class_entry *ce_cairo_hintstyle;
 zend_class_entry *ce_cairo_hintmetrics;
 zend_class_entry *ce_cairo_antialias;
+zend_class_entry *ce_cairo_color_mode;
 
 static zend_object_handlers cairo_font_options_object_handlers;
 
@@ -625,6 +626,18 @@ PHP_MINIT_FUNCTION(cairo_font_options)
     CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(DEFAULT);
     CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(OFF);
     CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(ON);
+
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+    /* HintMetrics */
+    CAIRO_REGISTER_ENUM_LONG("ColorMode", ce_cairo_color_mode);
+
+#define CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_color_mode, CAIRO_COLOR_MODE)
+
+    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(DEFAULT);
+    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(NO_COLOR);
+    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(COLOR);
+#endif
 
     return SUCCESS;
 }
