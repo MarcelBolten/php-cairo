@@ -33,7 +33,7 @@ ZEND_END_ARG_INFO()
        Returns new CairoSubSurface */
 PHP_METHOD(CairoSubSurface, __construct)
 {
-	zend_throw_exception(ce_cairo_exception, "CairoSubSurface cannot be constructed", 0);
+    zend_throw_exception(ce_cairo_exception, "CairoSubSurface cannot be constructed", 0);
 }
 /* }}} */
 
@@ -50,12 +50,12 @@ static const zend_function_entry cairo_sub_surface_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_sub_surface)
 {
-	zend_class_entry ce;
-        
-        INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "SubSurface"), cairo_sub_surface_methods);
-	ce_cairo_subsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
-        
-	return SUCCESS;
+    zend_class_entry ce;
+
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "SubSurface"), cairo_sub_surface_methods);
+    ce_cairo_subsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+
+    return SUCCESS;
 }
 
 /*

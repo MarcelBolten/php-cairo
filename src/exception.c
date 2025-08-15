@@ -32,16 +32,16 @@ zend_class_entry *ce_cairo_status;
 
 void php_cairo_throw_exception(cairo_status_t status)
 {
-	char * error_message;
+    char * error_message;
 
-	if (status == CAIRO_STATUS_SUCCESS) {
-		return;
-	}
+    if (status == CAIRO_STATUS_SUCCESS) {
+        return;
+    }
 
-	error_message = estrdup(cairo_status_to_string(status));
-	zend_throw_exception(ce_cairo_exception, error_message, status);
-	efree(error_message);
-	return;
+    error_message = estrdup(cairo_status_to_string(status));
+    zend_throw_exception(ce_cairo_exception, error_message, status);
+    efree(error_message);
+    return;
 }
 
 /* ----------------------------------------------------------------
@@ -69,8 +69,8 @@ PHP_METHOD(CairoStatus, getMessage)
 
 /* {{{ cairo_status_methods[] */
 const zend_function_entry cairo_status_methods[] = {
-	PHP_ME(CairoStatus, getMessage, CairoStatus_getMessage_args, ZEND_ACC_PUBLIC)
-	ZEND_FE_END
+    PHP_ME(CairoStatus, getMessage, CairoStatus_getMessage_args, ZEND_ACC_PUBLIC)
+    ZEND_FE_END
 };
 /* }}} */
 

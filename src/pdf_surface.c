@@ -37,58 +37,59 @@ zend_class_entry *ce_cairo_pdf_outline;
 ------------------------------------------------------------------*/
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface___construct_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, file)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_INFO(0, file)
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void __construct(string|resource file, float width, float height) 
+/* {{{ proto void __construct(string|resource file, float width, float height)
        Creates a PDF surface of the specified size in points to be written to filename. */
 PHP_METHOD(CairoPdfSurface, __construct)
 {
-	zval *stream_zval = NULL;
-	stream_closure *closure;
-	php_stream *stream = NULL;
-	double width, height;
-	zend_bool owned_stream = 0;
-	cairo_surface_object *surface_object;
+    zval *stream_zval = NULL;
+    stream_closure *closure;
+    php_stream *stream = NULL;
+    double width, height;
+    zend_bool owned_stream = 0;
+    cairo_surface_object *surface_object;
 
-        ZEND_PARSE_PARAMETERS_START(3,3)
-                Z_PARAM_ZVAL(stream_zval)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(3, 3)
+        Z_PARAM_ZVAL(stream_zval)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    /* special case - a NULL file is like an "in memory" PDF */
+    if (Z_TYPE_P(stream_zval) == IS_NULL) {
+        surface_object->surface = cairo_pdf_surface_create(NULL, width, height);
+    }
+    /* Otherwise it can be a filename or a PHP stream */
+    else {
+        if (Z_TYPE_P(stream_zval) == IS_STRING) {
+            stream = php_stream_open_wrapper(Z_STRVAL_P(stream_zval), "w+b", REPORT_ERRORS, NULL);
+            owned_stream = 1;
+        } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE)  {
+            php_stream_from_zval(stream, stream_zval);
+        } else {
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Surface\\Pdf::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
             return;
         }
 
-	/* special case - a NULL file is like an "in memory" PDF */
-	if(Z_TYPE_P(stream_zval) == IS_NULL) {
-		surface_object->surface = cairo_pdf_surface_create(NULL, width, height);
-	/* Otherwise it can be a filename or a PHP stream */
-	} else {
-		if(Z_TYPE_P(stream_zval) == IS_STRING) {
-			stream = php_stream_open_wrapper(Z_STRVAL_P(stream_zval), "w+b", REPORT_ERRORS, NULL);
-			owned_stream = 1;
-		} else if(Z_TYPE_P(stream_zval) == IS_RESOURCE)  {
-			php_stream_from_zval(stream, stream_zval);	
-		} else {
-			zend_throw_exception(zend_ce_type_error, "Cairo\\Surface\\Pdf::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
-			return;
-		}
+        /* Pack stream into struct*/
+        closure = ecalloc(1, sizeof(stream_closure));
+        closure->stream = stream;
+        closure->owned_stream = owned_stream;
 
-		/* Pack stream into struct*/
-		closure = ecalloc(1, sizeof(stream_closure));
-		closure->stream = stream;
-		closure->owned_stream = owned_stream;
+        surface_object->closure = closure;
+        surface_object->surface = cairo_pdf_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
+    }
 
-		surface_object->closure = closure;
-		surface_object->surface = cairo_pdf_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
-	}
-
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -137,8 +138,8 @@ PHP_METHOD(CairoPdfSurface, getVersions)
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_setSize_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Surface\Pdf::setSize(double width, double height)
@@ -146,21 +147,21 @@ ZEND_END_ARG_INFO()
        This should be called before any drawing takes place on the surface */
 PHP_METHOD(CairoPdfSurface, setSize)
 {
-	double width = 0.0, height = 0.0;
-	cairo_surface_object *surface_object;
+    double width = 0.0, height = 0.0;
+    cairo_surface_object *surface_object;
 
-        ZEND_PARSE_PARAMETERS_START(2,2)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_pdf_surface_set_size(surface_object->surface, width, height);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_pdf_surface_set_size(surface_object->surface, width, height);
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -279,35 +280,35 @@ PHP_METHOD(CairoPdfSurface, setMetadata)
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_setPageLabel_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, label)
+    ZEND_ARG_INFO(0, label)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Surface\Pdf::setPageLabel(string label)
        Set page label for the current page. */
 PHP_METHOD(CairoPdfSurface, setPageLabel)
 {
-	char *label;
-        size_t label_len;
-	cairo_surface_object *surface_object;
+    char *label;
+    size_t label_len;
+    cairo_surface_object *surface_object;
 
-        ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_STRING(label, label_len)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_STRING(label, label_len)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_pdf_surface_set_page_label(surface_object->surface, (const char *)label);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_pdf_surface_set_page_label(surface_object->surface, (const char *)label);
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
 
 ZEND_BEGIN_ARG_INFO(CairoPdfSurface_setThumbnailSize_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Surface\Pdf::setThumbnailSize(double width, double height)
@@ -315,21 +316,21 @@ ZEND_END_ARG_INFO()
        Setting a width or height of 0 disables thumbnails for the current and subsequent pages. */
 PHP_METHOD(CairoPdfSurface, setThumbnailSize)
 {
-	double width = 0.0, height = 0.0;
-	cairo_surface_object *surface_object;
+    double width = 0.0, height = 0.0;
+    cairo_surface_object *surface_object;
 
-        ZEND_PARSE_PARAMETERS_START(2,2)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -340,18 +341,18 @@ PHP_METHOD(CairoPdfSurface, setThumbnailSize)
 
 /* {{{ cairo_pdf_surface_methods[] */
 const zend_function_entry cairo_pdf_surface_methods[] = {
-	PHP_ME(CairoPdfSurface, __construct, CairoPdfSurface___construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-        PHP_ME(CairoPdfSurface, restrictToVersion, CairoPdfSurface_restrictToVersion_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoPdfSurface, getVersions, CairoPdfSurface_getVersions_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-        PHP_ME(CairoPdfSurface, versionToString, CairoPdfSurface_versionToString_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-        PHP_ME(CairoPdfSurface, setSize, CairoPdfSurface_setSize_args, ZEND_ACC_PUBLIC)
-        #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-            PHP_ME(CairoPdfSurface, addOutline, CairoPdfSurface_addOutline_args, ZEND_ACC_PUBLIC)
-            PHP_ME(CairoPdfSurface, setMetadata, CairoPdfSurface_setMetadata_args, ZEND_ACC_PUBLIC)
-            PHP_ME(CairoPdfSurface, setPageLabel, CairoPdfSurface_setPageLabel_args, ZEND_ACC_PUBLIC)
-            PHP_ME(CairoPdfSurface, setThumbnailSize, CairoPdfSurface_setThumbnailSize_args, ZEND_ACC_PUBLIC)
-        #endif
-	ZEND_FE_END
+    PHP_ME(CairoPdfSurface, __construct, CairoPdfSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(CairoPdfSurface, restrictToVersion, CairoPdfSurface_restrictToVersion_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoPdfSurface, getVersions, CairoPdfSurface_getVersions_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+    PHP_ME(CairoPdfSurface, versionToString, CairoPdfSurface_versionToString_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+    PHP_ME(CairoPdfSurface, setSize, CairoPdfSurface_setSize_args, ZEND_ACC_PUBLIC)
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+    PHP_ME(CairoPdfSurface, addOutline, CairoPdfSurface_addOutline_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoPdfSurface, setMetadata, CairoPdfSurface_setMetadata_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoPdfSurface, setPageLabel, CairoPdfSurface_setPageLabel_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoPdfSurface, setThumbnailSize, CairoPdfSurface_setThumbnailSize_args, ZEND_ACC_PUBLIC)
+#endif
+    ZEND_FE_END
 };
 /* }}} */
 

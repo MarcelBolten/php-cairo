@@ -84,38 +84,51 @@ static void cairo_context_free_obj(zend_object *object)
         return;
     }
 
-    if (!Z_ISNULL(intern->surface) &&
-            !Z_ISUNDEF(intern->surface)) {
+    if (!Z_ISNULL(intern->surface)
+        && !Z_ISUNDEF(intern->surface)
+    ) {
         Z_TRY_DELREF_P(&intern->surface);
         ZVAL_UNDEF(&intern->surface);
     }
-    if (!Z_ISNULL(intern->matrix) &&
-            !Z_ISUNDEF(intern->matrix)) {
+
+    if (!Z_ISNULL(intern->matrix)
+        && !Z_ISUNDEF(intern->matrix)
+    ) {
         Z_TRY_DELREF_P(&intern->matrix);
         ZVAL_UNDEF(&intern->matrix);
     }
-    if (!Z_ISNULL(intern->pattern) &&
-            !Z_ISUNDEF(intern->pattern)) {
+
+    if (!Z_ISNULL(intern->pattern)
+        && !Z_ISUNDEF(intern->pattern)
+    ) {
         Z_TRY_DELREF_P(&intern->pattern);
         ZVAL_UNDEF(&intern->pattern);
     }
-    if (!Z_ISNULL(intern->font_face) &&
-            !Z_ISUNDEF(intern->font_face)) {
+
+    if (!Z_ISNULL(intern->font_face)
+        && !Z_ISUNDEF(intern->font_face)
+    ) {
         Z_TRY_DELREF_P(&intern->font_face);
         ZVAL_UNDEF(&intern->font_face);
     }
-    if (!Z_ISNULL(intern->font_matrix) &&
-            !Z_ISUNDEF(intern->font_matrix)) {
+
+    if (!Z_ISNULL(intern->font_matrix)
+        && !Z_ISUNDEF(intern->font_matrix)
+    ) {
         Z_TRY_DELREF_P(&intern->font_matrix);
         ZVAL_UNDEF(&intern->font_matrix);
     }
-    if (!Z_ISNULL(intern->font_options) &&
-            !Z_ISUNDEF(intern->font_options)) {
+
+    if (!Z_ISNULL(intern->font_options)
+        && !Z_ISUNDEF(intern->font_options)
+    ) {
         Z_TRY_DELREF_P(&intern->font_options);
         ZVAL_UNDEF(&intern->font_options);
     }
-    if (!Z_ISNULL(intern->scaled_font) &&
-            !Z_ISUNDEF(intern->scaled_font)) {
+
+    if (!Z_ISNULL(intern->scaled_font)
+        && !Z_ISUNDEF(intern->scaled_font)
+    ) {
         Z_TRY_DELREF_P(&intern->scaled_font);
         ZVAL_UNDEF(&intern->scaled_font);
     }
@@ -354,7 +367,6 @@ PHP_METHOD(CairoContext, popGroupToSource)
    Gets the current destination surface for the context. */
 PHP_METHOD(CairoContext, getGroupSurface)
 {
-    cairo_surface_t *surface;
     cairo_context_object *context_object;
     cairo_surface_object *surface_object;
 
@@ -365,10 +377,12 @@ PHP_METHOD(CairoContext, getGroupSurface)
         return;
     }
 
-    surface = cairo_get_group_target(context_object->context);
     php_cairo_throw_exception(cairo_status(context_object->context));
 
-    object_init_ex(return_value, php_cairo_get_surface_ce(surface));
+    object_init_ex(
+        return_value,
+        php_cairo_get_surface_ce(cairo_get_group_target(context_object->context))
+    );
     surface_object = Z_CAIRO_SURFACE_P(return_value);
     surface_object->surface = cairo_get_group_target(context_object->context);
     cairo_surface_reference(surface_object->surface);
@@ -391,7 +405,7 @@ PHP_METHOD(CairoContext, setSourceRGB)
     double red = 0.0, green = 0.0, blue = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(3,3)
+    ZEND_PARSE_PARAMETERS_START(3, 3)
         Z_PARAM_DOUBLE(red)
         Z_PARAM_DOUBLE(green)
         Z_PARAM_DOUBLE(blue)
@@ -421,7 +435,7 @@ PHP_METHOD(CairoContext, setSourceRGBA)
     double red = 0.0, green = 0.0, blue = 0.0, alpha = 1.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(4,4)
+    ZEND_PARSE_PARAMETERS_START(4, 4)
         Z_PARAM_DOUBLE(red)
         Z_PARAM_DOUBLE(green)
         Z_PARAM_DOUBLE(blue)
@@ -444,18 +458,18 @@ ZEND_BEGIN_ARG_INFO_EX(CairoContext_setSurface_args, ZEND_SEND_BY_VAL, ZEND_RETU
     ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Context::setSurface(object surface [,float x, float y])
+/* {{{ proto void \Cairo\Context::setSurface(object surface [, float x, float y])
        previous method-name was setSourceSurface()
        This is a convenience function for creating a pattern from surface and setting it as the source
  */
 PHP_METHOD(CairoContext, setSurface)
 {
-    zval *surface_zval = NULL;
+    zval *surface_zval;
     cairo_context_object *context_object;
     cairo_surface_object *surface_object;
     double x = 0.0, y = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(1,3)
+    ZEND_PARSE_PARAMETERS_START(1, 3)
         Z_PARAM_OBJECT_OF_CLASS(surface_zval, ce_cairo_surface)
         Z_PARAM_OPTIONAL
         Z_PARAM_DOUBLE(x)
@@ -478,15 +492,17 @@ PHP_METHOD(CairoContext, setSurface)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a pattern, then we deref and remove it because we just overwrote it */
-    if (!Z_ISNULL(context_object->pattern) &&
-        !Z_ISUNDEF(context_object->pattern)) {
+    if (!Z_ISNULL(context_object->pattern)
+        && !Z_ISUNDEF(context_object->pattern)
+    ) {
         Z_TRY_DELREF(context_object->pattern);
         ZVAL_UNDEF(&context_object->pattern);
     }
 
     /* If there's already a surface, then we deref and remove it */
-    if (!Z_ISNULL(context_object->surface) &&
-        !Z_ISUNDEF(context_object->surface)) {
+    if (!Z_ISNULL(context_object->surface)
+        && !Z_ISUNDEF(context_object->surface)
+    ) {
         Z_TRY_DELREF(context_object->surface);
         ZVAL_UNDEF(&context_object->surface);
     }
@@ -513,27 +529,29 @@ PHP_METHOD(CairoContext, getSurface)
     }
 
     /* If we have a surface stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->surface) &&
-        !Z_ISUNDEF(context_object->surface) &&
-        Z_REFCOUNT(context_object->surface) > 0) {
+    if (!Z_ISNULL(context_object->surface)
+        && !Z_ISUNDEF(context_object->surface)
+        && Z_REFCOUNT(context_object->surface) > 0
+    ) {
 
-            // old way
-            //            zval_dtor(return_value);
-            //            *return_value = *context_object->surface;
-            //            zval_copy_ctor(return_value);
+        // old way
+        //            zval_dtor(return_value);
+        //            *return_value = *context_object->surface;
+        //            zval_copy_ctor(return_value);
 
-            // new way
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->surface);
-            /* Otherwise we spawn a new object */
-    } else {
-            surface = cairo_get_target(context_object->context);
-            php_cairo_throw_exception(cairo_status(context_object->context));
+        // new way
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->surface);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        surface = cairo_get_target(context_object->context);
+        php_cairo_throw_exception(cairo_status(context_object->context));
 
-            object_init_ex(return_value, php_cairo_get_surface_ce(surface));
-            surface_object = Z_CAIRO_SURFACE_P(return_value);
-            surface_object->surface = surface;
-            cairo_surface_reference(surface_object->surface);
+        object_init_ex(return_value, php_cairo_get_surface_ce(surface));
+        surface_object = Z_CAIRO_SURFACE_P(return_value);
+        surface_object->surface = surface;
+        cairo_surface_reference(surface_object->surface);
     }
 }
 /* }}} */
@@ -552,7 +570,7 @@ PHP_METHOD(CairoContext, setPattern)
     cairo_context_object *context_object;
     cairo_pattern_object *pattern_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(pattern_zval, ce_cairo_pattern)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -566,8 +584,9 @@ PHP_METHOD(CairoContext, setPattern)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a pattern, then we deref and remove it */
-    if (!Z_ISNULL(context_object->pattern) &&
-        !Z_ISUNDEF(context_object->pattern)) {
+    if (!Z_ISNULL(context_object->pattern)
+        && !Z_ISUNDEF(context_object->pattern)
+    ) {
         Z_TRY_DELREF(context_object->pattern);
         ZVAL_UNDEF(&context_object->pattern);
     }
@@ -594,27 +613,27 @@ PHP_METHOD(CairoContext, getPattern)
     }
 
     /* If we have a patter/source object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->pattern) &&
-        !Z_ISUNDEF(context_object->pattern) &&
-        Z_REFCOUNT(context_object->pattern) > 0) {
+    if (!Z_ISNULL(context_object->pattern)
+        && !Z_ISUNDEF(context_object->pattern)
+        && Z_REFCOUNT(context_object->pattern) > 0
+    ) {
+        // old way
+        // zval_dtor(return_value);
+        // *return_value = *context_object->pattern;
+        // zval_copy_ctor(return_value);
 
-            // old way
-            //            zval_dtor(return_value);
-            //            *return_value = *context_object->pattern;
-            //            zval_copy_ctor(return_value);
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->pattern);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        pattern = cairo_get_source(context_object->context);
+        php_cairo_throw_exception(cairo_status(context_object->context));
 
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->pattern);
-
-        /* Otherwise we spawn a new object */
-    } else {
-            pattern = cairo_get_source(context_object->context);
-            php_cairo_throw_exception(cairo_status(context_object->context));
-
-            object_init_ex(return_value, php_cairo_get_pattern_ce(pattern));
-            pattern_object = Z_CAIRO_PATTERN_P(return_value);
-            pattern_object->pattern = pattern;
-            cairo_pattern_reference(pattern_object->pattern);
+        object_init_ex(return_value, php_cairo_get_pattern_ce(pattern));
+        pattern_object = Z_CAIRO_PATTERN_P(return_value);
+        pattern_object->pattern = pattern;
+        cairo_pattern_reference(pattern_object->pattern);
     }
 }
 /* }}} */
@@ -691,7 +710,7 @@ PHP_METHOD(CairoContext, setDash)
     HashTable *dashes_hash = NULL;
     int i = 0;
 
-    ZEND_PARSE_PARAMETERS_START(1,2)
+    ZEND_PARSE_PARAMETERS_START(1, 2)
         Z_PARAM_ARRAY(dashes)
         Z_PARAM_OPTIONAL
         Z_PARAM_DOUBLE(offset)
@@ -842,7 +861,6 @@ ZEND_END_ARG_INFO()
 PHP_METHOD(CairoContext, setLineCap)
 {
     cairo_context_object *context_object;
-    cairo_line_cap_t linecap;
     zval *linecap_case;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -854,9 +872,10 @@ PHP_METHOD(CairoContext, setLineCap)
         return;
     }
 
-    linecap = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(linecap_case)));
-
-    cairo_set_line_cap(context_object->context, linecap);
+    cairo_set_line_cap(
+        context_object->context,
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(linecap_case)))
+    );
     php_cairo_throw_exception(cairo_status(context_object->context));
 }
 /* }}} */
@@ -866,7 +885,6 @@ PHP_METHOD(CairoContext, setLineCap)
 PHP_METHOD(CairoContext, getLineCap)
 {
     cairo_context_object *context_object;
-    cairo_line_cap_t linecap;
     zval linecap_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
@@ -876,9 +894,10 @@ PHP_METHOD(CairoContext, getLineCap)
         return;
     }
 
-    linecap = cairo_get_line_cap(context_object->context);
-
-    linecap_case = php_enum_from_cairo_c_enum(ce_cairo_linecap, linecap);
+    linecap_case = php_enum_from_cairo_c_enum(
+        ce_cairo_linecap,
+        cairo_get_line_cap(context_object->context)
+    );
 
     if (Z_TYPE(linecap_case) == IS_OBJECT) {
         RETURN_ZVAL(&linecap_case, 1, 1);
@@ -955,7 +974,7 @@ PHP_METHOD(CairoContext, setLineWidth)
     cairo_context_object *context_object;
     double width = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(width)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -997,7 +1016,7 @@ PHP_METHOD(CairoContext, setMiterLimit)
     cairo_context_object *context_object;
     double limit = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(limit)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1095,7 +1114,7 @@ PHP_METHOD(CairoContext, setTolerance)
     cairo_context_object *context_object;
     double tolerance = 0.1;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(tolerance)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1154,7 +1173,7 @@ PHP_METHOD(CairoContext, inClip)
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1344,7 +1363,7 @@ PHP_METHOD(CairoContext, inFill)
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1370,7 +1389,7 @@ PHP_METHOD(CairoContext, mask)
     cairo_context_object *context_object;
     cairo_pattern_object *pattern_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(pattern_zval, ce_cairo_pattern)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1391,7 +1410,7 @@ ZEND_BEGIN_ARG_INFO(CairoContext_maskSurface_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Context::maskSurface(object surface [,float x, float y])
+/* {{{ proto void \Cairo\Context::maskSurface(object surface [, float x, float y])
        A drawing operator that paints the current source using the alpha channel of surface as a mask.
  */
 PHP_METHOD(CairoContext, maskSurface)
@@ -1448,7 +1467,7 @@ PHP_METHOD(CairoContext, paintWithAlpha)
     cairo_context_object *context_object;
     double alpha = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(alpha)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1533,7 +1552,7 @@ PHP_METHOD(CairoContext, inStroke)
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1598,7 +1617,7 @@ PHP_METHOD(CairoContext, translate)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1620,7 +1639,7 @@ PHP_METHOD(CairoContext, scale)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1646,7 +1665,7 @@ PHP_METHOD(CairoContext, rotate)
     double angle = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(angle)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1671,7 +1690,7 @@ PHP_METHOD(CairoContext, transform)
     cairo_context_object *context_object;
     cairo_matrix_object *matrix_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(matrix_zval, ce_cairo_matrix)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1698,7 +1717,7 @@ PHP_METHOD(CairoContext, setMatrix)
     cairo_context_object *context_object;
     cairo_matrix_object *matrix_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(matrix_zval, ce_cairo_matrix)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -1712,10 +1731,11 @@ PHP_METHOD(CairoContext, setMatrix)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a matrix, then we deref and remove it */
-    if (!Z_ISNULL(context_object->matrix) &&
-        !Z_ISUNDEF(context_object->matrix)) {
-            Z_TRY_DELREF(context_object->matrix);
-            ZVAL_UNDEF(&context_object->matrix);
+    if (!Z_ISNULL(context_object->matrix)
+        && !Z_ISUNDEF(context_object->matrix)
+    ) {
+        Z_TRY_DELREF(context_object->matrix);
+        ZVAL_UNDEF(&context_object->matrix);
     }
 
     /* we need to be able to get this zval out later, so ref and store */
@@ -1738,17 +1758,19 @@ PHP_METHOD(CairoContext, getMatrix)
     }
 
     /* If we have a matrix object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->matrix) &&
-        !Z_ISUNDEF(context_object->matrix) &&
-        Z_REFCOUNT(context_object->matrix) > 0) {
+    if (!Z_ISNULL(context_object->matrix)
+        && !Z_ISUNDEF(context_object->matrix)
+        && Z_REFCOUNT(context_object->matrix) > 0
+    ) {
 
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->matrix);
-            /* Otherwise we spawn a new object */
-    } else {
-            object_init_ex(return_value, ce_cairo_matrix);
-            matrix_object = Z_CAIRO_MATRIX_P(return_value);
-            cairo_get_matrix(context_object->context, matrix_object->matrix);
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->matrix);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        object_init_ex(return_value, ce_cairo_matrix);
+        matrix_object = Z_CAIRO_MATRIX_P(return_value);
+        cairo_get_matrix(context_object->context, matrix_object->matrix);
     }
 }
 /* }}} */
@@ -1779,7 +1801,7 @@ PHP_METHOD(CairoContext, userToDevice)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1807,7 +1829,7 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1834,7 +1856,7 @@ PHP_METHOD(CairoContext, deviceToUser)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1860,7 +1882,7 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -1935,7 +1957,7 @@ PHP_METHOD(CairoContext, appendPath)
     cairo_path_object *path_object;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(path_zval, ce_cairo_path)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2151,7 +2173,7 @@ PHP_METHOD(CairoContext, lineTo)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -2173,7 +2195,7 @@ PHP_METHOD(CairoContext, moveTo)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -2234,7 +2256,7 @@ PHP_METHOD(CairoContext, glyphPath)
     HashTable *glyphs_hash = NULL;
     int i = 0;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_ARRAY(php_glyphs)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2282,7 +2304,7 @@ PHP_METHOD(CairoContext, showGlyphs)
     HashTable *glyphs_hash = NULL;
     int i = 0;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_ARRAY(php_glyphs)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2405,7 +2427,7 @@ PHP_METHOD(CairoContext, textPath)
     size_t str_len;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STRING(string, str_len)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2427,7 +2449,7 @@ PHP_METHOD(CairoContext, relCurveTo)
     double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0, x3 = 0.0, y3 = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(6,6)
+    ZEND_PARSE_PARAMETERS_START(6, 6)
         Z_PARAM_DOUBLE(x1)
         Z_PARAM_DOUBLE(y1)
         Z_PARAM_DOUBLE(x2)
@@ -2453,7 +2475,7 @@ PHP_METHOD(CairoContext, relLineTo)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -2475,7 +2497,7 @@ PHP_METHOD(CairoContext, relMoveTo)
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(2,2)
+    ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -2573,7 +2595,7 @@ PHP_METHOD(CairoContext, setFontSize)
     double size;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_DOUBLE(size)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2585,10 +2607,11 @@ PHP_METHOD(CairoContext, setFontSize)
     cairo_set_font_size(context_object->context, size);
 
     /* If there's a font matrix stored, we've just reset it */
-    if (!Z_ISNULL(context_object->font_matrix) &&
-        !Z_ISUNDEF(context_object->font_matrix)) {
-            Z_TRY_DELREF(context_object->font_matrix);
-            ZVAL_UNDEF(&context_object->font_matrix);
+    if (!Z_ISNULL(context_object->font_matrix)
+        && !Z_ISUNDEF(context_object->font_matrix)
+    ) {
+        Z_TRY_DELREF(context_object->font_matrix);
+        ZVAL_UNDEF(&context_object->font_matrix);
     }
 }
 /* }}} */
@@ -2605,7 +2628,7 @@ PHP_METHOD(CairoContext, setFontMatrix)
     cairo_context_object *context_object;
     cairo_matrix_object *matrix_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(matrix_zval, ce_cairo_matrix)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2619,10 +2642,11 @@ PHP_METHOD(CairoContext, setFontMatrix)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a matrix, then we deref and remove it */
-    if (!Z_ISNULL(context_object->font_matrix) &&
-        !Z_ISUNDEF(context_object->font_matrix)) {
-            Z_TRY_DELREF(context_object->font_matrix);
-            ZVAL_UNDEF(&context_object->font_matrix);
+    if (!Z_ISNULL(context_object->font_matrix)
+        && !Z_ISUNDEF(context_object->font_matrix)
+    ) {
+        Z_TRY_DELREF(context_object->font_matrix);
+        ZVAL_UNDEF(&context_object->font_matrix);
     }
 
     /* we need to be able to get this zval out later, so ref and store */
@@ -2645,17 +2669,18 @@ PHP_METHOD(CairoContext, getFontMatrix)
     }
 
     /* If we have a matrix object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->font_matrix) &&
-        !Z_ISUNDEF(context_object->font_matrix) &&
-        Z_REFCOUNT(context_object->font_matrix) > 0) {
-
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->font_matrix);
-            /* Otherwise we spawn a new object */
-    } else {
-            object_init_ex(return_value, ce_cairo_matrix);
-            matrix_object = Z_CAIRO_MATRIX_P(return_value);
-            cairo_get_font_matrix(context_object->context, matrix_object->matrix);
+    if (!Z_ISNULL(context_object->font_matrix)
+        && !Z_ISUNDEF(context_object->font_matrix)
+        && Z_REFCOUNT(context_object->font_matrix) > 0
+    ) {
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->font_matrix);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        object_init_ex(return_value, ce_cairo_matrix);
+        matrix_object = Z_CAIRO_MATRIX_P(return_value);
+        cairo_get_font_matrix(context_object->context, matrix_object->matrix);
     }
 }
 /* }}} */
@@ -2672,7 +2697,7 @@ PHP_METHOD(CairoContext, setFontOptions)
     cairo_context_object *context_object;
     cairo_font_options_object *font_options_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(font_options_zval, ce_cairo_fontoptions)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2686,10 +2711,11 @@ PHP_METHOD(CairoContext, setFontOptions)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a font options, then we deref and remove it */
-    if (!Z_ISNULL(context_object->font_options) &&
-        !Z_ISUNDEF(context_object->font_options)) {
-            Z_TRY_DELREF(context_object->font_options);
-            ZVAL_UNDEF(&context_object->font_options);
+    if (!Z_ISNULL(context_object->font_options)
+        && !Z_ISUNDEF(context_object->font_options)
+    ) {
+        Z_TRY_DELREF(context_object->font_options);
+        ZVAL_UNDEF(&context_object->font_options);
     }
 
     /* we need to be able to get this zval out later, so ref and store */
@@ -2718,17 +2744,18 @@ PHP_METHOD(CairoContext, getFontOptions)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If we have a font face object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->font_options) &&
-        !Z_ISUNDEF(context_object->font_options) &&
-        Z_REFCOUNT(context_object->font_options) > 0) {
-
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->font_options);
-            /* Otherwise we spawn a new object */
-    } else {
-            object_init_ex(return_value, ce_cairo_fontoptions);
-            font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
-            font_options_object->font_options = font_options;
+    if (!Z_ISNULL(context_object->font_options)
+        && !Z_ISUNDEF(context_object->font_options)
+        && Z_REFCOUNT(context_object->font_options) > 0
+    ) {
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->font_options);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        object_init_ex(return_value, ce_cairo_fontoptions);
+        font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
+        font_options_object->font_options = font_options;
     }
 }
 /* }}} */
@@ -2745,7 +2772,7 @@ PHP_METHOD(CairoContext, setFontFace)
     cairo_context_object *context_object;
     cairo_font_face_object *font_face_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(font_face_zval, ce_cairo_fontface)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2759,10 +2786,11 @@ PHP_METHOD(CairoContext, setFontFace)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a font face, then we deref and remove it */
-    if (!Z_ISNULL(context_object->font_face) &&
-        !Z_ISUNDEF(context_object->font_face)) {
-            Z_TRY_DELREF(context_object->font_face);
-            ZVAL_UNDEF(&context_object->font_face);
+    if (!Z_ISNULL(context_object->font_face)
+        && !Z_ISUNDEF(context_object->font_face)
+    ) {
+        Z_TRY_DELREF(context_object->font_face);
+        ZVAL_UNDEF(&context_object->font_face);
     }
 
     /* we need to be able to get this zval out later, so ref and store */
@@ -2786,18 +2814,19 @@ PHP_METHOD(CairoContext, getFontFace)
     }
 
     /* If we have a font face object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->font_face) &&
-        !Z_ISUNDEF(context_object->font_face) &&
-        Z_REFCOUNT(context_object->font_face) > 0) {
-
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->font_face);
-            /* Otherwise we spawn a new object */
-    } else {
-            object_init_ex(return_value, ce_cairo_toyfontface);
-            font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
-            font_face_object->font_face = cairo_get_font_face(context_object->context);
-            cairo_font_face_reference(font_face_object->font_face);
+    if (!Z_ISNULL(context_object->font_face)
+        && !Z_ISUNDEF(context_object->font_face)
+        && Z_REFCOUNT(context_object->font_face) > 0
+    ) {
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->font_face);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        object_init_ex(return_value, ce_cairo_toyfontface);
+        font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
+        font_face_object->font_face = cairo_get_font_face(context_object->context);
+        cairo_font_face_reference(font_face_object->font_face);
     }
 }
 /* }}} */
@@ -2814,7 +2843,7 @@ PHP_METHOD(CairoContext, setScaledFont)
     cairo_context_object *context_object;
     cairo_scaled_font_object *scaled_font_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(scaled_font_zval, ce_cairo_scaled_font)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2828,39 +2857,51 @@ PHP_METHOD(CairoContext, setScaledFont)
     php_cairo_throw_exception(cairo_status(context_object->context));
 
     /* If there's already a font face, font matrix, scaled font, and or font options stored, then we deref and remove them */
-    if (!Z_ISNULL(context_object->font_face) &&
-        !Z_ISUNDEF(context_object->font_face)) {
-            Z_TRY_DELREF(context_object->font_face);
-            ZVAL_UNDEF(&context_object->font_face);
+    if (!Z_ISNULL(context_object->font_face)
+        && !Z_ISUNDEF(context_object->font_face)
+    ) {
+        Z_TRY_DELREF(context_object->font_face);
+        ZVAL_UNDEF(&context_object->font_face);
     }
-    if (!Z_ISNULL(context_object->font_matrix) &&
-        !Z_ISUNDEF(context_object->font_matrix)) {
-            Z_TRY_DELREF(context_object->font_matrix);
-            ZVAL_UNDEF(&context_object->font_matrix);
+
+    if (!Z_ISNULL(context_object->font_matrix)
+        && !Z_ISUNDEF(context_object->font_matrix)
+    ) {
+        Z_TRY_DELREF(context_object->font_matrix);
+        ZVAL_UNDEF(&context_object->font_matrix);
     }
-    if (!Z_ISNULL(context_object->font_options) &&
-        !Z_ISUNDEF(context_object->font_options)) {
-            Z_TRY_DELREF(context_object->font_options);
-            ZVAL_UNDEF(&context_object->font_options);
+
+    if (!Z_ISNULL(context_object->font_options)
+        && !Z_ISUNDEF(context_object->font_options)
+    ) {
+        Z_TRY_DELREF(context_object->font_options);
+        ZVAL_UNDEF(&context_object->font_options);
     }
-    if (!Z_ISNULL(context_object->scaled_font) &&
-        !Z_ISUNDEF(context_object->scaled_font)) {
-            Z_TRY_DELREF(context_object->scaled_font);
-            ZVAL_UNDEF(&context_object->scaled_font);
+
+    if (!Z_ISNULL(context_object->scaled_font)
+        && !Z_ISUNDEF(context_object->scaled_font)
+    ) {
+        Z_TRY_DELREF(context_object->scaled_font);
+        ZVAL_UNDEF(&context_object->scaled_font);
     }
 
     /* if the scaled font has a font_face, matrix, or option zvals stored, move them to context as well and ref again */
-    if (!Z_ISNULL(scaled_font_object->font_face) &&
-        !Z_ISUNDEF(scaled_font_object->font_face)) {
-            ZVAL_COPY(&context_object->font_face, &scaled_font_object->font_face);
+    if (!Z_ISNULL(scaled_font_object->font_face)
+        && !Z_ISUNDEF(scaled_font_object->font_face)
+    ) {
+        ZVAL_COPY(&context_object->font_face, &scaled_font_object->font_face);
     }
-    if (!Z_ISNULL(scaled_font_object->matrix) &&
-        !Z_ISUNDEF(scaled_font_object->matrix)) {
-            ZVAL_COPY(&context_object->font_matrix, &scaled_font_object->matrix);
+
+    if (!Z_ISNULL(scaled_font_object->matrix)
+        && !Z_ISUNDEF(scaled_font_object->matrix)
+    ) {
+        ZVAL_COPY(&context_object->font_matrix, &scaled_font_object->matrix);
     }
-    if (!Z_ISNULL(scaled_font_object->font_options) &&
-        !Z_ISUNDEF(scaled_font_object->font_options)) {
-            ZVAL_COPY(&context_object->font_options, &scaled_font_object->font_options);
+
+    if (!Z_ISNULL(scaled_font_object->font_options)
+        && !Z_ISUNDEF(scaled_font_object->font_options)
+    ) {
+        ZVAL_COPY(&context_object->font_options, &scaled_font_object->font_options);
     }
 
     /* we need to be able to get this zval out later, so ref and store */
@@ -2884,18 +2925,19 @@ PHP_METHOD(CairoContext, getScaledFont)
     }
 
     /* If we have a scaled font object stored, grab that zval to use */
-    if (!Z_ISNULL(context_object->scaled_font) &&
-        !Z_ISUNDEF(context_object->scaled_font) &&
-        Z_REFCOUNT(context_object->scaled_font) > 0) {
-
-            zval_ptr_dtor(return_value);
-            ZVAL_COPY(return_value, &context_object->scaled_font);
-            /* Otherwise we spawn a new object */
-    } else {
-            object_init_ex(return_value, ce_cairo_scaled_font);
-            scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);
-            scaled_font_object->scaled_font = cairo_get_scaled_font(context_object->context);
-            cairo_scaled_font_reference(scaled_font_object->scaled_font);
+    if (!Z_ISNULL(context_object->scaled_font)
+        && !Z_ISUNDEF(context_object->scaled_font)
+        && Z_REFCOUNT(context_object->scaled_font) > 0
+    ) {
+        zval_ptr_dtor(return_value);
+        ZVAL_COPY(return_value, &context_object->scaled_font);
+    }
+    /* Otherwise we spawn a new object */
+    else {
+        object_init_ex(return_value, ce_cairo_scaled_font);
+        scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);
+        scaled_font_object->scaled_font = cairo_get_scaled_font(context_object->context);
+        cairo_scaled_font_reference(scaled_font_object->scaled_font);
     }
 }
 /* }}} */
@@ -2913,7 +2955,7 @@ PHP_METHOD(CairoContext, showText)
     size_t text_len;
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STRING(text, text_len)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -2964,7 +3006,7 @@ PHP_METHOD(CairoContext, getTextExtents)
     cairo_context_object *context_object;
     cairo_text_extents_t extents;
 
-    ZEND_PARSE_PARAMETERS_START(1,1)
+    ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STRING(text, text_len)
     ZEND_PARSE_PARAMETERS_END();
 
@@ -3110,9 +3152,11 @@ PHP_MINIT_FUNCTION(cairo_context)
 {
     zend_class_entry context_ce;
 
-    memcpy(&cairo_context_object_handlers,
+    memcpy(
+        &cairo_context_object_handlers,
         zend_get_std_object_handlers(),
-        sizeof(cairo_context_object_handlers));
+        sizeof(cairo_context_object_handlers)
+    );
 
     /* Context */
     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);
@@ -3125,8 +3169,8 @@ PHP_MINIT_FUNCTION(cairo_context)
     /* FillRule */
     CAIRO_REGISTER_ENUM_LONG("FillRule", ce_cairo_fillrule);
 
-    #define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fillrule, CAIRO_FILL_RULE)
+#define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fillrule, CAIRO_FILL_RULE)
 
     CAIRO_FILLRULE_DECLARE_ENUM_CASE(WINDING);
     CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);
@@ -3134,8 +3178,8 @@ PHP_MINIT_FUNCTION(cairo_context)
     /* LineCap */
     CAIRO_REGISTER_ENUM_LONG("LineCap", ce_cairo_linecap);
 
-    #define CAIRO_LINECAP_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linecap, CAIRO_LINE_CAP)
+#define CAIRO_LINECAP_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linecap, CAIRO_LINE_CAP)
 
     CAIRO_LINECAP_DECLARE_ENUM_CASE(BUTT);
     CAIRO_LINECAP_DECLARE_ENUM_CASE(ROUND);
@@ -3144,8 +3188,8 @@ PHP_MINIT_FUNCTION(cairo_context)
     /* LineJoin */
     CAIRO_REGISTER_ENUM_LONG("LineJoin", ce_cairo_linejoin);
 
-    #define CAIRO_LINEJOIN_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linejoin, CAIRO_LINE_JOIN)
+#define CAIRO_LINEJOIN_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linejoin, CAIRO_LINE_JOIN)
 
     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(MITER);
     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(ROUND);
@@ -3154,8 +3198,8 @@ PHP_MINIT_FUNCTION(cairo_context)
     /* Operator */
     CAIRO_REGISTER_ENUM_LONG("Operator", ce_cairo_operator);
 
-    #define CAIRO_OPERATOR_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_operator, CAIRO_OPERATOR)
+#define CAIRO_OPERATOR_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_operator, CAIRO_OPERATOR)
 
     CAIRO_OPERATOR_DECLARE_ENUM_CASE(CLEAR);
     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOURCE);

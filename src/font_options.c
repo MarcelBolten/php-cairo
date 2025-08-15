@@ -29,7 +29,7 @@ zend_class_entry *ce_cairo_hintstyle;
 zend_class_entry *ce_cairo_hintmetrics;
 zend_class_entry *ce_cairo_antialias;
 
-static zend_object_handlers cairo_font_options_object_handlers; 
+static zend_object_handlers cairo_font_options_object_handlers;
 
 //typedef struct _cairo_font_options_object {
 //	cairo_font_options_t *font_options;
@@ -43,14 +43,14 @@ cairo_font_options_object *cairo_font_options_fetch_object(zend_object *object)
 
 static inline cairo_font_options_object *cairo_font_options_object_get(zval *zv)
 {
-	cairo_font_options_object *object = Z_CAIRO_FONT_OPTIONS_P(zv);
-	if(object->font_options == NULL) {
-		zend_throw_exception_ex(ce_cairo_exception, 0,
-			"Internal font options object missing in %s, you must call parent::__construct in extended classes",
-			ZSTR_VAL(Z_OBJCE_P(zv)->name));
-		return NULL;
-	}
-	return object;
+    cairo_font_options_object *object = Z_CAIRO_FONT_OPTIONS_P(zv);
+    if (object->font_options == NULL) {
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Internal font options object missing in %s, you must call parent::__construct in extended classes",
+            ZSTR_VAL(Z_OBJCE_P(zv)->name));
+        return NULL;
+    }
+    return object;
 }
 
 /* ----------------------------------------------------------------
@@ -62,7 +62,7 @@ static void cairo_font_options_free_obj(zend_object *object)
 {
     cairo_font_options_object *intern = cairo_font_options_fetch_object(object);
 
-    if(!intern) {
+    if (!intern) {
             return;
     }
 
@@ -77,26 +77,26 @@ static void cairo_font_options_free_obj(zend_object *object)
 /* {{{ */
 static zend_object* cairo_font_options_obj_ctor(zend_class_entry *ce, cairo_font_options_object **intern)
 {
-	cairo_font_options_object *object = ecalloc(1, sizeof(cairo_font_options_object) + zend_object_properties_size(ce));
-        
-        object->font_options = NULL;
-        
-	zend_object_std_init(&object->std, ce);
-	object->std.handlers = &cairo_font_options_object_handlers;
-	*intern = object;
+    cairo_font_options_object *object = ecalloc(1, sizeof(cairo_font_options_object) + zend_object_properties_size(ce));
 
-	return &object->std;
+        object->font_options = NULL;
+
+    zend_object_std_init(&object->std, ce);
+    object->std.handlers = &cairo_font_options_object_handlers;
+    *intern = object;
+
+    return &object->std;
 }
 /* }}} */
 
 /* {{{ */
 static zend_object* cairo_font_options_create_object(zend_class_entry *ce)
 {
-	cairo_font_options_object *font_options_obj = NULL;
-	zend_object *return_value = cairo_font_options_obj_ctor(ce, &font_options_obj);
+    cairo_font_options_object *font_options_obj = NULL;
+    zend_object *return_value = cairo_font_options_obj_ctor(ce, &font_options_obj);
 
-	object_properties_init(&(font_options_obj->std), ce);
-	return return_value;
+    object_properties_init(&(font_options_obj->std), ce);
+    return return_value;
 }
 /* }}} */
 
@@ -107,15 +107,15 @@ static zend_object* cairo_font_options_create_object(zend_class_entry *ce)
 /* {{{ */
 zend_class_entry * php_cairo_get_fontoptions_ce()
 {
-	return ce_cairo_fontoptions;
+    return ce_cairo_fontoptions;
 }
 /* }}} */
 
 /* {{{ */
 cairo_font_options_t *cairo_font_options_object_get_font_options(zval *zv)
 {
-	cairo_font_options_object *font_options_object = Z_CAIRO_FONT_OPTIONS_P(zv);
-	return font_options_object->font_options;
+    cairo_font_options_object *font_options_object = Z_CAIRO_FONT_OPTIONS_P(zv);
+    return font_options_object->font_options;
 }
 /* }}} */
 
@@ -123,21 +123,21 @@ cairo_font_options_t *cairo_font_options_object_get_font_options(zval *zv)
 /* ----------------------------------------------------------------
     Cairo\FontOptions Class API
 ------------------------------------------------------------------*/
-/* {{{ proto void __contruct(void) 
+/* {{{ proto void __contruct(void)
        Creates a new \Cairo\FontOptions object with all options initialized to default values.*/
-PHP_METHOD(CairoFontOptions, __construct) 
+PHP_METHOD(CairoFontOptions, __construct)
 {
-        cairo_font_options_object *font_options_object;
+    cairo_font_options_object *font_options_object;
 
-        ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        font_options_object = Z_CAIRO_FONT_OPTIONS_P(getThis());
-	if(!font_options_object) {
-            return;
-        }
-    
-        font_options_object->font_options = cairo_font_options_create();
-        php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    font_options_object = Z_CAIRO_FONT_OPTIONS_P(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    font_options_object->font_options = cairo_font_options_create();
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
@@ -169,51 +169,51 @@ PHP_METHOD(CairoFontOptions, getStatus)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoFontOptions_fontoptions_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_OBJ_INFO(0, other, Cairo\\FontOptions, 0)
-	//ZEND_ARG_INFO(0, other)
+    ZEND_ARG_OBJ_INFO(0, other, Cairo\\FontOptions, 0)
+    //ZEND_ARG_INFO(0, other)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\FontOptions::merge(\Cairo\FontOptions other)
         Merges non-default options from other into options, replacing existing values.*/
 PHP_METHOD(CairoFontOptions, merge)
 {
-	zval *other_zval = NULL;
-	cairo_font_options_object *options_object, *other_object;
-	
-        ZEND_PARSE_PARAMETERS_START(1,1)
-            Z_PARAM_OBJECT_OF_CLASS(other_zval, ce_cairo_fontoptions)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        options_object = cairo_font_options_object_get(getThis());
-	if(!options_object) {
-            return;
-        }
-        
-	other_object = cairo_font_options_object_get(other_zval);
-	if(!other_object) {
-            return;
-        }
-        
-	cairo_font_options_merge(options_object->font_options, other_object->font_options);
-	php_cairo_throw_exception(cairo_font_options_status(options_object->font_options));
+    zval *other_zval = NULL;
+    cairo_font_options_object *options_object, *other_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(other_zval, ce_cairo_fontoptions)
+    ZEND_PARSE_PARAMETERS_END();
+
+    options_object = cairo_font_options_object_get(getThis());
+    if (!options_object) {
+        return;
+    }
+
+    other_object = cairo_font_options_object_get(other_zval);
+    if (!other_object) {
+        return;
+    }
+
+    cairo_font_options_merge(options_object->font_options, other_object->font_options);
+    php_cairo_throw_exception(cairo_font_options_status(options_object->font_options));
 }
 /* }}} */
 
 
 /* {{{ proto long \Cairo\FontOptions::hash(void)
         Compute a hash for the font options object.*/
-PHP_METHOD(CairoFontOptions, hash) 
+PHP_METHOD(CairoFontOptions, hash)
 {
-	cairo_font_options_object *font_options_object;
+    cairo_font_options_object *font_options_object;
 
-        ZEND_PARSE_PARAMETERS_NONE();
-        
-	font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
-	
-	RETURN_LONG(cairo_font_options_hash(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    RETURN_LONG(cairo_font_options_hash(font_options_object->font_options));
 }
 /* }}} */
 
@@ -222,24 +222,24 @@ PHP_METHOD(CairoFontOptions, hash)
         Compares two font options objects for equality.*/
 PHP_METHOD(CairoFontOptions, equal)
 {
-	zval *other_zval = NULL;
-	cairo_font_options_object *options_object_a, *options_object_b;
-	
-        ZEND_PARSE_PARAMETERS_START(1,1)
-            Z_PARAM_OBJECT_OF_CLASS(other_zval, ce_cairo_fontoptions)
-        ZEND_PARSE_PARAMETERS_END();
-        
-        options_object_a = cairo_font_options_object_get(getThis());
-	if(!options_object_a) {
-            return;
-        }
-        
-	options_object_b = cairo_font_options_object_get(other_zval);
-	if(!options_object_b) {
-            return;
-        }
-        
-	RETURN_BOOL(cairo_font_options_equal(options_object_a->font_options, options_object_b->font_options));
+    zval *other_zval = NULL;
+    cairo_font_options_object *options_object_a, *options_object_b;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(other_zval, ce_cairo_fontoptions)
+    ZEND_PARSE_PARAMETERS_END();
+
+    options_object_a = cairo_font_options_object_get(getThis());
+    if (!options_object_a) {
+        return;
+    }
+
+    options_object_b = cairo_font_options_object_get(other_zval);
+    if (!options_object_b) {
+        return;
+    }
+
+    RETURN_BOOL(cairo_font_options_equal(options_object_a->font_options, options_object_b->font_options));
 }
 /* }}} */
 
@@ -477,7 +477,7 @@ PHP_METHOD(CairoFontOptions, getHintMetrics)
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 
 ZEND_BEGIN_ARG_INFO(CairoFontOptions_setVariations_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, variations)
+    ZEND_ARG_INFO(0, variations)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\FontOptions::setVariations(string variations)
@@ -487,21 +487,21 @@ ZEND_END_ARG_INFO()
        4-character axis name and a value, separated by whitespace and optional equals sign. */
 PHP_METHOD(CairoFontOptions, setVariations)
 {
-	cairo_font_options_object *font_options_object;
+    cairo_font_options_object *font_options_object;
         char *variations;
         size_t variations_len;
-        
-        ZEND_PARSE_PARAMETERS_START(1,1)
+
+        ZEND_PARSE_PARAMETERS_START(1, 1)
                 Z_PARAM_STRING(variations, variations_len)
         ZEND_PARSE_PARAMETERS_END();
-        
+
         font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
+    if (!font_options_object) {
             return;
         }
 
-	cairo_font_options_set_variations(font_options_object->font_options, (const char *)variations);
-	php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
+    cairo_font_options_set_variations(font_options_object->font_options, (const char *)variations);
+    php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options));
 }
 /* }}} */
 
@@ -511,16 +511,16 @@ PHP_METHOD(CairoFontOptions, setVariations)
        The returned string belongs to the options and must not be modified. */
 PHP_METHOD(CairoFontOptions, getVariations)
 {
-	cairo_font_options_object *font_options_object;
-        
-        ZEND_PARSE_PARAMETERS_NONE();
-        
-        font_options_object = cairo_font_options_object_get(getThis());
-	if(!font_options_object) {
-            return;
-        }
+    cairo_font_options_object *font_options_object;
 
-	RETURN_STRING(cairo_font_options_get_variations(font_options_object->font_options));
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        return;
+    }
+
+    RETURN_STRING(cairo_font_options_get_variations(font_options_object->font_options));
 }
 /* }}} */
 #endif
@@ -535,24 +535,24 @@ ZEND_END_ARG_INFO()
 
 /* {{{ cairo_pattern_methods[] */
 static const zend_function_entry cairo_font_options_methods[] = {
-        PHP_ME(CairoFontOptions, __construct, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	PHP_ME(CairoFontOptions, getStatus, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, merge, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, hash, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, equal, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, setAntialias, CairoFontOptions_setAntialias_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, getAntialias, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, setSubpixelOrder, CairoFontOptions_setSubpixelOrder_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, getSubpixelOrder, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, setHintStyle, CairoFontOptions_setHintStyle_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, getHintStyle, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, setHintMetrics, CairoFontOptions_setHintMetrics_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, getHintMetrics, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, __construct, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(CairoFontOptions, getStatus, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, merge, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, hash, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, equal, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, setAntialias, CairoFontOptions_setAntialias_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, getAntialias, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, setSubpixelOrder, CairoFontOptions_setSubpixelOrder_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, getSubpixelOrder, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, setHintStyle, CairoFontOptions_setHintStyle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, getHintStyle, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, setHintMetrics, CairoFontOptions_setHintMetrics_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, getHintMetrics, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-	PHP_ME(CairoFontOptions, setVariations, CairoFontOptions_setVariations_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoFontOptions, getVariations, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, setVariations, CairoFontOptions_setVariations_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoFontOptions, getVariations, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
 #endif
-	ZEND_FE_END
+    ZEND_FE_END
 };
 /* }}} */
 

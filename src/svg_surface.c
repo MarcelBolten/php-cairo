@@ -35,58 +35,59 @@ zend_class_entry *ce_cairo_svgunit;
 ------------------------------------------------------------------*/
 
 ZEND_BEGIN_ARG_INFO(CairoSvgSurface___construct_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, file)
-	ZEND_ARG_INFO(0, width)
-	ZEND_ARG_INFO(0, height)
+    ZEND_ARG_INFO(0, file)
+    ZEND_ARG_INFO(0, width)
+    ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void __construct(string|resource file, float width, float height) 
+/* {{{ proto void __construct(string|resource file, float width, float height)
        Creates a SVG surface of the specified size in points to be written to filename. */
 PHP_METHOD(CairoSvgSurface, __construct)
 {
-	zval *stream_zval = NULL;
-	stream_closure *closure;
-	php_stream *stream = NULL;
-	double width, height;
-	zend_bool owned_stream = 0;
-	cairo_surface_object *surface_object;
+    zval *stream_zval = NULL;
+    stream_closure *closure;
+    php_stream *stream = NULL;
+    double width, height;
+    zend_bool owned_stream = 0;
+    cairo_surface_object *surface_object;
 
-        ZEND_PARSE_PARAMETERS_START(3,3)
-                Z_PARAM_ZVAL(stream_zval)
-                Z_PARAM_DOUBLE(width)
-                Z_PARAM_DOUBLE(height)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(3, 3)
+        Z_PARAM_ZVAL(stream_zval)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
+    ZEND_PARSE_PARAMETERS_END();
 
-	surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
             return;
         }
 
-	/* special case - a NULL file is like an "in memory" svg */
-	if(Z_TYPE_P(stream_zval) == IS_NULL) {
-		surface_object->surface = cairo_svg_surface_create(NULL, width, height);
-	/* Otherwise it can be a filename or a PHP stream */
-	} else {
-		if(Z_TYPE_P(stream_zval) == IS_STRING) {
-			stream = php_stream_open_wrapper(Z_STRVAL_P(stream_zval), "w+b", REPORT_ERRORS, NULL);
-			owned_stream = 1;
-		} else if(Z_TYPE_P(stream_zval) == IS_RESOURCE) {
-			php_stream_from_zval(stream, stream_zval);	
-		} else {
-			zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Svg::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
-			return;
-		}
+    /* special case - a NULL file is like an "in memory" svg */
+    if (Z_TYPE_P(stream_zval) == IS_NULL) {
+        surface_object->surface = cairo_svg_surface_create(NULL, width, height);
+    }
+    /* Otherwise it can be a filename or a PHP stream */
+    else {
+        if (Z_TYPE_P(stream_zval) == IS_STRING) {
+            stream = php_stream_open_wrapper(Z_STRVAL_P(stream_zval), "w+b", REPORT_ERRORS, NULL);
+            owned_stream = 1;
+        } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE) {
+            php_stream_from_zval(stream, stream_zval);
+        } else {
+            zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Svg::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
+            return;
+        }
 
-		/* Pack stream into struct */
-		closure = ecalloc(1, sizeof(stream_closure));
-		closure->stream = stream;
-		closure->owned_stream = owned_stream;
-                
-		surface_object->closure = closure;
-		surface_object->surface = cairo_svg_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
-	}
+        /* Pack stream into struct */
+        closure = ecalloc(1, sizeof(stream_closure));
+        closure->stream = stream;
+        closure->owned_stream = owned_stream;
 
-	php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+        surface_object->closure = closure;
+        surface_object->surface = cairo_svg_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
+    }
+
+    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */
 
@@ -225,15 +226,15 @@ PHP_METHOD(CairoSvgSurface, getDocumentUnit)
 
 /* {{{ cairo_svg_surface_methods[] */
 static const zend_function_entry cairo_svg_surface_methods[] = {
-	PHP_ME(CairoSvgSurface, __construct, CairoSvgSurface___construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	PHP_ME(CairoSvgSurface, restrictToVersion, CairoSvgSurface_restrictToVersion_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoSvgSurface, versionToString, CairoSvgSurface_versionToString_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-	PHP_ME(CairoSvgSurface, getVersions, CairoSvgSurface_method_no_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+    PHP_ME(CairoSvgSurface, __construct, CairoSvgSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(CairoSvgSurface, restrictToVersion, CairoSvgSurface_restrictToVersion_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoSvgSurface, versionToString, CairoSvgSurface_versionToString_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+    PHP_ME(CairoSvgSurface, getVersions, CairoSvgSurface_method_no_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-	PHP_ME(CairoSvgSurface, setDocumentUnit, CairoSvgSurface_setDocumentUnit_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoSvgSurface, getDocumentUnit, CairoSvgSurface_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoSvgSurface, setDocumentUnit, CairoSvgSurface_setDocumentUnit_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoSvgSurface, getDocumentUnit, CairoSvgSurface_method_no_args, ZEND_ACC_PUBLIC)
 #endif
-	ZEND_FE_END
+    ZEND_FE_END
 };
 /* }}} */
 

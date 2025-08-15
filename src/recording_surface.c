@@ -27,34 +27,34 @@
 
 zend_class_entry *ce_cairo_recordingsurface;
 
-static double php_cairo_get_double_from_array(zval *val, const char *name) 
+static double php_cairo_get_double_from_array(zval *val, const char *name)
 {
-	zval *tmp;
-        
-        //zend_string *key = zend_string_init_fast(name, strlen(name));
-        //tmp = zend_hash_find(Z_ARR_P(val), key);
-        tmp = zend_hash_str_find(Z_ARRVAL_P(val), name, strlen(name));
-	if (tmp != NULL) {
-		if (Z_TYPE_P(tmp) != IS_DOUBLE) {
-			convert_to_double(tmp);
-		}
+    zval *tmp;
 
-		return Z_DVAL_P(tmp);
-	} else {
-		zend_error(E_WARNING, "Key '%s' does not exist", name);
-	}
-	return 0;
+    //zend_string *key = zend_string_init_fast(name, strlen(name));
+    //tmp = zend_hash_find(Z_ARR_P(val), key);
+    tmp = zend_hash_str_find(Z_ARRVAL_P(val), name, strlen(name));
+    if (tmp != NULL) {
+        if (Z_TYPE_P(tmp) != IS_DOUBLE) {
+            convert_to_double(tmp);
+        }
+
+        return Z_DVAL_P(tmp);
+    } else {
+        zend_error(E_WARNING, "Key '%s' does not exist", name);
+    }
+    return 0;
 }
 
-static cairo_rectangle_t *php_cairo_make_rectangle(zval *val) 
+static cairo_rectangle_t *php_cairo_make_rectangle(zval *val)
 {
-	cairo_rectangle_t *rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
+    cairo_rectangle_t *rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
 
-	rectangle->x = php_cairo_get_double_from_array(val, "x");
-	rectangle->y = php_cairo_get_double_from_array(val, "y");
-	rectangle->width = php_cairo_get_double_from_array(val, "width");
-	rectangle->height = php_cairo_get_double_from_array(val, "height");
-	return rectangle;
+    rectangle->x = php_cairo_get_double_from_array(val, "x");
+    rectangle->y = php_cairo_get_double_from_array(val, "y");
+    rectangle->width = php_cairo_get_double_from_array(val, "width");
+    rectangle->height = php_cairo_get_double_from_array(val, "height");
+    return rectangle;
 }
 
 /* ----------------------------------------------------------------
@@ -114,22 +114,22 @@ ZEND_END_ARG_INFO()
        Returns array(x, y, width, height) */
 PHP_METHOD(CairoRecordingSurface, inkExtents)
 {
-	cairo_surface_object *surface_object;
-	double x, y, width, height;
-        
-        ZEND_PARSE_PARAMETERS_NONE();
+    cairo_surface_object *surface_object;
+    double x, y, width, height;
 
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-	cairo_recording_surface_ink_extents(surface_object->surface, &x, &y, &width, &height);
-	array_init(return_value);
-	add_assoc_double(return_value, "x", x);
-	add_assoc_double(return_value, "y", y);
-	add_assoc_double(return_value, "width", width);
-	add_assoc_double(return_value, "height", height);
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    cairo_recording_surface_ink_extents(surface_object->surface, &x, &y, &width, &height);
+    array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
+    add_assoc_double(return_value, "width", width);
+    add_assoc_double(return_value, "height", height);
 }
 /* }}} */
 
@@ -139,30 +139,30 @@ PHP_METHOD(CairoRecordingSurface, inkExtents)
        Returns \Cairo\Rectangle if the surface is bounded and not in an error state, otherwise FALSE */
 PHP_METHOD(CairoRecordingSurface, getExtents)
 {
-	cairo_surface_object *surface_object;
-        cairo_rectangle_object *rectangle_object;
+    cairo_surface_object *surface_object;
+    cairo_rectangle_object *rectangle_object;
         cairo_rectangle_t *rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
-        
-        ZEND_PARSE_PARAMETERS_NONE();
 
-        surface_object = Z_CAIRO_SURFACE_P(getThis());
-	if(!surface_object) {
-            return;
-        }
-        
-        if (cairo_recording_surface_get_extents(surface_object->surface, rectangle) == IS_FALSE) {
-            efree(rectangle);
-            //php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
-            RETURN_FALSE;
-        }
-        
-        object_init_ex(return_value, ce_cairo_rectangle);
-        rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-        rectangle_object->rect->x = rectangle->x;
-        rectangle_object->rect->y = rectangle->y;
-        rectangle_object->rect->width = rectangle->width;
-        rectangle_object->rect->height = rectangle->height;
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    if (!surface_object) {
+        return;
+    }
+
+    if (cairo_recording_surface_get_extents(surface_object->surface, rectangle) == IS_FALSE) {
         efree(rectangle);
+        //php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+        RETURN_FALSE;
+    }
+
+    object_init_ex(return_value, ce_cairo_rectangle);
+    rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
+    rectangle_object->rect->x = rectangle->x;
+    rectangle_object->rect->y = rectangle->y;
+    rectangle_object->rect->width = rectangle->width;
+    rectangle_object->rect->height = rectangle->height;
+    efree(rectangle);
 }
 /* }}} */
 
@@ -182,12 +182,12 @@ const zend_function_entry cairo_recording_surface_methods[] = {
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_recording_surface)
 {
-	zend_class_entry ce;
-        
-        INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Recording"), cairo_recording_surface_methods);
-	ce_cairo_recordingsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+    zend_class_entry ce;
 
-	return SUCCESS;
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Recording"), cairo_recording_surface_methods);
+    ce_cairo_recordingsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+
+    return SUCCESS;
 }
 
 #endif

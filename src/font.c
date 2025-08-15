@@ -74,21 +74,21 @@ PHP_METHOD(CairoToyFontFace, __construct)
     php_cairo_throw_exception(cairo_font_face_status(fontface_object->font_face));
 }
 
-
 /* {{{ proto string \Cairo\FontFace\Toy::getFamily()
         Gets the family name of a toy font. */
 PHP_METHOD(CairoToyFontFace, getFamily)
 {
-	cairo_font_face_object *font_face_object;
+    cairo_font_face_object *font_face_object;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
-	if(!font_face_object) {
-            return;
-        }
-        
-	RETURN_STRING(cairo_toy_font_face_get_family(font_face_object->font_face));
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object)
+    {
+        return;
+    }
+
+    RETURN_STRING(cairo_toy_font_face_get_family(font_face_object->font_face));
 }
 /* }}} */
 
@@ -157,11 +157,11 @@ ZEND_END_ARG_INFO()
 
 /* {{{ cairo_toy_font_face_methods */
 static const zend_function_entry cairo_toy_font_face_methods[] = {
-	PHP_ME(CairoToyFontFace, __construct, CairoToyFontFace___construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	PHP_ME(CairoToyFontFace, getFamily, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoToyFontFace, getSlant, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-	PHP_ME(CairoToyFontFace, getWeight, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-	ZEND_FE_END
+    PHP_ME(CairoToyFontFace, __construct, CairoToyFontFace___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(CairoToyFontFace, getFamily, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoToyFontFace, getSlant, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoToyFontFace, getWeight, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
+    ZEND_FE_END
 };
 /* }}} */
 
@@ -194,4 +194,3 @@ PHP_MINIT_FUNCTION(cairo_font)
     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(BOLD);
 }
 /* }}} */
-

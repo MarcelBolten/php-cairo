@@ -212,19 +212,19 @@ PHP_METHOD(CairoRegion, getStatus)
    Gets the bounding rectangle of a region. Returns a \Cairo\Rectangle. */
 PHP_METHOD(CairoRegion, getExtents)
 {
-	cairo_region_object *region_object;
-        cairo_rectangle_object *rectangle_object;
+    cairo_region_object *region_object;
+    cairo_rectangle_object *rectangle_object;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
 
-        object_init_ex(return_value, ce_cairo_rectangle);
-        rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-        cairo_region_get_extents(region_object->region, rectangle_object->rect);
+    object_init_ex(return_value, ce_cairo_rectangle);
+    rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
+    cairo_region_get_extents(region_object->region, rectangle_object->rect);
 }
 /* }}} */
 
@@ -232,47 +232,47 @@ PHP_METHOD(CairoRegion, getExtents)
    Returns the number of rectangles contained in region. */
 PHP_METHOD(CairoRegion, getNumRectangles)
 {
-	cairo_region_object *region_object;
+    cairo_region_object *region_object;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
-        
-        RETVAL_LONG( cairo_region_num_rectangles(region_object->region) );
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
+
+    RETVAL_LONG(cairo_region_num_rectangles(region_object->region));
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoRegion_getRectangle_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, number)
+    ZEND_ARG_INFO(0, number)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto long \Cairo\Region::getRectangle(int number).
    Returns the nth rectangle in region or false if rectangle does not exist. */
 PHP_METHOD(CairoRegion, getRectangle)
 {
-        long rectId;
-	cairo_region_object *region_object;
-        cairo_rectangle_object *rectangle_object;
+    long rectId;
+    cairo_region_object *region_object;
+    cairo_rectangle_object *rectangle_object;
 
-	ZEND_PARSE_PARAMETERS_START(1,1)
-                Z_PARAM_LONG(rectId)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_LONG(rectId)
+    ZEND_PARSE_PARAMETERS_END();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
-        
-        if (rectId > cairo_region_num_rectangles(region_object->region) ) {
-            RETURN_FALSE;
-        }
-        
-        object_init_ex(return_value, ce_cairo_rectangle);
-        rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-        cairo_region_get_rectangle(region_object->region, --rectId, rectangle_object->rect);
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
+
+    if (rectId > cairo_region_num_rectangles(region_object->region)) {
+        RETURN_FALSE;
+    }
+
+    object_init_ex(return_value, ce_cairo_rectangle);
+    rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
+    cairo_region_get_rectangle(region_object->region, --rectId, rectangle_object->rect);
 }
 /* }}} */
 
@@ -280,42 +280,42 @@ PHP_METHOD(CairoRegion, getRectangle)
    Checks whether region is empty. Returns TRUE if region is empty, FALSE if it isn't. */
 PHP_METHOD(CairoRegion, isEmpty)
 {
-	cairo_region_object *region_object;
+    cairo_region_object *region_object;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+    ZEND_PARSE_PARAMETERS_NONE();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
-        
-        RETVAL_BOOL( cairo_region_is_empty(region_object->region) );
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
+
+    RETVAL_BOOL(cairo_region_is_empty(region_object->region));
 }
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoRegion_containsPoint_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, x)
-	ZEND_ARG_INFO(0, y)
+    ZEND_ARG_INFO(0, x)
+    ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto long \Cairo\Region::containsPoint(long x, long y)
-   Checks whether (x , y ) is contained in region. Returns TRUE if (x , y ) is contained in region , FALSE if it is not. */
+   Checks whether (x , y) is contained in region. Returns TRUE if (x , y) is contained in region , FALSE if it is not. */
 PHP_METHOD(CairoRegion, containsPoint)
 {
-        long x, y;
-	cairo_region_object *region_object;
+    long x, y;
+    cairo_region_object *region_object;
 
-	ZEND_PARSE_PARAMETERS_START(2,2)
-                Z_PARAM_LONG(x)
-                Z_PARAM_LONG(y)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_LONG(x)
+        Z_PARAM_LONG(y)
+    ZEND_PARSE_PARAMETERS_END();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
-        
-        RETVAL_BOOL( cairo_region_contains_point(region_object->region, x, y) );
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
+
+    RETVAL_BOOL(cairo_region_contains_point(region_object->region, x, y));
 }
 /* }}} */
 
@@ -392,29 +392,29 @@ PHP_METHOD(CairoRegion, equal)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoRegion_translate_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_INFO(0, dx)
-	ZEND_ARG_INFO(0, dy)
+    ZEND_ARG_INFO(0, dx)
+    ZEND_ARG_INFO(0, dy)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto long \Cairo\Region::translate(long dx, long dy)
-   Translates region by (dx , dy ). */
+   Translates region by (dx , dy). */
 PHP_METHOD(CairoRegion, translate)
 {
-        double dx, dy;
-	cairo_region_object *region_object;
+    double dx, dy;
+    cairo_region_object *region_object;
 
-	ZEND_PARSE_PARAMETERS_START(2,2)
-                Z_PARAM_DOUBLE(dx)
-                Z_PARAM_DOUBLE(dy)
-        ZEND_PARSE_PARAMETERS_END();
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_DOUBLE(dx)
+        Z_PARAM_DOUBLE(dy)
+    ZEND_PARSE_PARAMETERS_END();
 
-        region_object = cairo_region_object_get(getThis());
-	if (!region_object) {
-            return;
-        }
-        
-        cairo_region_translate(region_object->region, (int)dx, (int)dy);
-        php_cairo_throw_exception(cairo_region_status(region_object->region));
+    region_object = cairo_region_object_get(getThis());
+    if (!region_object) {
+        return;
+    }
+
+    cairo_region_translate(region_object->region, (int)dx, (int)dy);
+    php_cairo_throw_exception(cairo_region_status(region_object->region));
 }
 /* }}} */
 
@@ -733,28 +733,28 @@ PHP_METHOD(CairoRegion, xorRectangle)
 
 ZEND_BEGIN_ARG_INFO(CairoRegion_method_no_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
-        
+
 /* {{{ cairo_region_methods[] */
 const zend_function_entry cairo_region_methods[] = {
-	PHP_ME(CairoRegion, __construct, CairoRegion___construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-        PHP_ME(CairoRegion, getStatus, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, getExtents, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, getNumRectangles, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, getRectangle, CairoRegion_getRectangle_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, isEmpty, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, containsPoint, CairoRegion_containsPoint_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, containsRectangle, CairoRegion_containsRectangle_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, equal, CairoRegion_equal_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, translate, CairoRegion_translate_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, intersect, CairoRegion_intersect_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, intersectRectangle, CairoRegion_intersectRectangle_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, subtract, CairoRegion_subtract_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, subtractRectangle, CairoRegion_subtractRectangle_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, union, CairoRegion_union_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, unionRectangle, CairoRegion_unionRectangle_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, xor, CairoRegion_xor_args, ZEND_ACC_PUBLIC)
-        PHP_ME(CairoRegion, xorRectangle, CairoRegion_xorRectangle_args, ZEND_ACC_PUBLIC)
-	ZEND_FE_END
+    PHP_ME(CairoRegion, __construct, CairoRegion___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(CairoRegion, getStatus, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, getExtents, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, getNumRectangles, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, getRectangle, CairoRegion_getRectangle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, isEmpty, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, containsPoint, CairoRegion_containsPoint_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, containsRectangle, CairoRegion_containsRectangle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, equal, CairoRegion_equal_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, translate, CairoRegion_translate_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, intersect, CairoRegion_intersect_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, intersectRectangle, CairoRegion_intersectRectangle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, subtract, CairoRegion_subtract_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, subtractRectangle, CairoRegion_subtractRectangle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, union, CairoRegion_union_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, unionRectangle, CairoRegion_unionRectangle_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, xor, CairoRegion_xor_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoRegion, xorRectangle, CairoRegion_xorRectangle_args, ZEND_ACC_PUBLIC)
+    ZEND_FE_END
 };
 /* }}} */
 

@@ -27,7 +27,7 @@
 zend_class_entry *ce_cairo_path;
 zend_class_entry *ce_cairo_path_datatype;
 
-static zend_object_handlers cairo_path_object_handlers; 
+static zend_object_handlers cairo_path_object_handlers;
 
 cairo_path_object *cairo_path_fetch_object(zend_object *object)
 {
@@ -37,7 +37,7 @@ cairo_path_object *cairo_path_fetch_object(zend_object *object)
 static inline cairo_path_object *cairo_path_object_get(zval *zv)
 {
 	cairo_path_object *object = Z_CAIRO_PATH_P(zv);
-	if(object->path == NULL) {
+	if (object->path == NULL) {
 		zend_throw_exception_ex(ce_cairo_exception, 0,
 			"Internal path object missing in %s, you must call parent::__construct in extended classes",
 			ZSTR_VAL(Z_OBJCE_P(zv)->name));
@@ -55,12 +55,12 @@ static void cairo_path_free_obj(zend_object *object)
 {
     cairo_path_object *intern = cairo_path_fetch_object(object);
 
-    if(!intern) {
-            return;
+    if (!intern) {
+        return;
     }
 
     if (intern->path) {
-            cairo_path_destroy(intern->path);
+        cairo_path_destroy(intern->path);
     }
     intern->path = NULL;
 
@@ -71,9 +71,9 @@ static void cairo_path_free_obj(zend_object *object)
 static zend_object* cairo_path_obj_ctor(zend_class_entry *ce, cairo_path_object **intern)
 {
 	cairo_path_object *object = ecalloc(1, sizeof(cairo_path_object) + zend_object_properties_size(ce));
-        
-        object->path = NULL;
-        
+
+    object->path = NULL;
+
 	zend_object_std_init(&object->std, ce);
 	object->std.handlers = &cairo_path_object_handlers;
 	*intern = object;

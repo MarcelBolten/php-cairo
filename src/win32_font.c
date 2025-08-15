@@ -29,7 +29,7 @@
 #include <Wingdi.h>
 #include <cairo/cairo-win32.h>
 
-/** Not sure why these are not being defined in Wingdi.h 
+/** Not sure why these are not being defined in Wingdi.h
     Must investigate */
 #ifndef CLEARTYPE_QUALITY
 # define CLEARTYPE_QUALITY 5
@@ -48,7 +48,7 @@
     } \
     else \
         lfont.##name = defaultval;
-        
+
 /** Same as before but casts return to BYTE */
 #define LFONT_FIND_LONGB(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
@@ -59,7 +59,7 @@
     } \
     else \
         lfont.##name = (BYTE)defaultval;
-            
+
 #define LFONT_FIND_BOOL(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_TRUE && Z_TYPE_P(tmp) != IS_FALSE) \
@@ -99,11 +99,11 @@ PHP_METHOD(CairoWin32FontFace, __construct)
     HFONT       hfont;
     zval        *font_options = NULL;
     zval        *tmp;
-    //char        *font_name = NULL;          
-    
-    ZEND_PARSE_PARAMETERS_START(1,1)
-            Z_PARAM_OPTIONAL
-            Z_PARAM_ARRAY(font_options)
+    //char        *font_name = NULL;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_ARRAY(font_options)
     ZEND_PARSE_PARAMETERS_END();
 
     if (font_options) {
@@ -147,10 +147,10 @@ PHP_METHOD(CairoWin32FontFace, __construct)
         lfont.lfQuality = DEFAULT_QUALITY;
         lfont.lfPitchAndFamily = FIXED_PITCH | FF_DONTCARE;
         lstrcpy(lfont.lfFaceName, "");
-    }    
+    }
 
     hfont = CreateFontIndirect(&lfont);
-    
+
     font_face = Z_CAIRO_FONT_FACE_P(getThis());
     font_face->font_face = cairo_win32_font_face_create_for_hfont(hfont);
 
@@ -295,4 +295,3 @@ PHP_MINIT_FUNCTION(cairo_win32_font)
  * vim600: noet sw=4 ts=4 fdm=marker
  * vim<600: noet sw=4 ts=4
  */
- 

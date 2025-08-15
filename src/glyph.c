@@ -24,42 +24,42 @@
 
 zend_class_entry *ce_cairo_glyph;
 
-static zend_object_handlers cairo_glyph_object_handlers; 
+static zend_object_handlers cairo_glyph_object_handlers;
 
 cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)
 {
-	return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));
+    return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));
 }
 
 /*static inline double cairo_glyph_get_property_value(zend_object *object, char *name) {
-	zval *prop, rv;
+    zval *prop, rv;
 
-	prop = zend_read_property(object->ce, object, name, strlen(name), 1, &rv);
-	return zval_get_double(prop);
+    prop = zend_read_property(object->ce, object, name, strlen(name), 1, &rv);
+    return zval_get_double(prop);
 }*/
 
 #define CAIRO_ALLOC_GLYPH(glyph_value) if (!glyph_value) \
-	{ glyph_value = ecalloc(1,sizeof(cairo_glyph_t)); }
+    { glyph_value = ecalloc(1, sizeof(cairo_glyph_t)); }
 
-#define CAIRO_VALUE_FROM_STRUCT(n, m)         \
-	if(strcmp(member->val, m) == 0) { \
-		value = glyph_object->glyph->n;           \
-		break;                               \
-	}
+#define CAIRO_VALUE_FROM_STRUCT(n, m) \
+    if (strcmp(member->val, m) == 0) { \
+        value = glyph_object->glyph->n; \
+        break; \
+    }
 
-#define CAIRO_VALUE_TO_STRUCT(n,m)                  \
-	if(strcmp(member->val, m) == 0) {        \
-            if(Z_TYPE_P(value) == IS_LONG) {   \
-		glyph_object->glyph->n = zval_get_long(value); \
-            } else {                                        \
-                glyph_object->glyph->n = zval_get_double(value); \
-            }                                                 \
-            break;                                      \
-	}
+#define CAIRO_VALUE_TO_STRUCT(n, m) \
+    if (strcmp(member->val, m) == 0) { \
+        if (Z_TYPE_P(value) == IS_LONG) { \
+            glyph_object->glyph->n = zval_get_long(value); \
+        } else { \
+            glyph_object->glyph->n = zval_get_double(value); \
+        } \
+        break; \
+    }
 
-#define CAIRO_ADD_STRUCT_VALUE(n,m)                  \
-	ZVAL_DOUBLE(&tmp, glyph_object->glyph->n);            \
-	zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
+#define CAIRO_ADD_STRUCT_VALUE(n, m) \
+    ZVAL_DOUBLE(&tmp, glyph_object->glyph->n); \
+    zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
 
 /* ----------------------------------------------------------------
     \Cairo\Glyph C API
@@ -68,9 +68,9 @@ cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)
 /* {{{ */
 cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)
 {
-	cairo_glyph_object *glyph_object = Z_CAIRO_GLYPH_P(zv);
+    cairo_glyph_object *glyph_object = Z_CAIRO_GLYPH_P(zv);
 
-	return glyph_object->glyph;
+    return glyph_object->glyph;
 }
 /* }}} */
 
@@ -84,30 +84,30 @@ ZEND_BEGIN_ARG_INFO_EX(CairoGlyph____construct_args, ZEND_SEND_BY_VAL, ZEND_RETU
 	ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void __construct(int index [,float x, float y])
-	Creates a new glyph with the properties populated */
+/* {{{ proto void __construct(int index [, float x, float y])
+    Creates a new glyph with the properties populated */
 PHP_METHOD(CairoGlyph, __construct)
 {
-	cairo_glyph_object *glyph_object;
+    cairo_glyph_object *glyph_object;
 
-	/* read defaults from object */
-	unsigned long index; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "index");
-        double x = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "x");
-	double y = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "y");
+    /* read defaults from object */
+    unsigned long index; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "index");
+    double x = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "x");
+    double y = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "y");
 
-	/* Now allow constructor to overwrite them if desired */
-        ZEND_PARSE_PARAMETERS_START(1,3)
-            Z_PARAM_LONG(index)
-            Z_PARAM_OPTIONAL
-            Z_PARAM_DOUBLE(x)
-            Z_PARAM_DOUBLE(y)
-        ZEND_PARSE_PARAMETERS_END();
+    /* Now allow constructor to overwrite them if desired */
+    ZEND_PARSE_PARAMETERS_START(1, 3)
+        Z_PARAM_LONG(index)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_DOUBLE(x)
+        Z_PARAM_DOUBLE(y)
+    ZEND_PARSE_PARAMETERS_END();
 
-	glyph_object = Z_CAIRO_GLYPH_P(getThis());
+    glyph_object = Z_CAIRO_GLYPH_P(getThis());
 
-        glyph_object->glyph->index = index;
-	glyph_object->glyph->x = x;
-	glyph_object->glyph->y = y;	
+    glyph_object->glyph->index = index;
+    glyph_object->glyph->x = x;
+    glyph_object->glyph->y = y;
 }
 /* }}} */
 
@@ -118,135 +118,135 @@ PHP_METHOD(CairoGlyph, __construct)
 /* {{{ */
 static void cairo_glyph_free_obj(zend_object *zobj)
 {
-	cairo_glyph_object *intern = cairo_glyph_fetch_object(zobj);
+    cairo_glyph_object *intern = cairo_glyph_fetch_object(zobj);
 
-	if(!intern) {
-            return;
-	}
+    if (!intern) {
+        return;
+    }
 
-	if(intern->glyph) {
-            efree(intern->glyph);
-	}
-	intern->glyph = NULL;
+    if (intern->glyph) {
+        efree(intern->glyph);
+    }
+    intern->glyph = NULL;
 
-	zend_object_std_dtor(&intern->std);
+    zend_object_std_dtor(&intern->std);
 }
 /* }}} */
 
 /* {{{ */
 static zend_object* cairo_glyph_obj_ctor(zend_class_entry *ce, cairo_glyph_object **intern)
 {
-	cairo_glyph_object *object = ecalloc(1, sizeof(cairo_glyph_object) + zend_object_properties_size(ce));
-	CAIRO_ALLOC_GLYPH(object->glyph);
+    cairo_glyph_object *object = ecalloc(1, sizeof(cairo_glyph_object) + zend_object_properties_size(ce));
+    CAIRO_ALLOC_GLYPH(object->glyph);
 
-	zend_object_std_init(&object->std, ce);
-	
-	object->std.handlers = &cairo_glyph_object_handlers;
-	*intern = object;
+    zend_object_std_init(&object->std, ce);
 
-	return &object->std;
+    object->std.handlers = &cairo_glyph_object_handlers;
+    *intern = object;
+
+    return &object->std;
 }
 /* }}} */
 
 /* {{{ */
 static zend_object* cairo_glyph_create_object(zend_class_entry *ce)
 {
-	cairo_glyph_object *intern = NULL;
-	zend_object *return_value = cairo_glyph_obj_ctor(ce, &intern);
+    cairo_glyph_object *intern = NULL;
+    zend_object *return_value = cairo_glyph_obj_ctor(ce, &intern);
 
-	object_properties_init(&(intern->std), ce);
-	return return_value;
+    object_properties_init(&(intern->std), ce);
+    return return_value;
 }
 /* }}} */
 
 /* {{{ */
-static zend_object* cairo_glyph_clone_obj(zend_object *zobj) 
+static zend_object* cairo_glyph_clone_obj(zend_object *zobj)
 {
-	cairo_glyph_object *new_glyph;
-	cairo_glyph_object *old_glyph = cairo_glyph_fetch_object(zobj);
-	zend_object *return_value = cairo_glyph_obj_ctor(zobj->ce, &new_glyph);
-	CAIRO_ALLOC_GLYPH(new_glyph->glyph);
+    cairo_glyph_object *new_glyph;
+    cairo_glyph_object *old_glyph = cairo_glyph_fetch_object(zobj);
+    zend_object *return_value = cairo_glyph_obj_ctor(zobj->ce, &new_glyph);
+    CAIRO_ALLOC_GLYPH(new_glyph->glyph);
 
-        new_glyph->glyph->index = old_glyph->glyph->index;
-	new_glyph->glyph->x = old_glyph->glyph->x;
-	new_glyph->glyph->y = old_glyph->glyph->y;
+    new_glyph->glyph->index = old_glyph->glyph->index;
+    new_glyph->glyph->x = old_glyph->glyph->x;
+    new_glyph->glyph->y = old_glyph->glyph->y;
 
-	zend_objects_clone_members(&new_glyph->std, &old_glyph->std);
+    zend_objects_clone_members(&new_glyph->std, &old_glyph->std);
 
-	return return_value;
+    return return_value;
 }
 /* }}} */
 
 /* {{{ */
 static zval *cairo_glyph_object_read_property(zend_object *zobj, zend_string *member, int type, void **cache_slot, zval *rv)
 {
-	zval *retval;
-	double value;
-	cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
+    zval *retval;
+    double value;
+    cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
 
-	if(!glyph_object) {
-            return rv;
-	}
+    if (!glyph_object) {
+        return rv;
+    }
 
-	do {
-            CAIRO_VALUE_FROM_STRUCT(index,"index");
-            CAIRO_VALUE_FROM_STRUCT(x,"x");
-            CAIRO_VALUE_FROM_STRUCT(y,"y");	
+    do {
+        CAIRO_VALUE_FROM_STRUCT(index, "index");
+        CAIRO_VALUE_FROM_STRUCT(x, "x");
+        CAIRO_VALUE_FROM_STRUCT(y, "y");
 
-            // not a struct member
-            retval = (zend_get_std_object_handlers())->read_property(zobj, member, type, cache_slot, rv);
+        // not a struct member
+        retval = (zend_get_std_object_handlers())->read_property(zobj, member, type, cache_slot, rv);
 
-            return retval;
-	} while(0);
+        return retval;
+    } while(0);
 
-	retval = rv;
-        ZVAL_DOUBLE(retval, value);
+    retval = rv;
+    ZVAL_DOUBLE(retval, value);
 
-	return retval;
+    return retval;
 }
 /* }}} */
 
 /* {{{ */
 static zval *cairo_glyph_object_write_property(zend_object *zobj, zend_string *member, zval *value, void **cache_slot)
 {
-	cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
-        zval *retval = NULL;
-        
-	if(!glyph_object) {
-            return retval;
-	}
+    cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
+    zval *retval = NULL;
 
-	do {
-            CAIRO_VALUE_TO_STRUCT(index,"index");
-            CAIRO_VALUE_TO_STRUCT(x,"x");
-            CAIRO_VALUE_TO_STRUCT(y,"y");
-	} while(0);
-
-	// not a struct member
-	retval = (zend_get_std_object_handlers())->write_property(zobj, member, value, cache_slot);
-
+    if (!glyph_object) {
         return retval;
+    }
+
+    do {
+        CAIRO_VALUE_TO_STRUCT(index, "index");
+        CAIRO_VALUE_TO_STRUCT(x, "x");
+        CAIRO_VALUE_TO_STRUCT(y, "y");
+    } while(0);
+
+    // not a struct member
+    retval = (zend_get_std_object_handlers())->write_property(zobj, member, value, cache_slot);
+
+    return retval;
 }
 /* }}} */
 
 /* {{{ */
-static HashTable *cairo_glyph_object_get_properties(zend_object *zobj) 
+static HashTable *cairo_glyph_object_get_properties(zend_object *zobj)
 {
-	HashTable *props;
-	zval tmp;
-	cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
+    HashTable *props;
+    zval tmp;
+    cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
 
-	props = zend_std_get_properties(zobj);
+    props = zend_std_get_properties(zobj);
 
-	if(!glyph_object->glyph) {
-		return props;
-	}
+    if (!glyph_object->glyph) {
+        return props;
+    }
 
-        CAIRO_ADD_STRUCT_VALUE(index, "index");
-	CAIRO_ADD_STRUCT_VALUE(x, "x");
-	CAIRO_ADD_STRUCT_VALUE(y, "y");
+    CAIRO_ADD_STRUCT_VALUE(index, "index");
+    CAIRO_ADD_STRUCT_VALUE(x, "x");
+    CAIRO_ADD_STRUCT_VALUE(y, "y");
 
-	return props;
+    return props;
 }
 /* }}} */
 
@@ -256,38 +256,39 @@ static HashTable *cairo_glyph_object_get_properties(zend_object *zobj)
 
 /* {{{ cairo_glyph_methods[] */
 const zend_function_entry cairo_glyph_methods[] = {
-	PHP_ME(CairoGlyph, __construct, CairoGlyph____construct_args, ZEND_ACC_PUBLIC|ZEND_ACC_CTOR)
-	ZEND_FE_END
+    PHP_ME(CairoGlyph, __construct, CairoGlyph____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    ZEND_FE_END
 };
 /* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_glyph)
 {
-	zend_class_entry ce;
+    zend_class_entry ce;
 
-	memcpy(&cairo_glyph_object_handlers,
-		   zend_get_std_object_handlers(),
-		   sizeof(zend_object_handlers));
+    memcpy(&cairo_glyph_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
-	cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);
-	cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;
-	cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;
-	cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;
-	cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;
-	cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;
-	cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;
+    cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);
+    cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;
+    cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;
+    cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;
+    cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;
+    cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;
+    cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;
 
-	INIT_NS_CLASS_ENTRY(ce,  CAIRO_NAMESPACE, "Glyph", cairo_glyph_methods);
-	ce.create_object = cairo_glyph_create_object;
-	ce_cairo_glyph = zend_register_internal_class(&ce);
-        ce_cairo_glyph->ce_flags |= ZEND_ACC_FINAL;
-        
-        zend_declare_property_long(ce_cairo_glyph, "index", sizeof("index")-1, 0, ZEND_ACC_PUBLIC);
-	zend_declare_property_double(ce_cairo_glyph, "x", sizeof("x")-1, 0.0, ZEND_ACC_PUBLIC);
-	zend_declare_property_double(ce_cairo_glyph, "y", sizeof("y")-1, 0.0, ZEND_ACC_PUBLIC);
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "Glyph", cairo_glyph_methods);
+    ce.create_object = cairo_glyph_create_object;
+    ce_cairo_glyph = zend_register_internal_class(&ce);
+    ce_cairo_glyph->ce_flags |= ZEND_ACC_FINAL;
 
-	return SUCCESS;
+    zend_declare_property_long(ce_cairo_glyph, "index", sizeof("index")-1, 0, ZEND_ACC_PUBLIC);
+    zend_declare_property_double(ce_cairo_glyph, "x", sizeof("x")-1, 0.0, ZEND_ACC_PUBLIC);
+    zend_declare_property_double(ce_cairo_glyph, "y", sizeof("y")-1, 0.0, ZEND_ACC_PUBLIC);
+
+    return SUCCESS;
 }
 /* }}} */
 
