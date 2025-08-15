@@ -531,13 +531,6 @@ PHP_METHOD(CairoContext, getSurface)
         && !Z_ISUNDEF(context_object->surface)
         && Z_REFCOUNT(context_object->surface) > 0
     ) {
-
-        // old way
-        //            zval_dtor(return_value);
-        //            *return_value = *context_object->surface;
-        //            zval_copy_ctor(return_value);
-
-        // new way
         zval_ptr_dtor(return_value);
         ZVAL_COPY(return_value, &context_object->surface);
     }
@@ -615,11 +608,6 @@ PHP_METHOD(CairoContext, getPattern)
         && !Z_ISUNDEF(context_object->pattern)
         && Z_REFCOUNT(context_object->pattern) > 0
     ) {
-        // old way
-        // zval_dtor(return_value);
-        // *return_value = *context_object->pattern;
-        // zval_copy_ctor(return_value);
-
         zval_ptr_dtor(return_value);
         ZVAL_COPY(return_value, &context_object->pattern);
     }
