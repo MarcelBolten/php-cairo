@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Pattern\Gradient\Linear->getPoints() method
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../../skipif.inc';

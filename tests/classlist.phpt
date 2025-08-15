@@ -1,7 +1,5 @@
 --TEST--
 cairo extension class listing
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';

@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Pattern\Solid->getRgba() method
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

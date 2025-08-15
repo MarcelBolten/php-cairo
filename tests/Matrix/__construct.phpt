@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Matrix->__construct()
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';

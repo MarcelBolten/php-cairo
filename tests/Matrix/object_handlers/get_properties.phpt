@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Matrix get_properties handler
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

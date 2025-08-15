@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Extend class constants
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';

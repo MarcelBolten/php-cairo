@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Rectangle read_property handler
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

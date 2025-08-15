@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Pattern\Solid [__construct() method ] with extended class
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

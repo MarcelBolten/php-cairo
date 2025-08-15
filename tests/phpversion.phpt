@@ -1,7 +1,5 @@
 --TEST--
 cairo extension phpversion value
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';

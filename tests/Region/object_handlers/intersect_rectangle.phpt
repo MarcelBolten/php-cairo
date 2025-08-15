@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Region->intersectRectangle() method
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

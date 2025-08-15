@@ -1,7 +1,5 @@
 --TEST--
 Cairo\Pattern\Gradient->getColorStopCount() method
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/../../../skipif.inc';

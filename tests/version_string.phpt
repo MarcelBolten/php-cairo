@@ -1,7 +1,5 @@
 --TEST--
 Cairo\version_string()
---EXTENSIONS--
-eos_datastructures
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';
