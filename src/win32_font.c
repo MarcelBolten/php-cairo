@@ -139,7 +139,7 @@ PHP_METHOD(CairoWin32FontFace, __construct)
         lfont.lfEscapement = 0;
         lfont.lfWeight = FW_DONTCARE;
         lfont.lfItalic = FALSE;
-        lfont.lfUnderline = TRUE;
+        lfont.lfUnderline = FALSE;
         lfont.lfStrikeOut = FALSE;
         lfont.lfCharSet = DEFAULT_CHARSET;
         lfont.lfOutPrecision = OUT_DEFAULT_PRECIS;
