@@ -141,4 +141,3 @@ PHP_MINIT_FUNCTION(cairo_path)
 	return SUCCESS;
 }
 /* }}} */
-

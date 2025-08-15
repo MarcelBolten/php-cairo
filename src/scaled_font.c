@@ -557,4 +557,3 @@ PHP_MINIT_FUNCTION(cairo_scaled_font)
     return SUCCESS;
 }
 /* }}} */
-

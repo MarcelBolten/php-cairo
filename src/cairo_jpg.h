@@ -72,4 +72,3 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename);
 CAIRO_END_DECLS
 
 #endif
-
