@@ -290,6 +290,11 @@ PHP_MINIT_FUNCTION(cairo_text_cluster);
     ZVAL_LONG(&enum_case_ ## cairo_prefix ## _ ## name ## _value, cairo_prefix ## _ ## name); \
     zend_enum_add_case_cstr(ce, #name, &enum_case_ ## cairo_prefix ## _ ## name ## _value);
 
+#define CAIRO_WIN_GENERIC_LONG_ENUM_CASE(name, ce, constant) \
+    zval enum_case_ ## constant ## _ ## name ## _value; \
+    ZVAL_LONG(&enum_case_ ## constant ## _ ## name ## _value, constant); \
+    zend_enum_add_case_cstr(ce, #name, &enum_case_ ## constant ## _ ## name ## _value);
+
 extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
 
 #endif /* PHP_CAIRO_INTERNAL_H */
