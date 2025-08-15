@@ -62,7 +62,7 @@ zval php_enum_from_cairo_c_enum(
     } else {
         ZVAL_NULL(&php_enum);
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Failed to create %s object from value: %ld",
+            "Failed to create %s enum from value: %ld",
             ZSTR_VAL(enum_ce->name),
             c_enum_value
         );
