@@ -27,9 +27,6 @@
     Cairo Namespace
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO(Cairo_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
 #if defined(CAIRO_HAS_FT_FONT) && defined(HAVE_FREETYPE)
 const char* php_cairo_get_ft_error(int error) {
 
@@ -71,6 +68,10 @@ zval php_enum_from_cairo_c_enum(
     zval_ptr_dtor(&retval);
     return php_enum;
 }
+
+
+ZEND_BEGIN_ARG_INFO(Cairo_method_no_args, ZEND_SEND_BY_VAL)
+ZEND_END_ARG_INFO()
 
 /* {{{ proto int \Cairo\version(void)
        Returns an integer version number of the cairo library being used */
