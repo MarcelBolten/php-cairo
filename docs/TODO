@@ -1,11 +1,11 @@
 Surfaces to Finish:
-    Win32 Surfaces — Microsoft Windows surface support
-    Quartz Surfaces — Rendering to Quartz surfaces
-    XLib Surfaces — X Window System rendering using XLib
+    Win32 Surfaces â€” Microsoft Windows surface support
+    Quartz Surfaces â€” Rendering to Quartz surfaces
+    XLib Surfaces â€” X Window System rendering using XLib
 
 Font backends to Finish:
-    Quartz (CGFont) Fonts — Font support via CGFont on OS X
-    User Fonts — Font support with font data provided by the user
+    Quartz (CGFont) Fonts â€” Font support via CGFont on OS X
+    User Fonts â€” Font support with font data provided by the user
 
 Paths:
     Constructor and way to add data
