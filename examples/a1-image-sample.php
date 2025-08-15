@@ -17,7 +17,7 @@ $context = new Context($surface);
 $context->setSourceRgb(1, 1, 1);
 $context->paint();
 $context->setSourceRgb(0, 0, 0);
-$context->translate($pad, $pad);
+// $context->translate($pad, $pad);
 $context->setAntialias(Antialias::NONE);
 
 $s = new Image(ImageFormat::ARGB32, 1, 1);
@@ -25,14 +25,12 @@ $c = new Context($s);
 $c->setSourceRgb(0, 0, 0);
 $c->paint();
 
-for ($i = 0; $i < $points; $i++)
-{
-	for ($j = 0; $j < $points; $j++)
-	{
-		$t1 = (2 * $i) + (($i + 1) * $step);
-		$t2 = (2 * $j) + (($j + 1) * $step);
-		
-		$context->setSurface($s, $t1, $t2);
+for ($x = 0; $x < $points; $x++) {
+	for ($y = 0; $y < $points; $y++) {
+		$tx = round((2 + $step) * $x + $pad);
+		$ty = round((2 + $step) * $y + $pad);
+
+		$context->setSurface($s, $tx, $ty);
 		$source = $context->getPattern();
 		$source->setFilter(Filter::NEAREST);
 		$context->paint();

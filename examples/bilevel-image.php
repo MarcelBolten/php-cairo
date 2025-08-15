@@ -20,14 +20,17 @@ for ($i = 0; $i < 12; $i++)
 	$string = $string.chr(0x00); // green
 	$string = $string.chr(0xff); // red
 	$string = $string.chr(0xff); // alpha
+
 	$string = $string.chr(0x00);
 	$string = $string.chr(0xff);
 	$string = $string.chr(0x00);
 	$string = $string.chr(0xff);
+
 	$string = $string.chr(0xff);
 	$string = $string.chr(0x00);
 	$string = $string.chr(0x00);
 	$string = $string.chr(0xff);
+
 	$string = $string.chr(0xff);
 	$string = $string.chr(0xff);
 	$string = $string.chr(0xff);

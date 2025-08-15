@@ -28,7 +28,7 @@ for ($a = 0; $a < 4; $a++)
 			$context->strokePreserve();
 			$context->setSourceRgb(0, 0.5, 1);
 			$context->setLineWidth(2);
-			$context->setLineCap(2);
+			$context->setLineCap(LineCap::from(2));
 			$ar = [8.0, 8.0];
 			$context->setDash($ar, 0);
 			$context->stroke();

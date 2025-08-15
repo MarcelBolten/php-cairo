@@ -63,11 +63,11 @@ function drawMask($surface, $context, $width, $height, $x, $y)
 function drawGlyphs($context, $width, $height, $x, $y)
 {
 	$context->setFontSize(0.8 * $height);
-	$extents = $context->textExtents('FG');
-	
+	$extents = $context->getTextExtents('FG');
+
 	$moveX = $x + floor(($width - $extents['width']) / 2 + 0.5) - $extents['x_bearing'];
 	$moveY = $y + floor(($height - $extents['height']) / 2 + 0.5) - $extents['y_bearing'];
-	
+
 	$context->moveTo($moveX, $moveY);
 	$context->showText('FG');
 }
@@ -78,7 +78,7 @@ function drawPolygon($context, $width, $height, $x, $y)
 	$he = floor(0.9 * $height);
 	$x += 0.05 * $width;
 	$y += 0.05 * $height;
-	
+
 	$context->newPath();
 	$context->moveTo($x, $y);
 	$context->lineTo($x, $y + $he);
@@ -94,7 +94,7 @@ function drawRects($context, $width, $height, $x, $y)
 {
 	$blockWidth = floor(0.33 * $width + 0.5);
 	$blockHeight = floor(0.33 * $height + 0.5);
-	
+
 	for ($i = 0; $i < 3; $i++)
 	{
 		for ($j = 0; $j < 3; $j++)
@@ -105,7 +105,7 @@ function drawRects($context, $width, $height, $x, $y)
 			}
 		}
 	}
-	
+
 	$context->fill();
 }
 
@@ -127,9 +127,9 @@ for ($j = 0; $j < 4; $j++)
 	{
 		$x = $i * ($width + $pad) + $pad;
 		$y = $j * ($height + $pad) + $pad;
-		
+
 		$context->save();
-		
+
 		$pat = new Linear($x + $width, $y, $x, $y + $height);
 		$pat->addColorStopRgba(0.2, 0.0, 0.0, 1.0, 1.0); /* Solid blue */
 		$pat->addColorStopRgba(0.8, 0.0, 0.0, 1.0, 0.0); /* Transparent blue */
@@ -138,7 +138,7 @@ for ($j = 0; $j < 4; $j++)
 		$context->fillPreserve();
 		$context->clip();
 		$context->setOperator(Operator::SOURCE);
-		
+
 		switch ($i)
 		{
 			case 0:
@@ -154,7 +154,7 @@ for ($j = 0; $j < 4; $j++)
 				//setSurfacePattern($surface, $context, $width, $height, $x,$y);
 				break;
 		}
-		
+
 		switch ($j)
 		{
 			case 0:
@@ -170,7 +170,7 @@ for ($j = 0; $j < 4; $j++)
 				drawRects($context, $width, $height, $x, $y);
 				break;
 		}
-		
+
 		$context->restore();
 	}
 }

@@ -44,7 +44,7 @@ $c[3] = $color;
 
 for ($i = 0; $i < 4; $i++)
 {
-	$s->createForData($c[$i], ImageFormat::RGB24, 1, 1, 4);
+	$s->createForData($c[$i], ImageFormat::RGB24, 1, 1);
 	$context->setSurface($s, $i % 2, $i / 2);
 	$context->paint();
 }

@@ -20,7 +20,7 @@ function setGradientPttern($context, $width, $height, $x, $y)
 	$pat->addColorStopRgba(0.2, 1, 0, 0, 1);
 	$pat->addColorStopRgba(0.8, 1, 0, 0, 0.0);
 	$context->setPattern($pat);
-	
+
 }
 
 function drawMask($surface, $context, $width, $height, $x, $y)
@@ -29,24 +29,24 @@ function drawMask($surface, $context, $width, $height, $x, $y)
 	$he = floor(0.9 * $height);
 	$x += 0.05 * $width;
 	$y += 0.05 * $height;
-	
+
 	$s = $surface->createSimilar(Content::ALPHA, $wi, $he);
 	$con2 = new Context($s);
 	$con2->setSourceRgb(1, 1, 1); /* white */
 	$con2->arc(0.5 * $wi, 0.5 * $he, 0.45 * $he, 0, 2 * M_PI);
 	$con2->fill();
-	
+
 	$context->maskSurface($s, $x, $y);
 }
 
-function drawGlyphs($context, $width, $height, $x, $y)
+function drawGlyphs(Cairo\Context $context, $width, $height, $x, $y)
 {
 	$context->setFontSize(0.8 * $height);
-	$extents = $context->textExtents('FG');
-	
+	$extents = $context->getTextExtents('FG');
+
 	$moveX = $x + floor(($width - $extents['width']) / 2 + 0.5) - $extents['x_bearing'];
 	$moveY = $y + floor(($height - $extents['height']) / 2 + 0.5) - $extents['y_bearing'];
-	
+
 	$context->moveTo($moveX, $moveY);
 	$context->showText('FG');
 }
@@ -57,7 +57,7 @@ function drawPolygon($context, $width, $height, $x, $y)
 	$he = floor(0.9 * $height);
 	$x += 0.05 * $width;
 	$y += 0.05 * $height;
-	
+
 	$context->newPath();
 	$context->moveTo($x, $y);
 	$context->lineTo($x, $y + $he);
@@ -73,7 +73,7 @@ function drawRects($context, $width, $height, $x, $y)
 {
 	$blockWidth = floor(0.33 * $width + 0.5);
 	$blockHeight = floor(0.33 * $height + 0.5);
-	
+
 	for ($i = 0; $i < 3; $i++)
 	{
 		for ($j = 0; $j < 3; $j++)
@@ -84,7 +84,7 @@ function drawRects($context, $width, $height, $x, $y)
 			}
 		}
 	}
-	
+
 	$context->fill();
 }
 
@@ -105,20 +105,20 @@ for ($j = 0; $j < 4; $j++)
 	{
 		$x = $i * ($width + $pad) + $pad;
 		$y = $j * ($height + $pad) + $pad;
-		
+
 		$context->save();
-		
+
 		$pat = new Linear($x + $width, $y, $x, $y + $height);
 		$pat->addColorStopRgba(0.2, 0.0, 0.0, 1.0, 1.0); /* Solid blue */
 		$pat->addColorStopRgba(0.8, 0.0, 0.0, 1.0, 0.0); /* Transparent blue */
 		$context->setPattern($pat);
-		
+
 		$context->rectangle($x, $y, $width, $height);
 		$context->fillPreserve();
 		$context->clip();
-		
+
 		$context->setOperator(Operator::CLEAR);
-		
+
 		switch ($i)
 		{
 			case 0:
@@ -128,7 +128,7 @@ for ($j = 0; $j < 4; $j++)
 				setGradientPttern($context, $width, $height, $x, $y);
 				break;
 		}
-		
+
 		switch ($j)
 		{
 			case 0:

@@ -6,7 +6,7 @@ use Cairo\Surface\ImageFormat;
 
 
 $char = 'Cairo';
-$surface = new Image(0, 500, 500);
+$surface = new Image(ImageFormat::from(0), 500, 500);
 $context = new Context($surface);
 
 $context->selectFontFace('Sans');

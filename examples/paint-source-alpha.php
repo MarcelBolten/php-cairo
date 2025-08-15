@@ -16,17 +16,17 @@ for ($i = 0; $i < 2; $i++)
 	$data .= chr(0x80);
 	$data .= chr(0x80);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x80);
 	$data .= chr(0x80);
 	$data .= chr(0x80);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x00);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x00);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
@@ -39,27 +39,27 @@ for ($i = 0; $i < 2; $i++)
 	$data .= chr(0x80);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x00);
 	$data .= chr(0x80);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x80);
 	$data .= chr(0x00);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
-	
+
 	$data .= chr(0x80);
 	$data .= chr(0x00);
 	$data .= chr(0x00);
 	$data .= chr(0x80);
 }
 
-echo $data;
+echo $data . PHP_EOL;
 
 $s = new Image(ImageFormat::ARGB32, 100, 100);
-$s->createForData($data, ImageFormat::ARGB32, 4, 4, 16);
+$s->createForData($data, ImageFormat::ARGB32, 4, 4);
 $context->scale(4, 4);
 $context->setSurface($s, 2, 2);
 $pat = $context->getPattern();

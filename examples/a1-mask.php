@@ -14,15 +14,15 @@ $context = new Context($surface);
 $s = new Image(ImageFormat::A1, $width, $height);
 $stride = $s->getStride();
 
-echo 'Stride: '.$stride.PHP_EOL;
+echo 'Stride: ' . $stride . PHP_EOL;
 
-for ($i = 0; $i < 8; $i++)
+for ($i = 0; $i < $height; $i++)
 {
-	$string = $string.chr(0x14);
-	$string = $string.chr(0xAA);
+	$string .= chr(0x14);
+	$string .= chr(0xAA);
 }
 
-echo $string;
+echo $string . PHP_EOL;
 
 $s->createForData($string, ImageFormat::A1, $width, $height);
 

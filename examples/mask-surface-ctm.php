@@ -18,7 +18,7 @@ for ($i = 0; $i < 4; $i++)
 }
 
 $s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createForData($data, ImageFormat::ARGB32, 2, 2, 8);
+$s->createForData($data, ImageFormat::ARGB32, 2, 2);
 
 $context->setSourceRgb(1, 0, 0);
 $context->save();

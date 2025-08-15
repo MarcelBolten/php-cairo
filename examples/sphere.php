@@ -1,15 +1,17 @@
 <?php
 
+use Cairo\Antialias;
 use Cairo\Context;
+use Cairo\FillRule;
 use Cairo\Pattern\Gradient\Linear;
 use Cairo\Pattern\Gradient\Radial;
 use Cairo\Surface\Image;
 use Cairo\Surface\ImageFormat;
 
-$surface = new Image(0, 256, 256);
+$surface = new Image(ImageFormat::from(0), 256, 256);
 $ctx = new Context($surface);
-$ctx->setAntialias(0);
-$ctx->setFillRule(0);
+$ctx->setAntialias(Antialias::from(0));
+$ctx->setFillRule(FillRule::from(0));
 $ctx->scale(256 / 1.0, 256 / 1.0);
 
 $pat = new Linear(0.0, 0.0, 0.0, 1.0);

@@ -16,17 +16,17 @@ $stride = $s->getStride();
 
 for ($i = 0; $i < 8; $i++)
 {
-	$string = $string.chr(0);
-	$string = $string.chr(0);
-	$string = $string.chr(255);
-	$string = $string.chr(0);
-	$string = $string.chr(255);
-	$string = $string.chr(0);
-	$string = $string.chr(0);
-	$string = $string.chr(0);
+	$string .= chr(0);
+	$string .= chr(0);
+	$string .= chr(255);
+	$string .= chr(0);
+	$string .= chr(255);
+	$string .= chr(0);
+	$string .= chr(0);
+	$string .= chr(0);
 }
 
-echo $string;
+echo $string . PHP_EOL;
 
 $s->createForData($string, ImageFormat::A8, $width, $height);
 

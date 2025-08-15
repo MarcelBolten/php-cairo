@@ -14,7 +14,7 @@ $dashes = [
 $ndash = count($dashes);
 $offset = -50.0;
 
-$surface = new Image(0, 500, 500);
+$surface = new Image(ImageFormat::ARGB32, 500, 500);
 $context = new Context($surface);
 $context->setDash($dashes, $offset);
 $context->setLineWidth(10.0);

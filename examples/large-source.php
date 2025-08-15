@@ -26,7 +26,7 @@ for ($y = 0; $y < $height; $y++)
 	}
 }
 
-$s->createForData($data, ImageFormat::A1, $width, $height, $stride);
+$s->createForData($data, ImageFormat::A1, $width, $height);
 $context->setSourceRgb(1, 0, 0);
 $context->maskSurface($s);
 $context->fill();
@@ -45,7 +45,7 @@ for ($y = 0; $y < $height; $y++)
 	}
 }
 
-$s->createForData($data, ImageFormat::A1, $width, $height, $stride);
+$s->createForData($data, ImageFormat::A1, $width, $height);
 $context->setSourceRgb(0, 1, 0);
 $context->maskSurface($s, 0, 0);
 

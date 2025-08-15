@@ -16,7 +16,7 @@ $color .= chr(0x19);
 $color .= chr(0x80);
 
 $s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createForData($color, ImageFormat::ARGB32, 1, 1, 4);
+$s->createForData($color, ImageFormat::ARGB32, 1, 1);
 
 $pat = new PatternSurface($s);
 $pat->setExtend(Extend::REPEAT);
@@ -38,7 +38,7 @@ for ($i = 0; $i < 5; $i++)
 		default:
 			$context->setPattern($pat);
 	}
-	
+
 	$context->rectangle($i, 0, 1, 5);
 	$context->fill();
 }
