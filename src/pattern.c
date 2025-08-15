@@ -111,6 +111,7 @@ ZEND_END_ARG_INFO()
    \Cairo\Pattern CANNOT be extended in userspace, this will throw an exception on use */
 PHP_METHOD(CairoPattern, __construct)
 {
+    ZEND_PARSE_PARAMETERS_NONE();
     zend_throw_exception(ce_cairo_exception, "Cairo\\Pattern cannot be constructed", 0);
 }
 /* }}} */

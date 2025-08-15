@@ -59,6 +59,7 @@ ZEND_END_ARG_INFO()
 /* {{{ proto void contruct()
    CairoSurface CANNOT be extended in userspace, this will throw an exception on use */
 PHP_METHOD(CairoSurface, __construct) {
+    ZEND_PARSE_PARAMETERS_NONE();
     zend_throw_exception(ce_cairo_exception, "Cairo\\Surface cannot be constructed", 0);
 }
 /* }}} */
