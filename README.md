@@ -1,4 +1,4 @@
-Cairo for PHP 8
+Cairo for PHP 8.1+
 =============
 
 Cairo is a 2D graphics library with support for multiple output devices. Output
@@ -12,9 +12,8 @@ This extension provides access to Cairo functionality in PHP8 in the Cairo names
 
 Requirements
 =============
- * PHP 8.0.0+
- * Cairo 1.8.0+
- * [Eos\DataStructures](http://github.com/swen100/structures) 1.0.1
+ * PHP 8.1.0+
+ * Cairo 1.12.0+
 
 Additional features are supported up to Cairo version 1.17.0
 
@@ -30,7 +29,6 @@ But this is currently the unstable PHP7 version
 Until then, please compile and install the both the datastructures and the cairo extensions and enable them in your php.ini file
 
 ```
-extension=eos_datastructures.so
 extension=cairo.so
 ```
 
