@@ -41,7 +41,7 @@ try {
 
 /* Wrong arg type 2 */
 try {
-    new Cairo\Surface\Recording(0, 1);
+    new Cairo\Surface\Recording(\Cairo\Surface\Content::COLOR_ALPHA, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -53,5 +53,5 @@ object(Cairo\Surface\Recording)#%d (0) {
 }
 Cairo\Surface\Recording::__construct() expects at least 1 argument, 0 given
 Cairo\Surface\Recording::__construct() expects at most 2 arguments, 4 given
-Cairo\Surface\Recording::__construct(): Argument #1 ($content) must be of type int, array given
+Cairo\Surface\Recording::__construct(): Argument #1 ($content) must be of type Cairo\Surface\Content, array given
 Cairo\Surface\Recording::__construct(): Argument #2 ($extents) must be of type array, int given

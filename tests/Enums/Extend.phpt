@@ -8,22 +8,15 @@ include __DIR__ . '/../skipif.inc';
 <?php
 use Cairo\Extend;
 
-$enum = new Extend(Extend::NONE);
-var_dump($enum);
-?>
+var_dump(Extend::cases());
 --EXPECTF--
-object(Cairo\Extend)#%d (2) {
-  ["__elements"]=>
-  array(4) {
-    ["NONE"]=>
-    int(0)
-    ["REPEAT"]=>
-    int(1)
-    ["REFLECT"]=>
-    int(2)
-    ["PAD"]=>
-    int(3)
-  }
-  ["__value"]=>
-  int(0)
+array(4) {
+  [0]=>
+  enum(Cairo\Extend::NONE)
+  [1]=>
+  enum(Cairo\Extend::REPEAT)
+  [2]=>
+  enum(Cairo\Extend::REFLECT)
+  [3]=>
+  enum(Cairo\Extend::PAD)
 }

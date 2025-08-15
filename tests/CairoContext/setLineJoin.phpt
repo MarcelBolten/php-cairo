@@ -41,19 +41,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-object(Cairo\LineJoin)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["MITER"]=>
-    int(0)
-    ["ROUND"]=>
-    int(1)
-    ["BEVEL"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(2)
-}
+enum(Cairo\LineJoin::BEVEL)
 Cairo\Context::setLineJoin() expects exactly 1 argument, 0 given
 Cairo\Context::setLineJoin() expects exactly 1 argument, 2 given
-Cairo\Context::setLineJoin(): Argument #1 ($linejoin) must be of type int, array given
+Cairo\Context::setLineJoin(): Argument #1 ($linejoin) must be of type Cairo\LineJoin, array given

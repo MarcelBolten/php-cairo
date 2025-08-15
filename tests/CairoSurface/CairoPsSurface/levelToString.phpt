@@ -35,4 +35,4 @@ try {
 PS Level 2
 Cairo\Surface\Ps::levelToString() expects exactly 1 argument, 0 given
 Cairo\Surface\Ps::levelToString() expects exactly 1 argument, 2 given
-Cairo\Surface\Ps::levelToString(): Argument #1 ($level) must be of type int, array given
+Cairo\Surface\Ps::levelToString(): Argument #1 ($level) must be of type Cairo\Surface\Ps\Level, array given

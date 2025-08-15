@@ -8,26 +8,21 @@ include __DIR__ . '/../skipif.inc';
 <?php
 use Cairo\Filter;
 
-$enum = new Filter(Filter::FAST);
+$enum = Filter::cases();
 var_dump($enum);
 ?>
 --EXPECTF--
-object(Cairo\Filter)#%d (2) {
-  ["__elements"]=>
-  array(6) {
-    ["FAST"]=>
-    int(0)
-    ["GOOD"]=>
-    int(1)
-    ["BEST"]=>
-    int(2)
-    ["NEAREST"]=>
-    int(3)
-    ["BILINEAR"]=>
-    int(4)
-    ["GAUSSIAN"]=>
-    int(5)
-  }
-  ["__value"]=>
-  int(0)
+array(6) {
+  [0]=>
+  enum(Cairo\Filter::FAST)
+  [1]=>
+  enum(Cairo\Filter::GOOD)
+  [2]=>
+  enum(Cairo\Filter::BEST)
+  [3]=>
+  enum(Cairo\Filter::NEAREST)
+  [4]=>
+  enum(Cairo\Filter::BILINEAR)
+  [5]=>
+  enum(Cairo\Filter::GAUSSIAN)
 }

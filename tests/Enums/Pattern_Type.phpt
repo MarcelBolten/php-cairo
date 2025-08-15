@@ -8,26 +8,21 @@ include __DIR__ . '/../skipif.inc';
 <?php
 use Cairo\Pattern\Type;
 
-$enum = new Type(Type::SOLID);
+$enum = Type::cases();
 var_dump($enum);
 ?>
 --EXPECTF--
-object(Cairo\Pattern\Type)#%d (2) {
-  ["__elements"]=>
-  array(6) {
-    ["SOLID"]=>
-    int(0)
-    ["SURFACE"]=>
-    int(1)
-    ["LINEAR"]=>
-    int(2)
-    ["RADIAL"]=>
-    int(3)
-    ["MESH"]=>
-    int(4)
-    ["RASTER_SOURCE"]=>
-    int(5)
-  }
-  ["__value"]=>
-  int(0)
+array(6) {
+  [0]=>
+  enum(Cairo\Pattern\Type::SOLID)
+  [1]=>
+  enum(Cairo\Pattern\Type::SURFACE)
+  [2]=>
+  enum(Cairo\Pattern\Type::LINEAR)
+  [3]=>
+  enum(Cairo\Pattern\Type::RADIAL)
+  [4]=>
+  enum(Cairo\Pattern\Type::MESH)
+  [5]=>
+  enum(Cairo\Pattern\Type::RASTER_SOURCE)
 }

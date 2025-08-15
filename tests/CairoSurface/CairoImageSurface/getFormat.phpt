@@ -23,23 +23,5 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-object(Cairo\Surface\ImageFormat)#%d (2) {
-  ["__elements"]=>
-  array(%d) {
-    ["ARGB32"]=>
-    int(0)
-    ["RGB24"]=>
-    int(1)
-    ["A8"]=>
-    int(2)
-    ["A1"]=>
-    int(3)
-    ["RGB16_565"]=>
-    int(4)
-    ["RGB30"]=>
-    int(5)%A
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\Surface\ImageFormat::ARGB32)
 Cairo\Surface\Image::getFormat() expects exactly 0 arguments, 1 given

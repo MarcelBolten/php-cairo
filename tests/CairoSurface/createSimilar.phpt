@@ -70,6 +70,6 @@ Cairo\Surface::createSimilar() expects exactly 3 arguments, 0 given
 Cairo\Surface::createSimilar() expects exactly 3 arguments, 1 given
 Cairo\Surface::createSimilar() expects exactly 3 arguments, 2 given
 Cairo\Surface::createSimilar() expects exactly 3 arguments, 4 given
-Cairo\Surface::createSimilar(): Argument #1 ($content) must be of type int, array given
+Cairo\Surface::createSimilar(): Argument #1 ($content) must be of type Cairo\Surface\Content, array given
 Cairo\Surface::createSimilar(): Argument #2 ($width) must be of type float, array given
 Cairo\Surface::createSimilar(): Argument #3 ($height) must be of type float, array given

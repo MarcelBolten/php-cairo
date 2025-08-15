@@ -19,8 +19,8 @@ try {
 --EXPECTF--
 array(2) {
   [0]=>
-  int(0)
+  enum(Cairo\Surface\Svg\Version::VERSION_1_1)
   [1]=>
-  int(1)
+  enum(Cairo\Surface\Svg\Version::VERSION_1_2)
 }
 Cairo\Surface\Svg::getVersions() expects exactly 0 %s, 1 given

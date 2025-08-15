@@ -21,17 +21,5 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-object(Cairo\Surface\Content)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["COLOR"]=>
-    int(4096)
-    ["ALPHA"]=>
-    int(8192)
-    ["COLOR_ALPHA"]=>
-    int(12288)
-  }
-  ["__value"]=>
-  int(12288)
-}
+enum(Cairo\Surface\Content::COLOR_ALPHA)
 Cairo\Surface::getContent() expects exactly 0 arguments, 1 given

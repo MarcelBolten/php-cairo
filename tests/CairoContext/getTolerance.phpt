@@ -26,7 +26,7 @@ catch (ArgumentCountError $ex) {
 --EXPECTF--
 object(Cairo\Surface\Image)#1 (0) {
 }
-object(Cairo\Context)#2 (0) {
+object(Cairo\Context)#3 (0) {
 }
 float(1)
 Cairo\Context::getTolerance() expects exactly 0 arguments, 1 given

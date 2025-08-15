@@ -10,11 +10,10 @@ $options = new Cairo\FontOptions();
 var_dump($options);
 
 $options->setAntialias(\Cairo\Antialias::SUBPIXEL);
-$options->setAntialias();
 
-/* invalid args (out of range)*/
+/* Wrong number args 0 */
 try {
-    $options->setAntialias(99);
+    $options->setAntialias();
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -36,6 +35,6 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-Value 99 provided is not a const in enum Cairo\Antialias
-Cairo\FontOptions::setAntialias() expects at most 1 argument, 2 given
-Cairo\FontOptions::setAntialias(): Argument #1 ($antialias) must be of type int, array given
+Cairo\FontOptions::setAntialias() expects exactly 1 argument, 0 given
+Cairo\FontOptions::setAntialias() expects exactly 1 argument, 2 given
+Cairo\FontOptions::setAntialias(): Argument #1 ($antialias) must be of type Cairo\Antialias, array given

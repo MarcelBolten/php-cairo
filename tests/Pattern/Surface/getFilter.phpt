@@ -29,24 +29,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-object(Cairo\Filter)#3 (2) {
-  ["__elements"]=>
-  array(6) {
-    ["FAST"]=>
-    int(0)
-    ["GOOD"]=>
-    int(1)
-    ["BEST"]=>
-    int(2)
-    ["NEAREST"]=>
-    int(3)
-    ["BILINEAR"]=>
-    int(4)
-    ["GAUSSIAN"]=>
-    int(5)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\Filter::GOOD)
 bool(true)
 Cairo\Pattern::getFilter() expects exactly 0 arguments, 1 given

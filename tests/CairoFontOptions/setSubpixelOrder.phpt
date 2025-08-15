@@ -12,13 +12,11 @@ $options = new Cairo\FontOptions();
 var_dump($options);
 
 $options->setSubpixelOrder(Cairo\SubPixelOrder::RGB);
-$options->setSubpixelOrder();
 
-/* Invalid arg (99) */
 try {
-    $options->setSubpixelOrder(99);
-} catch (TypeError $e) {
-    echo $e->getMessage(), PHP_EOL;
+    $options->setSubpixelOrder();
+} catch (Exception|Error $e) {
+    var_dump($e);
 }
 
 /* Wrong number args 2 */
@@ -38,6 +36,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-Value 99 provided is not a const in enum Cairo\SubPixelOrder
 Cairo\FontOptions::setSubpixelOrder() expects at most 1 argument, 2 given
-Cairo\FontOptions::setSubpixelOrder(): Argument #1 ($subpixel_order) must be of type int, array given
+Cairo\FontOptions::setSubpixelOrder(): Argument #1 ($subpixel_order) must be of type Cairo\SubPixelOrder, array given

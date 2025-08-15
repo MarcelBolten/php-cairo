@@ -34,4 +34,4 @@ try {
 SVG 1.1
 Cairo\Surface\Svg::versionToString() expects exactly 1 argument, 0 given
 Cairo\Surface\Svg::versionToString() expects exactly 1 argument, 2 given
-Cairo\Surface\Svg::versionToString(): Argument #1 ($version) must be of type int, array given
+Cairo\Surface\Svg::versionToString(): Argument #1 ($version) must be of type Cairo\Surface\Svg\Version, array given

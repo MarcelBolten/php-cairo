@@ -11,8 +11,8 @@ if (!extension_loaded('cairo')) {
 
 if (\Cairo\VERSION >= 11600) {
     $constants = [
-        '\Cairo\Surface\Pdf\Outline::ROOT',
-        
+        '\Cairo\Surface\Pdf::OUTLINE_ROOT',
+
         '\Cairo\Surface\Pdf\OutlineFlags::OPEN',
         '\Cairo\Surface\Pdf\OutlineFlags::BOLD',
         '\Cairo\Surface\Pdf\OutlineFlags::ITALIC',

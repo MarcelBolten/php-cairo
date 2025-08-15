@@ -67,6 +67,6 @@ Cairo\Surface\Image::__construct() expects exactly 3 %s, 0 given
 Cairo\Surface\Image::__construct() expects exactly 3 %s, 1 given
 Cairo\Surface\Image::__construct() expects exactly 3 %s, 2 given
 Cairo\Surface\Image::__construct() expects exactly 3 %s, 4 given
-Cairo\Surface\Image::__construct(): Argument #1 ($format) must be of type int, array given
+Cairo\Surface\Image::__construct(): Argument #1 ($format) must be of type Cairo\Surface\ImageFormat, array given
 Cairo\Surface\Image::__construct(): Argument #2 ($width) must be of type int, array given
 Cairo\Surface\Image::__construct(): Argument #3 ($height) must be of type int, array given

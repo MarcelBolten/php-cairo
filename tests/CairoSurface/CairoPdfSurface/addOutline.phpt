@@ -17,18 +17,11 @@ $name = "Link";
 $linkAttr = "uri='https://cairographics.org'";
 $flag = \Cairo\Surface\Pdf\OutlineFlags::BOLD;
 
-$target = $surface->addOutline(\Cairo\Surface\Pdf\Outline::ROOT, $name, $linkAttr, $flag);
+$target = $surface->addOutline(\Cairo\Surface\Pdf::OUTLINE_ROOT, $name, $linkAttr, $flag);
 var_dump($target);
 
 $newTarget = $surface->addOutline($target, $name, $linkAttr, $flag);
 var_dump($newTarget);
-
-/* invalid arg */
-try {
-    $surface->addOutline($target, $name, $linkAttr, 999);
-} catch (ValueError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
 
 /* invalid arg */
 try {
@@ -108,4 +101,4 @@ Cairo\Surface\Pdf::addOutline() expects exactly 4 arguments, 3 given
 Cairo\Surface\Pdf::addOutline(): Argument #1 ($parent_id) must be of type int, array given
 Cairo\Surface\Pdf::addOutline(): Argument #2 ($name) must be of type string, array given
 Cairo\Surface\Pdf::addOutline(): Argument #3 ($link_attribs) must be of type string, array given
-Cairo\Surface\Pdf::addOutline(): Argument #4 ($outline_flag) must be of type int, array given
+Cairo\Surface\Pdf::addOutline(): Argument #4 ($outline_flag) must be of type Cairo\Surface\Pdf\OutlineFlags, array given

@@ -21,21 +21,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-object(Cairo\HintStyle)#%d (2) {
-  ["__elements"]=>
-  array(5) {
-    ["DEFAULT"]=>
-    int(0)
-    ["NONE"]=>
-    int(1)
-    ["SLIGHT"]=>
-    int(2)
-    ["MEDIUM"]=>
-    int(3)
-    ["FULL"]=>
-    int(4)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\HintStyle::DEFAULT)
 Cairo\FontOptions::getHintStyle() expects exactly 0 arguments, 1 given

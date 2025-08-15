@@ -26,17 +26,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-object(Cairo\LineCap)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["BUTT"]=>
-    int(0)
-    ["ROUND"]=>
-    int(1)
-    ["SQUARE"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\LineCap::BUTT)
 Cairo\Context::getLineCap() expects exactly 0 arguments, 1 given

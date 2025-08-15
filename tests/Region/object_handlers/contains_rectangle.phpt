@@ -56,61 +56,13 @@ object(Cairo\Region)#%d (0) {
 }
 object(Cairo\Region)#%d (0) {
 }
-object(Cairo\Region\Overlap)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["IN"]=>
-    int(0)
-    ["OUT"]=>
-    int(1)
-    ["PART"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\Region\Overlap::OUT)
 bool(true)
-object(Cairo\Region\Overlap)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["IN"]=>
-    int(0)
-    ["OUT"]=>
-    int(1)
-    ["PART"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\Region\Overlap::IN)
 bool(true)
-object(Cairo\Region\Overlap)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["IN"]=>
-    int(0)
-    ["OUT"]=>
-    int(1)
-    ["PART"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(2)
-}
+enum(Cairo\Region\Overlap::PART)
 bool(true)
-object(Cairo\Region\Overlap)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["IN"]=>
-    int(0)
-    ["OUT"]=>
-    int(1)
-    ["PART"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\Region\Overlap::OUT)
 bool(true)
 Cairo\Region::containsRectangle() expects exactly 1 argument, 0 given
 Cairo\Region::containsRectangle(): Argument #1 ($rectangle) must be of type Cairo\Rectangle, int given

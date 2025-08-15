@@ -17,15 +17,6 @@ $filter = $pattern->getFilter();
 var_dump($filter);
 var_dump($filter == Cairo\Filter::NEAREST);
 
-$pattern->setFilter(new Cairo\Filter('FAST'));
-$filter = $pattern->getFilter();
-var_dump($filter == Cairo\Filter::FAST);
-
-$pattern->setFilter(1);
-$filter = $pattern->getFilter();
-var_dump($filter);
-var_dump($filter == Cairo\Filter::GOOD);
-
 /* Total number of args needed = 1 */
 try {
     $pattern->setFilter();
@@ -49,62 +40,15 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-/* int must be in enum */
-try {
-    $pattern->setFilter(999);
-} catch (TypeError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
 ?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-object(Cairo\Filter)#%d (2) {
-  ["__elements"]=>
-  array(6) {
-    ["FAST"]=>
-    int(0)
-    ["GOOD"]=>
-    int(1)
-    ["BEST"]=>
-    int(2)
-    ["NEAREST"]=>
-    int(3)
-    ["BILINEAR"]=>
-    int(4)
-    ["GAUSSIAN"]=>
-    int(5)
-  }
-  ["__value"]=>
-  int(3)
-}
-bool(true)
-bool(true)
-object(Cairo\Filter)#%d (2) {
-  ["__elements"]=>
-  array(6) {
-    ["FAST"]=>
-    int(0)
-    ["GOOD"]=>
-    int(1)
-    ["BEST"]=>
-    int(2)
-    ["NEAREST"]=>
-    int(3)
-    ["BILINEAR"]=>
-    int(4)
-    ["GAUSSIAN"]=>
-    int(5)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\Filter::NEAREST)
 bool(true)
 Cairo\Pattern::setFilter() expects exactly 1 argument, 0 given
 Cairo\Pattern::setFilter() expects exactly 1 argument, 2 given
-Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type int, array given
-Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type int, Cairo\Surface\Image given
-Value 999 provided is not a const in enum Cairo\Filter
+Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type Cairo\Filter, array given
+Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type Cairo\Filter, Cairo\Surface\Image given

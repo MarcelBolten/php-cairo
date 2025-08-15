@@ -60,14 +60,14 @@ try {
 
 /* Wrong arg type 3 */
 try {
-    Cairo\Surface\Image::createForData('', 1, array(), 1);
+    Cairo\Surface\Image::createForData('', Cairo\Surface\ImageFormat::from(1), array(), 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong arg type 4 */
 try {
-    Cairo\Surface\Image::createForData('', 1, 1, array());
+    Cairo\Surface\Image::createForData('', Cairo\Surface\ImageFormat::from(1), 1, array());
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -81,6 +81,6 @@ Cairo\Surface\Image::createForData() expects exactly 4 %s, 2 given
 Cairo\Surface\Image::createForData() expects exactly 4 %s, 3 given
 Cairo\Surface\Image::createForData() expects exactly 4 %s, 5 given
 Cairo\Surface\Image::createForData(): Argument #1 ($data) must be of type string, array given
-Cairo\Surface\Image::createForData(): Argument #2 ($format) must be of type int, array given
+Cairo\Surface\Image::createForData(): Argument #2 ($format) must be of type Cairo\Surface\ImageFormat, array given
 Cairo\Surface\Image::createForData(): Argument #3 ($width) must be of type int, array given
 Cairo\Surface\Image::createForData(): Argument #4 ($height) must be of type int, array given

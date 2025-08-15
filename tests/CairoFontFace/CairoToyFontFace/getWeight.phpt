@@ -8,32 +8,12 @@ if(!class_exists('Cairo\FontFace\Toy')) die('skip - Cairo\FontFace\Toy not enabl
 --FILE--
 <?php
 // Test with all parameters
-$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontWeight::NORMAL, Cairo\FontWeight::NORMAL);
+$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL, Cairo\FontWeight::NORMAL);
 var_dump($c->getWeight());
 
-$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontWeight::NORMAL, Cairo\FontWeight::BOLD);
+$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL, Cairo\FontWeight::BOLD);
 var_dump($c->getWeight());
 ?>
 --EXPECTF--
-object(Cairo\FontWeight)#%d (2) {
-  ["__elements"]=>
-  array(2) {
-    ["NORMAL"]=>
-    int(0)
-    ["BOLD"]=>
-    int(1)
-  }
-  ["__value"]=>
-  int(0)
-}
-object(Cairo\FontWeight)#%d (2) {
-  ["__elements"]=>
-  array(2) {
-    ["NORMAL"]=>
-    int(0)
-    ["BOLD"]=>
-    int(1)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\FontWeight::NORMAL)
+enum(Cairo\FontWeight::BOLD)

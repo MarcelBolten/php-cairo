@@ -14,13 +14,6 @@ var_dump($options);
 $options->setHintStyle(Cairo\HintStyle::FULL);
 $options->setHintStyle();
 
-/* Invalid arg (99) */
-try {
-    $options->setHintStyle(99);
-} catch (TypeError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
-
 /* Wrong number args 2 */
 try {
     $options->setHintStyle(Cairo\HintStyle::FULL, 1);
@@ -38,6 +31,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-Value 99 provided is not a const in enum Cairo\HintStyle
 Cairo\FontOptions::setHintStyle() expects at most 1 argument, 2 given
-Cairo\FontOptions::setHintStyle(): Argument #1 ($hint_style) must be of type int, array given
+Cairo\FontOptions::setHintStyle(): Argument #1 ($hint_style) must be of type Cairo\HintStyle, array given

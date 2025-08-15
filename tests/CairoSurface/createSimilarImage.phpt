@@ -23,21 +23,21 @@ try {
 
 /* Wrong number args - 2 */
 try {
-    $surface->createSimilarImage(Cairo\Surface\Content::COLOR);
+    $surface->createSimilarImage(Cairo\Surface\ImageFormat::RGB24);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 3 */
 try {
-    $surface->createSimilarImage(Cairo\Surface\Content::COLOR, 10);
+    $surface->createSimilarImage(Cairo\Surface\ImageFormat::RGB24, 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 4 */
 try {
-    $surface->createSimilarImage(Cairo\Surface\Content::COLOR, 10, 10, 10);
+    $surface->createSimilarImage(Cairo\Surface\ImageFormat::RGB24, 10, 10, 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -51,14 +51,14 @@ try {
 
 /* Wrong arg type 2 */
 try {
-    $surface->createSimilarImage(Cairo\Surface\Content::COLOR, array(), 10);
+    $surface->createSimilarImage(Cairo\Surface\ImageFormat::RGB24, array(), 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong arg type 3 */
 try {
-    $surface->createSimilarImage(Cairo\Surface\Content::COLOR, 10, array());
+    $surface->createSimilarImage(Cairo\Surface\ImageFormat::RGB24, 10, array());
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -72,6 +72,6 @@ Cairo\Surface::createSimilarImage() expects exactly 3 arguments, 0 given
 Cairo\Surface::createSimilarImage() expects exactly 3 arguments, 1 given
 Cairo\Surface::createSimilarImage() expects exactly 3 arguments, 2 given
 Cairo\Surface::createSimilarImage() expects exactly 3 arguments, 4 given
-Cairo\Surface::createSimilarImage(): Argument #1 ($format) must be of type int, array given
+Cairo\Surface::createSimilarImage(): Argument #1 ($format) must be of type Cairo\Surface\ImageFormat, array given
 Cairo\Surface::createSimilarImage(): Argument #2 ($width) must be of type float, array given
 Cairo\Surface::createSimilarImage(): Argument #3 ($height) must be of type float, array given

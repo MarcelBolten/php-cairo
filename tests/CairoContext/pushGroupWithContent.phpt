@@ -28,9 +28,9 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 
-/* Wrong arg type, needs int */
+/* Wrong arg type, needs Cairo\Surface\Content */
 try {
-    $context->pushGroupWithContent(array());
+    $context->pushGroupWithContent([]);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -42,4 +42,4 @@ object(Cairo\Context)#%d (0) {
 }
 Cairo\Context::pushGroupWithContent() expects exactly 1 argument, 0 given
 Cairo\Context::pushGroupWithContent() expects exactly 1 argument, 2 given
-Cairo\Context::pushGroupWithContent(): Argument #1 ($content) must be of type int, array given
+Cairo\Context::pushGroupWithContent(): Argument #1 ($content) must be of type Cairo\Surface\Content, array given

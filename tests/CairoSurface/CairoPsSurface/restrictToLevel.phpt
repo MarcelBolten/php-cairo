@@ -39,4 +39,4 @@ object(Cairo\Surface\Ps)#%d (0) {
 }
 Cairo\Surface\Ps::restrictToLevel() expects exactly 1 argument, 0 given
 Cairo\Surface\Ps::restrictToLevel() expects exactly 1 argument, 2 given
-Cairo\Surface\Ps::restrictToLevel(): Argument #1 ($level) must be of type int, array given
+Cairo\Surface\Ps::restrictToLevel(): Argument #1 ($level) must be of type Cairo\Surface\Ps\Level, array given

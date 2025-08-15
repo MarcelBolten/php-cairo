@@ -9,7 +9,7 @@ if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
 var_dump($surface);
 
-$context = new Cairo\Context();
+$context = new Cairo\Context($surface);
 $context->setSurface($surface);
 var_dump($context);
 

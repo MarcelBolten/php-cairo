@@ -21,17 +21,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-object(Cairo\HintMetrics)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["DEFAULT"]=>
-    int(0)
-    ["OFF"]=>
-    int(1)
-    ["ON"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\HintMetrics::DEFAULT)
 Cairo\FontOptions::getHintMetrics() expects exactly 0 arguments, 1 given

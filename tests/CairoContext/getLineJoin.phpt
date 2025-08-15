@@ -26,17 +26,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-object(Cairo\LineJoin)#%d (2) {
-  ["__elements"]=>
-  array(3) {
-    ["MITER"]=>
-    int(0)
-    ["ROUND"]=>
-    int(1)
-    ["BEVEL"]=>
-    int(2)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\LineJoin::MITER)
 Cairo\Context::getLineJoin() expects exactly 0 arguments, 1 given

@@ -13,13 +13,6 @@ if (!in_array('PDF', Cairo::availableSurfaces())) {
 <?php
 echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::VERSION_1_5), PHP_EOL;
 
-/* invalid arg */
-try {
-    Cairo\Surface\Pdf::versionToString(999);
-} catch (ValueError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
-
 /* Wrong number args */
 try {
     Cairo\Surface\Pdf::versionToString();
@@ -43,7 +36,6 @@ try {
 ?>
 --EXPECTF--
 PDF 1.5
-Cairo\Surface\Pdf::versionToString(): Argument #1 ($version) is not a valid Cairo\Surface\Pdf\Version constant.
 Cairo\Surface\Pdf::versionToString() expects exactly 1 argument, 0 given
 Cairo\Surface\Pdf::versionToString() expects exactly 1 argument, 2 given
-Cairo\Surface\Pdf::versionToString(): Argument #1 ($version) must be of type int, array given
+Cairo\Surface\Pdf::versionToString(): Argument #1 ($version) must be of type Cairo\Surface\Pdf\Version, array given

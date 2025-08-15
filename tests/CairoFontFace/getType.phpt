@@ -20,21 +20,5 @@ try {
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
-object(Cairo\FontType)#%d (2) {
-  ["__elements"]=>
-  array(5) {
-    ["TOY"]=>
-    int(0)
-    ["FT"]=>
-    int(1)
-    ["WIN32"]=>
-    int(2)
-    ["QUARTZ"]=>
-    int(3)
-    ["USER"]=>
-    int(4)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\FontType::TOY)
 Cairo\FontFace::getType() expects exactly 0 arguments, 1 given

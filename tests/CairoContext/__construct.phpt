@@ -15,7 +15,6 @@ var_dump($context);
 /* Wrong number args - 1 */
 try {
     new Cairo\Context();
-    //trigger_error('We should bomb here');
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -39,5 +38,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-Cairo\Context::__construct() expects at most 1 argument, 2 given
+Cairo\Context::__construct() expects exactly 1 argument, 0 given
+Cairo\Context::__construct() expects exactly 1 argument, 2 given
 Cairo\Context::__construct(): Argument #1 ($surface) must be of type Cairo\Surface, int given

@@ -18,8 +18,10 @@ var_dump($c);
 $c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL);
 var_dump($c);
 
-// test with 3 params, 1 null
-$c = new Cairo\FontFace\Toy("sans-serif", null, Cairo\FontWeight::NORMAL);
+// test with named parameters
+$c = new Cairo\FontFace\Toy(
+    family: "sans-serif",
+    weight: Cairo\FontWeight::NORMAL);
 var_dump($c);
 
 // We shouldn't accept 0 args
@@ -68,12 +70,12 @@ object(Cairo\FontFace\Toy)#%d (0) {
 object(Cairo\FontFace\Toy)#%d (0) {
 }
 string(70) "Cairo\FontFace\Toy::__construct() expects at least 1 argument, 0 given"
-object(Cairo\FontFace\Toy)#2 (0) {
+object(Cairo\FontFace\Toy)#%d (0) {
 }
-object(Cairo\FontFace\Toy)#1 (0) {
+object(Cairo\FontFace\Toy)#%d (0) {
 }
 string(92) "Cairo\FontFace\Toy::__construct(): Argument #1 ($family) must be of type string, array given"
-object(Cairo\FontFace\Toy)#1 (0) {
+object(Cairo\FontFace\Toy)#%d (0) {
 }
-Cairo\FontFace\Toy::__construct(): Argument #2 ($slant) must be of type ?int, array given
-Cairo\FontFace\Toy::__construct(): Argument #3 ($weight) must be of type ?int, array given
+Cairo\FontFace\Toy::__construct(): Argument #2 ($slant) must be of type Cairo\FontSlant, array given
+Cairo\FontFace\Toy::__construct(): Argument #3 ($weight) must be of type Cairo\FontWeight, array given

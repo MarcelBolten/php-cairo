@@ -16,8 +16,15 @@ $context->selectFontFace('sans-serif');
 $fontface = $context->getFontFace();
 var_dump($fontface);
 
-// test with 3 params, 1 null
-$context->selectFontFace('sans-serif', null, Cairo\FontWeight::NORMAL);
+// test with named parameters
+try {
+    $context->selectFontFace(
+        family: 'sans-serif',
+        weight: Cairo\FontWeight::NORMAL
+    );
+} catch (Exception | Error $e) {
+    var_dump($e);
+}
 
 
 /* Wrong number args */
@@ -65,5 +72,5 @@ object(Cairo\FontFace\Toy)#%d (0) {
 Cairo\Context::selectFontFace() expects at least 1 argument, 0 given
 Cairo\Context::selectFontFace() expects at most 3 arguments, 4 given
 Cairo\Context::selectFontFace(): Argument #1 ($family) must be of type string, array given
-Cairo\Context::selectFontFace(): Argument #2 ($slant) must be of type ?int, array given
-Cairo\Context::selectFontFace(): Argument #3 ($weight) must be of type ?int, array given
+Cairo\Context::selectFontFace(): Argument #2 ($slant) must be of type Cairo\FontSlant, array given
+Cairo\Context::selectFontFace(): Argument #3 ($weight) must be of type Cairo\FontWeight, array given

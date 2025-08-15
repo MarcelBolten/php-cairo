@@ -62,7 +62,7 @@ object(Cairo\Rectangle)#%d (4) {
 }
 bool(true)
 int(4)
-object(Cairo\Rectangle)#4 (4) {
+object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
   int(5)
   ["y"]=>

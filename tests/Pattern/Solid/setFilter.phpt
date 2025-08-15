@@ -14,10 +14,6 @@ $pattern->setFilter(Cairo\Filter::GOOD);
 $filter = $pattern->getFilter();
 var_dump($filter == Cairo\Filter::GOOD);
 
-$pattern->setFilter(new Cairo\Filter('FAST'));
-$filter = $pattern->getFilter();
-var_dump($filter == Cairo\Filter::FAST);
-
 /* Total number of args needed = 1 */
 try {
     $pattern->setFilter();
@@ -36,18 +32,9 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-/* int must be in enum */
-try {
-    $pattern->setFilter(999);
-} catch (TypeError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
 ?>
 --EXPECTF--
 bool(true)
-bool(true)
 Cairo\Pattern::setFilter() expects exactly 1 argument, 0 given
 Cairo\Pattern::setFilter() expects exactly 1 argument, 2 given
-Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type int, array given
-Value 999 provided is not a const in enum Cairo\Filter
+Cairo\Pattern::setFilter(): Argument #1 ($filter) must be of type Cairo\Filter, array given

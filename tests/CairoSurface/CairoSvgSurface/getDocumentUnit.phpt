@@ -26,5 +26,5 @@ try {
 }
 ?>
 --EXPECTF--
-int(0)
+enum(Cairo\Surface\Svg\Unit::USER)
 Cairo\Surface\Svg::getDocumentUnit() expects exactly 0 arguments, 1 given

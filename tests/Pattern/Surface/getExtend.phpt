@@ -28,20 +28,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-object(Cairo\Extend)#3 (2) {
-  ["__elements"]=>
-  array(4) {
-    ["NONE"]=>
-    int(0)
-    ["REPEAT"]=>
-    int(1)
-    ["REFLECT"]=>
-    int(2)
-    ["PAD"]=>
-    int(3)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\Extend::NONE)
 bool(true)
 Cairo\Pattern::getExtend() expects exactly 0 arguments, 1 given

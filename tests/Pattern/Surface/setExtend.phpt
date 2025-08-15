@@ -20,11 +20,6 @@ $extend = $pattern->getExtend();
 var_dump($extend);
 var_dump($extend == Cairo\Extend::PAD);
 
-$pattern->setExtend(1);
-$extend = $pattern->getExtend();
-var_dump($extend);
-var_dump($extend == Cairo\Extend::REPEAT);
-
 /* Total number of args needed = 1 */
 try {
     $pattern->setExtend();
@@ -55,39 +50,9 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-object(Cairo\Extend)#3 (2) {
-  ["__elements"]=>
-  array(4) {
-    ["NONE"]=>
-    int(0)
-    ["REPEAT"]=>
-    int(1)
-    ["REFLECT"]=>
-    int(2)
-    ["PAD"]=>
-    int(3)
-  }
-  ["__value"]=>
-  int(3)
-}
-bool(true)
-object(Cairo\Extend)#%d (2) {
-  ["__elements"]=>
-  array(4) {
-    ["NONE"]=>
-    int(0)
-    ["REPEAT"]=>
-    int(1)
-    ["REFLECT"]=>
-    int(2)
-    ["PAD"]=>
-    int(3)
-  }
-  ["__value"]=>
-  int(1)
-}
+enum(Cairo\Extend::PAD)
 bool(true)
 Cairo\Pattern::setExtend() expects exactly 1 argument, 0 given
 Cairo\Pattern::setExtend() expects exactly 1 argument, 2 given
-Cairo\Pattern::setExtend(): Argument #1 ($extend) must be of type int, array given
-Cairo\Pattern::setExtend(): Argument #1 ($extend) must be of type int, Cairo\Surface\Image given
+Cairo\Pattern::setExtend(): Argument #1 ($extend) must be of type Cairo\Extend, array given
+Cairo\Pattern::setExtend(): Argument #1 ($extend) must be of type Cairo\Extend, Cairo\Surface\Image given

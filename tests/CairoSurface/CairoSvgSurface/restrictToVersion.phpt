@@ -38,4 +38,4 @@ object(Cairo\Surface\Svg)#%d (0) {
 }
 Cairo\Surface\Svg::restrictToVersion() expects exactly 1 argument, 0 given
 Cairo\Surface\Svg::restrictToVersion() expects exactly 1 argument, 2 given
-Cairo\Surface\Svg::restrictToVersion(): Argument #1 ($version) must be of type int, array given
+Cairo\Surface\Svg::restrictToVersion(): Argument #1 ($version) must be of type Cairo\Surface\Svg\Version, array given

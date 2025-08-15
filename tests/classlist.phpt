@@ -10,7 +10,7 @@ $ext = new ReflectionExtension('cairo');
 var_dump($ext->getClassNames());
 ?>
 --EXPECT--
-array(56) {
+array(55) {
   [0]=>
   string(5) "Cairo"
   [1]=>
@@ -90,37 +90,35 @@ array(56) {
   [38]=>
   string(25) "Cairo\Surface\Pdf\Version"
   [39]=>
-  string(25) "Cairo\Surface\Pdf\Outline"
-  [40]=>
   string(30) "Cairo\Surface\Pdf\OutlineFlags"
-  [41]=>
+  [40]=>
   string(26) "Cairo\Surface\Pdf\Metadata"
-  [42]=>
+  [41]=>
   string(17) "Cairo\Surface\Svg"
-  [43]=>
+  [42]=>
   string(25) "Cairo\Surface\Svg\Version"
-  [44]=>
+  [43]=>
   string(22) "Cairo\Surface\Svg\Unit"
-  [45]=>
+  [44]=>
   string(16) "Cairo\Surface\Ps"
-  [46]=>
+  [45]=>
   string(22) "Cairo\Surface\Ps\Level"
-  [47]=>
+  [46]=>
   string(10) "Cairo\Path"
-  [48]=>
+  [47]=>
   string(19) "Cairo\Path\DataType"
-  [49]=>
+  [48]=>
   string(13) "Cairo\Context"
-  [50]=>
+  [49]=>
   string(14) "Cairo\FillRule"
-  [51]=>
+  [50]=>
   string(13) "Cairo\LineCap"
-  [52]=>
+  [51]=>
   string(14) "Cairo\LineJoin"
-  [53]=>
+  [52]=>
   string(14) "Cairo\Operator"
-  [54]=>
+  [53]=>
   string(11) "Cairo\Glyph"
-  [55]=>
+  [54]=>
   string(17) "Cairo\TextCluster"
 }

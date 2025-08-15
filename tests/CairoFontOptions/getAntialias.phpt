@@ -23,25 +23,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-object(Cairo\Antialias)#%d (2) {
-  ["__elements"]=>
-  array(7) {
-    ["DEFAULT"]=>
-    int(0)
-    ["NONE"]=>
-    int(1)
-    ["GRAY"]=>
-    int(2)
-    ["SUBPIXEL"]=>
-    int(3)
-    ["FAST"]=>
-    int(4)
-    ["GOOD"]=>
-    int(5)
-    ["BEST"]=>
-    int(6)
-  }
-  ["__value"]=>
-  int(0)
-}
+enum(Cairo\Antialias::DEFAULT)
 Cairo\FontOptions::getAntialias() expects exactly 0 arguments, 1 given

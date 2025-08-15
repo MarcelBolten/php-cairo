@@ -28,21 +28,5 @@ object(Cairo\FontFace\Toy)#%d (0) {
 }
 object(Cairo\ScaledFont)#%d (0) {
 }
-object(Cairo\FontType)#%d (2) {
-  ["__elements"]=>
-  array(5) {
-    ["TOY"]=>
-    int(0)
-    ["FT"]=>
-    int(1)
-    ["WIN32"]=>
-    int(2)
-    ["QUARTZ"]=>
-    int(3)
-    ["USER"]=>
-    int(4)
-  }
-  ["__value"]=>
-  int(4)
-}
+enum(Cairo\FontType::USER)
 Cairo\ScaledFont::getType() expects exactly 0 arguments, 1 given
