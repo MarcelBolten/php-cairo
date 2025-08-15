@@ -343,11 +343,11 @@ PHP_METHOD(CairoMatrix, invert)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoMatrix_multiply_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, matrix1, CairoMatrix, 1, "null")
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, matrix2, CairoMatrix, 1, "null")
+    ZEND_ARG_OBJ_INFO(0, matrix1, Cairo\\Matrix, 1)
+    ZEND_ARG_OBJ_INFO(0, matrix2, Cairo\\Matrix, 1)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto CairoMatrix \Cairo\Matrix::multiply(CairoMatrix matrix1, CairoMatrix matrix2)
+/* {{{ proto CairoMatrix \Cairo\Matrix::multiply(Cairo\Matrix matrix1, Cairo\Matrix matrix2)
        Multiplies the affine transformations in two matrices together and returns the result */
 PHP_METHOD(CairoMatrix, multiply)
 {
