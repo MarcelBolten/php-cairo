@@ -366,27 +366,20 @@ PHP_MINFO_FUNCTION(cairo)
 }
 /* }}} */
 
-/* {{{ cairo_module_deps */
-static const zend_module_dep cairo_module_deps[] = {
-	ZEND_MOD_REQUIRED("eos_datastructures")
-	ZEND_MOD_END
-};
-/* }}} */
-
 /* {{{ cairo_module_entry */
 zend_module_entry cairo_module_entry = {
-	STANDARD_MODULE_HEADER_EX,
-	NULL,
-	cairo_module_deps,
-	"cairo",
-	cairo_functions,
-	PHP_MINIT(cairo),
-	PHP_MSHUTDOWN(cairo),
-	NULL,
-	NULL,
-	PHP_MINFO(cairo),
-	PHP_CAIRO_VERSION,
-	STANDARD_MODULE_PROPERTIES
+    STANDARD_MODULE_HEADER_EX,
+    NULL,
+    NULL,
+    "cairo",
+    cairo_functions,
+    PHP_MINIT(cairo),
+    PHP_MSHUTDOWN(cairo),
+    NULL,
+    NULL,
+    PHP_MINFO(cairo),
+    PHP_CAIRO_VERSION,
+    STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
 
