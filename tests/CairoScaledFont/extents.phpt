@@ -5,7 +5,6 @@ Cairo\ScaledFont->extents() method
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 include(dirname(__FILE__) . '/create_toyfont.inc');
@@ -29,7 +28,6 @@ try {
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }

@@ -3,7 +3,6 @@ Cairo::availableFonts() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $fonts = \Cairo::availableFonts();
@@ -16,7 +15,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 bool(true)
 string(%d) %s

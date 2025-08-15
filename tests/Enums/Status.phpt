@@ -3,7 +3,6 @@ Cairo\Status class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Status;
@@ -18,7 +17,6 @@ try {
 } catch(TypeError $e) {
     echo $e->getMessage();
 }
-?>
 --EXPECTF--
 enum(Cairo\Status::SUCCESS)
 string(21) "no error has occurred"

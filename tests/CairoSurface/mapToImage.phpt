@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!method_exists('Cairo\Surface', 'mapToImage')) {
     die('skip - Cairo\Surface->mapToImage not available');
 }
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 250, 250);
@@ -35,7 +34,6 @@ try {
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

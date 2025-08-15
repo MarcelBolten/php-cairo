@@ -4,7 +4,6 @@ Cairo\Surface\ImageFormat::strideForWidth() method
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!method_exists('Cairo\Surface\ImageFormat', 'strideForWidth')) die('skip - Cairo\Surface\ImageFormat::strideForWidth not available');
-?>
 --FILE--
 <?php
 echo Cairo\Surface\ImageFormat::strideForWidth(1, 5), PHP_EOL;
@@ -43,7 +42,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 20
 Cairo\Surface\ImageFormat::strideForWidth() expects exactly 2 %s, 0 given

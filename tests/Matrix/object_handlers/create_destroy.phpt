@@ -3,7 +3,6 @@ Cairo\Matrix create/destroy handlers
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -18,7 +17,6 @@ class neo extends Matrix{
 
 $mr_andersen = new neo();
 var_dump($mr_andersen);
-?>
 --EXPECTF--
 object(neo)#%d (6) {
   ["xx"]=>

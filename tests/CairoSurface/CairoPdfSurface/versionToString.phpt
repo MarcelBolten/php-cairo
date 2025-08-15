@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('PDF', Cairo::availableSurfaces())) {
     die('skip - PDF surface not available');
 }
-?>
 --FILE--
 <?php
 echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::VERSION_1_5), PHP_EOL;
@@ -33,7 +32,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 PDF 1.5
 Cairo\Surface\Pdf::versionToString() expects exactly 1 argument, 0 given

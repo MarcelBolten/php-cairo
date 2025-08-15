@@ -3,7 +3,6 @@ Cairo\Context->setOperator() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -20,14 +19,14 @@ var_dump($context->getOperator());
 try {
 	$context->setOperator();
 	trigger_error('Cairo\Context->setOperator() expects 1 param');
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
 try {
 	$context->setOperator(\Cairo\Operator::CLEAR, 1);
 	trigger_error('Cairo\Context->setOperator() expects 1 param');
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
@@ -36,12 +35,10 @@ catch (TypeError $ex) {
 try {
 	$context->setOperator(array());
 	trigger_error('Cairo\Context->setOperator() expects 1 param');
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
-
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

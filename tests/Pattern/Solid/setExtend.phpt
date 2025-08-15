@@ -3,7 +3,6 @@ Cairo\Pattern->setExtend() method [using Solid]
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Solid;

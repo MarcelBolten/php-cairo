@@ -3,7 +3,6 @@ Cairo\Pattern->setMatrix() method [using Solid]
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Solid;
@@ -41,8 +40,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-?>
 --EXPECT--
 bool(true)
 bool(true)

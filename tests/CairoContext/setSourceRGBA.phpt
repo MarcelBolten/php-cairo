@@ -3,7 +3,6 @@ Cairo\Context->setSourceRGBA() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -31,8 +30,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage();
 }
-
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

@@ -3,14 +3,12 @@ Cairo\Pattern\Type class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Type;
 
 $enum = Type::cases();
 var_dump($enum);
-?>
 --EXPECTF--
 array(6) {
   [0]=>

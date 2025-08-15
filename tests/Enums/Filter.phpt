@@ -3,14 +3,12 @@ Cairo\Filter class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Filter;
 
 $enum = Filter::cases();
 var_dump($enum);
-?>
 --EXPECTF--
 array(6) {
   [0]=>

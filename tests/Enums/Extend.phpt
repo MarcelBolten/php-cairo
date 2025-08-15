@@ -3,7 +3,6 @@ Cairo\Extend class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Extend;

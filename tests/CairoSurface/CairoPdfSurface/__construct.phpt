@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('PDF', Cairo::availableSurfaces())) {
     die('skip - PDF surface not available');
 }
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Pdf(NULL, 50, 50);
@@ -69,12 +68,10 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --CLEAN--
 <?php
 unlink(dirname(__FILE__) . '/nametest.pdf');
 unlink(dirname(__FILE__) . '/streamtest.pdf');
-?>
 --EXPECTF--
 object(Cairo\Surface\Pdf)#%d (0) {
 }

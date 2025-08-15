@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('PNG', Cairo::availableSurfaces())) {
     die('skip - PNG support not available');
 }
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -46,12 +45,10 @@ try {
 } catch (Cairo\Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --CLEAN--
 <?php
 unlink(dirname(__FILE__) . '/test.png');
 unlink(dirname(__FILE__) . '/stream.png');
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

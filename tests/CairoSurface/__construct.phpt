@@ -5,18 +5,17 @@ new Cairo\Surface [ __construct method ]
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 
 class test extends Cairo\Surface {
-    
+
 }
 
 class test2 extends Cairo\Surface {
 
     public function __construct() {
-        
+
     }
 
 }
@@ -36,7 +35,6 @@ try {
 } catch (Cairo\Exception $e) {
     echo $e->getMessage();
 }
-?>
 --EXPECTF--
 Cairo\Surface cannot be constructed
 Internal surface object missing in test2, you must call parent::__construct in extended classes

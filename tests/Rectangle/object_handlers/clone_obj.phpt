@@ -3,7 +3,6 @@ Cairo\Rectangle clone handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -21,8 +20,6 @@ $testing = new testing(6);
 $copy = clone $testing;
 var_dump(get_class($copy));
 var_dump($copy->x);
-
-?>
 --EXPECT--
 int(5)
 int(9)

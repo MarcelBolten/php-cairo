@@ -3,7 +3,6 @@ Cairo\Rectangle get_properties handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -11,8 +10,6 @@ use Cairo\Rectangle;
 $rect = new Rectangle(6, 5, 4, 3);
 var_dump($rect);
 print_r($rect);
-
-?>
 --EXPECTF--
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>

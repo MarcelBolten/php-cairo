@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('PS', Cairo::availableSurfaces())) {
     die('skip - PS surface not available');
 }
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Ps(NULL, 50, 50);
@@ -69,12 +68,10 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --CLEAN--
 <?php
 unlink(dirname(__FILE__) . '/nametest.ps');
 unlink(dirname(__FILE__) . '/streamtest.ps');
-?>
 --EXPECTF--
 object(Cairo\Surface\Ps)#%d (0) {
 }

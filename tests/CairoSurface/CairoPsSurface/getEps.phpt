@@ -5,7 +5,6 @@ Cairo\Surface\Ps->getEps() method
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not available');
 if(!method_exists('Cairo\Surface\Ps', 'getEps')) die('skip - Cairo\Surface\Ps->getEps not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Ps(NULL, 50, 50);
@@ -19,7 +18,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Ps)#%d (0) {
 }

@@ -3,7 +3,6 @@ Cairo\Pattern\Gradient->getColorStopRgba() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Gradient\Radial;
@@ -31,7 +30,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECT--
 array(4) {
   ["red"]=>

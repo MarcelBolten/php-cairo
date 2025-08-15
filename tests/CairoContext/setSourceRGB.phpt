@@ -3,7 +3,6 @@ Cairo\Context->setSourceRGB() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -17,7 +16,7 @@ $context->setSourceRGB(0.1, 0.1, 0.1);
 /* Wrong number of args: 0 */
 try {
     $context->setSourceRGB();
-} 
+}
 catch(TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -31,14 +30,14 @@ catch(TypeError $ex) {
 
 try {
     $context->setSourceRGB(1, 1);
-} 
+}
 catch(TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
 
 try {
     $context->setSourceRGB(1, 1, 1, 1);
-} 
+}
 catch(TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -53,18 +52,17 @@ catch(TypeError $ex) {
 
 try {
     $context->setSourceRGB(1, array(), 1);
-} 
+}
 catch(TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
 
 try {
     $context->setSourceRGB(1, 1, array());
-} 
+}
 catch(TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

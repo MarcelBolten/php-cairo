@@ -3,7 +3,6 @@ Cairo\Matrix read_property handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -19,8 +18,6 @@ var_dump($matrix->y0);
 
 $matrix->banana = 'fruit';
 var_dump($matrix->banana);
-
-?>
 --EXPECT--
 float(1)
 float(3)

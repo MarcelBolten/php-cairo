@@ -6,7 +6,6 @@ if(!extension_loaded('cairo'))
 	die('skip - Cairo extension not available');
 if(!class_exists('\\Cairo\\FontFace\\Win32'))
 	die('skip - Cairo\FontFace\Win32 class not available');
-?>
 --FILE--
 <?php
 $f_opts = array (
@@ -35,7 +34,6 @@ try {
 } catch (TypeError $e) {
 	echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\FontFace\Win32)#%d (0) {
 }

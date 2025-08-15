@@ -3,7 +3,6 @@ Cairo\Context->lineTo() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -23,7 +22,7 @@ $context->lineTo(1, 1);
 try {
     $context->lineTo();
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -31,7 +30,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->lineTo(1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -39,7 +38,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->lineTo(1,1, 1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -48,7 +47,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->lineTo(array(),1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -56,11 +55,10 @@ catch (TypeError $ex) {
 try {
     $context->lineTo(1,array());
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

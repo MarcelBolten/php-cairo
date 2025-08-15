@@ -3,7 +3,6 @@ Cairo\Matrix->__construct() extended
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -12,7 +11,7 @@ use Cairo\Exception;
 class Bad extends Matrix {
     public $xx = 0;
     public $xy = 0;
-    
+
     public function __construct() {
     }
 }
@@ -24,6 +23,5 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECT--
 invalid matrix (not invertible)

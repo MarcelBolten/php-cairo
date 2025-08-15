@@ -3,7 +3,6 @@ Cairo\Region->getRectangle() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 $rectangle1 = new Cairo\Rectangle(0,0,100,100);
@@ -29,7 +28,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Region)#%d (0) {
 }

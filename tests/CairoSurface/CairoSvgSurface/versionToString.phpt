@@ -4,7 +4,6 @@ Cairo\Surface\Svg::versionToString() method
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!in_array('SVG', Cairo::availableSurfaces())) die('skip - SVG surface not available');
-?>
 --FILE--
 <?php
 echo Cairo\Surface\Svg::versionToString(Cairo\Surface\Svg\Version::VERSION_1_1), PHP_EOL;
@@ -29,7 +28,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 SVG 1.1
 Cairo\Surface\Svg::versionToString() expects exactly 1 argument, 0 given

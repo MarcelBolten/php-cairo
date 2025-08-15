@@ -4,7 +4,6 @@ Cairo\Surface\Image::createFromPng() method
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!in_array('PNG', Cairo::availableSurfaces())) die('skip - PNG support not available');
-?>
 --FILE--
 <?php
 $surface = Cairo\Surface\Image::createFromPng(dirname(__FILE__) . '/red.png');
@@ -35,7 +34,6 @@ try {
 } catch (Cairo\Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

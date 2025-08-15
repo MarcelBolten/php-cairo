@@ -3,7 +3,6 @@ Cairo\Context->mask() function
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -18,13 +17,13 @@ $context->mask($pattern);
 /* wrong params */
 try {
     $context->mask();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
 try {
     $context->mask($pattern, 1);
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -36,7 +35,6 @@ try {
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

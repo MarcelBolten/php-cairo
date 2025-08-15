@@ -4,7 +4,6 @@ Cairo\FontFace\Toy::getSlant() method
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!class_exists('Cairo\FontFace\Toy')) die('skip - Cairo\FontFace\Toy not enabled');
-?>
 --FILE--
 <?php
 // Test with all parameters
@@ -13,7 +12,6 @@ var_dump($c->getSlant());
 
 $c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::ITALIC, Cairo\FontWeight::NORMAL);
 var_dump($c->getSlant());
-?>
 --EXPECTF--
 enum(Cairo\FontSlant::NORMAL)
 enum(Cairo\FontSlant::ITALIC)

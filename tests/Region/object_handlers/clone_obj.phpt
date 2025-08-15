@@ -3,7 +3,6 @@ Cairo\Region clone handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Region;
@@ -21,8 +20,6 @@ var_dump( $region2->containsPoint(10,10) );
 
 $region3 = clone $region2;
 var_dump( $region3->containsPoint(10,10) );
-
-?>
 --EXPECT--
 object(Cairo\Region)#1 (0) {
 }

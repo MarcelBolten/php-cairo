@@ -3,7 +3,6 @@ Cairo\Context->setLineWidth() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -18,14 +17,14 @@ var_dump($context->getLineWidth());
 /* wrong params */
 try {
     $context->setLineWidth();
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
 try {
 	$context->setLineWidth(1,1);
 	trigger_error('Cairo\Context->setLineWidth() expects 1 param');
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
@@ -33,12 +32,10 @@ catch (TypeError $ex) {
 /* wrong types */
 try {
     $context->setLineWidth(array());
-} 
+}
 catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
-
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

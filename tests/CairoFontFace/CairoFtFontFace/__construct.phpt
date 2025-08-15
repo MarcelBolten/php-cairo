@@ -4,7 +4,6 @@ CairoFtFontFace::__construct()
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!class_exists('\\Cairo\FontFace\\Ft')) die('skip - \\Cairo\FontFace\\ not available');
-?>
 --FILE--
 <?php
 $fontFile = dirname(__FILE__) . "/Vera.ttf";
@@ -39,7 +38,7 @@ try {
 } catch (Cairo\Exception $e) {
     var_dump($e->getMessage());
 }
-var_dump($c); 
+var_dump($c);
 
 // Test with a broken font
 try {
@@ -48,7 +47,6 @@ try {
     var_dump($e->getMessage());
 }
 var_dump($c);
-?>
 --EXPECTF--
 object(Cairo\FontFace\Ft)#1 (0) {
 }

@@ -3,7 +3,6 @@ Cairo\Matrix get_properties handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -11,8 +10,6 @@ use Cairo\Matrix;
 $matrix = new Matrix(6, 5, 4, 3, 2, 1);
 var_dump($matrix);
 print_r($matrix);
-
-?>
 --EXPECTF--
 object(Cairo\Matrix)#%d (6) {
   ["xx"]=>

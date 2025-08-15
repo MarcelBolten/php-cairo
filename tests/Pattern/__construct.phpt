@@ -3,7 +3,6 @@
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern;
@@ -32,7 +31,6 @@ try {
 } catch (Exception $e) {
 	echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 Cannot instantiate abstract class Cairo\Pattern
 Cairo\Pattern cannot be constructed

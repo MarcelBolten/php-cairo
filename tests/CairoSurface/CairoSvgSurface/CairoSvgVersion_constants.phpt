@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('SVG', Cairo::availableSurfaces())) {
     die('skip - SVG surface not available');
 }
-?>
 --FILE--
 <?php
 $constants = [
@@ -42,7 +41,6 @@ if (!$error) {
     echo "No missing constants, checked " . sizeof($constants) . "!\n";
 }
 echo "Done\n";
-?>
 --EXPECTF--
 No missing constants, checked %d!
 Done

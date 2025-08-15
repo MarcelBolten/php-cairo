@@ -3,7 +3,6 @@ Cairo\Rectangle->__construct() extended
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -17,7 +16,6 @@ class Bad extends Rectangle {
 $fail = new Bad();
 
 var_dump($fail);
-?>
 --EXPECTF--
 object(Bad)#%d (4) {
   ["x"]=>

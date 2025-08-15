@@ -5,7 +5,6 @@ Cairo\FontOptions->merge() method
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
@@ -40,7 +39,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }

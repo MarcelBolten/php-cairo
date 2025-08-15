@@ -3,7 +3,6 @@ Cairo\Region->intersectRectangle() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 $rectangle1 = new Cairo\Rectangle(10,10,40,40);
@@ -27,7 +26,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Region)#%d (0) {
 }

@@ -5,7 +5,6 @@ Cairo\HintStyle class constants
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 $constants = [
@@ -19,7 +18,6 @@ $constants = [
 foreach ($constants as $name) {
     var_dump(defined('\\Cairo\\HintStyle::' . $name));
 }
-?>
 --EXPECT--
 bool(true)
 bool(true)

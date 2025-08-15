@@ -3,7 +3,6 @@ Cairo\Rectangle read_property handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -17,8 +16,6 @@ var_dump($rect->height);
 
 $rect->banana = 'fruit';
 var_dump($rect->banana);
-
-?>
 --EXPECT--
 int(1)
 int(2)

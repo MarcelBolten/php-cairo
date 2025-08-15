@@ -3,7 +3,6 @@ Cairo\Pattern->getStatus() method [using Solid]
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Solid;
@@ -18,7 +17,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage();
 }
-?>
 --EXPECT--
 bool(true)
 string(21) "no error has occurred"

@@ -3,7 +3,6 @@ Cairo\Context->relCurveTo() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -24,7 +23,7 @@ $context->relCurveTo(0, 0, 1, 0, 1, 1);
 try {
     $context->relCurveTo();
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -32,7 +31,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -40,7 +39,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1,1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -48,7 +47,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1,1,1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -56,7 +55,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1,1,1,1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -64,7 +63,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1,1,1,1,1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -72,7 +71,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(1,1,1,1,1,1,1);
     trig_err();
-} 
+}
 catch (ArgumentCountError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -81,7 +80,7 @@ catch (ArgumentCountError $ex) {
 try {
     $context->relCurveTo(array(),1,1,1,1,1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -89,7 +88,7 @@ catch (TypeError $ex) {
 try {
     $context->relCurveTo(1,array(),1,1,1,1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -97,7 +96,7 @@ catch (TypeError $ex) {
 try {
     $context->relCurveTo(1,1,array(),1,1,1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -105,7 +104,7 @@ catch (TypeError $ex) {
 try {
     $context->relCurveTo(1,1,1,array(),1,1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -113,7 +112,7 @@ catch (TypeError $ex) {
 try {
     $context->relCurveTo(1,1,1,1,array(),1);
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
@@ -121,11 +120,10 @@ catch (TypeError $ex) {
 try {
     $context->relCurveTo(1,1,1,1,1,array());
     trig_err();
-} 
+}
 catch (TypeError $ex) {
     echo $ex->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

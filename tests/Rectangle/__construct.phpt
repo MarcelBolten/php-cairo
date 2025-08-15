@@ -1,9 +1,8 @@
 --TEST--
-Cairo\Rectangle->__construct() 
+Cairo\Rectangle->__construct()
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -45,7 +44,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>

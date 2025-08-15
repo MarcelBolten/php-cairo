@@ -3,7 +3,6 @@ Cairo\Pattern\Mesh->beginPatch()
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Mesh;
@@ -32,7 +31,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECT--
 int(0)
 int(1)

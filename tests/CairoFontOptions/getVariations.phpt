@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!method_exists('Cairo\FontOptions', 'getVariations')) {
     die('skip - Cairo\FontOptions->getVariations not available');
 }
-?>
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
@@ -28,8 +27,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-?>
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }

@@ -3,7 +3,6 @@ Cairo::versionString() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $version = \Cairo\version_string();
@@ -27,7 +26,6 @@ try {
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 string(%d) %s
 string(%d) %s

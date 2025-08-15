@@ -3,7 +3,6 @@ Cairo\Rectangle create/destroy handlers
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Rectangle;
@@ -18,7 +17,6 @@ class neo extends Rectangle{
 
 $mr_andersen = new neo();
 var_dump($mr_andersen);
-?>
 --EXPECTF--
 object(neo)#%d (4) {
   ["x"]=>

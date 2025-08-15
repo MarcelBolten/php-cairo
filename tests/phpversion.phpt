@@ -3,10 +3,8 @@ cairo extension phpversion value
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';
-?>
 --FILE--
 <?php
 var_dump(phpversion('cairo'));
-?>
 --EXPECTF--
 string(%d) "%d.%d.%d"

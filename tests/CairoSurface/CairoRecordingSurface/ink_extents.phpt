@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('RECORDING', Cairo::availableSurfaces())) {
     die('skip - RECORDING surface not available');
 }
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Recording(\Cairo\Surface\Content::COLOR_ALPHA);
@@ -25,8 +24,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-?>
 --EXPECTF--
 object(Cairo\Surface\Recording)#%d (0) {
 }

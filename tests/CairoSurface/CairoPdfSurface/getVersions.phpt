@@ -8,7 +8,6 @@ if (!extension_loaded('cairo')) {
 if (!in_array('PDF', Cairo::availableSurfaces())) {
     die('skip - PDF surface not available');
 }
-?>
 --FILE--
 <?php
 var_dump(Cairo\Surface\Pdf::getVersions());
@@ -19,7 +18,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 array(4) {
   [0]=>

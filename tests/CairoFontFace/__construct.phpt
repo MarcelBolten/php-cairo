@@ -3,7 +3,6 @@ new Cairo\FontFace [ __construct method ]
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 class test extends Cairo\FontFace {}
@@ -24,7 +23,6 @@ try {
 } catch (Cairo\Exception $e) {
     echo $e->getMessage();
 }
-?>
 --EXPECTF--
 Cairo\FontFace cannot be constructed
 Internal font face object missing in test2, you must call parent::__construct in extended classes

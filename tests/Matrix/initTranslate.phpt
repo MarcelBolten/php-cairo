@@ -3,7 +3,6 @@ Cairo\Matrix::initTranslate()
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -46,7 +45,6 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Matrix)#%d (6) {
   ["xx"]=>

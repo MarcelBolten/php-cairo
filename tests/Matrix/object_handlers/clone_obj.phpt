@@ -3,7 +3,6 @@ Cairo\Matrix clone handler
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Matrix;
@@ -21,8 +20,6 @@ $testing = new testing(6);
 $copy = clone $testing;
 var_dump(get_class($copy));
 var_dump($copy->xx);
-
-?>
 --EXPECT--
 float(5)
 float(9)

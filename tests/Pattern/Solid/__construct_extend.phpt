@@ -3,7 +3,6 @@ Cairo\Pattern\Solid [__construct() method ] with extended class
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Solid;
@@ -21,6 +20,5 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECT--
 Internal pattern object missing in Bad, you must call parent::__construct in extended classes

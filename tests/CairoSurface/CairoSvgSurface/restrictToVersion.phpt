@@ -4,7 +4,6 @@ Cairo\Surface\Svg->restrictToVersion() method
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!in_array('SVG', Cairo::availableSurfaces())) die('skip - SVG surface not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Svg(NULL, 50, 50);
@@ -32,7 +31,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Surface\Svg)#%d (0) {
 }

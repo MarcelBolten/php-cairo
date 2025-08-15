@@ -5,7 +5,6 @@ Cairo::available_surfaces() method
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 $surfaces = \Cairo::availableSurfaces();
@@ -18,7 +17,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 bool(true)
 string(5) "IMAGE"

@@ -3,7 +3,6 @@ Cairo\Region->translate() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-?>
 --FILE--
 <?php
 $region = new Cairo\Region();
@@ -37,7 +36,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Region)#%d (0) {
 }

@@ -3,7 +3,6 @@ Cairo\Pattern\Gradient\Linear->getPoints() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../../skipif.inc';
-?>
 --FILE--
 <?php
 use Cairo\Pattern\Gradient\Linear;
@@ -19,7 +18,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-?>
 --EXPECTF--
 object(Cairo\Pattern\Gradient\Linear)#%d (0) {
 }

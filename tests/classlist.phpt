@@ -3,12 +3,10 @@ cairo extension class listing
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';
-?>
 --FILE--
 <?php
 $ext = new ReflectionExtension('cairo');
 var_dump($ext->getClassNames());
-?>
 --EXPECT--
 array(55) {
   [0]=>

@@ -5,7 +5,6 @@ Cairo\SurfaceType class constants
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 $constants = [
@@ -37,7 +36,6 @@ if (!$error) {
     echo "No missing constants, checked " . sizeof($constants) . "!\n";
 }
 echo "Done\n";
-?>
 --EXPECTF--
 No missing constants, checked %d!
 Done

@@ -3,7 +3,6 @@ Cairo\Context->setPattern() method
 --SKIPIF--
 <?php
 if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-?>
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -56,7 +55,6 @@ try {
 
 // DO NOT REMOVE: workaround for GC-related bug in 5.3
 die;
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

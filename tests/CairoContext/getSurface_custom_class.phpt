@@ -5,7 +5,6 @@ Cairo\Context->getTarget() should return custom classes derived from Cairo\Surfa
 if (!extension_loaded('cairo')) {
     die('skip - Cairo extension not available');
 }
-?>
 --FILE--
 <?php
 class TestSurface extends Cairo\Surface\Image {
@@ -20,7 +19,6 @@ var_dump($c->getSurface() instanceof TestSurface);
 var_dump($c->getSurface() instanceof TestSurface);
 unset($t);
 var_dump($c->getSurface() instanceof TestSurface);
-?>
 --EXPECTF--
 bool(true)
 bool(true)
