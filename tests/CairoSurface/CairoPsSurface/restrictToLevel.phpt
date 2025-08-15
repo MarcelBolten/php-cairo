@@ -10,18 +10,15 @@ if(!method_exists('Cairo\Surface\Ps', 'restrictToLevel')) die('skip - Cairo\Surf
 $surface = new Cairo\Surface\Ps(NULL, 50, 50);
 var_dump($surface);
 
-$surface->restrictToLevel(Cairo\Surface\Ps\Level::LEVEL_2);
+// explicitly provide value
+$surface->restrictToLevel(Cairo\Surface\Ps\Level::LEVEL_3);
 
-/* Wrong number args */
-try {
-    $surface->restrictToLevel();
-} catch (TypeError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
+// set default value
+$surface->restrictToLevel();
 
 /* Wrong number args 2 */
 try {
-    $surface->restrictToLevel(1, 1);
+    $surface->restrictToLevel(Cairo\Surface\Ps\Level::LEVEL_2, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -35,6 +32,5 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Ps)#%d (0) {
 }
-Cairo\Surface\Ps::restrictToLevel() expects exactly 1 argument, 0 given
-Cairo\Surface\Ps::restrictToLevel() expects exactly 1 argument, 2 given
+Cairo\Surface\Ps::restrictToLevel() expects at most 1 argument, 2 given
 Cairo\Surface\Ps::restrictToLevel(): Argument #1 ($level) must be of type Cairo\Surface\Ps\Level, array given
