@@ -262,7 +262,7 @@ ZEND_END_ARG_INFO()
         requirements of the accelerated image-rendering code within cairo. */
 PHP_METHOD(CairoFormat, strideForWidth)
 {
-    zend_long width;
+    double width;
     zval *format;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
