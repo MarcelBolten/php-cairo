@@ -129,7 +129,7 @@ ZEND_END_ARG_INFO()
 PHP_METHOD(CairoPsSurface, restrictToLevel)
 {
     cairo_surface_object *surface_object;
-    zval *level;
+    zval *level = NULL;
 
     ZEND_PARSE_PARAMETERS_START(0, 1)
         Z_PARAM_OPTIONAL
@@ -143,8 +143,11 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
 
     cairo_ps_surface_restrict_to_level(
         surface_object->surface,
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(level)))
+        level
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(level)))
+            : CAIRO_PS_LEVEL_2
     );
+
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
 }
 /* }}} */

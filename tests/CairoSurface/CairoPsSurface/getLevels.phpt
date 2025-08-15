@@ -18,8 +18,8 @@ try {
 --EXPECTF--
 array(2) {
   [0]=>
-  int(0)
+  enum(Cairo\Surface\Ps\Level::LEVEL_2)
   [1]=>
-  int(1)
+  enum(Cairo\Surface\Ps\Level::LEVEL_3)
 }
 Cairo\Surface\Ps::getLevels() expects exactly 0 arguments, 1 given
