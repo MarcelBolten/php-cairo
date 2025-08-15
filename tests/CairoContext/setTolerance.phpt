@@ -40,9 +40,9 @@ catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
 --EXPECTF--
-object(Cairo\Surface\Image)#1 (0) {
+object(Cairo\Surface\Image)#%d (0) {
 }
-object(Cairo\Context)#2 (0) {
+object(Cairo\Context)#%d (0) {
 }
 float(1)
 Cairo\Context::setTolerance() expects exactly 1 argument, 0 given
