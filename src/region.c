@@ -276,7 +276,7 @@ PHP_METHOD(CairoRegion, getRectangle)
 }
 /* }}} */
 
-/* {{{ proto long \Cairo\Region::isEmpty()
+/* {{{ proto bool \Cairo\Region::isEmpty()
    Checks whether region is empty. Returns TRUE if region is empty, FALSE if it isn't. */
 PHP_METHOD(CairoRegion, isEmpty)
 {

@@ -538,7 +538,7 @@ PHP_METHOD(CairoPatternGradient, getColorStopRgba)
 ZEND_BEGIN_ARG_INFO(CairoPatternGradient_getColorStopCount_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto array \Cairo\Pattern\Gradient::getColorStopCount()
+/* {{{ proto int \Cairo\Pattern\Gradient::getColorStopCount()
    Gets the number of color stops specified in the given gradient pattern */
 PHP_METHOD(CairoPatternGradient, getColorStopCount)
 {
@@ -601,7 +601,7 @@ PHP_METHOD(CairoPatternGradientRadial, __construct)
 ZEND_BEGIN_ARG_INFO(CairoPatternGradientRadial_getCircles_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void \Cairo\Pattern\Gradient\Radial::getCircles()
+/* {{{ proto array \Cairo\Pattern\Gradient\Radial::getCircles()
    Gets the gradient endpoint circles for a radial gradient
    each specified as a center coordinate and a radius.*/
 PHP_METHOD(CairoPatternGradientRadial, getCircles)
@@ -1101,7 +1101,7 @@ ZEND_BEGIN_ARG_INFO(CairoPatternMesh_getControlPoint_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, point_num)
 ZEND_END_ARG_INFO()
 
-/* {{{  proto void \Cairo\Pattern\Mesh::getControlPoint()
+/* {{{  proto array \Cairo\Pattern\Mesh::getControlPoint()
    Gets the control point point_num of patch patch_num for a mesh pattern. */
 PHP_METHOD(CairoPatternMesh, getControlPoint)
 {

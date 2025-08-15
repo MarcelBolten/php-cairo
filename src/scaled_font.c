@@ -145,7 +145,7 @@ ZEND_BEGIN_ARG_INFO_EX(CairoScaledFont___construct_args, ZEND_SEND_BY_VAL, ZEND_
     ZEND_ARG_OBJ_INFO(0, options, Cairo\\FontOptions, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void __construct(\Cairo\FontFace font_face[, \Cairo\Matrix matrix, \Cairo\Matrix ctm, \Cairo\FontOptions options]) 
+/* {{{ proto void __construct(\Cairo\FontFace font_face, \Cairo\Matrix matrix, \Cairo\Matrix ctm, \Cairo\FontOptions options)
        Creates a \Cairo\ScaledFont object from a font face and matrices that describe the size of the font and the environment in which it will be used */
 PHP_METHOD(CairoScaledFont, __construct)
 {

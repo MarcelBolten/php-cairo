@@ -676,7 +676,7 @@ ZEND_BEGIN_ARG_INFO(CairoSurface_writeToPng_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, file)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto int \Cairo\Surface::writeToPng(file|resource file)
+/* {{{ proto void \Cairo\Surface::writeToPng(file|resource file)
        Writes the contents of surface to a new file filename or PHP stream as a PNG image.
        Unlike some other stream supporting functions, you may NOT pass a null filename */
 PHP_METHOD(CairoSurface, writeToPng)
@@ -731,7 +731,7 @@ ZEND_BEGIN_ARG_INFO_EX(CairoSurface_writeToJpeg_args, ZEND_SEND_BY_VAL, 0, 1)
     ZEND_ARG_TYPE_INFO(0, quality, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto int \Cairo\Surface::writeToJpeg(file|resource file)
+/* {{{ proto void \Cairo\Surface::writeToJpeg(file|resource file)
        Writes the contents of surface to a new file filename or PHP stream as a JPEG image.
        Unlike some other stream supporting functions, you may NOT pass a null filename */
 PHP_METHOD(CairoSurface, writeToJpeg)
