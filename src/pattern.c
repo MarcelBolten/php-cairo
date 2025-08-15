@@ -1167,21 +1167,21 @@ PHP_METHOD(CairoPatternMesh, getCornerColorRgba)
 ------------------------------------------------------------------ */
 
 ZEND_BEGIN_ARG_INFO(CairoPatternRasterSource___construct_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, target)
+	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
     ZEND_ARG_INFO(0, width)
     ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
 
-/* {{{ proto void contruct(enum \Cairo\Content, int width, int height)
+/* {{{ proto void construct(enum \Cairo\Surface\Content, int width, int height)
     Returns new \Cairo\Pattern\RasterSource using supplied surface */
 PHP_METHOD(CairoPatternRasterSource, __construct)
 {
     cairo_pattern_object *pattern_object;
-    zend_long width, height, content;
+    zend_long width, height;
+    zval *content;
 
-    // TODO: fix parsing for enum when it exists
     ZEND_PARSE_PARAMETERS_START(3, 3)
-        Z_PARAM_LONG(content)
+        Z_PARAM_OBJECT_OF_CLASS(content, ce_cairo_content)
         Z_PARAM_LONG(width)
         Z_PARAM_LONG(height)
     ZEND_PARSE_PARAMETERS_END();
