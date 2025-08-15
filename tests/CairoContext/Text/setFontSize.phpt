@@ -37,9 +37,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-die; // bogus memleak report - GC bug - is getting REALLY annoying
-?>
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

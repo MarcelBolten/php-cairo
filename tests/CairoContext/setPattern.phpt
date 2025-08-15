@@ -52,9 +52,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-// DO NOT REMOVE: workaround for GC-related bug in 5.3
-die;
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }

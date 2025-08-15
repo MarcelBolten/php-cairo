@@ -22,8 +22,6 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-
-die; // GC issue, bogus memleaks reported without this
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
