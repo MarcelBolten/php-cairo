@@ -253,7 +253,7 @@ PHP_METHOD(CairoImageSurface, getStride)
 /* }}} */
 
 ZEND_BEGIN_ARG_INFO(CairoFormat_strideForWidth_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, format)
+    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
     ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -262,14 +262,18 @@ ZEND_END_ARG_INFO()
         requirements of the accelerated image-rendering code within cairo. */
 PHP_METHOD(CairoFormat, strideForWidth)
 {
-    zend_long format, width;
+    zend_long width;
+    zval *format;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_LONG(format)
-        Z_PARAM_LONG(width)
+        Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)
+        Z_PARAM_DOUBLE(width)
     ZEND_PARSE_PARAMETERS_END();
 
-    RETURN_LONG(cairo_format_stride_for_width(format, width));
+    RETURN_LONG(cairo_format_stride_for_width(
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),
+        width
+    ));
 }
 /* }}} */
 
