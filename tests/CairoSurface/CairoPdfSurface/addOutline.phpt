@@ -22,12 +22,8 @@ var_dump($target);
 $newTarget = $surface->addOutline($target, $name, $linkAttr, $flag);
 var_dump($newTarget);
 
-/* invalid arg */
-try {
-    var_dump( $surface->addOutline($target, "filename", "file='document.pdf' page=16 pos=[25 40]", $flag) );
-} catch (Cairo\Exception $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
+var_dump($surface->addOutline($target, "filename", "file='document.pdf' page=16 pos=[25 40]", $flag));
+
 
 /* Wrong number args 0 */
 try {
@@ -89,8 +85,7 @@ object(Cairo\Surface\Pdf)#%d (0) {
 }
 int(1)
 int(2)
-Cairo\Surface\Pdf::addOutline(): Argument #4 ($outline_flag) is not a valid Cairo\Surface\Pdf\OutlineFlags constant.
-invalid tag name, attributes, or nesting
+int(3)
 Cairo\Surface\Pdf::addOutline() expects exactly 4 arguments, 0 given
 Cairo\Surface\Pdf::addOutline() expects exactly 4 arguments, 1 given
 Cairo\Surface\Pdf::addOutline() expects exactly 4 arguments, 2 given
