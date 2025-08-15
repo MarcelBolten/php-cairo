@@ -8,7 +8,7 @@ include __DIR__ . '/skipif.inc';
 $ext = new ReflectionExtension('cairo');
 var_dump($ext->getClassNames());
 --EXPECT--
-array(55) {
+array(56) {
   [0]=>
   string(5) "Cairo"
   [1]=>
@@ -66,57 +66,59 @@ array(55) {
   [27]=>
   string(17) "Cairo\HintMetrics"
   [28]=>
-  string(16) "Cairo\ScaledFont"
+  string(15) "Cairo\ColorMode"
   [29]=>
-  string(17) "Cairo\FontFace\Ft"
+  string(16) "Cairo\ScaledFont"
   [30]=>
-  string(13) "Cairo\Surface"
+  string(17) "Cairo\FontFace\Ft"
   [31]=>
-  string(21) "Cairo\Surface\Content"
+  string(13) "Cairo\Surface"
   [32]=>
-  string(18) "Cairo\Surface\Type"
+  string(21) "Cairo\Surface\Content"
   [33]=>
-  string(19) "Cairo\Surface\Image"
+  string(18) "Cairo\Surface\Type"
   [34]=>
-  string(25) "Cairo\Surface\ImageFormat"
+  string(19) "Cairo\Surface\Image"
   [35]=>
-  string(24) "Cairo\Surface\SubSurface"
+  string(25) "Cairo\Surface\ImageFormat"
   [36]=>
-  string(23) "Cairo\Surface\Recording"
+  string(24) "Cairo\Surface\SubSurface"
   [37]=>
-  string(17) "Cairo\Surface\Pdf"
+  string(23) "Cairo\Surface\Recording"
   [38]=>
-  string(25) "Cairo\Surface\Pdf\Version"
+  string(17) "Cairo\Surface\Pdf"
   [39]=>
-  string(30) "Cairo\Surface\Pdf\OutlineFlags"
+  string(25) "Cairo\Surface\Pdf\Version"
   [40]=>
-  string(26) "Cairo\Surface\Pdf\Metadata"
+  string(30) "Cairo\Surface\Pdf\OutlineFlags"
   [41]=>
-  string(17) "Cairo\Surface\Svg"
+  string(26) "Cairo\Surface\Pdf\Metadata"
   [42]=>
-  string(25) "Cairo\Surface\Svg\Version"
+  string(17) "Cairo\Surface\Svg"
   [43]=>
-  string(22) "Cairo\Surface\Svg\Unit"
+  string(25) "Cairo\Surface\Svg\Version"
   [44]=>
-  string(16) "Cairo\Surface\Ps"
+  string(22) "Cairo\Surface\Svg\Unit"
   [45]=>
-  string(22) "Cairo\Surface\Ps\Level"
+  string(16) "Cairo\Surface\Ps"
   [46]=>
-  string(10) "Cairo\Path"
+  string(22) "Cairo\Surface\Ps\Level"
   [47]=>
-  string(19) "Cairo\Path\DataType"
+  string(10) "Cairo\Path"
   [48]=>
-  string(13) "Cairo\Context"
+  string(19) "Cairo\Path\DataType"
   [49]=>
-  string(14) "Cairo\FillRule"
+  string(13) "Cairo\Context"
   [50]=>
-  string(13) "Cairo\LineCap"
+  string(14) "Cairo\FillRule"
   [51]=>
-  string(14) "Cairo\LineJoin"
+  string(13) "Cairo\LineCap"
   [52]=>
-  string(14) "Cairo\Operator"
+  string(14) "Cairo\LineJoin"
   [53]=>
-  string(11) "Cairo\Glyph"
+  string(14) "Cairo\Operator"
   [54]=>
+  string(11) "Cairo\Glyph"
+  [55]=>
   string(17) "Cairo\TextCluster"
 }
