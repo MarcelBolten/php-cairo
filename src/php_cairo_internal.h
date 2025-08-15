@@ -298,12 +298,3 @@ PHP_MINIT_FUNCTION(cairo_text_cluster);
 extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
 
 #endif /* PHP_CAIRO_INTERNAL_H */
-
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */
