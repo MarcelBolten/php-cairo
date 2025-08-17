@@ -80,7 +80,7 @@ static zend_object* cairo_font_options_obj_ctor(zend_class_entry *ce, cairo_font
 {
     cairo_font_options_object *object = ecalloc(1, sizeof(cairo_font_options_object) + zend_object_properties_size(ce));
 
-        object->font_options = NULL;
+    object->font_options = NULL;
 
     zend_object_std_init(&object->std, ce);
     object->std.handlers = &cairo_font_options_object_handlers;
