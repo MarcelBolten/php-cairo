@@ -68,17 +68,19 @@ cairo_matrix_object *cairo_matrix_object_get(zval *zv)
     return object;
 }
 
-#define CAIRO_ALLOC_MATRIX(matrix_value) if (!matrix_value) \
-    { matrix_value = ecalloc(1, sizeof(cairo_matrix_t)); }
+#define CAIRO_ALLOC_MATRIX(matrix_value) \
+    if (!matrix_value) { \
+        matrix_value = ecalloc(1, sizeof(cairo_matrix_t)); \
+    }
 
-#define CAIRO_VALUE_FROM_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_FROM_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         value = matrix_object->matrix->n; \
         break; \
     }
 
-#define CAIRO_VALUE_TO_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_TO_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         matrix_object->matrix->n = zval_get_double(value); \
         break; \
     }
@@ -533,12 +535,12 @@ static zval *cairo_matrix_object_read_property(zend_object *object, zend_string 
     }*/
 
     do {
-        CAIRO_VALUE_FROM_STRUCT(xx, "xx");
-        CAIRO_VALUE_FROM_STRUCT(yx, "yx");
-        CAIRO_VALUE_FROM_STRUCT(xy, "xy");
-        CAIRO_VALUE_FROM_STRUCT(yy, "yy");
-        CAIRO_VALUE_FROM_STRUCT(x0, "x0");
-        CAIRO_VALUE_FROM_STRUCT(y0, "y0");
+        CAIRO_VALUE_FROM_STRUCT(xx);
+        CAIRO_VALUE_FROM_STRUCT(yx);
+        CAIRO_VALUE_FROM_STRUCT(xy);
+        CAIRO_VALUE_FROM_STRUCT(yy);
+        CAIRO_VALUE_FROM_STRUCT(x0);
+        CAIRO_VALUE_FROM_STRUCT(y0);
 
         /* not a struct member */
         retval = (zend_get_std_object_handlers())->read_property(object, member, type, cache_slot, rv);
@@ -582,12 +584,12 @@ static zval *cairo_matrix_object_write_property(zend_object *object, zend_string
     }*/
 
     do {
-        CAIRO_VALUE_TO_STRUCT(xx, "xx");
-        CAIRO_VALUE_TO_STRUCT(yx, "yx");
-        CAIRO_VALUE_TO_STRUCT(xy, "xy");
-        CAIRO_VALUE_TO_STRUCT(yy, "yy");
-        CAIRO_VALUE_TO_STRUCT(x0, "x0");
-        CAIRO_VALUE_TO_STRUCT(y0, "y0");
+        CAIRO_VALUE_TO_STRUCT(xx);
+        CAIRO_VALUE_TO_STRUCT(yx);
+        CAIRO_VALUE_TO_STRUCT(xy);
+        CAIRO_VALUE_TO_STRUCT(yy);
+        CAIRO_VALUE_TO_STRUCT(x0);
+        CAIRO_VALUE_TO_STRUCT(y0);
 
         /* not a struct member */
         retval = (zend_get_std_object_handlers())->write_property(object, member, value, cache_slot);
