@@ -518,21 +518,12 @@ static zend_object* cairo_matrix_clone_obj(zend_object *zobj)
 static zval *cairo_matrix_object_read_property(zend_object *object, zend_string *member, int type, void **cache_slot, zval *rv)
 {
     zval *retval;
-    //zval tmp_member;
     double value;
     cairo_matrix_object *matrix_object = cairo_matrix_fetch_object(object);
 
     if (!matrix_object) {
         return rv;
     }
-
-    /*if (Z_TYPE_P(member) != IS_STRING) {
-        tmp_member = *member;
-        zval_copy_ctor(&tmp_member);
-        convert_to_string(&tmp_member);
-        member = &tmp_member;
-        cache_slot = NULL;
-    }*/
 
     do {
         CAIRO_VALUE_FROM_STRUCT(xx);
@@ -545,19 +536,11 @@ static zval *cairo_matrix_object_read_property(zend_object *object, zend_string 
         /* not a struct member */
         retval = (zend_get_std_object_handlers())->read_property(object, member, type, cache_slot, rv);
 
-        /*if (member == &tmp_member) {
-            zval_dtor(member);
-        }*/
-
         return retval;
     } while(0);
 
     retval = rv;
     ZVAL_DOUBLE(retval, value);
-
-    /*if (member == &tmp_member) {
-        zval_dtor(member);
-    }*/
 
     return retval;
 }
@@ -566,22 +549,12 @@ static zval *cairo_matrix_object_read_property(zend_object *object, zend_string 
 /* {{{ */
 static zval *cairo_matrix_object_write_property(zend_object *object, zend_string *member, zval *value, void **cache_slot)
 {
-    //zval tmp_member;
     cairo_matrix_object *matrix_object = cairo_matrix_fetch_object(object);
         zval *retval = NULL;
 
     if (!matrix_object) {
         return retval;
     }
-
-
-    /*if (Z_TYPE_P(member) != IS_STRING) {
-        tmp_member = *member;
-        zval_copy_ctor(&tmp_member);
-        convert_to_string(&tmp_member);
-        member = &tmp_member;
-        cache_slot = NULL;
-    }*/
 
     do {
         CAIRO_VALUE_TO_STRUCT(xx);
@@ -594,10 +567,6 @@ static zval *cairo_matrix_object_write_property(zend_object *object, zend_string
         /* not a struct member */
         retval = (zend_get_std_object_handlers())->write_property(object, member, value, cache_slot);
     } while(0);
-
-    /*if (member == &tmp_member) {
-        zval_dtor(member);
-    }*/
 
     return retval;
 }
