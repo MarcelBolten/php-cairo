@@ -85,9 +85,9 @@ cairo_matrix_object *cairo_matrix_object_get(zval *zv)
         break; \
     }
 
-#define CAIRO_ADD_STRUCT_VALUE(n, m) \
+#define CAIRO_ADD_STRUCT_VALUE(n) \
     ZVAL_DOUBLE(&tmp, matrix_object->matrix->n); \
-    zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
+    zend_hash_str_update(props, #n, sizeof(#n)-1, &tmp);
 
 /* ----------------------------------------------------------------
     Cairo\Matrix C API
@@ -585,12 +585,12 @@ static HashTable *cairo_matrix_object_get_properties(zend_object *object)
         return props;
     }
 
-    CAIRO_ADD_STRUCT_VALUE(xx, "xx");
-    CAIRO_ADD_STRUCT_VALUE(yx, "yx");
-    CAIRO_ADD_STRUCT_VALUE(xy, "xy");
-    CAIRO_ADD_STRUCT_VALUE(yy, "yy");
-    CAIRO_ADD_STRUCT_VALUE(x0, "x0");
-    CAIRO_ADD_STRUCT_VALUE(y0, "y0");
+    CAIRO_ADD_STRUCT_VALUE(xx);
+    CAIRO_ADD_STRUCT_VALUE(yx);
+    CAIRO_ADD_STRUCT_VALUE(xy);
+    CAIRO_ADD_STRUCT_VALUE(yy);
+    CAIRO_ADD_STRUCT_VALUE(x0);
+    CAIRO_ADD_STRUCT_VALUE(y0);
 
     return props;
 }
