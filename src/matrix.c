@@ -19,6 +19,7 @@
 #include <cairo.h>
 #include <php.h>
 #include <zend_exceptions.h>
+#include <zend_gc.h>
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
@@ -585,12 +586,15 @@ static HashTable *cairo_matrix_object_get_properties(zend_object *object)
         return props;
     }
 
-    CAIRO_ADD_STRUCT_VALUE(xx);
-    CAIRO_ADD_STRUCT_VALUE(yx);
-    CAIRO_ADD_STRUCT_VALUE(xy);
-    CAIRO_ADD_STRUCT_VALUE(yy);
-    CAIRO_ADD_STRUCT_VALUE(x0);
-    CAIRO_ADD_STRUCT_VALUE(y0);
+    // This is the problem during shutdown
+    if (GC_REFCOUNT(props) > 0) {
+        CAIRO_ADD_STRUCT_VALUE(xx);
+        CAIRO_ADD_STRUCT_VALUE(yx);
+        CAIRO_ADD_STRUCT_VALUE(xy);
+        CAIRO_ADD_STRUCT_VALUE(yy);
+        CAIRO_ADD_STRUCT_VALUE(x0);
+        CAIRO_ADD_STRUCT_VALUE(y0);
+    }
 
     return props;
 }
