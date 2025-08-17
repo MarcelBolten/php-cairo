@@ -282,6 +282,8 @@ PHP_MINIT_FUNCTION(cairo_path);
 PHP_MINIT_FUNCTION(cairo_context);
 PHP_MINIT_FUNCTION(cairo_text_cluster);
 
+
+/* Enum macros */
 #define CAIRO_REGISTER_ENUM_LONG(name, ce) \
     ce = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, name), IS_LONG, NULL);
 
@@ -296,5 +298,17 @@ PHP_MINIT_FUNCTION(cairo_text_cluster);
     zend_enum_add_case_cstr(ce, #name, &enum_case_ ## constant ## _ ## name ## _value);
 
 extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
+
+#define CAIRO_UNREF_AND_UNDEF(zv) \
+    if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv))) { \
+        Z_TRY_DELREF(zv); \
+        ZVAL_UNDEF(&zv); \
+    }
+
+//
+#define CAIRO_RETURN_IF_REF(zv) \
+    if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv)) && Z_REFCOUNT(zv) > 0) { \
+        RETURN_ZVAL(&zv, 1, 0); \
+    }
 
 #endif /* PHP_CAIRO_INTERNAL_H */
