@@ -550,7 +550,7 @@ static zval *cairo_matrix_object_read_property(zend_object *object, zend_string 
 static zval *cairo_matrix_object_write_property(zend_object *object, zend_string *member, zval *value, void **cache_slot)
 {
     cairo_matrix_object *matrix_object = cairo_matrix_fetch_object(object);
-        zval *retval = NULL;
+    zval *retval = NULL;
 
     if (!matrix_object) {
         return retval;
