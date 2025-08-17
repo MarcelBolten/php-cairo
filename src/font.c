@@ -114,8 +114,6 @@ PHP_METHOD(CairoToyFontFace, getSlant)
 
     if (Z_TYPE(slant_case) == IS_OBJECT) {
         RETURN_ZVAL(&slant_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -142,8 +140,6 @@ PHP_METHOD(CairoToyFontFace, getWeight)
 
     if (Z_TYPE(weight_case) == IS_OBJECT) {
         RETURN_ZVAL(&weight_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

@@ -163,8 +163,6 @@ PHP_METHOD(CairoFontOptions, getStatus)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -293,8 +291,6 @@ PHP_METHOD(CairoFontOptions, getAntialias)
 
     if (Z_TYPE(antialias_case) == IS_OBJECT) {
         RETURN_ZVAL(&antialias_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -352,8 +348,6 @@ PHP_METHOD(CairoFontOptions, getSubpixelOrder)
 
     if (Z_TYPE(subpixel_order_case) == IS_OBJECT) {
         RETURN_ZVAL(&subpixel_order_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -410,8 +404,6 @@ PHP_METHOD(CairoFontOptions, getHintStyle)
 
     if (Z_TYPE(hint_style_case) == IS_OBJECT) {
         RETURN_ZVAL(&hint_style_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -468,8 +460,6 @@ PHP_METHOD(CairoFontOptions, getHintMetrics)
 
     if (Z_TYPE(hint_metrics_case) == IS_OBJECT) {
         RETURN_ZVAL(&hint_metrics_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

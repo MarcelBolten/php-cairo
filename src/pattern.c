@@ -140,8 +140,6 @@ PHP_METHOD(CairoPattern, getStatus)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -170,8 +168,6 @@ PHP_METHOD(CairoPattern, getType)
 
     if (Z_TYPE(pattern_case) == IS_OBJECT) {
         RETURN_ZVAL(&pattern_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 
@@ -201,8 +197,6 @@ PHP_METHOD(CairoPattern, getExtend)
 
     if (Z_TYPE(extend_case) == IS_OBJECT) {
         RETURN_ZVAL(&extend_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -259,8 +253,6 @@ PHP_METHOD(CairoPattern, getFilter)
 
     if (Z_TYPE(filter_case) == IS_OBJECT) {
         RETURN_ZVAL(&filter_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

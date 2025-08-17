@@ -201,8 +201,6 @@ PHP_METHOD(CairoScaledFont, getStatus)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -506,8 +504,6 @@ PHP_METHOD(CairoScaledFont, getType)
 
     if (Z_TYPE(font_type_case) == IS_OBJECT) {
         RETURN_ZVAL(&font_type_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

@@ -202,8 +202,6 @@ PHP_METHOD(CairoRegion, getStatus)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -356,8 +354,6 @@ PHP_METHOD(CairoRegion, containsRectangle)
 
     if (Z_TYPE(region_overlap_case) == IS_OBJECT) {
         RETURN_ZVAL(&region_overlap_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -448,8 +444,6 @@ PHP_METHOD(CairoRegion, intersect)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -488,8 +482,6 @@ PHP_METHOD(CairoRegion, intersectRectangle)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -524,8 +516,6 @@ PHP_METHOD(CairoRegion, subtract)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -564,8 +554,6 @@ PHP_METHOD(CairoRegion, subtractRectangle)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -600,8 +588,6 @@ PHP_METHOD(CairoRegion, union)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -640,8 +626,6 @@ PHP_METHOD(CairoRegion, unionRectangle)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -677,8 +661,6 @@ PHP_METHOD(CairoRegion, xor)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -718,8 +700,6 @@ PHP_METHOD(CairoRegion, xorRectangle)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

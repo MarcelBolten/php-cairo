@@ -189,8 +189,6 @@ PHP_METHOD(CairoImageSurface, getFormat)
 
     if (Z_TYPE(format_case) == IS_OBJECT) {
         RETURN_ZVAL(&format_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

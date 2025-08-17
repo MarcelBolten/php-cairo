@@ -673,8 +673,6 @@ PHP_METHOD(CairoContext, getAntialias)
 
     if (Z_TYPE(antialias_case) == IS_OBJECT) {
         RETURN_ZVAL(&antialias_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -832,8 +830,6 @@ PHP_METHOD(CairoContext, getFillRule)
 
     if (Z_TYPE(fillrule_case) == IS_OBJECT) {
         RETURN_ZVAL(&fillrule_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -887,8 +883,6 @@ PHP_METHOD(CairoContext, getLineCap)
 
     if (Z_TYPE(linecap_case) == IS_OBJECT) {
         RETURN_ZVAL(&linecap_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -942,8 +936,6 @@ PHP_METHOD(CairoContext, getLineJoin)
 
     if (Z_TYPE(linejoin_case) == IS_OBJECT) {
         RETURN_ZVAL(&linejoin_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -1082,8 +1074,6 @@ PHP_METHOD(CairoContext, getOperator)
 
     if (Z_TYPE(operator_case) == IS_OBJECT) {
         RETURN_ZVAL(&operator_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */

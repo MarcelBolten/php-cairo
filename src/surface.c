@@ -218,8 +218,6 @@ PHP_METHOD(CairoSurface, getStatus)
 
     if (Z_TYPE(status_case) == IS_OBJECT) {
         RETURN_ZVAL(&status_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -305,8 +303,6 @@ PHP_METHOD(CairoSurface, getContent)
 
     if (Z_TYPE(content_case) == IS_OBJECT) {
         RETURN_ZVAL(&content_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
@@ -532,8 +528,6 @@ PHP_METHOD(CairoSurface, getType)
 
     if (Z_TYPE(surface_case) == IS_OBJECT) {
         RETURN_ZVAL(&surface_case, 1, 1);
-    } else {
-        RETURN_NULL();
     }
 }
 /* }}} */
