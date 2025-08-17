@@ -745,33 +745,22 @@ PHP_METHOD(CairoPatternSurface, getSurface)
     php_cairo_throw_exception(cairo_pattern_get_surface(pattern_object->pattern, &surface));
 
     /* If we have a surface, grab that zval to use */
-//	if (pattern_object->surface) {
-//		zval_dtor(return_value);
-//		*return_value = *pattern_object->surface;
-//		zval_copy_ctor(return_value);
-    if (!Z_ISNULL(pattern_object->surface)
-        && !Z_ISUNDEF(pattern_object->surface)
-        && Z_REFCOUNT(pattern_object->surface) > 0
-    ) {
-        zval_ptr_dtor(return_value);
-        ZVAL_COPY(return_value, &pattern_object->surface);
-    }
+    CAIRO_RETURN_IF_REF(pattern_object->surface);
+
     /* Otherwise we spawn a new object */
-    else {
-        /* we can't always rely on the same type of surface being returned, so we use php_cairo_get_surface_ce */
-        object_init_ex(return_value, php_cairo_get_surface_ce(surface));
+    /* we can't always rely on the same type of surface being returned, so we use php_cairo_get_surface_ce */
+    object_init_ex(return_value, php_cairo_get_surface_ce(surface));
 
-        // cairo_surface_create_object(php_cairo_get_surface_ce(surface));
-        surface_object = Z_CAIRO_SURFACE_P(return_value);
+    // cairo_surface_create_object(php_cairo_get_surface_ce(surface));
+    surface_object = Z_CAIRO_SURFACE_P(return_value);
 
-        /* if there IS a value in surface, destroy it cause we're getting a new one */
-        if (surface_object->surface != NULL) {
-            cairo_surface_destroy(surface_object->surface);
-        }
-
-        surface_object->surface = surface;
-        cairo_surface_reference(surface_object->surface);
+    /* if there IS a value in surface, destroy it cause we're getting a new one */
+    if (surface_object->surface != NULL) {
+        cairo_surface_destroy(surface_object->surface);
     }
+
+    surface_object->surface = surface;
+    cairo_surface_reference(surface_object->surface);
 }
 /* }}} */
 
@@ -1222,12 +1211,7 @@ static void cairo_pattern_free_obj(zend_object *object)
         return;
     }
 
-    if (!Z_ISNULL(intern->surface)
-        && !Z_ISUNDEF(intern->surface)
-    ) {
-        Z_TRY_DELREF_P(&intern->surface);
-        ZVAL_UNDEF(&intern->surface);
-    }
+    CAIRO_UNREF_AND_UNDEF(intern->surface)
 
     if (intern->pattern) {
         cairo_pattern_destroy(intern->pattern);
