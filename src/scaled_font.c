@@ -59,11 +59,8 @@ static void cairo_scaled_font_free_obj(zend_object *object)
     }
 
     CAIRO_UNREF_AND_UNDEF(intern->font_face)
-
     CAIRO_UNREF_AND_UNDEF(intern->matrix)
-
     CAIRO_UNREF_AND_UNDEF(intern->ctm)
-
     CAIRO_UNREF_AND_UNDEF(intern->font_options)
 
     if (intern->scaled_font) {
@@ -326,12 +323,7 @@ PHP_METHOD(CairoScaledFont, getFontFace)
     php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font));
 
     /* If we have a font face object stored, grab that zval to use */
-    if (!Z_ISNULL(scaled_font_object->font_face)
-        && !Z_ISUNDEF(scaled_font_object->font_face)
-        && Z_REFCOUNT(scaled_font_object->font_face) > 0)
-     {
-        RETURN_ZVAL(&scaled_font_object->font_face, 1, 0);
-    }
+    CAIRO_RETURN_IF_REF(scaled_font_object->font_face);
 
     /* Otherwise we spawn a new object */
     object_init_ex(return_value, ce_cairo_toyfontface);
