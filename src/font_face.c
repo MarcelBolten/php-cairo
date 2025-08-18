@@ -184,7 +184,7 @@ zend_object* cairo_font_face_create_object(zend_class_entry *ce)
     cairo_font_face_object *font_face_obj = NULL;
     zend_object *return_value = cairo_font_face_obj_ctor(ce, &font_face_obj);
 
-    object_properties_init(&(font_face_obj->std), ce);
+    object_properties_init(&font_face_obj->std, ce);
     return return_value;
 }
 /* }}} */

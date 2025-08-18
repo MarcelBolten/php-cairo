@@ -95,7 +95,7 @@ static zend_object* cairo_region_create_object(zend_class_entry *ce)
     cairo_region_object *region_obj = NULL;
     zend_object *return_value = cairo_region_obj_ctor(ce, &region_obj);
 
-    object_properties_init(&(region_obj->std), ce);
+    object_properties_init(&region_obj->std, ce);
     return return_value;
 }
 /* }}} */

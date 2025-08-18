@@ -96,7 +96,7 @@ static zend_object* cairo_font_options_create_object(zend_class_entry *ce)
     cairo_font_options_object *font_options_obj = NULL;
     zend_object *return_value = cairo_font_options_obj_ctor(ce, &font_options_obj);
 
-    object_properties_init(&(font_options_obj->std), ce);
+    object_properties_init(&font_options_obj->std, ce);
     return return_value;
 }
 /* }}} */

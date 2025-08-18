@@ -126,7 +126,7 @@ zend_object* cairo_context_create_object(zend_class_entry *ce)
     cairo_context_object *context = NULL;
     zend_object *return_value = cairo_context_obj_ctor(ce, &context);
 
-    object_properties_init(&(context->std), ce);
+    object_properties_init(&context->std, ce);
     return return_value;
 }
 /* }}} */

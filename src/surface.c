@@ -842,7 +842,7 @@ zend_object* cairo_surface_create_object(zend_class_entry *ce)
     cairo_surface_object *surface = NULL;
     zend_object *return_value = cairo_surface_obj_ctor(ce, &surface);
 
-    object_properties_init(&(surface->std), ce);
+    object_properties_init(&surface->std, ce);
     return return_value;
 }
 /* }}} */

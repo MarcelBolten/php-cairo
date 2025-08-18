@@ -486,7 +486,7 @@ static zend_object* cairo_matrix_create_object(zend_class_entry *ce)
     cairo_matrix_object *intern = NULL;
     zend_object *return_value = cairo_matrix_obj_ctor(ce, &intern);
 
-    object_properties_init(&(intern->std), ce);
+    object_properties_init(&intern->std, ce);
     return return_value;
 }
 /* }}} */
