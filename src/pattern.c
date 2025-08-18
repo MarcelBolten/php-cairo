@@ -1148,7 +1148,7 @@ PHP_METHOD(CairoPatternMesh, getCornerColorRgba)
 ------------------------------------------------------------------ */
 
 ZEND_BEGIN_ARG_INFO(CairoPatternRasterSource___construct_args, ZEND_SEND_BY_VAL)
-	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
+    ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
     ZEND_ARG_INFO(0, width)
     ZEND_ARG_INFO(0, height)
 ZEND_END_ARG_INFO()
@@ -1375,12 +1375,12 @@ PHP_MINIT_FUNCTION(cairo_pattern)
     ce_cairo_pattern_gradient->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
     INIT_NS_CLASS_ENTRY(radial_ce, CAIRO_NAMESPACE,
-        ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Radial")),
+        ZEND_NS_NAME("Pattern", ZEND_NS_NAME("Gradient", "Radial")),
         cairo_pattern_gradient_radial_methods);
     ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&radial_ce, ce_cairo_pattern_gradient);
 
     INIT_NS_CLASS_ENTRY(linear_ce, CAIRO_NAMESPACE,
-        ZEND_NS_NAME("Pattern",  ZEND_NS_NAME("Gradient", "Linear")),
+        ZEND_NS_NAME("Pattern", ZEND_NS_NAME("Gradient", "Linear")),
         cairo_pattern_gradient_linear_methods);
     ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&linear_ce, ce_cairo_pattern_gradient);
 

@@ -297,7 +297,7 @@ ZEND_BEGIN_ARG_INFO(CairoRegion_containsPoint_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto long \Cairo\Region::containsPoint(long x, long y)
-   Checks whether (x , y) is contained in region. Returns TRUE if (x , y) is contained in region , FALSE if it is not. */
+   Checks whether (x, y) is contained in region. Returns TRUE if (x, y) is contained in region, FALSE if it is not. */
 PHP_METHOD(CairoRegion, containsPoint)
 {
     long x, y;
@@ -393,7 +393,7 @@ ZEND_BEGIN_ARG_INFO(CairoRegion_translate_args, ZEND_SEND_BY_VAL)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto long \Cairo\Region::translate(long dx, long dy)
-   Translates region by (dx , dy). */
+   Translates region by (dx, dy). */
 PHP_METHOD(CairoRegion, translate)
 {
     double dx, dy;

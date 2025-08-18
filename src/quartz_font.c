@@ -354,7 +354,7 @@ PHP_MINIT_FUNCTION(cairo_quartz_font)
     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(JavaneseRomLanguage);
     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SundaneseRomLanguage);
 
-    /*	TODO: register these too - ugh
+    /* TODO: register these too - ugh
 enum {
   kFontRomanScript              = 0,
   kFontJapaneseScript           = 1,

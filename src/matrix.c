@@ -225,7 +225,7 @@ ZEND_END_ARG_INFO()
        Create initialized matrix to a transformation that rotates by radians. */
 PHP_METHOD(CairoMatrix, initRotate)
 {
-	double radians = 0.0;
+    double radians = 0.0;
     cairo_matrix_object *matrix_object;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -642,7 +642,7 @@ PHP_MINIT_FUNCTION(cairo_matrix)
     cairo_matrix_object_handlers.get_property_ptr_ptr = NULL;
     cairo_matrix_object_handlers.get_properties = cairo_matrix_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce,  CAIRO_NAMESPACE, "Matrix", cairo_matrix_methods);
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "Matrix", cairo_matrix_methods);
     ce.create_object = cairo_matrix_create_object;
     ce_cairo_matrix = zend_register_internal_class(&ce);
 

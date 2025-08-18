@@ -33,8 +33,8 @@ zend_class_entry *ce_cairo_color_mode;
 static zend_object_handlers cairo_font_options_object_handlers;
 
 //typedef struct _cairo_font_options_object {
-//	cairo_font_options_t *font_options;
-//        zend_object std;
+//    cairo_font_options_t *font_options;
+//    zend_object std;
 //} cairo_font_options_object;
 
 cairo_font_options_object *cairo_font_options_fetch_object(zend_object *object)
@@ -64,11 +64,11 @@ static void cairo_font_options_free_obj(zend_object *object)
     cairo_font_options_object *intern = cairo_font_options_fetch_object(object);
 
     if (!intern) {
-            return;
+        return;
     }
 
     if (intern->font_options) {
-            cairo_font_options_destroy(intern->font_options);
+        cairo_font_options_destroy(intern->font_options);
     }
     intern->font_options = NULL;
 

@@ -481,7 +481,7 @@ static const zend_function_entry cairo_scaled_font_methods[] = {
     PHP_ME(CairoScaledFont, getGlyphExtents, CairoScaledFont_getGlyphExtents_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getFontFace, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getFontOptions, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getFontMatrix , CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoScaledFont, getFontMatrix, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getCtm, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getScaleMatrix, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getType, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)

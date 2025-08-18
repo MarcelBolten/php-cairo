@@ -280,7 +280,7 @@ PHP_MINIT_FUNCTION(cairo_text_cluster)
     cairo_text_cluster_object_handlers.get_property_ptr_ptr = NULL;
     cairo_text_cluster_object_handlers.get_properties = cairo_text_cluster_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce,  CAIRO_NAMESPACE, "TextCluster", cairo_text_cluster_methods);
+    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "TextCluster", cairo_text_cluster_methods);
     ce.create_object = cairo_text_cluster_create_object;
     ce_cairo_text_cluster = zend_register_internal_class(&ce);
     ce_cairo_text_cluster->ce_flags |= ZEND_ACC_FINAL;

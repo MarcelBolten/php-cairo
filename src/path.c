@@ -36,14 +36,14 @@ cairo_path_object *cairo_path_fetch_object(zend_object *object)
 
 static inline cairo_path_object *cairo_path_object_get(zval *zv)
 {
-	cairo_path_object *object = Z_CAIRO_PATH_P(zv);
-	if (object->path == NULL) {
-		zend_throw_exception_ex(ce_cairo_exception, 0,
-			"Internal path object missing in %s, you must call parent::__construct in extended classes",
-			ZSTR_VAL(Z_OBJCE_P(zv)->name));
-		return NULL;
-	}
-	return object;
+    cairo_path_object *object = Z_CAIRO_PATH_P(zv);
+    if (object->path == NULL) {
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Internal path object missing in %s, you must call parent::__construct in extended classes",
+            ZSTR_VAL(Z_OBJCE_P(zv)->name));
+        return NULL;
+    }
+    return object;
 }
 
 /* ----------------------------------------------------------------
@@ -70,26 +70,26 @@ static void cairo_path_free_obj(zend_object *object)
 /* {{{ */
 static zend_object* cairo_path_obj_ctor(zend_class_entry *ce, cairo_path_object **intern)
 {
-	cairo_path_object *object = ecalloc(1, sizeof(cairo_path_object) + zend_object_properties_size(ce));
+    cairo_path_object *object = ecalloc(1, sizeof(cairo_path_object) + zend_object_properties_size(ce));
 
     object->path = NULL;
 
-	zend_object_std_init(&object->std, ce);
-	object->std.handlers = &cairo_path_object_handlers;
-	*intern = object;
+    zend_object_std_init(&object->std, ce);
+    object->std.handlers = &cairo_path_object_handlers;
+    *intern = object;
 
-	return &object->std;
+    return &object->std;
 }
 /* }}} */
 
 /* {{{ */
 static zend_object* cairo_path_create_object(zend_class_entry *ce)
 {
-	cairo_path_object *path_obj = NULL;
-	zend_object *return_value = cairo_path_obj_ctor(ce, &path_obj);
+    cairo_path_object *path_obj = NULL;
+    zend_object *return_value = cairo_path_obj_ctor(ce, &path_obj);
 
-	object_properties_init(&(path_obj->std), ce);
-	return return_value;
+    object_properties_init(&(path_obj->std), ce);
+    return return_value;
 }
 /* }}} */
 
@@ -99,7 +99,7 @@ static zend_object* cairo_path_create_object(zend_class_entry *ce)
 
 zend_class_entry * php_cairo_get_path_ce()
 {
-	return ce_cairo_path;
+    return ce_cairo_path;
 }
 
 /* }}} -----------------------------------------------------------*/
@@ -112,7 +112,7 @@ zend_class_entry * php_cairo_get_path_ce()
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_path)
 {
-	zend_class_entry path_ce;
+    zend_class_entry path_ce;
 
     memcpy(&cairo_path_object_handlers,
         zend_get_std_object_handlers(),
@@ -138,6 +138,6 @@ PHP_MINIT_FUNCTION(cairo_path)
     CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(CURVE_TO);
     CAIRO_PATH_DATATYPE_DECLARE_ENUM_CASE(CLOSE_PATH);
 
-	return SUCCESS;
+    return SUCCESS;
 }
 /* }}} */
