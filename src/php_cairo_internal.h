@@ -300,15 +300,17 @@ PHP_MINIT_FUNCTION(cairo_text_cluster);
 extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
 
 #define CAIRO_UNREF_AND_UNDEF(zv) \
-    if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv))) { \
-        Z_TRY_DELREF(zv); \
-        ZVAL_UNDEF(&zv); \
-    }
+    do { \
+        if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv))) { \
+            Z_TRY_DELREF(zv); \
+            ZVAL_UNDEF(&zv); \
+        } \
+    } while (0);
 
 //
 #define CAIRO_RETURN_IF_REF(zv) \
     if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv)) && Z_REFCOUNT(zv) > 0) { \
-        RETURN_ZVAL(&zv, 1, 0); \
+        RETURN_COPY(&zv); \
     }
 
 #endif /* PHP_CAIRO_INTERNAL_H */
