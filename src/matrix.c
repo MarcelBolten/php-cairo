@@ -447,8 +447,8 @@ static void cairo_matrix_free_obj(zend_object *object)
 
     if (intern->matrix) {
         efree(intern->matrix);
+        intern->matrix = NULL;
     }
-    intern->matrix = NULL;
 
     zend_object_std_dtor(&intern->std);
 }
@@ -587,8 +587,8 @@ static HashTable *cairo_matrix_object_get_properties(zend_object *object)
         return props;
     }
 
-    // This is the problem during shutdown
-    if (GC_REFCOUNT(props) > 0) {
+    /* Only add struct values when the properties table looks unique/owned */
+    if (props && GC_REFCOUNT(props) > 0) {
         CAIRO_ADD_STRUCT_VALUE(xx);
         CAIRO_ADD_STRUCT_VALUE(yx);
         CAIRO_ADD_STRUCT_VALUE(xy);
