@@ -149,8 +149,8 @@ static void cairo_font_face_free_obj(zend_object *object)
 
     if (intern->font_face /*&& cairo_font_face_get_reference_count(intern->font_face) > 0 */) {
         cairo_font_face_destroy(intern->font_face);
+        intern->font_face = NULL;
     }
-    intern->font_face = NULL;
 
     if (intern->closure != NULL) {
         if (intern->closure->owned_stream) {

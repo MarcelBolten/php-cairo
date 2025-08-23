@@ -1272,8 +1272,8 @@ static void cairo_pattern_free_obj(zend_object *object)
 
     if (intern->pattern) {
         cairo_pattern_destroy(intern->pattern);
+        intern->pattern = NULL;
     }
-    intern->pattern = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

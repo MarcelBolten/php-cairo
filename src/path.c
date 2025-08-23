@@ -61,8 +61,8 @@ static void cairo_path_free_obj(zend_object *object)
 
     if (intern->path) {
         cairo_path_destroy(intern->path);
+        intern->path = NULL;
     }
-    intern->path = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

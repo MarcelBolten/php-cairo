@@ -126,8 +126,8 @@ static void cairo_text_cluster_free_obj(zend_object *zobj)
 
     if (intern->text_cluster) {
         efree(intern->text_cluster);
+        intern->text_cluster = NULL;
     }
-    intern->text_cluster = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

@@ -126,8 +126,8 @@ static void cairo_glyph_free_obj(zend_object *zobj)
 
     if (intern->glyph) {
         efree(intern->glyph);
+        intern->glyph = NULL;
     }
-    intern->glyph = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

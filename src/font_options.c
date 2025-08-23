@@ -69,8 +69,8 @@ static void cairo_font_options_free_obj(zend_object *object)
 
     if (intern->font_options) {
         cairo_font_options_destroy(intern->font_options);
+        intern->font_options = NULL;
     }
-    intern->font_options = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

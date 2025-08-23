@@ -151,8 +151,8 @@ static void cairo_rectangle_free_obj(zend_object *object)
 
     if (intern->rect) {
         efree(intern->rect);
+        intern->rect = NULL;
     }
-    intern->rect = NULL;
 
     zend_object_std_dtor(&intern->std);
 }

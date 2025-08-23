@@ -68,8 +68,8 @@ static void cairo_region_free_obj(zend_object *object)
 
     if (intern->region) {
         cairo_region_destroy(intern->region);
+        intern->region = NULL;
     }
-    intern->region = NULL;
 
     zend_object_std_dtor(&intern->std);
 }
