@@ -163,7 +163,9 @@ PHP_METHOD(CairoContext, __construct)
     }
 
     context_object->context = cairo_create(surface_object->surface);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     ZVAL_COPY(&context_object->surface, surface_zval);
 }
@@ -208,7 +210,9 @@ PHP_METHOD(CairoContext, save)
     }
 
     cairo_save(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -226,7 +230,9 @@ PHP_METHOD(CairoContext, restore)
     }
 
     cairo_restore(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -244,7 +250,9 @@ PHP_METHOD(CairoContext, pushGroup)
     }
 
     cairo_push_group(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -272,7 +280,9 @@ PHP_METHOD(CairoContext, pushGroupWithContent)
         context_object->context,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(content)))
     );
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -292,7 +302,9 @@ PHP_METHOD(CairoContext, popGroup)
     }
 
     pattern = cairo_pop_group(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     object_init_ex(return_value, php_cairo_get_pattern_ce(pattern));
     pattern_object = Z_CAIRO_PATTERN_P(return_value);
@@ -315,7 +327,9 @@ PHP_METHOD(CairoContext, popGroupToSource)
     }
 
     cairo_pop_group_to_source(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -334,7 +348,9 @@ PHP_METHOD(CairoContext, getGroupSurface)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     object_init_ex(
         return_value,
@@ -373,7 +389,9 @@ PHP_METHOD(CairoContext, setSourceRGB)
     }
 
     cairo_set_source_rgb(context_object->context, red, green, blue);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -404,7 +422,9 @@ PHP_METHOD(CairoContext, setSourceRGBA)
     }
 
     cairo_set_source_rgba(context_object->context, red, green, blue, alpha);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -440,11 +460,15 @@ PHP_METHOD(CairoContext, setSurface)
 
     if (context_object->context == NULL) {
         context_object->context = cairo_create(surface_object->surface);
-        php_cairo_throw_exception(cairo_status(context_object->context));
+        if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
     }
 
     cairo_set_source_surface(context_object->context, surface_object->surface, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a pattern, then we deref and remove it because we just overwrote it */
     CAIRO_UNREF_AND_UNDEF(context_object->pattern)
@@ -478,7 +502,9 @@ PHP_METHOD(CairoContext, getSurface)
 
     /* Otherwise we spawn a new object */
     surface = cairo_get_target(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     object_init_ex(return_value, php_cairo_get_surface_ce(surface));
     surface_object = Z_CAIRO_SURFACE_P(return_value);
@@ -512,7 +538,9 @@ PHP_METHOD(CairoContext, setPattern)
 
     pattern_object = Z_CAIRO_PATTERN_P(pattern_zval);
     cairo_set_source(context_object->context, pattern_object->pattern);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a pattern, then we deref and remove it */
     CAIRO_UNREF_AND_UNDEF(context_object->pattern)
@@ -543,7 +571,9 @@ PHP_METHOD(CairoContext, getPattern)
 
     /* Otherwise we spawn a new object */
     pattern = cairo_get_source(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     object_init_ex(return_value, php_cairo_get_pattern_ce(pattern));
     pattern_object = Z_CAIRO_PATTERN_P(return_value);
@@ -576,7 +606,9 @@ PHP_METHOD(CairoContext, setAntialias)
     antialias = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(antialias_case)));
 
     cairo_set_antialias(context_object->context, antialias);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -650,7 +682,9 @@ PHP_METHOD(CairoContext, setDash)
     /* we use i in case we had a bad issue while iterating the array */
     cairo_set_dash(context_object->context, dashes_array, i, offset);
     efree(dashes_array);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -733,7 +767,9 @@ PHP_METHOD(CairoContext, setFillRule)
     fillrule = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(fillrule_case)));
 
     cairo_set_fill_rule(context_object->context, fillrule);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -786,7 +822,9 @@ PHP_METHOD(CairoContext, setLineCap)
         context_object->context,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(linecap_case)))
     );
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -839,7 +877,9 @@ PHP_METHOD(CairoContext, setLineJoin)
     linejoin = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(linejoin_case)));
 
     cairo_set_line_join(context_object->context, linejoin);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -890,7 +930,9 @@ PHP_METHOD(CairoContext, setLineWidth)
     }
 
     cairo_set_line_width(context_object->context, width);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -932,7 +974,9 @@ PHP_METHOD(CairoContext, setMiterLimit)
     }
 
     cairo_set_miter_limit(context_object->context, limit);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -977,7 +1021,9 @@ PHP_METHOD(CairoContext, setOperator)
     operator = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(operator_case)));
 
     cairo_set_operator(context_object->context, operator);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1028,7 +1074,9 @@ PHP_METHOD(CairoContext, setTolerance)
     }
 
     cairo_set_tolerance(context_object->context, tolerance);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1064,7 +1112,9 @@ PHP_METHOD(CairoContext, clip)
     }
 
     cairo_clip(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1107,7 +1157,9 @@ PHP_METHOD(CairoContext, clipPreserve)
     }
 
     cairo_clip_preserve(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1125,7 +1177,9 @@ PHP_METHOD(CairoContext, resetClip)
     }
 
     cairo_reset_clip(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1145,7 +1199,9 @@ PHP_METHOD(CairoContext, getClipExtents)
     }
 
     cairo_clip_extents(context_object->context, &x1, &y1, &x2, &y2);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x1);
@@ -1172,7 +1228,9 @@ PHP_METHOD(CairoContext, clipRectangleList)
     }
 
     rectangles = cairo_copy_clip_rectangle_list(context_object->context);
-    php_cairo_throw_exception(rectangles->status);
+    if (php_cairo_throw_exception(rectangles->status)) {
+        RETURN_THROWS();
+    }
 
     /* walk our rectangles, create array, push it onto return */
     array_init(return_value);
@@ -1208,7 +1266,9 @@ PHP_METHOD(CairoContext, fill)
     }
 
     cairo_fill(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1228,7 +1288,9 @@ PHP_METHOD(CairoContext, fillPreserve)
     }
 
     cairo_fill_preserve(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1249,7 +1311,9 @@ PHP_METHOD(CairoContext, getFillExtents)
     }
 
     cairo_fill_extents(context_object->context, &x1, &y1, &x2, &y2);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x1);
@@ -1304,7 +1368,9 @@ PHP_METHOD(CairoContext, mask)
 
     pattern_object = Z_CAIRO_PATTERN_P(pattern_zval);
     cairo_mask(context_object->context, pattern_object->pattern);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1338,7 +1404,9 @@ PHP_METHOD(CairoContext, maskSurface)
 
     surface_object = Z_CAIRO_SURFACE_P(surface_zval);
     cairo_mask_surface(context_object->context, surface_object->surface, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1356,7 +1424,9 @@ PHP_METHOD(CairoContext, paint)
     }
 
     cairo_paint(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1381,7 +1451,9 @@ PHP_METHOD(CairoContext, paintWithAlpha)
     }
 
     cairo_paint_with_alpha(context_object->context, alpha);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1399,7 +1471,9 @@ PHP_METHOD(CairoContext, stroke)
     }
 
     cairo_stroke(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1418,7 +1492,9 @@ PHP_METHOD(CairoContext, strokePreserve)
     }
 
     cairo_stroke_preserve(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1438,7 +1514,9 @@ PHP_METHOD(CairoContext, strokeExtents)
     }
 
     cairo_stroke_extents(context_object->context, &x1, &y1, &x2, &y2);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x1);
@@ -1485,7 +1563,9 @@ PHP_METHOD(CairoContext, copyPage)
     }
 
     cairo_copy_page(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1504,7 +1584,9 @@ PHP_METHOD(CairoContext, showPage)
     }
 
     cairo_show_page(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1532,7 +1614,9 @@ PHP_METHOD(CairoContext, translate)
     }
 
     cairo_translate(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1554,7 +1638,9 @@ PHP_METHOD(CairoContext, scale)
     }
 
     cairo_scale(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1578,7 +1664,9 @@ PHP_METHOD(CairoContext, rotate)
         RETURN_NULL();
     }
     cairo_rotate(context_object->context, angle);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1605,7 +1693,9 @@ PHP_METHOD(CairoContext, transform)
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
     cairo_transform(context_object->context, matrix_object->matrix);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1632,7 +1722,9 @@ PHP_METHOD(CairoContext, setMatrix)
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
     cairo_set_matrix(context_object->context, matrix_object->matrix);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a matrix, then we deref and remove it */
     CAIRO_UNREF_AND_UNDEF(context_object->matrix)
@@ -1680,7 +1772,9 @@ PHP_METHOD(CairoContext, identityMatrix)
     }
 
     cairo_identity_matrix(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1703,7 +1797,9 @@ PHP_METHOD(CairoContext, userToDevice)
     }
 
     cairo_user_to_device(context_object->context, &x, &y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x);
@@ -1731,7 +1827,9 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
     }
 
     cairo_user_to_device_distance(context_object->context, &x, &y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x);
@@ -1758,7 +1856,9 @@ PHP_METHOD(CairoContext, deviceToUser)
     }
 
     cairo_device_to_user(context_object->context, &x, &y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x);
@@ -1784,7 +1884,9 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
     }
 
     cairo_device_to_user_distance(context_object->context, &x, &y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_next_index_double(return_value, x);
@@ -1809,7 +1911,9 @@ PHP_METHOD(CairoContext, copyPath)
     object_init_ex(return_value, php_cairo_get_path_ce());
     path_object = Z_CAIRO_PATH_P(return_value);
     path_object->path = cairo_copy_path(context_object->context);
-    php_cairo_throw_exception(path_object->path->status);
+    if (php_cairo_throw_exception(path_object->path->status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1831,7 +1935,9 @@ PHP_METHOD(CairoContext, copyPathFlat)
     object_init_ex(return_value, php_cairo_get_path_ce());
     path_object = Z_CAIRO_PATH_P(return_value);
     path_object->path = cairo_copy_path_flat(context_object->context);
-    php_cairo_throw_exception(path_object->path->status);
+    if (php_cairo_throw_exception(path_object->path->status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1860,7 +1966,9 @@ PHP_METHOD(CairoContext, appendPath)
     path_object = Z_CAIRO_PATH_P(path_zval);
     path = path_object->path;
     cairo_append_path(context_object->context, path);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1895,7 +2003,9 @@ PHP_METHOD(CairoContext, getCurrentPoint)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     cairo_get_current_point(context_object->context, &x, &y);
     array_init(return_value);
@@ -1918,7 +2028,9 @@ PHP_METHOD(CairoContext, newPath)
     }
 
     cairo_new_path(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1936,7 +2048,9 @@ PHP_METHOD(CairoContext, newSubPath)
     }
 
     cairo_new_sub_path(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1955,7 +2069,9 @@ PHP_METHOD(CairoContext, closePath)
     }
 
     cairo_close_path(context_object->context);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1989,7 +2105,9 @@ PHP_METHOD(CairoContext, arc)
     }
 
     cairo_arc(context_object->context, x, y, radius, angle1, angle2);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2015,7 +2133,9 @@ PHP_METHOD(CairoContext, arcNegative)
     }
 
     cairo_arc_negative(context_object->context, x, y, radius, angle1, angle2);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2052,7 +2172,9 @@ PHP_METHOD(CairoContext, curveTo)
     }
 
     cairo_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2074,7 +2196,9 @@ PHP_METHOD(CairoContext, lineTo)
         RETURN_NULL();
     }
     cairo_line_to(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2097,7 +2221,9 @@ PHP_METHOD(CairoContext, moveTo)
     }
 
     cairo_move_to(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2128,7 +2254,9 @@ PHP_METHOD(CairoContext, rectangle)
     }
 
     cairo_rectangle(context_object->context, x, y, width, height);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2174,7 +2302,9 @@ PHP_METHOD(CairoContext, glyphPath)
 
     cairo_glyph_path(context_object->context, glyphs_array, num_glyphs);
     efree(glyphs_array);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2222,7 +2352,9 @@ PHP_METHOD(CairoContext, showGlyphs)
 
     cairo_show_glyphs(context_object->context, glyphs_array, num_glyphs);
     efree(glyphs_array);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2301,7 +2433,9 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     cairo_show_text_glyphs(context_object->context, utf8Str, utf8Str_len, glyphs_array, num_glyphs, clusters_array, num_clusters, 0);
     efree(glyphs_array);
     efree(clusters_array);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2328,7 +2462,9 @@ PHP_METHOD(CairoContext, textPath)
     }
 
     cairo_text_path(context_object->context, (const char *)string);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2355,7 +2491,9 @@ PHP_METHOD(CairoContext, relCurveTo)
     }
 
     cairo_rel_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2377,7 +2515,9 @@ PHP_METHOD(CairoContext, relLineTo)
     }
 
     cairo_rel_line_to(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2399,7 +2539,9 @@ PHP_METHOD(CairoContext, relMoveTo)
     }
 
     cairo_rel_move_to(context_object->context, x, y);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -2418,7 +2560,9 @@ PHP_METHOD(CairoContext, getPathExtents)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     cairo_path_extents(context_object->context, &x1, &y1, &x2, &y2);
     array_init(return_value);
@@ -2525,7 +2669,9 @@ PHP_METHOD(CairoContext, setFontMatrix)
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
     cairo_set_font_matrix(context_object->context, matrix_object->matrix);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a matrix, then we deref and remove it */
     CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
@@ -2582,7 +2728,9 @@ PHP_METHOD(CairoContext, setFontOptions)
 
     font_options_object = Z_CAIRO_FONT_OPTIONS_P(font_options_zval);
     cairo_set_font_options(context_object->context, font_options_object->font_options);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a font options, then we deref and remove it */
     CAIRO_UNREF_AND_UNDEF(context_object->font_options)
@@ -2610,7 +2758,9 @@ PHP_METHOD(CairoContext, getFontOptions)
 
     /* Grab the font options properly */
     cairo_get_font_options(context_object->context, font_options);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If we have a font face object stored, grab that zval to use */
     CAIRO_RETURN_IF_REF(context_object->font_options);
@@ -2645,7 +2795,9 @@ PHP_METHOD(CairoContext, setFontFace)
 
     font_face_object = Z_CAIRO_FONT_FACE_P(font_face_zval);
     cairo_set_font_face(context_object->context, font_face_object->font_face);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a font face, then we deref and remove it */
     CAIRO_UNREF_AND_UNDEF(context_object->font_face)
@@ -2704,7 +2856,9 @@ PHP_METHOD(CairoContext, setScaledFont)
 
     scaled_font_object = Z_CAIRO_SCALED_FONT_P(scaled_font_zval);
     cairo_set_scaled_font(context_object->context, scaled_font_object->scaled_font);
-    php_cairo_throw_exception(cairo_status(context_object->context));
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
 
     /* If there's already a font face, font matrix, scaled font, and or font options stored, then we deref and remove them */
     CAIRO_UNREF_AND_UNDEF(context_object->font_face)

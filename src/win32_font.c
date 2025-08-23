@@ -154,7 +154,9 @@ PHP_METHOD(CairoWin32FontFace, __construct)
     font_face = Z_CAIRO_FONT_FACE_P(getThis());
     font_face->font_face = cairo_win32_font_face_create_for_hfont(hfont);
 
-    php_cairo_throw_exception(cairo_font_face_status(font_face->font_face));
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face->font_face))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

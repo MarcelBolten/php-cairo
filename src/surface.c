@@ -627,7 +627,9 @@ PHP_METHOD(CairoSurface, mapToImage)
     }
 
     new_surface_object->surface = new_surface;
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -659,7 +661,9 @@ PHP_METHOD(CairoSurface, unmapImage)
 
     cairo_surface_unmap_image(surface_object->surface, image_surface_object->surface);
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -712,7 +716,9 @@ PHP_METHOD(CairoSurface, writeToPng)
     }
     efree(closure);
 
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 #endif
@@ -770,7 +776,9 @@ PHP_METHOD(CairoSurface, writeToJpeg)
     }
     efree(closure);
 
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 #endif

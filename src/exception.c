@@ -30,18 +30,18 @@ zend_class_entry *ce_cairo_status;
     Cairo C API
 ------------------------------------------------------------------*/
 
-void php_cairo_throw_exception(cairo_status_t status)
+bool php_cairo_throw_exception(cairo_status_t status)
 {
     char * error_message;
 
     if (status == CAIRO_STATUS_SUCCESS) {
-        return;
+        return false;
     }
 
     error_message = estrdup(cairo_status_to_string(status));
     zend_throw_exception(ce_cairo_exception, error_message, status);
     efree(error_message);
-    return;
+    return true;
 }
 
 /* ----------------------------------------------------------------

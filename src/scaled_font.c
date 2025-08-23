@@ -147,7 +147,9 @@ PHP_METHOD(CairoScaledFont, __construct)
         cairo_matrix_object_get_matrix(ctm_zval),
         cairo_font_options_object_get_font_options(font_options_zval)
     );
-    php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font));
+    if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font))) {
+        RETURN_THROWS();
+    }
 
     /* we need to be able to get these zvals out later, so store them */
     ZVAL_COPY(&scaled_font_object->font_face, font_face_zval);
@@ -320,7 +322,9 @@ PHP_METHOD(CairoScaledFont, getFontFace)
 
     /* Grab the font face properly */
     font_face = cairo_scaled_font_get_font_face(scaled_font_object->scaled_font);
-    php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font));
+    if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font))) {
+        RETURN_THROWS();
+    }
 
     /* If we have a font face object stored, grab that zval to use */
     CAIRO_RETURN_IF_REF(scaled_font_object->font_face);
@@ -349,7 +353,9 @@ PHP_METHOD(CairoScaledFont, getFontOptions)
 
     /* Grab the font options properly */
     cairo_scaled_font_get_font_options(scaled_font_object->scaled_font, font_options);
-    php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font));
+    if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object->scaled_font))) {
+        RETURN_THROWS();
+    }
 
     /* If we have a font options object stored, grab that zval to use */
     CAIRO_RETURN_IF_REF(scaled_font_object->font_options);

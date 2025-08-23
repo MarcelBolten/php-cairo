@@ -70,7 +70,9 @@ PHP_METHOD(CairoToyFontFace, __construct)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
             : CAIRO_FONT_WEIGHT_NORMAL
     );
-    php_cairo_throw_exception(cairo_font_face_status(fontface_object->font_face));
+    if (php_cairo_throw_exception(cairo_font_face_status(fontface_object->font_face))) {
+        RETURN_THROWS();
+    }
 }
 
 /* {{{ proto string \Cairo\FontFace\Toy::getFamily()

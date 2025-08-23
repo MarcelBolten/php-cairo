@@ -86,7 +86,9 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
     object_init_ex(return_value, ce_cairo_quartzfont);
 
     font_face_object->font_face = cairo_quartz_font_face_create_for_atsu_font_id(fontID);
-    php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face));
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        RETURN_THROWS();
+    }
 }
 
 /* {{{ proto CairoQuartzFontFace CairoQuartzFontFace::createForCgfont(string font_name[, int code, int platform, int script, int language])
@@ -125,7 +127,9 @@ PHP_METHOD(CairoQuartzFontFace, createForCgfont)
 
     /* Now actually do the cairo call */
     font_face_object->font_face = cairo_quartz_font_face_create_for_cgfont(font_face_object->quartzref);
-    php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face));
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        RETURN_THROWS();
+    }
 }
 
 /* }}} */

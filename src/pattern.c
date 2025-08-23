@@ -225,7 +225,9 @@ PHP_METHOD(CairoPattern, setExtend)
         pattern_object->pattern,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(extend_case)))
     );
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -281,7 +283,9 @@ PHP_METHOD(CairoPattern, setFilter)
         pattern_object->pattern,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(filter_case)))
     );
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 
 /* }}} */
@@ -305,19 +309,24 @@ PHP_METHOD(CairoPattern, getMatrix)
 
     matrix = cairo_pattern_get_user_data(pattern_object->pattern, &matrix_key);
 
-    if (!matrix) {
-        zval *matrix_store = emalloc(sizeof(zval));
-        cairo_status_t status;
+    if (matrix) {
+        RETURN_COPY(matrix);
+    }
 
-        object_init_ex(return_value, ce_cairo_matrix);
-        cairo_pattern_get_matrix(pattern_object->pattern, cairo_matrix_object_get_matrix(return_value));
-        ZVAL_COPY(matrix_store, return_value);
-        status = cairo_pattern_set_user_data(pattern_object->pattern, &matrix_key,
-            (void *)matrix_store, cairo_pattern_destroy_func);
+    zval *matrix_store = emalloc(sizeof(zval));
+    cairo_status_t status;
 
-                php_cairo_throw_exception(status);
-    } else {
-        ZVAL_COPY(return_value, matrix);
+    object_init_ex(return_value, ce_cairo_matrix);
+    cairo_pattern_get_matrix(pattern_object->pattern, cairo_matrix_object_get_matrix(return_value));
+    ZVAL_COPY(matrix_store, return_value);
+    status = cairo_pattern_set_user_data(
+        pattern_object->pattern,
+        &matrix_key,
+        (void *)matrix_store, cairo_pattern_destroy_func
+    );
+
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
     }
 }
 /* }}} */
@@ -353,7 +362,9 @@ PHP_METHOD(CairoPattern, setMatrix)
     status = cairo_pattern_set_user_data(pattern_object->pattern, &matrix_key,
         (void *)matrix_store, cairo_pattern_destroy_func);
 
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -393,7 +404,9 @@ PHP_METHOD(CairoPatternSolid, __construct)
     } else {
         pattern_object->pattern = cairo_pattern_create_rgba(red, green, blue, alpha);
     }
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -417,7 +430,9 @@ PHP_METHOD(CairoPatternSolid, getRgba)
     }
 
     status = cairo_pattern_get_rgba(pattern_object->pattern, &red, &green, &blue, &alpha);
-        php_cairo_throw_exception(status);
+        if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "red", red);
@@ -458,7 +473,9 @@ PHP_METHOD(CairoPatternGradient, addColorStopRgb)
         RETURN_NULL();
     }
     cairo_pattern_add_color_stop_rgb(pattern_object->pattern, offset, red, green, blue);
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -491,7 +508,9 @@ PHP_METHOD(CairoPatternGradient, addColorStopRgba)
         RETURN_NULL();
     }
     cairo_pattern_add_color_stop_rgba(pattern_object->pattern, offset, red, green, blue, alpha);
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -517,7 +536,9 @@ PHP_METHOD(CairoPatternGradient, getColorStopRgba)
         RETURN_NULL();
     }
     status = cairo_pattern_get_color_stop_rgba(pattern_object->pattern, index, &offset, &red, &green, &blue, &alpha);
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "red", red);
@@ -545,7 +566,9 @@ PHP_METHOD(CairoPatternGradient, getColorStopCount)
         RETURN_NULL();
     }
     status = cairo_pattern_get_color_stop_count(pattern_object->pattern, &count);
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 
     RETURN_LONG(count);
 }
@@ -586,7 +609,9 @@ PHP_METHOD(CairoPatternGradientRadial, __construct)
         RETURN_NULL();
     }
     pattern_object->pattern = cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1);
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -609,7 +634,9 @@ PHP_METHOD(CairoPatternGradientRadial, getCircles)
         RETURN_NULL();
     }
     status = cairo_pattern_get_radial_circles(pattern_object->pattern, &x0, &y0, &r0, &x1, &y1, &r1);
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "x0", x0);
@@ -652,7 +679,9 @@ PHP_METHOD(CairoPatternGradientLinear, __construct)
         RETURN_NULL();
     }
     pattern_object->pattern = cairo_pattern_create_linear(x0, y0, x1, y1);
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -675,7 +704,9 @@ PHP_METHOD(CairoPatternGradientLinear, getPoints)
         RETURN_NULL();
     }
     status = cairo_pattern_get_linear_points(pattern_object->pattern, &x0, &y0, &x1, &y1);
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "x0", x0);
@@ -717,7 +748,9 @@ PHP_METHOD(CairoPatternSurface, __construct)
     }
 
     pattern_object->pattern = cairo_pattern_create_for_surface(surface_object->surface);
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 
     /* we need to be able to get these zvals out later, so store it*/
     ZVAL_COPY(&pattern_object->surface, surface_zval);
@@ -742,7 +775,9 @@ PHP_METHOD(CairoPatternSurface, getSurface)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_pattern_get_surface(pattern_object->pattern, &surface));
+    if (php_cairo_throw_exception(cairo_pattern_get_surface(pattern_object->pattern, &surface))) {
+        RETURN_THROWS();
+    }
 
     /* If we have a surface, grab that zval to use */
     CAIRO_RETURN_IF_REF(pattern_object->surface);
@@ -784,7 +819,9 @@ PHP_METHOD(CairoPatternMesh, __construct)
     }
 
     pattern_object->pattern = cairo_pattern_create_mesh();
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -805,7 +842,9 @@ PHP_METHOD(CairoPatternMesh, beginPatch)
     }
     cairo_mesh_pattern_begin_patch(pattern_object->pattern);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -826,7 +865,9 @@ PHP_METHOD(CairoPatternMesh, endPatch)
     }
     cairo_mesh_pattern_end_patch(pattern_object->pattern);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -853,7 +894,9 @@ PHP_METHOD(CairoPatternMesh, moveTo)
     }
     cairo_mesh_pattern_move_to(pattern_object->pattern, x, y);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -880,7 +923,9 @@ PHP_METHOD(CairoPatternMesh, lineTo)
     }
     cairo_mesh_pattern_line_to(pattern_object->pattern, x, y);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -916,7 +961,9 @@ PHP_METHOD(CairoPatternMesh, curveTo)
     }
     cairo_mesh_pattern_curve_to(pattern_object->pattern, x1, y1, x2, y2, x3, y3);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -947,7 +994,9 @@ PHP_METHOD(CairoPatternMesh, setControlPoint)
     }
     cairo_mesh_pattern_set_control_point(pattern_object->pattern, corner_num, x, y);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -980,7 +1029,9 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgb)
     }
     cairo_mesh_pattern_set_corner_color_rgb(pattern_object->pattern, corner_num, red, green, blue);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1015,7 +1066,9 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgba)
     }
     cairo_mesh_pattern_set_corner_color_rgba(pattern_object->pattern, corner_num, red, green, blue, alpha);
 
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -1036,7 +1089,9 @@ PHP_METHOD(CairoPatternMesh, getPatchCount)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_mesh_pattern_get_patch_count(pattern_object->pattern, &count));
+    if (php_cairo_throw_exception(cairo_mesh_pattern_get_patch_count(pattern_object->pattern, &count))) {
+        RETURN_THROWS();
+    }
 
     RETURN_LONG(count);
 }
@@ -1175,7 +1230,9 @@ PHP_METHOD(CairoPatternRasterSource, __construct)
     // TODO: create callbacks in C that feed to php methods as callbacks
     // register them all, and do the create
     // also figure out callback data - varargs?
-    php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
+    if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

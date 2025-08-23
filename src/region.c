@@ -177,7 +177,9 @@ PHP_METHOD(CairoRegion, __construct)
         return;
     }
 
-    php_cairo_throw_exception(cairo_region_status(region_object->region));
+    if (php_cairo_throw_exception(cairo_region_status(region_object->region))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -410,7 +412,9 @@ PHP_METHOD(CairoRegion, translate)
     }
 
     cairo_region_translate(region_object->region, (int)dx, (int)dy);
-    php_cairo_throw_exception(cairo_region_status(region_object->region));
+    if (php_cairo_throw_exception(cairo_region_status(region_object->region))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

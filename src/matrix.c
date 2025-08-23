@@ -341,7 +341,9 @@ PHP_METHOD(CairoMatrix, invert)
     }
 
     status = cairo_matrix_invert(matrix_object->matrix);
-    php_cairo_throw_exception(status);
+    if (php_cairo_throw_exception(status)) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

@@ -87,7 +87,9 @@ PHP_METHOD(CairoSvgSurface, __construct)
         surface_object->surface = cairo_svg_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -116,7 +118,9 @@ PHP_METHOD(CairoSvgSurface, restrictToVersion)
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))
     );
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

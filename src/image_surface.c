@@ -61,7 +61,9 @@ PHP_METHOD(CairoImageSurface, __construct)
         width,
         height
     );
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -137,7 +139,9 @@ PHP_METHOD(CairoImageSurface, createForData)
 
     /* create our surface and check for errors */
     surface_object->surface = cairo_image_surface_create_for_data((unsigned char*)surface_object->buffer, format, width, height, stride);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -156,7 +160,9 @@ PHP_METHOD(CairoImageSurface, getData)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 
     data = cairo_image_surface_get_data(surface_object->surface);
     height = cairo_image_surface_get_height(surface_object->surface);
@@ -180,7 +186,9 @@ PHP_METHOD(CairoImageSurface, getFormat)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 
     format_case = php_enum_from_cairo_c_enum(
         ce_cairo_format,
@@ -206,7 +214,9 @@ PHP_METHOD(CairoImageSurface, getWidth)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 
     RETURN_LONG(cairo_image_surface_get_width(surface_object->surface));
 }
@@ -225,7 +235,9 @@ PHP_METHOD(CairoImageSurface, getHeight)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 
     RETURN_LONG(cairo_image_surface_get_height(surface_object->surface));
 }
@@ -244,7 +256,9 @@ PHP_METHOD(CairoImageSurface, getStride)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 
     RETURN_LONG(cairo_image_surface_get_stride(surface_object->surface));
 }
@@ -319,7 +333,9 @@ PHP_METHOD(CairoImageSurface, createFromPng)
         return;
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 #endif
@@ -367,7 +383,9 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
         return;
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

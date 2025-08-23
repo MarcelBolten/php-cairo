@@ -89,7 +89,9 @@ PHP_METHOD(CairoPdfSurface, __construct)
         surface_object->surface = cairo_pdf_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -161,7 +163,9 @@ PHP_METHOD(CairoPdfSurface, setSize)
     }
 
     cairo_pdf_surface_set_size(surface_object->surface, width, height);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -191,7 +195,9 @@ PHP_METHOD(CairoPdfSurface, restrictToVersion)
         surface_object->surface,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))
     );
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -236,7 +242,9 @@ PHP_METHOD(CairoPdfSurface, addOutline)
         (const char *)linkAttribs,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(outline_flag)))
     ));
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -274,7 +282,9 @@ PHP_METHOD(CairoPdfSurface, setMetadata)
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(metadata_const))),
         (const char *)metadata
     );
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -301,7 +311,9 @@ PHP_METHOD(CairoPdfSurface, setPageLabel)
     }
 
     cairo_pdf_surface_set_page_label(surface_object->surface, (const char *)label);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -330,7 +342,9 @@ PHP_METHOD(CairoPdfSurface, setThumbnailSize)
     }
 
     cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

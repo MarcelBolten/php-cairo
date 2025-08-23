@@ -200,7 +200,9 @@ PHP_METHOD(CairoFtFontFace, __construct)
         RETURN_NULL();
     }
 
-    php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face));
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

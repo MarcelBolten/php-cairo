@@ -87,7 +87,9 @@ PHP_METHOD(CairoPsSurface, __construct)
         surface_object->surface = cairo_ps_surface_create_for_stream(php_cairo_write_func, (void *)closure, width, height);
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -115,7 +117,9 @@ PHP_METHOD(CairoPsSurface, setSize)
     }
 
     cairo_ps_surface_set_size(surface_object->surface, width, height);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -147,7 +151,9 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
             : CAIRO_PS_LEVEL_2
     );
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -172,7 +178,9 @@ PHP_METHOD(CairoPsSurface, setEps)
     }
 
     cairo_ps_surface_set_eps(surface_object->surface, eps);
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
@@ -255,7 +263,9 @@ PHP_METHOD(CairoPsSurface, dscComment)
     cairo_ps_surface_dsc_comment(surface_object->surface, cairo_comment);
     efree(cairo_comment);
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 

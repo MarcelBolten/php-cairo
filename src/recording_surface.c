@@ -99,7 +99,9 @@ PHP_METHOD(CairoRecordingSurface, __construct)
         efree(rectangle);
     }
 
-    php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
 }
 /* }}} */
 
