@@ -144,7 +144,7 @@ PHP_METHOD(CairoRegion, __construct)
 
     region_object = Z_CAIRO_REGION_P(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     if (rectangles_zval == NULL) {
@@ -192,7 +192,7 @@ PHP_METHOD(CairoRegion, getStatus)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -217,7 +217,7 @@ PHP_METHOD(CairoRegion, getExtents)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     object_init_ex(return_value, ce_cairo_rectangle);
@@ -236,7 +236,7 @@ PHP_METHOD(CairoRegion, getNumRectangles)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETVAL_LONG(cairo_region_num_rectangles(region_object->region));
@@ -261,7 +261,7 @@ PHP_METHOD(CairoRegion, getRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     if (rectId > cairo_region_num_rectangles(region_object->region)) {
@@ -284,7 +284,7 @@ PHP_METHOD(CairoRegion, isEmpty)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETVAL_BOOL(cairo_region_is_empty(region_object->region));
@@ -310,7 +310,7 @@ PHP_METHOD(CairoRegion, containsPoint)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETVAL_BOOL(cairo_region_contains_point(region_object->region, x, y));
@@ -339,12 +339,12 @@ PHP_METHOD(CairoRegion, containsRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
     if (!rectangle_object) {
-        return;
+        RETURN_NULL();
     }
 
     region_overlap_case = php_enum_from_cairo_c_enum(
@@ -375,7 +375,7 @@ PHP_METHOD(CairoRegion, equal)
 
     region_obj = cairo_region_object_get(getThis());
     if (!region_obj) {
-        return;
+        RETURN_NULL();
     }
 
     if (other_region == NULL) {
@@ -406,7 +406,7 @@ PHP_METHOD(CairoRegion, translate)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_region_translate(region_object->region, (int)dx, (int)dy);
@@ -432,7 +432,7 @@ PHP_METHOD(CairoRegion, intersect)
 
     region_obj = cairo_region_object_get(getThis());
     if (!region_obj) {
-        return;
+        RETURN_NULL();
     }
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
@@ -467,12 +467,12 @@ PHP_METHOD(CairoRegion, intersectRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
     if (!rectangle_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -504,7 +504,7 @@ PHP_METHOD(CairoRegion, subtract)
 
     region_obj = cairo_region_object_get(getThis());
     if (!region_obj) {
-        return;
+        RETURN_NULL();
     }
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
@@ -539,12 +539,12 @@ PHP_METHOD(CairoRegion, subtractRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
     if (!rectangle_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -576,7 +576,7 @@ PHP_METHOD(CairoRegion, union)
 
     region_obj = cairo_region_object_get(getThis());
     if (!region_obj) {
-        return;
+        RETURN_NULL();
     }
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
@@ -611,12 +611,12 @@ PHP_METHOD(CairoRegion, unionRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
     if (!rectangle_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -649,7 +649,7 @@ PHP_METHOD(CairoRegion, xor)
 
     region_obj = cairo_region_object_get(getThis());
     if (!region_obj) {
-        return;
+        RETURN_NULL();
     }
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
@@ -685,12 +685,12 @@ PHP_METHOD(CairoRegion, xorRectangle)
 
     region_object = cairo_region_object_get(getThis());
     if (!region_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
     if (!rectangle_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(

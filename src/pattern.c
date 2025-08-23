@@ -130,7 +130,7 @@ PHP_METHOD(CairoPattern, getStatus)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -158,7 +158,7 @@ PHP_METHOD(CairoPattern, getType)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern_case = php_enum_from_cairo_c_enum(
@@ -187,7 +187,7 @@ PHP_METHOD(CairoPattern, getExtend)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     extend_case = php_enum_from_cairo_c_enum(
@@ -218,7 +218,7 @@ PHP_METHOD(CairoPattern, setExtend)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pattern_set_extend(
@@ -243,7 +243,7 @@ PHP_METHOD(CairoPattern, getFilter)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     filter_case = php_enum_from_cairo_c_enum(
@@ -274,7 +274,7 @@ PHP_METHOD(CairoPattern, setFilter)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pattern_set_filter(
@@ -300,7 +300,7 @@ PHP_METHOD(CairoPattern, getMatrix)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     matrix = cairo_pattern_get_user_data(pattern_object->pattern, &matrix_key);
@@ -340,7 +340,7 @@ PHP_METHOD(CairoPattern, setMatrix)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pattern_set_matrix(pattern_object->pattern, cairo_matrix_object_get_matrix(matrix_zval));
@@ -385,7 +385,7 @@ PHP_METHOD(CairoPatternSolid, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     if (!alpha) {
@@ -413,7 +413,7 @@ PHP_METHOD(CairoPatternSolid, getRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     status = cairo_pattern_get_rgba(pattern_object->pattern, &red, &green, &blue, &alpha);
@@ -455,7 +455,7 @@ PHP_METHOD(CairoPatternGradient, addColorStopRgb)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_pattern_add_color_stop_rgb(pattern_object->pattern, offset, red, green, blue);
     php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
@@ -488,7 +488,7 @@ PHP_METHOD(CairoPatternGradient, addColorStopRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_pattern_add_color_stop_rgba(pattern_object->pattern, offset, red, green, blue, alpha);
     php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
@@ -514,7 +514,7 @@ PHP_METHOD(CairoPatternGradient, getColorStopRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     status = cairo_pattern_get_color_stop_rgba(pattern_object->pattern, index, &offset, &red, &green, &blue, &alpha);
     php_cairo_throw_exception(status);
@@ -542,7 +542,7 @@ PHP_METHOD(CairoPatternGradient, getColorStopCount)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     status = cairo_pattern_get_color_stop_count(pattern_object->pattern, &count);
     php_cairo_throw_exception(status);
@@ -583,7 +583,7 @@ PHP_METHOD(CairoPatternGradientRadial, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     pattern_object->pattern = cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1);
     php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
@@ -606,7 +606,7 @@ PHP_METHOD(CairoPatternGradientRadial, getCircles)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     status = cairo_pattern_get_radial_circles(pattern_object->pattern, &x0, &y0, &r0, &x1, &y1, &r1);
     php_cairo_throw_exception(status);
@@ -649,7 +649,7 @@ PHP_METHOD(CairoPatternGradientLinear, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     pattern_object->pattern = cairo_pattern_create_linear(x0, y0, x1, y1);
     php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern));
@@ -672,7 +672,7 @@ PHP_METHOD(CairoPatternGradientLinear, getPoints)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     status = cairo_pattern_get_linear_points(pattern_object->pattern, &x0, &y0, &x1, &y1);
     php_cairo_throw_exception(status);
@@ -708,12 +708,12 @@ PHP_METHOD(CairoPatternSurface, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object || surface_zval == NULL) {
-        return;
+        RETURN_NULL();
     }
 
     surface_object = cairo_surface_object_get(surface_zval);
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern_object->pattern = cairo_pattern_create_for_surface(surface_object->surface);
@@ -739,7 +739,7 @@ PHP_METHOD(CairoPatternSurface, getSurface)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_pattern_get_surface(pattern_object->pattern, &surface));
@@ -780,7 +780,7 @@ PHP_METHOD(CairoPatternMesh, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern_object->pattern = cairo_pattern_create_mesh();
@@ -801,7 +801,7 @@ PHP_METHOD(CairoPatternMesh, beginPatch)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_begin_patch(pattern_object->pattern);
 
@@ -822,7 +822,7 @@ PHP_METHOD(CairoPatternMesh, endPatch)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_end_patch(pattern_object->pattern);
 
@@ -849,7 +849,7 @@ PHP_METHOD(CairoPatternMesh, moveTo)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_move_to(pattern_object->pattern, x, y);
 
@@ -876,7 +876,7 @@ PHP_METHOD(CairoPatternMesh, lineTo)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_line_to(pattern_object->pattern, x, y);
 
@@ -912,7 +912,7 @@ PHP_METHOD(CairoPatternMesh, curveTo)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_curve_to(pattern_object->pattern, x1, y1, x2, y2, x3, y3);
 
@@ -943,7 +943,7 @@ PHP_METHOD(CairoPatternMesh, setControlPoint)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_set_control_point(pattern_object->pattern, corner_num, x, y);
 
@@ -976,7 +976,7 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgb)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_set_corner_color_rgb(pattern_object->pattern, corner_num, red, green, blue);
 
@@ -1011,7 +1011,7 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_mesh_pattern_set_corner_color_rgba(pattern_object->pattern, corner_num, red, green, blue, alpha);
 
@@ -1033,7 +1033,7 @@ PHP_METHOD(CairoPatternMesh, getPatchCount)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_mesh_pattern_get_patch_count(pattern_object->pattern, &count));
@@ -1061,7 +1061,7 @@ PHP_METHOD(CairoPatternMesh, getPath)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
     path = cairo_mesh_pattern_get_path(pattern_object->pattern, patch_num);
 
@@ -1070,7 +1070,7 @@ PHP_METHOD(CairoPatternMesh, getPath)
     path_object = Z_CAIRO_PATH_P(return_value);
 
     if (!path_object) {
-        return;
+        RETURN_NULL();
     }
 
     path_object->path = path;
@@ -1097,7 +1097,7 @@ PHP_METHOD(CairoPatternMesh, getControlPoint)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_mesh_pattern_get_control_point(
@@ -1129,7 +1129,7 @@ PHP_METHOD(CairoPatternMesh, getCornerColorRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_mesh_pattern_get_corner_color_rgba(
@@ -1169,7 +1169,7 @@ PHP_METHOD(CairoPatternRasterSource, __construct)
 
     pattern_object = Z_CAIRO_PATTERN_P(getThis());
     if (!pattern_object) {
-        return;
+        RETURN_NULL();
     }
 
     // TODO: create callbacks in C that feed to php methods as callbacks

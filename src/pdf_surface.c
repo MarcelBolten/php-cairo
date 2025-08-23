@@ -61,7 +61,7 @@ PHP_METHOD(CairoPdfSurface, __construct)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* special case - a NULL file is like an "in memory" PDF */
@@ -157,7 +157,7 @@ PHP_METHOD(CairoPdfSurface, setSize)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pdf_surface_set_size(surface_object->surface, width, height);
@@ -184,7 +184,7 @@ PHP_METHOD(CairoPdfSurface, restrictToVersion)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pdf_surface_restrict_to_version(
@@ -226,7 +226,7 @@ PHP_METHOD(CairoPdfSurface, addOutline)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETVAL_LONG(cairo_pdf_surface_add_outline(
@@ -266,7 +266,7 @@ PHP_METHOD(CairoPdfSurface, setMetadata)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pdf_surface_set_metadata(
@@ -297,7 +297,7 @@ PHP_METHOD(CairoPdfSurface, setPageLabel)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pdf_surface_set_page_label(surface_object->surface, (const char *)label);
@@ -326,7 +326,7 @@ PHP_METHOD(CairoPdfSurface, setThumbnailSize)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);

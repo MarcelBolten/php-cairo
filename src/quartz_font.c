@@ -79,9 +79,8 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
 
     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
 
-    if (!font_face_object)
-    {
-        return;
+    if (!font_face_object) {
+        RETURN_NULL();
     }
 
     object_init_ex(return_value, ce_cairo_quartzfont);
@@ -108,9 +107,8 @@ PHP_METHOD(CairoQuartzFontFace, createForCgfont)
 
     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
 
-    if (!font_face_object)
-    {
-        return;
+    if (!font_face_object) {
+        RETURN_NULL();
     }
 
     object_init_ex(return_value, ce_cairo_quartzfont);

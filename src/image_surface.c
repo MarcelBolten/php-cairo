@@ -53,7 +53,7 @@ PHP_METHOD(CairoImageSurface, __construct)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     surface_object->surface = cairo_image_surface_create(
@@ -121,7 +121,7 @@ PHP_METHOD(CairoImageSurface, createForData)
     surface_object = Z_CAIRO_SURFACE_P(return_value);
 
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* allocate our internal surface object buffer - has to be left lying around until we destroy the image */
@@ -153,7 +153,7 @@ PHP_METHOD(CairoImageSurface, getData)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
@@ -177,7 +177,7 @@ PHP_METHOD(CairoImageSurface, getFormat)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
@@ -203,7 +203,7 @@ PHP_METHOD(CairoImageSurface, getWidth)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
@@ -222,7 +222,7 @@ PHP_METHOD(CairoImageSurface, getHeight)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
@@ -241,7 +241,7 @@ PHP_METHOD(CairoImageSurface, getStride)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
@@ -304,7 +304,7 @@ PHP_METHOD(CairoImageSurface, createFromPng)
         php_stream_from_zval(stream, stream_zval);
 
         if (!stream) {
-            return;
+            RETURN_NULL();
         }
 
         // Pack stream into struct
@@ -352,7 +352,7 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
         php_stream_from_zval(stream, stream_zval);
 
         if (!stream) {
-            return;
+            RETURN_NULL();
         }
 
         // Pack stream into struct

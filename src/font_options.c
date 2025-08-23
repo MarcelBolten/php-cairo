@@ -134,7 +134,7 @@ PHP_METHOD(CairoFontOptions, __construct)
 
     font_options_object = Z_CAIRO_FONT_OPTIONS_P(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     font_options_object->font_options = cairo_font_options_create();
@@ -153,7 +153,7 @@ PHP_METHOD(CairoFontOptions, getStatus)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -185,12 +185,12 @@ PHP_METHOD(CairoFontOptions, merge)
 
     options_object = cairo_font_options_object_get(getThis());
     if (!options_object) {
-        return;
+        RETURN_NULL();
     }
 
     other_object = cairo_font_options_object_get(other_zval);
     if (!other_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_options_merge(options_object->font_options, other_object->font_options);
@@ -209,7 +209,7 @@ PHP_METHOD(CairoFontOptions, hash)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_LONG(cairo_font_options_hash(font_options_object->font_options));
@@ -230,12 +230,12 @@ PHP_METHOD(CairoFontOptions, equal)
 
     options_object_a = cairo_font_options_object_get(getThis());
     if (!options_object_a) {
-        return;
+        RETURN_NULL();
     }
 
     options_object_b = cairo_font_options_object_get(other_zval);
     if (!options_object_b) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_BOOL(cairo_font_options_equal(options_object_a->font_options, options_object_b->font_options));
@@ -259,7 +259,7 @@ PHP_METHOD(CairoFontOptions, setAntialias)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_options_set_antialias(
@@ -281,7 +281,7 @@ PHP_METHOD(CairoFontOptions, getAntialias)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     antialias_case = php_enum_from_cairo_c_enum(
@@ -314,7 +314,7 @@ PHP_METHOD(CairoFontOptions, setSubpixelOrder)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_options_set_subpixel_order(
@@ -338,7 +338,7 @@ PHP_METHOD(CairoFontOptions, getSubpixelOrder)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     subpixel_order_case = php_enum_from_cairo_c_enum(
@@ -370,7 +370,7 @@ PHP_METHOD(CairoFontOptions, setHintStyle)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_options_set_hint_style(
@@ -394,7 +394,7 @@ PHP_METHOD(CairoFontOptions, getHintStyle)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     hint_style_case = php_enum_from_cairo_c_enum(
@@ -426,7 +426,7 @@ PHP_METHOD(CairoFontOptions, setHintMetrics)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_options_set_hint_metrics(
@@ -450,7 +450,7 @@ PHP_METHOD(CairoFontOptions, getHintMetrics)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     hint_metrics_case = php_enum_from_cairo_c_enum(
@@ -488,7 +488,7 @@ PHP_METHOD(CairoFontOptions, setVariations)
 
         font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-            return;
+            RETURN_NULL();
         }
 
     cairo_font_options_set_variations(font_options_object->font_options, (const char *)variations);
@@ -508,7 +508,7 @@ PHP_METHOD(CairoFontOptions, getVariations)
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_STRING(cairo_font_options_get_variations(font_options_object->font_options));

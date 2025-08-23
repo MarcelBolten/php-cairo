@@ -154,12 +154,12 @@ PHP_METHOD(CairoContext, __construct)
 
     context_object = Z_CAIRO_CONTEXT_P(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     surface_object = cairo_surface_object_get(surface_zval);
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     context_object->context = cairo_create(surface_object->surface);
@@ -180,7 +180,7 @@ PHP_METHOD(CairoContext, getStatus)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -204,7 +204,7 @@ PHP_METHOD(CairoContext, save)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_save(context_object->context);
@@ -222,7 +222,7 @@ PHP_METHOD(CairoContext, restore)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_restore(context_object->context);
@@ -240,7 +240,7 @@ PHP_METHOD(CairoContext, pushGroup)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_push_group(context_object->context);
@@ -265,7 +265,7 @@ PHP_METHOD(CairoContext, pushGroupWithContent)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_push_group_with_content(
@@ -288,7 +288,7 @@ PHP_METHOD(CairoContext, popGroup)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern = cairo_pop_group(context_object->context);
@@ -311,7 +311,7 @@ PHP_METHOD(CairoContext, popGroupToSource)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_pop_group_to_source(context_object->context);
@@ -331,7 +331,7 @@ PHP_METHOD(CairoContext, getGroupSurface)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -369,7 +369,7 @@ PHP_METHOD(CairoContext, setSourceRGB)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_source_rgb(context_object->context, red, green, blue);
@@ -400,7 +400,7 @@ PHP_METHOD(CairoContext, setSourceRGBA)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_source_rgba(context_object->context, red, green, blue, alpha);
@@ -433,7 +433,7 @@ PHP_METHOD(CairoContext, setSurface)
 
     context_object = Z_CAIRO_CONTEXT_P(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     surface_object = cairo_surface_object_get(surface_zval);
@@ -470,7 +470,7 @@ PHP_METHOD(CairoContext, getSurface)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a surface stored, grab that zval to use */
@@ -507,7 +507,7 @@ PHP_METHOD(CairoContext, setPattern)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern_object = Z_CAIRO_PATTERN_P(pattern_zval);
@@ -535,7 +535,7 @@ PHP_METHOD(CairoContext, getPattern)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a patter/source object stored, grab that zval to use */
@@ -570,7 +570,7 @@ PHP_METHOD(CairoContext, setAntialias)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     antialias = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(antialias_case)));
@@ -592,7 +592,7 @@ PHP_METHOD(CairoContext, getAntialias)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     antialias = cairo_get_antialias(context_object->context);
@@ -644,7 +644,7 @@ PHP_METHOD(CairoContext, setDash)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* we use i in case we had a bad issue while iterating the array */
@@ -664,7 +664,7 @@ PHP_METHOD(CairoContext, getDashCount)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_LONG(cairo_get_dash_count(context_object->context));
@@ -685,7 +685,7 @@ PHP_METHOD(CairoContext, getDash)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* Setup container for dashes */
@@ -727,7 +727,7 @@ PHP_METHOD(CairoContext, setFillRule)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     fillrule = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(fillrule_case)));
@@ -749,7 +749,7 @@ PHP_METHOD(CairoContext, getFillRule)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     fillrule = cairo_get_fill_rule(context_object->context);
@@ -779,7 +779,7 @@ PHP_METHOD(CairoContext, setLineCap)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_line_cap(
@@ -801,7 +801,7 @@ PHP_METHOD(CairoContext, getLineCap)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     linecap_case = php_enum_from_cairo_c_enum(
@@ -833,7 +833,7 @@ PHP_METHOD(CairoContext, setLineJoin)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     linejoin = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(linejoin_case)));
@@ -855,7 +855,7 @@ PHP_METHOD(CairoContext, getLineJoin)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     linejoin = cairo_get_line_join(context_object->context);
@@ -886,7 +886,7 @@ PHP_METHOD(CairoContext, setLineWidth)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_line_width(context_object->context, width);
@@ -904,7 +904,7 @@ PHP_METHOD(CairoContext, getLineWidth)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_DOUBLE(cairo_get_line_width(context_object->context));
@@ -928,7 +928,7 @@ PHP_METHOD(CairoContext, setMiterLimit)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_miter_limit(context_object->context, limit);
@@ -946,7 +946,7 @@ PHP_METHOD(CairoContext, getMiterLimit)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_DOUBLE(cairo_get_miter_limit(context_object->context));
@@ -971,7 +971,7 @@ PHP_METHOD(CairoContext, setOperator)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     operator = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(operator_case)));
@@ -993,7 +993,7 @@ PHP_METHOD(CairoContext, getOperator)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     operator = cairo_get_operator(context_object->context);
@@ -1024,7 +1024,7 @@ PHP_METHOD(CairoContext, setTolerance)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_tolerance(context_object->context, tolerance);
@@ -1042,7 +1042,7 @@ PHP_METHOD(CairoContext, getTolerance)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_DOUBLE(cairo_get_tolerance(context_object->context));
@@ -1060,7 +1060,7 @@ PHP_METHOD(CairoContext, clip)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_clip(context_object->context);
@@ -1084,7 +1084,7 @@ PHP_METHOD(CairoContext, inClip)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_BOOL(cairo_in_clip(context_object->context, x, y));
@@ -1103,7 +1103,7 @@ PHP_METHOD(CairoContext, clipPreserve)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_clip_preserve(context_object->context);
@@ -1121,7 +1121,7 @@ PHP_METHOD(CairoContext, resetClip)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_reset_clip(context_object->context);
@@ -1141,7 +1141,7 @@ PHP_METHOD(CairoContext, getClipExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_clip_extents(context_object->context, &x1, &y1, &x2, &y2);
@@ -1168,7 +1168,7 @@ PHP_METHOD(CairoContext, clipRectangleList)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     rectangles = cairo_copy_clip_rectangle_list(context_object->context);
@@ -1204,7 +1204,7 @@ PHP_METHOD(CairoContext, fill)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_fill(context_object->context);
@@ -1224,7 +1224,7 @@ PHP_METHOD(CairoContext, fillPreserve)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_fill_preserve(context_object->context);
@@ -1245,7 +1245,7 @@ PHP_METHOD(CairoContext, getFillExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_fill_extents(context_object->context, &x1, &y1, &x2, &y2);
@@ -1274,7 +1274,7 @@ PHP_METHOD(CairoContext, inFill)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_BOOL(cairo_in_fill(context_object->context, x, y));
@@ -1299,7 +1299,7 @@ PHP_METHOD(CairoContext, mask)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     pattern_object = Z_CAIRO_PATTERN_P(pattern_zval);
@@ -1333,7 +1333,7 @@ PHP_METHOD(CairoContext, maskSurface)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     surface_object = Z_CAIRO_SURFACE_P(surface_zval);
@@ -1352,7 +1352,7 @@ PHP_METHOD(CairoContext, paint)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_paint(context_object->context);
@@ -1377,7 +1377,7 @@ PHP_METHOD(CairoContext, paintWithAlpha)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_paint_with_alpha(context_object->context, alpha);
@@ -1395,7 +1395,7 @@ PHP_METHOD(CairoContext, stroke)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_stroke(context_object->context);
@@ -1414,7 +1414,7 @@ PHP_METHOD(CairoContext, strokePreserve)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_stroke_preserve(context_object->context);
@@ -1434,7 +1434,7 @@ PHP_METHOD(CairoContext, strokeExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_stroke_extents(context_object->context, &x1, &y1, &x2, &y2);
@@ -1463,7 +1463,7 @@ PHP_METHOD(CairoContext, inStroke)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_BOOL(cairo_in_stroke(context_object->context, x, y));
@@ -1481,7 +1481,7 @@ PHP_METHOD(CairoContext, copyPage)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_copy_page(context_object->context);
@@ -1500,7 +1500,7 @@ PHP_METHOD(CairoContext, showPage)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_show_page(context_object->context);
@@ -1528,7 +1528,7 @@ PHP_METHOD(CairoContext, translate)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_translate(context_object->context, x, y);
@@ -1550,7 +1550,7 @@ PHP_METHOD(CairoContext, scale)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_scale(context_object->context, x, y);
@@ -1575,7 +1575,7 @@ PHP_METHOD(CairoContext, rotate)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_rotate(context_object->context, angle);
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -1600,7 +1600,7 @@ PHP_METHOD(CairoContext, transform)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
@@ -1627,7 +1627,7 @@ PHP_METHOD(CairoContext, setMatrix)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
@@ -1653,7 +1653,7 @@ PHP_METHOD(CairoContext, getMatrix)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a matrix object stored, grab that zval to use */
@@ -1676,7 +1676,7 @@ PHP_METHOD(CairoContext, identityMatrix)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_identity_matrix(context_object->context);
@@ -1699,7 +1699,7 @@ PHP_METHOD(CairoContext, userToDevice)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_user_to_device(context_object->context, &x, &y);
@@ -1727,7 +1727,7 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_user_to_device_distance(context_object->context, &x, &y);
@@ -1754,7 +1754,7 @@ PHP_METHOD(CairoContext, deviceToUser)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_device_to_user(context_object->context, &x, &y);
@@ -1780,7 +1780,7 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_device_to_user_distance(context_object->context, &x, &y);
@@ -1803,7 +1803,7 @@ PHP_METHOD(CairoContext, copyPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     object_init_ex(return_value, php_cairo_get_path_ce());
@@ -1825,7 +1825,7 @@ PHP_METHOD(CairoContext, copyPathFlat)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     object_init_ex(return_value, php_cairo_get_path_ce());
@@ -1854,7 +1854,7 @@ PHP_METHOD(CairoContext, appendPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     path_object = Z_CAIRO_PATH_P(path_zval);
@@ -1874,7 +1874,7 @@ PHP_METHOD(CairoContext, hasCurrentPoint)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     RETURN_BOOL(cairo_has_current_point(context_object->context));
@@ -1892,7 +1892,7 @@ PHP_METHOD(CairoContext, getCurrentPoint)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -1914,7 +1914,7 @@ PHP_METHOD(CairoContext, newPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_new_path(context_object->context);
@@ -1932,7 +1932,7 @@ PHP_METHOD(CairoContext, newSubPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_new_sub_path(context_object->context);
@@ -1951,7 +1951,7 @@ PHP_METHOD(CairoContext, closePath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_close_path(context_object->context);
@@ -1985,7 +1985,7 @@ PHP_METHOD(CairoContext, arc)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_arc(context_object->context, x, y, radius, angle1, angle2);
@@ -2011,7 +2011,7 @@ PHP_METHOD(CairoContext, arcNegative)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_arc_negative(context_object->context, x, y, radius, angle1, angle2);
@@ -2048,7 +2048,7 @@ PHP_METHOD(CairoContext, curveTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
@@ -2071,7 +2071,7 @@ PHP_METHOD(CairoContext, lineTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_line_to(context_object->context, x, y);
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -2093,7 +2093,7 @@ PHP_METHOD(CairoContext, moveTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_move_to(context_object->context, x, y);
@@ -2124,7 +2124,7 @@ PHP_METHOD(CairoContext, rectangle)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_rectangle(context_object->context, x, y, width, height);
@@ -2153,7 +2153,7 @@ PHP_METHOD(CairoContext, glyphPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* Grab the zend hash */
@@ -2201,7 +2201,7 @@ PHP_METHOD(CairoContext, showGlyphs)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* Grab the zend hash */
@@ -2262,7 +2262,7 @@ PHP_METHOD(CairoContext, showTextGlyphs)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* Glyphs */
@@ -2324,7 +2324,7 @@ PHP_METHOD(CairoContext, textPath)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_text_path(context_object->context, (const char *)string);
@@ -2351,7 +2351,7 @@ PHP_METHOD(CairoContext, relCurveTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_rel_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
@@ -2373,7 +2373,7 @@ PHP_METHOD(CairoContext, relLineTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_rel_line_to(context_object->context, x, y);
@@ -2395,7 +2395,7 @@ PHP_METHOD(CairoContext, relMoveTo)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_rel_move_to(context_object->context, x, y);
@@ -2415,7 +2415,7 @@ PHP_METHOD(CairoContext, getPathExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     php_cairo_throw_exception(cairo_status(context_object->context));
@@ -2456,7 +2456,7 @@ PHP_METHOD(CairoContext, selectFontFace)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_family = estrdup(family);
@@ -2492,7 +2492,7 @@ PHP_METHOD(CairoContext, setFontSize)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_set_font_size(context_object->context, size);
@@ -2520,7 +2520,7 @@ PHP_METHOD(CairoContext, setFontMatrix)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
@@ -2546,7 +2546,7 @@ PHP_METHOD(CairoContext, getFontMatrix)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a matrix object stored, grab that zval to use */
@@ -2577,7 +2577,7 @@ PHP_METHOD(CairoContext, setFontOptions)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     font_options_object = Z_CAIRO_FONT_OPTIONS_P(font_options_zval);
@@ -2605,7 +2605,7 @@ PHP_METHOD(CairoContext, getFontOptions)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* Grab the font options properly */
@@ -2640,7 +2640,7 @@ PHP_METHOD(CairoContext, setFontFace)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     font_face_object = Z_CAIRO_FONT_FACE_P(font_face_zval);
@@ -2667,7 +2667,7 @@ PHP_METHOD(CairoContext, getFontFace)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a font face object stored, grab that zval to use */
@@ -2699,7 +2699,7 @@ PHP_METHOD(CairoContext, setScaledFont)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     scaled_font_object = Z_CAIRO_SCALED_FONT_P(scaled_font_zval);
@@ -2748,7 +2748,7 @@ PHP_METHOD(CairoContext, getScaledFont)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* If we have a scaled font object stored, grab that zval to use */
@@ -2781,7 +2781,7 @@ PHP_METHOD(CairoContext, showText)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_text = estrdup(text);
@@ -2802,7 +2802,7 @@ PHP_METHOD(CairoContext, getFontExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_font_extents(context_object->context, &extents);
@@ -2832,7 +2832,7 @@ PHP_METHOD(CairoContext, getTextExtents)
 
     context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_text = estrdup(text);

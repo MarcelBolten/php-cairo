@@ -168,7 +168,7 @@ PHP_METHOD(CairoFtFontFace, __construct)
     }
 
     if (!stream) {
-        return;
+        RETURN_NULL();
     }
 
     if (php_stream_stat(stream, &ssbuf) != 0) {
@@ -179,7 +179,7 @@ PHP_METHOD(CairoFtFontFace, __construct)
     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
 
     if (!font_face_object) {
-        return;
+        RETURN_NULL();
     }
 
     ft_container = pecalloc(1, sizeof(pecl_ft_container), 1);

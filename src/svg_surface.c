@@ -59,7 +59,7 @@ PHP_METHOD(CairoSvgSurface, __construct)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-            return;
+            RETURN_NULL();
         }
 
     /* special case - a NULL file is like an "in memory" svg */
@@ -108,7 +108,7 @@ PHP_METHOD(CairoSvgSurface, restrictToVersion)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_svg_surface_restrict_to_version(
@@ -182,7 +182,7 @@ PHP_METHOD(CairoSvgSurface, setDocumentUnit)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_svg_surface_set_document_unit(
@@ -203,7 +203,7 @@ PHP_METHOD(CairoSvgSurface, getDocumentUnit)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     svg_unit_case = php_enum_from_cairo_c_enum(

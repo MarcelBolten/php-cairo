@@ -58,7 +58,7 @@ PHP_METHOD(CairoPsSurface, __construct)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     /* special case - a NULL file is like an "in memory" surface
@@ -110,9 +110,8 @@ PHP_METHOD(CairoPsSurface, setSize)
     ZEND_PARSE_PARAMETERS_END();
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
-    if (!surface_object)
-    {
-        return;
+    if (!surface_object) {
+        RETURN_NULL();
     }
 
     cairo_ps_surface_set_size(surface_object->surface, width, height);
@@ -138,7 +137,7 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_ps_surface_restrict_to_level(
@@ -169,7 +168,7 @@ PHP_METHOD(CairoPsSurface, setEps)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_ps_surface_set_eps(surface_object->surface, eps);
@@ -187,7 +186,7 @@ PHP_METHOD(CairoPsSurface, getEps)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
     RETURN_BOOL(cairo_ps_surface_get_eps(surface_object->surface));
 }
@@ -204,7 +203,7 @@ PHP_METHOD(CairoPsSurface, dscBeginSetup)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_ps_surface_dsc_begin_setup(surface_object->surface);
 }
@@ -225,7 +224,7 @@ PHP_METHOD(CairoPsSurface, dscBeginPageSetup)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
     cairo_ps_surface_dsc_begin_page_setup(surface_object->surface);
 }
@@ -249,7 +248,7 @@ PHP_METHOD(CairoPsSurface, dscComment)
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
-        return;
+        RETURN_NULL();
     }
 
     cairo_comment = estrdup(comment);

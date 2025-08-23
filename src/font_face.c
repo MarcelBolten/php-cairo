@@ -89,7 +89,7 @@ PHP_METHOD(CairoFontFace, getStatus)
 
     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
     if (!font_face_object) {
-            return;
+        RETURN_NULL();
     }
     if (cairo_font_face_object_get(getThis()) == NULL) {
         return;
