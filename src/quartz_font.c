@@ -71,10 +71,9 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
         &fontID
     );
 
-    if (fontID == kATSUInvalidFontID)
-    {
-        php_cairo_throw_exception("Atsu Font could not be retrieved");
-        return;
+    if (fontID == kATSUInvalidFontID) {
+        zend_throw_exception(ce_cairo_exception, "Atsu Font could not be retrieved", 0);
+        RETURN_THROWS();
     }
 
     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
