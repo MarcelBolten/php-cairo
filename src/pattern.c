@@ -360,7 +360,8 @@ PHP_METHOD(CairoPattern, setMatrix)
     ZVAL_COPY(matrix_store, matrix_zval);
 
     status = cairo_pattern_set_user_data(pattern_object->pattern, &matrix_key,
-        (void *)matrix_store, cairo_pattern_destroy_func);
+        (void *)matrix_store, cairo_pattern_destroy_func
+    );
 
     if (php_cairo_throw_exception(status)) {
         RETURN_THROWS();

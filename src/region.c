@@ -63,7 +63,7 @@ static void cairo_region_free_obj(zend_object *object)
     cairo_region_object *intern = cairo_region_fetch_object(object);
 
     if (!intern) {
-            return;
+        return;
     }
 
     if (intern->region) {
