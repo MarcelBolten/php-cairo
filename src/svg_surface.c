@@ -252,8 +252,8 @@ PHP_MINIT_FUNCTION(cairo_svg_surface)
     /* Svg-Version */
     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Version")), ce_cairo_svgversion);
 
-    #define CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgversion, CAIRO_SVG)
+#define CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgversion, CAIRO_SVG)
 
     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_1);
     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_2);
@@ -262,7 +262,7 @@ PHP_MINIT_FUNCTION(cairo_svg_surface)
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Svg", "Unit")), ce_cairo_svgunit);
 
-    #define CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(name) \
+#define CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(name) \
     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgunit, CAIRO_SVG_UNIT)
 
     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(USER);

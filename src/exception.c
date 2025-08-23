@@ -84,8 +84,8 @@ PHP_MINIT_FUNCTION(cairo_exception)
 
     ce_cairo_status = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, "Status"), IS_LONG, cairo_status_methods);
 
-    #define CAIRO_STATUS_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_status, CAIRO_STATUS)
+#define CAIRO_STATUS_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_status, CAIRO_STATUS)
 
     CAIRO_STATUS_DECLARE_ENUM_CASE(SUCCESS);
     CAIRO_STATUS_DECLARE_ENUM_CASE(NO_MEMORY);

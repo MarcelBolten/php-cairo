@@ -492,18 +492,18 @@ PHP_MINIT_FUNCTION(cairo_scaled_font)
 {
     zend_class_entry scaled_font_ce;
 
-        memcpy(&cairo_scaled_font_object_handlers,
-            zend_get_std_object_handlers(),
-            sizeof(zend_object_handlers)
-        );
+    memcpy(&cairo_scaled_font_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
-        /* ScaledFont */
-        cairo_scaled_font_object_handlers.offset = XtOffsetOf(cairo_scaled_font_object, std);
-        cairo_scaled_font_object_handlers.free_obj = cairo_scaled_font_free_obj;
+    /* ScaledFont */
+    cairo_scaled_font_object_handlers.offset = XtOffsetOf(cairo_scaled_font_object, std);
+    cairo_scaled_font_object_handlers.free_obj = cairo_scaled_font_free_obj;
 
-        INIT_NS_CLASS_ENTRY(scaled_font_ce, CAIRO_NAMESPACE, "ScaledFont", cairo_scaled_font_methods);
-        scaled_font_ce.create_object = cairo_scaled_font_create_object;
-        ce_cairo_scaled_font = zend_register_internal_class(&scaled_font_ce);
+    INIT_NS_CLASS_ENTRY(scaled_font_ce, CAIRO_NAMESPACE, "ScaledFont", cairo_scaled_font_methods);
+    scaled_font_ce.create_object = cairo_scaled_font_create_object;
+    ce_cairo_scaled_font = zend_register_internal_class(&scaled_font_ce);
 
     return SUCCESS;
 }

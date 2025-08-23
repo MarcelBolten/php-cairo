@@ -249,8 +249,8 @@ PHP_MINIT_FUNCTION(cairo_font_face)
     /* FontType */
     CAIRO_REGISTER_ENUM_LONG("FontType", ce_cairo_fonttype);
 
-    #define CAIRO_FONTTYPE_DECLARE_ENUM_CASE(name) \
-        CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fonttype, CAIRO_FONT_TYPE)
+#define CAIRO_FONTTYPE_DECLARE_ENUM_CASE(name) \
+    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fonttype, CAIRO_FONT_TYPE)
 
     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(TOY);
     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(FT);
