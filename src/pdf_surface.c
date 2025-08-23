@@ -400,14 +400,6 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
         "OUTLINE_ROOT", sizeof("OUTLINE_ROOT")-1,
         CAIRO_PDF_OUTLINE_ROOT
     );
-    /* Outline */
-//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "Outline")), ce_cairo_pdf_outline);
-
-// #define CAIRO_PDF_OUTLINE_DECLARE_ENUM_CASE(name) \
-//     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outline, CAIRO_PDF_OUTLINE)
-
-//     CAIRO_PDF_OUTLINE_DECLARE_ENUM_CASE(ROOT);
-
 
     /* Outline-Flags */
     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Pdf", "OutlineFlags")), ce_cairo_pdf_outlineflag);
