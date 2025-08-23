@@ -2867,23 +2867,9 @@ PHP_METHOD(CairoContext, setScaledFont)
     CAIRO_UNREF_AND_UNDEF(context_object->scaled_font)
 
     /* if the scaled font has a font_face, matrix, or option zvals stored, move them to context as well and ref again */
-    if (!Z_ISNULL(scaled_font_object->font_face)
-        && !Z_ISUNDEF(scaled_font_object->font_face)
-    ) {
-        ZVAL_COPY(&context_object->font_face, &scaled_font_object->font_face);
-    }
-
-    if (!Z_ISNULL(scaled_font_object->matrix)
-        && !Z_ISUNDEF(scaled_font_object->matrix)
-    ) {
-        ZVAL_COPY(&context_object->font_matrix, &scaled_font_object->matrix);
-    }
-
-    if (!Z_ISNULL(scaled_font_object->font_options)
-        && !Z_ISUNDEF(scaled_font_object->font_options)
-    ) {
-        ZVAL_COPY(&context_object->font_options, &scaled_font_object->font_options);
-    }
+    CAIRO_ZVAL_COPY(context_object->font_face, scaled_font_object->font_face);
+    CAIRO_ZVAL_COPY(context_object->font_matrix, scaled_font_object->matrix);
+    CAIRO_ZVAL_COPY(context_object->font_options, scaled_font_object->font_options);
 
     /* we need to be able to get this zval out later, so ref and store */
     ZVAL_COPY(&context_object->scaled_font, scaled_font_zval);

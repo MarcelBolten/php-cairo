@@ -313,4 +313,9 @@ extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_va
         RETURN_COPY(&zv); \
     }
 
+#define CAIRO_ZVAL_COPY(z, v) \
+    if (!(Z_ISNULL(v) || Z_ISUNDEF(v))) { \
+        ZVAL_COPY(&z, &v); \
+    }
+
 #endif /* PHP_CAIRO_INTERNAL_H */
