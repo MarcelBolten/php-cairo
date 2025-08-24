@@ -134,7 +134,11 @@ PHP_METHOD(CairoImageSurface, createForData)
     }
 
     /* copy our data into the buffer */
-    surface_object->buffer = memcpy(surface_object->buffer, data, data_len);
+    memcpy(
+        surface_object->buffer,
+        data,
+        data_len
+    );
 
     /* create our surface and check for errors */
     surface_object->surface = cairo_image_surface_create_for_data((unsigned char*)surface_object->buffer, format, width, height, stride);
