@@ -162,6 +162,9 @@ PHP_METHOD(CairoMatrix, initIdentity)
 
     object_init_ex(return_value, ce_cairo_matrix);
     matrix_object = cairo_matrix_object_get(return_value);
+    if (!matrix_object) {
+        RETURN_THROWS();
+    }
 
     cairo_matrix_init_identity(matrix_object->matrix);
 }
@@ -187,6 +190,9 @@ PHP_METHOD(CairoMatrix, initTranslate)
 
     object_init_ex(return_value, ce_cairo_matrix);
     matrix_object = cairo_matrix_object_get(return_value);
+    if (!matrix_object) {
+        RETURN_THROWS();
+    }
 
     cairo_matrix_init_translate(matrix_object->matrix, tx, ty);
 }
@@ -212,6 +218,9 @@ PHP_METHOD(CairoMatrix, initScale)
 
     object_init_ex(return_value, ce_cairo_matrix);
     matrix_object = cairo_matrix_object_get(return_value);
+    if (!matrix_object) {
+        RETURN_THROWS();
+    }
 
     cairo_matrix_init_scale(matrix_object->matrix, sx, sy);
 }
@@ -234,6 +243,9 @@ PHP_METHOD(CairoMatrix, initRotate)
 
     object_init_ex(return_value, ce_cairo_matrix);
     matrix_object = cairo_matrix_object_get(return_value);
+    if (!matrix_object) {
+        RETURN_THROWS();
+    }
 
     cairo_matrix_init_rotate(matrix_object->matrix, radians);
 }
@@ -260,7 +272,7 @@ PHP_METHOD(CairoMatrix, translate)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_translate(matrix_object->matrix, tx, ty);
@@ -288,7 +300,7 @@ PHP_METHOD(CairoMatrix, scale)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_scale(matrix_object->matrix, sx, sy);
@@ -314,7 +326,7 @@ PHP_METHOD(CairoMatrix, rotate)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_rotate(matrix_object->matrix, radians);
@@ -337,7 +349,7 @@ PHP_METHOD(CairoMatrix, invert)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     status = cairo_matrix_invert(matrix_object->matrix);
@@ -371,7 +383,7 @@ PHP_METHOD(CairoMatrix, multiply)
     matrix_object1 = cairo_matrix_object_get(matrix1);
     matrix_object2 = cairo_matrix_object_get(matrix2);
     if (!matrix_object1 || !matrix_object2) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_multiply(matrix_object->matrix, matrix_object1->matrix, matrix_object2->matrix);
@@ -398,7 +410,7 @@ PHP_METHOD(CairoMatrix, transformDistance)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_transform_distance(matrix_object->matrix, &dx, &dy);
@@ -423,7 +435,7 @@ PHP_METHOD(CairoMatrix, transformPoint)
 
     matrix_object = cairo_matrix_object_get(getThis());
     if (!matrix_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_matrix_transform_point(matrix_object->matrix, &x, &y);

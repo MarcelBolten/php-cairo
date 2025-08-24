@@ -87,7 +87,7 @@ PHP_METHOD(CairoSurface, createSimilar)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     new_surface = cairo_surface_create_similar(
@@ -100,7 +100,6 @@ PHP_METHOD(CairoSurface, createSimilar)
     /* we can't always rely on the same type of surface being returned, so we use php_cairo_get_surface_ce */
     object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-
     if (!new_surface_object) {
         RETURN_NULL();
     }
@@ -134,7 +133,7 @@ PHP_METHOD(CairoSurface, createSimilarImage)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     new_surface = cairo_surface_create_similar_image(
@@ -147,7 +146,6 @@ PHP_METHOD(CairoSurface, createSimilarImage)
     /* --> because of used method php_cairo_get_surface_ce() should always give 'ce_cairo_imagesurface' */
     object_init_ex(return_value, php_cairo_get_surface_ce(new_surface));
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-
     if (!new_surface_object) {
         RETURN_NULL();
     }
@@ -182,7 +180,7 @@ PHP_METHOD(CairoSurface, createForRectangle)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
     new_surface = cairo_surface_create_for_rectangle(surface_object->surface, x, y, width, height);
 
@@ -208,7 +206,7 @@ PHP_METHOD(CairoSurface, getStatus)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -233,7 +231,7 @@ PHP_METHOD(CairoSurface, finish)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_finish(surface_object->surface);
@@ -252,7 +250,7 @@ PHP_METHOD(CairoSurface, flush)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_flush(surface_object->surface);
@@ -271,11 +269,11 @@ PHP_METHOD(CairoSurface, getFontOptions)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     object_init_ex(return_value, ce_cairo_fontoptions);
-    font_object = cairo_font_options_fetch_object(Z_OBJ_P(return_value));
+    font_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
 
     cairo_surface_get_font_options(surface_object->surface, options);
     font_object->font_options = options;
@@ -293,7 +291,7 @@ PHP_METHOD(CairoSurface, getContent)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     content_case = php_enum_from_cairo_c_enum(
@@ -317,7 +315,7 @@ PHP_METHOD(CairoSurface, markDirty)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_mark_dirty(surface_object->surface);
@@ -348,7 +346,7 @@ PHP_METHOD(CairoSurface, markDirtyRectangle)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_mark_dirty_rectangle(surface_object->surface, x, y, width, height);
@@ -374,7 +372,7 @@ PHP_METHOD(CairoSurface, setDeviceOffset)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_set_device_offset(surface_object->surface, x, y);
@@ -392,7 +390,7 @@ PHP_METHOD(CairoSurface, getDeviceOffset)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_get_device_offset(surface_object->surface, &x, &y);
@@ -427,7 +425,7 @@ PHP_METHOD(CairoSurface, setDeviceScale)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_set_device_scale(surface_object->surface, x, y);
@@ -445,7 +443,7 @@ PHP_METHOD(CairoSurface, getDeviceScale)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_get_device_scale(surface_object->surface, &x, &y);
@@ -478,7 +476,7 @@ PHP_METHOD(CairoSurface, setFallbackResolution)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_set_fallback_resolution(surface_object->surface, x, y);
@@ -496,8 +494,8 @@ PHP_METHOD(CairoSurface, getFallbackResolution)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-            RETURN_NULL();
-        }
+        RETURN_THROWS();
+    }
 
     cairo_surface_get_fallback_resolution(surface_object->surface, &x, &y);
 
@@ -518,7 +516,7 @@ PHP_METHOD(CairoSurface, getType)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     surface_case = php_enum_from_cairo_c_enum(
@@ -543,7 +541,7 @@ PHP_METHOD(CairoSurface, showPage)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_show_page(surface_object->surface);
@@ -562,7 +560,7 @@ PHP_METHOD(CairoSurface, copyPage)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_copy_page(surface_object->surface);
@@ -580,7 +578,7 @@ PHP_METHOD(CairoSurface, hasShowTextGlyphs)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     RETURN_BOOL(cairo_surface_has_show_text_glyphs(surface_object->surface));
@@ -608,7 +606,7 @@ PHP_METHOD(CairoSurface, mapToImage)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (rectangle_zval != NULL && Z_TYPE_P(rectangle_zval) == IS_OBJECT) {
@@ -621,7 +619,6 @@ PHP_METHOD(CairoSurface, mapToImage)
 
     object_init_ex(return_value, ce_cairo_imagesurface);
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-
     if (!new_surface_object) {
         RETURN_NULL();
     }
@@ -651,12 +648,12 @@ PHP_METHOD(CairoSurface, unmapImage)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     image_surface_object = cairo_surface_object_get(image_surface_zval);
     if (!image_surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_surface_unmap_image(surface_object->surface, image_surface_object->surface);
@@ -692,7 +689,7 @@ PHP_METHOD(CairoSurface, writeToPng)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (Z_TYPE_P(stream_zval) == IS_STRING && Z_STRLEN_P(stream_zval) > 0) {
@@ -702,7 +699,7 @@ PHP_METHOD(CairoSurface, writeToPng)
         php_stream_from_zval(stream, stream_zval);
     } else {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface::writeToPng() expects parameter 1 to be a (not empty) string or a stream resource", 0);
-        return;
+        RETURN_THROWS();
     }
 
     /* Pack stream into struct */
@@ -752,7 +749,7 @@ PHP_METHOD(CairoSurface, writeToJpeg)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (Z_TYPE_P(stream_zval) == IS_STRING && Z_STRLEN_P(stream_zval) > 0) {
@@ -762,7 +759,7 @@ PHP_METHOD(CairoSurface, writeToJpeg)
         php_stream_from_zval(stream, stream_zval);
     } else {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface::writeToJpeg() expects parameter 1 to be a (not empty) string or a stream resource", 0);
-        return;
+        RETURN_THROWS();
     }
 
     /* Pack stream into struct */

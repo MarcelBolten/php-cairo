@@ -77,7 +77,7 @@ PHP_METHOD(CairoPdfSurface, __construct)
             php_stream_from_zval(stream, stream_zval);
         } else {
             zend_throw_exception(zend_ce_type_error, "Cairo\\Surface\\Pdf::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
-            return;
+            RETURN_THROWS();
         }
 
         /* Pack stream into struct*/

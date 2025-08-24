@@ -96,12 +96,12 @@ PHP_METHOD(CairoImageSurface, createForData)
 
     if (format < 0) {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid format", 0);
-        return;
+        RETURN_THROWS();
     }
 
     if (width < 1 || height < 1) {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions", 0);
-        return;
+        RETURN_THROWS();
     }
 
     if (stride >= INT_MAX || stride < -1) {
@@ -121,7 +121,6 @@ PHP_METHOD(CairoImageSurface, createForData)
     /* Create the object, stick in the buffer and surface, check our status */
     object_init_ex(return_value, ce_cairo_imagesurface);
     surface_object = Z_CAIRO_SURFACE_P(return_value);
-
     if (!surface_object) {
         RETURN_NULL();
     }
@@ -131,7 +130,7 @@ PHP_METHOD(CairoImageSurface, createForData)
 
     if (surface_object->buffer == NULL) {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): Could not allocate memory for buffer", 0);
-        return;
+        RETURN_THROWS();
     }
 
     /* copy our data into the buffer */
@@ -157,7 +156,7 @@ PHP_METHOD(CairoImageSurface, getData)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -183,7 +182,7 @@ PHP_METHOD(CairoImageSurface, getFormat)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -211,7 +210,7 @@ PHP_METHOD(CairoImageSurface, getWidth)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -232,7 +231,7 @@ PHP_METHOD(CairoImageSurface, getHeight)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -253,7 +252,7 @@ PHP_METHOD(CairoImageSurface, getStride)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -330,7 +329,7 @@ PHP_METHOD(CairoImageSurface, createFromPng)
         surface_object->surface = cairo_image_surface_create_from_png_stream((cairo_read_func_t) php_cairo_read_func, (void *)closure);
     } else {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromPng() expects parameter 1 to be a string or a stream resource", 0);
-        return;
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
@@ -380,7 +379,7 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
         surface_object->surface = cairo_image_surface_create_from_jpeg_stream((cairo_read_func_t) php_cairo_read_func, (void *)closure);
     } else {
         zend_throw_exception(ce_cairo_exception, "CairoImageSurface::createFromJpeg() expects parameter 1 to be a string or a stream resource", 0);
-        return;
+        RETURN_THROWS();
     }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {

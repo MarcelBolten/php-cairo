@@ -75,7 +75,7 @@ PHP_METHOD(CairoSvgSurface, __construct)
             php_stream_from_zval(stream, stream_zval);
         } else {
             zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Svg::__construct() expects parameter 1 to be null, a string, or a stream resource", 0);
-            return;
+            RETURN_THROWS();
         }
 
         /* Pack stream into struct */
@@ -110,7 +110,7 @@ PHP_METHOD(CairoSvgSurface, restrictToVersion)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_svg_surface_restrict_to_version(
@@ -186,7 +186,7 @@ PHP_METHOD(CairoSvgSurface, setDocumentUnit)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_svg_surface_set_document_unit(
@@ -207,7 +207,7 @@ PHP_METHOD(CairoSvgSurface, getDocumentUnit)
 
     surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     svg_unit_case = php_enum_from_cairo_c_enum(

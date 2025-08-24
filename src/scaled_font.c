@@ -287,7 +287,7 @@ PHP_METHOD(CairoScaledFont, getGlyphExtents)
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
             zend_throw_exception(zend_ce_type_error, "Cairo\\ScaledFont::getGlyphExtents(): Argument #1 ($glyphs) must be array of type Cairo\\Glyph.", 0);
             efree(glyphs_array);
-            return;
+            RETURN_THROWS();
         }
         glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
     } ZEND_HASH_FOREACH_END();
