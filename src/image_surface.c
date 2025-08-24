@@ -104,11 +104,6 @@ PHP_METHOD(CairoImageSurface, createForData)
         RETURN_THROWS();
     }
 
-    if (stride >= INT_MAX || stride < -1) {
-        zend_error(E_WARNING, "Invalid stride for Cairo\\Surface\\Image::createForData().");
-        return;
-    }
-
     /* Figure out our stride */
     /* This is the way the stride SHOULD be done */
     stride = cairo_format_stride_for_width(format, width);
