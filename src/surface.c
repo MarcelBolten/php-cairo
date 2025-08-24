@@ -1004,7 +1004,11 @@ PHP_MINIT_FUNCTION(cairo_surface)
 {
     zend_class_entry surface_ce;
 
-    memcpy(&cairo_surface_object_handlers, zend_get_std_object_handlers(), sizeof(cairo_surface_object_handlers));
+    memcpy(
+        &cairo_surface_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(cairo_surface_object_handlers)
+    );
 
     /* Surface */
     cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);

@@ -304,7 +304,8 @@ PHP_MINIT_FUNCTION(cairo_rectangle)
 {
     zend_class_entry ce;
 
-    memcpy(&cairo_rectangle_object_handlers,
+    memcpy(
+        &cairo_rectangle_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );

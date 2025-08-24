@@ -566,7 +566,8 @@ PHP_MINIT_FUNCTION(cairo_font_options)
 {
     zend_class_entry fontoptions_ce;
 
-    memcpy(&cairo_font_options_object_handlers,
+    memcpy(
+        &cairo_font_options_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );

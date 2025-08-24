@@ -747,7 +747,8 @@ PHP_MINIT_FUNCTION(cairo_region)
 {
     zend_class_entry region_ce;
 
-    memcpy(&cairo_region_object_handlers,
+    memcpy(
+        &cairo_region_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );

@@ -492,7 +492,8 @@ PHP_MINIT_FUNCTION(cairo_scaled_font)
 {
     zend_class_entry scaled_font_ce;
 
-    memcpy(&cairo_scaled_font_object_handlers,
+    memcpy(
+        &cairo_scaled_font_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );

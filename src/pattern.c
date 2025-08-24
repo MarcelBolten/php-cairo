@@ -1411,9 +1411,11 @@ PHP_MINIT_FUNCTION(cairo_pattern)
         mesh_ce,
         raster_ce;
 
-    memcpy(&cairo_pattern_object_handlers,
-           zend_get_std_object_handlers(),
-           sizeof(zend_object_handlers));
+    memcpy(
+        &cairo_pattern_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);
     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;

@@ -266,7 +266,8 @@ PHP_MINIT_FUNCTION(cairo_glyph)
 {
     zend_class_entry ce;
 
-    memcpy(&cairo_glyph_object_handlers,
+    memcpy(
+        &cairo_glyph_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );

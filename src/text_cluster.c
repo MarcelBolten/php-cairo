@@ -268,9 +268,11 @@ PHP_MINIT_FUNCTION(cairo_text_cluster)
 {
     zend_class_entry ce;
 
-    memcpy(&cairo_text_cluster_object_handlers,
-           zend_get_std_object_handlers(),
-           sizeof(zend_object_handlers));
+    memcpy(
+        &cairo_text_cluster_object_handlers,
+        zend_get_std_object_handlers(),
+        sizeof(zend_object_handlers)
+    );
 
     cairo_text_cluster_object_handlers.offset = XtOffsetOf(cairo_text_cluster_object, std);
     cairo_text_cluster_object_handlers.free_obj = cairo_text_cluster_free_obj;

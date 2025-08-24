@@ -114,7 +114,8 @@ PHP_MINIT_FUNCTION(cairo_path)
 {
     zend_class_entry path_ce;
 
-    memcpy(&cairo_path_object_handlers,
+    memcpy(
+        &cairo_path_object_handlers,
         zend_get_std_object_handlers(),
         sizeof(zend_object_handlers)
     );
