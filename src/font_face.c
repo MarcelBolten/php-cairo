@@ -87,12 +87,9 @@ PHP_METHOD(CairoFontFace, getStatus)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    font_face_object = cairo_font_face_object_get(getThis());
     if (!font_face_object) {
-        RETURN_NULL();
-    }
-    if (cairo_font_face_object_get(getThis()) == NULL) {
-        return;
+        RETURN_THROWS();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -115,11 +112,9 @@ PHP_METHOD(CairoFontFace, getType)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
-    if (!font_face_object
-        || cairo_font_face_object_get(getThis()) == NULL
-    ) {
-        return;
+    font_face_object = cairo_font_face_object_get(getThis());
+    if (!font_face_object) {
+        RETURN_THROWS();
     }
 
     fonttype_case = php_enum_from_cairo_c_enum(
