@@ -157,9 +157,9 @@ PHP_METHOD(CairoPdfSurface, setSize)
         Z_PARAM_DOUBLE(height)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_pdf_surface_set_size(surface_object->surface, width, height);
@@ -186,9 +186,9 @@ PHP_METHOD(CairoPdfSurface, restrictToVersion)
     ZEND_PARSE_PARAMETERS_END();
 
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_pdf_surface_restrict_to_version(
@@ -230,9 +230,9 @@ PHP_METHOD(CairoPdfSurface, addOutline)
         Z_PARAM_OBJECT_OF_CLASS(outline_flag, ce_cairo_pdf_outlineflag);
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     RETVAL_LONG(cairo_pdf_surface_add_outline(
@@ -272,9 +272,9 @@ PHP_METHOD(CairoPdfSurface, setMetadata)
         Z_PARAM_STRING(metadata, metadata_len)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_pdf_surface_set_metadata(
@@ -305,9 +305,9 @@ PHP_METHOD(CairoPdfSurface, setPageLabel)
         Z_PARAM_STRING(label, label_len)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_pdf_surface_set_page_label(surface_object->surface, (const char *)label);
@@ -336,9 +336,9 @@ PHP_METHOD(CairoPdfSurface, setThumbnailSize)
         Z_PARAM_DOUBLE(height)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);

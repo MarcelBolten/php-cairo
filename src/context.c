@@ -451,9 +451,9 @@ PHP_METHOD(CairoContext, setSurface)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
 
-    context_object = Z_CAIRO_CONTEXT_P(getThis());
+    context_object = cairo_context_object_get(getThis());
     if (!context_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     surface_object = cairo_surface_object_get(surface_zval);

@@ -111,9 +111,9 @@ PHP_METHOD(CairoPsSurface, setSize)
         Z_PARAM_DOUBLE(height)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_ps_surface_set_size(surface_object->surface, width, height);
@@ -139,9 +139,9 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
         Z_PARAM_OBJECT_OF_CLASS(level, ce_cairo_pslevel)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_ps_surface_restrict_to_level(
@@ -172,9 +172,9 @@ PHP_METHOD(CairoPsSurface, setEps)
         Z_PARAM_BOOL(eps)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_ps_surface_set_eps(surface_object->surface, eps);
@@ -192,9 +192,9 @@ PHP_METHOD(CairoPsSurface, getEps)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
     RETURN_BOOL(cairo_ps_surface_get_eps(surface_object->surface));
 }
@@ -209,9 +209,9 @@ PHP_METHOD(CairoPsSurface, dscBeginSetup)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
     cairo_ps_surface_dsc_begin_setup(surface_object->surface);
 }
@@ -230,9 +230,9 @@ PHP_METHOD(CairoPsSurface, dscBeginPageSetup)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
     cairo_ps_surface_dsc_begin_page_setup(surface_object->surface);
 }
@@ -254,9 +254,9 @@ PHP_METHOD(CairoPsSurface, dscComment)
         Z_PARAM_STRING(comment, comment_len)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_comment = estrdup(comment);

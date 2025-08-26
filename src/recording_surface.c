@@ -121,9 +121,9 @@ PHP_METHOD(CairoRecordingSurface, inkExtents)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_recording_surface_ink_extents(surface_object->surface, &x, &y, &width, &height);
@@ -147,9 +147,9 @@ PHP_METHOD(CairoRecordingSurface, getExtents)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    surface_object = Z_CAIRO_SURFACE_P(getThis());
+    surface_object = cairo_surface_object_get(getThis());
     if (!surface_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     rectangle = ecalloc(1, sizeof(cairo_rectangle_t));

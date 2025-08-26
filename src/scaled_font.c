@@ -168,9 +168,9 @@ PHP_METHOD(CairoScaledFont, getStatus)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     status_case = php_enum_from_cairo_c_enum(
@@ -194,9 +194,9 @@ PHP_METHOD(CairoScaledFont, getExtents)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_scaled_font_extents(scaled_font_object->scaled_font, &extents);
@@ -229,9 +229,9 @@ PHP_METHOD(CairoScaledFont, getTextExtents)
         Z_PARAM_STRING(text, text_len)
     ZEND_PARSE_PARAMETERS_END();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     cairo_text = estrdup(text);
@@ -272,9 +272,9 @@ PHP_METHOD(CairoScaledFont, getGlyphExtents)
         Z_PARAM_ARRAY(php_glyphs);
     ZEND_PARSE_PARAMETERS_END();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* Grab the zend hash and see how big our array will be */
@@ -315,9 +315,9 @@ PHP_METHOD(CairoScaledFont, getFontFace)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* Grab the font face properly */
@@ -346,9 +346,9 @@ PHP_METHOD(CairoScaledFont, getFontOptions)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* Grab the font options properly */
@@ -376,9 +376,9 @@ PHP_METHOD(CairoScaledFont, getFontMatrix)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* If we have a matrix object stored, grab that zval to use */
@@ -400,9 +400,9 @@ PHP_METHOD(CairoScaledFont, getCtm)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* If we have a matrix object stored, grab that zval to use */
@@ -425,9 +425,9 @@ PHP_METHOD(CairoScaledFont, getScaleMatrix)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     /* This is never stored in the object, but created every time */
@@ -447,9 +447,9 @@ PHP_METHOD(CairoScaledFont, getType)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
     if (!scaled_font_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     font_type_case = php_enum_from_cairo_c_enum(

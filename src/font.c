@@ -83,9 +83,9 @@ PHP_METHOD(CairoToyFontFace, getFamily)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    font_face_object = cairo_font_face_object_get(getThis());
     if (!font_face_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     RETURN_STRING(cairo_toy_font_face_get_family(font_face_object->font_face));
@@ -101,9 +101,9 @@ PHP_METHOD(CairoToyFontFace, getSlant)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    font_face_object = cairo_font_face_object_get(getThis());
     if (!font_face_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     slant_case = php_enum_from_cairo_c_enum(
@@ -126,9 +126,9 @@ PHP_METHOD(CairoToyFontFace, getWeight)
 
     ZEND_PARSE_PARAMETERS_NONE();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    font_face_object = cairo_font_face_object_get(getThis());
     if (!font_face_object) {
-        RETURN_NULL();
+        RETURN_THROWS();
     }
 
     weight_case = php_enum_from_cairo_c_enum(
