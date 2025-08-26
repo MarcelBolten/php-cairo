@@ -47,7 +47,7 @@ PHP_METHOD(CairoToyFontFace, __construct)
     size_t family_len;
     zval *slant = NULL;
     zval *weight = NULL;
-    cairo_font_face_object *fontface_object;
+    cairo_font_face_object *font_face_object;
 
     ZEND_PARSE_PARAMETERS_START(1, 3)
         Z_PARAM_STRING(family, family_len)
@@ -56,12 +56,12 @@ PHP_METHOD(CairoToyFontFace, __construct)
         Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)
     ZEND_PARSE_PARAMETERS_END();
 
-    fontface_object = Z_CAIRO_FONT_FACE_P(getThis());
-    if (!fontface_object) {
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object) {
         RETURN_NULL();
     }
 
-    fontface_object->font_face = cairo_toy_font_face_create(
+    font_face_object->font_face = cairo_toy_font_face_create(
         (const char *)family,
         slant
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))
@@ -70,7 +70,7 @@ PHP_METHOD(CairoToyFontFace, __construct)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
             : CAIRO_FONT_WEIGHT_NORMAL
     );
-    if (php_cairo_throw_exception(cairo_font_face_status(fontface_object->font_face))) {
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
         RETURN_THROWS();
     }
 }
