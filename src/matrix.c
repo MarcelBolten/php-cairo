@@ -591,7 +591,7 @@ static zval *cairo_matrix_object_write_property(zend_object *object, zend_string
 static HashTable *cairo_matrix_object_get_properties(zend_object *object)
 {
     HashTable *props;
-    // used in CAIRO_ADD_STRUCT_VALUE macro
+    // used in CAIRO_ADD_STRUCT_VALUE below
     zval tmp;
     cairo_matrix_object *matrix_object = cairo_matrix_fetch_object(object);
 
@@ -601,7 +601,7 @@ static HashTable *cairo_matrix_object_get_properties(zend_object *object)
         return props;
     }
 
-    /* Only add struct values when the properties table looks unique/owned */
+    /* Don't add struct values when destructor calls get_properties handler */
     if (props && GC_REFCOUNT(props) > 0) {
         CAIRO_ADD_STRUCT_VALUE(xx);
         CAIRO_ADD_STRUCT_VALUE(yx);
