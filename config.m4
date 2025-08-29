@@ -1,5 +1,5 @@
 dnl
-dnl Cairo Graphics Library bindings for PHP8
+dnl Cairo Graphics Library bindings for PHP8.1+
 dnl
 
 PHP_ARG_WITH(cairo, for Cairo graphics library support,
