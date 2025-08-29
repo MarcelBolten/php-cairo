@@ -633,7 +633,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
     CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(ON);
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
-    /* HintMetrics */
+    /* ColorMode */
     CAIRO_REGISTER_ENUM_LONG("ColorMode", ce_cairo_color_mode);
 
 #define CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(name) \
