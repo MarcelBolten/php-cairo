@@ -15,18 +15,18 @@ Requirements
  * PHP 8.1.0+
  * Cairo 1.12.0+
 
-Additional features are supported up to Cairo version 1.17.0
+Additional features are supported up to Cairo version 1.17.0.
 
 Features are enabled at compile time based on the library version they are compiled against.
 
-Documentation and information about the underlying library can be found at [cairographics.org](http://cairographics.org/manual/)
+Documentation and information about the underlying library can be found at [cairographics.org](http://cairographics.org/manual/).
 
 Installation
 =============
 There are plans to make this available via [pecl](http://pecl.php.net) and [pickle](https://github.com/FriendsOfPHP/pickle)
-But this is currently the unstable PHP7 version
+But this is currently the unstable PHP7 version.
 
-Until then, please compile and install the both the datastructures and the cairo extensions and enable them in your php.ini file
+Until then, please compile and install the cairo extensions and enable it in your php.ini file.
 
 ```
 extension=cairo.so
@@ -37,10 +37,8 @@ Compile
 
 This extension can be compiled and tested using phpize.
 
-First you need to make and install the Eos\DataStructures extension, which provides Enum support.
-
 The cairo extension also requires cairo development files.  You can build the package
-manually or use your system's package manager.  For example on ubuntu use
+manually or use your system's package manager.  For example on ubuntu use:
 
 ```
 apt-get install libcairo2-dev libfreetype6-dev fontconfig libjpeg-dev
@@ -65,6 +63,22 @@ make && make test && make install
 `make install` copies `cairo.so` to the right location, but you still need to enable the module
 in your php.ini file.
 
+Codec overage reports
+=====================
+
+Requirements: lcov, gzip.
+
+To obtain a code coverage report the extension must be compiled with additional flags:
+
+```
+phpize
+CAIRO_COVERAGE=yes ./configure
+make && make install
+coverage.sh
+```
+
+This will run the all tests and create an html report.
+
 Examples
 ====
 The examples directory holds samples of all currently working utilities for the extension.
@@ -82,7 +96,7 @@ You can send comments, patches, questions [here on github](https://github.com/gt
 
 Authors
 ====
-Elizabeth M Smith | Swen Zanon | Bernhard R. Fischer (JPEG-integration)
+Elizabeth M Smith | Swen Zanon | Marcel Bolten | Bernhard R. Fischer (JPEG-integration)
 
 License
 =====
