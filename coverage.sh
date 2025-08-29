@@ -1,5 +1,4 @@
 #!/bin/bash
-# coverage.sh
 
 echo "Running tests..."
 php run-tests.php -q -j$(nproc) --no-color > test_results.txt
