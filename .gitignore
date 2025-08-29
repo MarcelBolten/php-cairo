@@ -65,3 +65,4 @@ examples/ps-surface-source.ps
 # code coverage
 coverage.info
 coverage_html/
+test_results.txt
