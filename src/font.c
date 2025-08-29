@@ -164,7 +164,9 @@ PHP_MINIT_FUNCTION(cairo_font)
 {
     zend_class_entry toyfont_ce;
 
-    INIT_NS_CLASS_ENTRY(toyfont_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("FontFace", "Toy"), cairo_toy_font_face_methods);
+    INIT_NS_CLASS_ENTRY(toyfont_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Toy",
+        cairo_toy_font_face_methods);
     ce_cairo_toyfontface = zend_register_internal_class_ex(&toyfont_ce, ce_cairo_fontface);
     ce_cairo_toyfontface->create_object = cairo_font_face_create_object;
 

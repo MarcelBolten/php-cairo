@@ -221,7 +221,9 @@ PHP_MINIT_FUNCTION(cairo_ft_font)
 {
     zend_class_entry ft_font_face_ce;
 
-    INIT_NS_CLASS_ENTRY(ft_font_face_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("FontFace", "Ft"), cairo_ft_font_methods);
+    INIT_NS_CLASS_ENTRY(ft_font_face_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Ft",
+        cairo_ft_font_methods);
     ce_cairo_ftfont = zend_register_internal_class_ex(&ft_font_face_ce, ce_cairo_fontface);
 
     return SUCCESS;

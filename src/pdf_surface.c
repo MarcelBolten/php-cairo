@@ -375,7 +375,9 @@ PHP_MINIT_FUNCTION(cairo_pdf_surface)
 {
     zend_class_entry pdf_ce;
 
-    INIT_NS_CLASS_ENTRY(pdf_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Pdf"), cairo_pdf_surface_methods);
+    INIT_NS_CLASS_ENTRY(pdf_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "Pdf",
+        cairo_pdf_surface_methods);
     ce_cairo_pdfsurface = zend_register_internal_class_ex(&pdf_ce, ce_cairo_surface);
     ce_cairo_pdfsurface->create_object = cairo_surface_create_object;
 

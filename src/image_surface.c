@@ -426,11 +426,13 @@ PHP_MINIT_FUNCTION(cairo_image_surface)
 {
     zend_class_entry ce, format_ce;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "Image"), cairo_imagesurface_methods);
+    INIT_NS_CLASS_ENTRY(ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "Image",
+        cairo_imagesurface_methods);
     ce_cairo_imagesurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
 
     ce_cairo_format = zend_register_internal_enum(
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface\\ImageFormat"),
+        ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "ImageFormat")),
         IS_LONG,
         cairo_format_methods
     );

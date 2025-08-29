@@ -1430,32 +1430,40 @@ PHP_MINIT_FUNCTION(cairo_pattern)
     ce_cairo_pattern->create_object = cairo_pattern_create_object;
     ce_cairo_pattern->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
-    INIT_NS_CLASS_ENTRY(solid_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Solid"), cairo_pattern_solid_methods);
+    INIT_NS_CLASS_ENTRY(solid_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Pattern"), "Solid",
+        cairo_pattern_solid_methods);
     ce_cairo_pattern_solid = zend_register_internal_class_ex(&solid_ce, ce_cairo_pattern);
 
-    INIT_NS_CLASS_ENTRY(gradient_ce, CAIRO_NAMESPACE,
-        ZEND_NS_NAME("Pattern", "Gradient"),
+    INIT_NS_CLASS_ENTRY(gradient_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Pattern"), "Gradient",
         cairo_pattern_gradient_methods);
     ce_cairo_pattern_gradient = zend_register_internal_class_ex(&gradient_ce, ce_cairo_pattern);
     ce_cairo_pattern_gradient->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
-    INIT_NS_CLASS_ENTRY(radial_ce, CAIRO_NAMESPACE,
-        ZEND_NS_NAME("Pattern", ZEND_NS_NAME("Gradient", "Radial")),
+    INIT_NS_CLASS_ENTRY(radial_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Gradient")), "Radial",
         cairo_pattern_gradient_radial_methods);
     ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&radial_ce, ce_cairo_pattern_gradient);
 
-    INIT_NS_CLASS_ENTRY(linear_ce, CAIRO_NAMESPACE,
-        ZEND_NS_NAME("Pattern", ZEND_NS_NAME("Gradient", "Linear")),
+    INIT_NS_CLASS_ENTRY(linear_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Gradient")), "Linear",
         cairo_pattern_gradient_linear_methods);
     ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&linear_ce, ce_cairo_pattern_gradient);
 
-    INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Surface"), cairo_pattern_surface_methods);
+    INIT_NS_CLASS_ENTRY(surface_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Pattern"), "Surface",
+        cairo_pattern_surface_methods);
     ce_cairo_pattern_surface = zend_register_internal_class_ex(&surface_ce, ce_cairo_pattern);
 
-    INIT_NS_CLASS_ENTRY(mesh_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "Mesh"), cairo_pattern_mesh_methods);
+    INIT_NS_CLASS_ENTRY(mesh_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Pattern"), "Mesh",
+        cairo_pattern_mesh_methods);
     ce_cairo_pattern_mesh = zend_register_internal_class_ex(&mesh_ce, ce_cairo_pattern);
 
-    INIT_NS_CLASS_ENTRY(raster_ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Pattern", "RasterSource"), cairo_pattern_raster_methods);
+    INIT_NS_CLASS_ENTRY(raster_ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Pattern"), "RasterSource",
+        cairo_pattern_raster_methods);
     ce_cairo_pattern_raster = zend_register_internal_class_ex(&raster_ce, ce_cairo_pattern);
 
 

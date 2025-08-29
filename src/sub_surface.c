@@ -52,7 +52,9 @@ PHP_MINIT_FUNCTION(cairo_sub_surface)
 {
     zend_class_entry ce;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "SubSurface"), cairo_sub_surface_methods);
+    INIT_NS_CLASS_ENTRY(ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "SubSurface",
+        cairo_sub_surface_methods);
     ce_cairo_subsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
 
     return SUCCESS;

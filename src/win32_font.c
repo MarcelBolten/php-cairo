@@ -174,7 +174,9 @@ PHP_MINIT_FUNCTION(cairo_win32_font)
 {
     zend_class_entry ce;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, ZEND_NS_NAME("FontFace", "Win32"), cairo_win32_font_methods);
+    INIT_NS_CLASS_ENTRY(ce,
+        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Win32",
+        cairo_win32_font_methods);
     ce_cairo_win32font = zend_register_internal_class_ex(&ce, ce_cairo_fontface);
 
     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("FontFace", ZEND_NS_NAME("Win32", "FontWeight")), ce_cairo_win32fontweight);
