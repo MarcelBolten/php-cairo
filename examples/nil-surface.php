@@ -10,15 +10,19 @@ $context = new Context($surface);
 
 $con2 = new Context($surface);
 $s = new Image(ImageFormat::ARGB32, 0, 0);
-$s->createFromPng('__THIS_FILE_DOES_NOT_EXIST');
+try {
+    $s->createFromPng('__THIS_FILE_DOES_NOT_EXIST');
+} catch (Cairo\Exception $e) {
+    echo $e->getMessage() . PHP_EOL;
+}
 
 $patternSurface = new PatternSurface($s);
 $con2->setPattern($patternSurface);
 $con2->paint();
 
-$con2 = $context->getSurface();
-$patternSurface = new PatternSurface(null);
-$con2->setPattern($patternSurface);
-$con2->paint();
+// $con2 = $context->getSurface();
+//$patternSurface = new PatternSurface(null);
+//$con2->setPattern($patternSurface);
+//$con2->paint();
 
 $surface->writeToPng(dirname(__FILE__).'/nil-surface-php.png');
