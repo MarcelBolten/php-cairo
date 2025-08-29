@@ -52,7 +52,11 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-array(2) {
+array(4) {
+  ["x"]=>
+  float(5)
+  ["y"]=>
+  float(5)
   [0]=>
   float(5)
   [1]=>

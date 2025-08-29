@@ -19,7 +19,11 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-array(2) {
+array(4) {
+  ["x"]=>
+  float(0)
+  ["y"]=>
+  float(0)
   [0]=>
   float(0)
   [1]=>

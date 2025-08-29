@@ -1805,6 +1805,8 @@ PHP_METHOD(CairoContext, userToDevice)
     }
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -1835,6 +1837,8 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
     }
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -1864,6 +1868,8 @@ PHP_METHOD(CairoContext, deviceToUser)
     }
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -1892,6 +1898,8 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
     }
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -2012,6 +2020,8 @@ PHP_METHOD(CairoContext, getCurrentPoint)
 
     cairo_get_current_point(context_object->context, &x, &y);
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }

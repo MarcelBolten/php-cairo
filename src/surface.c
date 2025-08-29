@@ -396,6 +396,8 @@ PHP_METHOD(CairoSurface, getDeviceOffset)
     cairo_surface_get_device_offset(surface_object->surface, &x, &y);
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -449,6 +451,8 @@ PHP_METHOD(CairoSurface, getDeviceScale)
     cairo_surface_get_device_scale(surface_object->surface, &x, &y);
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
@@ -500,6 +504,8 @@ PHP_METHOD(CairoSurface, getFallbackResolution)
     cairo_surface_get_fallback_resolution(surface_object->surface, &x, &y);
 
     array_init(return_value);
+    add_assoc_double(return_value, "x", x);
+    add_assoc_double(return_value, "y", y);
     add_next_index_double(return_value, x);
     add_next_index_double(return_value, y);
 }
