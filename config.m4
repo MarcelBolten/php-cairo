@@ -85,6 +85,11 @@ if test "$PHP_CAIRO" != "no"; then
             AC_DEFINE([HAVE_FONTCONFIG], [1], [whether fontconfig exists in the system])
         fi
 
+        if test "$CAIRO_COVERAGE" = "yes"; then
+            CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"
+            LDFLAGS="$LDFLAGS -lgcov"
+        fi
+
         PKG_CHECK_MODULES([LIBJPEG], [libjpeg])
         PHP_EVAL_INCLINE([$LIBJPEG_CFLAGS])
         PHP_EVAL_LIBLINE([$LIBJPEG_LIBS], [CAIRO_SHARED_LIBADD])
