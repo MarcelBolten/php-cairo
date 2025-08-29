@@ -1274,7 +1274,7 @@ static void cairo_pattern_free_obj(zend_object *object)
         return;
     }
 
-    CAIRO_UNREF_AND_UNDEF(intern->surface)
+    zval_ptr_dtor(&intern->surface);
 
     if (intern->pattern) {
         cairo_pattern_destroy(intern->pattern);

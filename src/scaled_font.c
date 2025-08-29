@@ -58,10 +58,10 @@ static void cairo_scaled_font_free_obj(zend_object *object)
         return;
     }
 
-    CAIRO_UNREF_AND_UNDEF(intern->font_face)
-    CAIRO_UNREF_AND_UNDEF(intern->matrix)
-    CAIRO_UNREF_AND_UNDEF(intern->ctm)
-    CAIRO_UNREF_AND_UNDEF(intern->font_options)
+    zval_ptr_dtor(&intern->font_face);
+    zval_ptr_dtor(&intern->matrix);
+    zval_ptr_dtor(&intern->ctm);
+    zval_ptr_dtor(&intern->font_options);
 
     if (intern->scaled_font) {
         cairo_scaled_font_destroy(intern->scaled_font);

@@ -84,13 +84,13 @@ static void cairo_context_free_obj(zend_object *object)
         return;
     }
 
-    CAIRO_UNREF_AND_UNDEF(intern->surface)
-    CAIRO_UNREF_AND_UNDEF(intern->matrix)
-    CAIRO_UNREF_AND_UNDEF(intern->pattern)
-    CAIRO_UNREF_AND_UNDEF(intern->font_face)
-    CAIRO_UNREF_AND_UNDEF(intern->font_matrix)
-    CAIRO_UNREF_AND_UNDEF(intern->font_options)
-    CAIRO_UNREF_AND_UNDEF(intern->scaled_font)
+    zval_ptr_dtor(&intern->surface);
+    zval_ptr_dtor(&intern->matrix);
+    zval_ptr_dtor(&intern->pattern);
+    zval_ptr_dtor(&intern->font_face);
+    zval_ptr_dtor(&intern->font_matrix);
+    zval_ptr_dtor(&intern->font_options);
+    zval_ptr_dtor(&intern->scaled_font);
 
     if (intern->context) {
         cairo_destroy(intern->context);

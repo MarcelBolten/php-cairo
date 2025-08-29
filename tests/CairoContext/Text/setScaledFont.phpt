@@ -86,11 +86,3 @@ bool(true)
 Cairo\Context::setScaledFont() expects exactly 1 argument, 0 given
 Cairo\Context::setScaledFont() expects exactly 1 argument, 2 given
 Cairo\Context::setScaledFont(): Argument #1 ($scaledfont) must be of type Cairo\ScaledFont, int given
-[%s]  Script:  '/%s/tests/CairoContext/Text/setScaledFont.php'
-/%s/src/font_face.c(168) :  Freeing 0x%s (64 bytes), script=/%s/tests/CairoContext/Text/setScaledFont.php
-[%s]  Script:  '/%s/tests/CairoContext/Text/setScaledFont.php'
-/%s/src/matrix.c(470) :  Freeing 0x%s (144 bytes), script=/%s/tests/CairoContext/Text/setScaledFont.php
-Last leak repeated 1 time
-[%s]  Script:  '/%s/tests/CairoContext/Text/setScaledFont.php'
-/%s/src/font_options.c(81) :  Freeing 0x%s (48 bytes), script=/%s/tests/CairoContext/Text/setScaledFont.php
-=== Total 4 memory leaks detected ===
