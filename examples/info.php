@@ -1,3 +1,3 @@
 <?php
 
-echo phpversion('cairo');
+echo phpversion('cairo') . PHP_EOL;
