@@ -1377,10 +1377,10 @@ PHP_METHOD(CairoContext, mask)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_maskSurface_args, ZEND_SEND_BY_VAL)
+ZEND_BEGIN_ARG_INFO_EX(CairoContext_maskSurface_args, ZEND_SEND_BY_VAL, 0, 1)
     ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::maskSurface(object surface [, float x, float y])
