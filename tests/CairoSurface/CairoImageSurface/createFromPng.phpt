@@ -9,7 +9,7 @@ if(!in_array('PNG', Cairo::availableSurfaces())) die('skip - PNG support not ava
 $surface = Cairo\Surface\Image::createFromPng(dirname(__FILE__) . '/red.png');
 var_dump($surface);
 
-$resource = fopen(dirname(__FILE__) . '/red.png', 'rw');
+$resource = fopen(dirname(__FILE__) . '/red.png', 'rb');
 $surface = Cairo\Surface\Image::createFromPng($resource);
 var_dump($surface);
 fclose($resource);
