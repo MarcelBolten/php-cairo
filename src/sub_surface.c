@@ -33,7 +33,7 @@ ZEND_END_ARG_INFO()
        Returns new CairoSubSurface */
 PHP_METHOD(CairoSubSurface, __construct)
 {
-    zend_throw_exception(ce_cairo_exception, "CairoSubSurface cannot be constructed", 0);
+    zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\SubSurface cannot be constructed", 0);
 }
 /* }}} */
 

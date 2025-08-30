@@ -377,7 +377,7 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
         surface_object->closure = closure;
         surface_object->surface = cairo_image_surface_create_from_jpeg_stream((cairo_read_func_t) php_cairo_read_func, (void *)closure);
     } else {
-        zend_throw_exception(ce_cairo_exception, "CairoImageSurface::createFromJpeg() expects parameter 1 to be a string or a stream resource", 0);
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromJpeg() expects parameter 1 to be a string or a stream resource", 0);
         RETURN_THROWS();
     }
 
