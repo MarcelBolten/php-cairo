@@ -99,7 +99,7 @@
 
 
 #ifndef LIBJPEG_TURBO_VERSION
-/*! This function makes a covnersion for "odd" pixel sizes which typically is a
+/*! This function makes a conversion for "odd" pixel sizes which typically is a
  * conversion from a 3-byte to a 4-byte (or more) pixel size or vice versa.
  * The conversion is done from the source buffer src to the destination buffer
  * dst. The caller MUST ensure that src and dst have the correct memory size.
@@ -145,7 +145,7 @@ static void pix_conv(unsigned char *dst, int dw, const unsigned char *src, int s
  * support transparency. Thus, default background color is used to replace
  * transparent regions. The default background color is black if not specified
  * explicitly. Thus converting e.g. PDF surfaces without having any specific
- * background color set will apear with black background and not white as you
+ * background color set will appear with black background and not white as you
  * might expect. In such cases it is suggested to manually convert the surface
  * to RGB24 before calling this function.
  * @param data Pointer to a memory pointer. This parameter receives a pointer
@@ -153,7 +153,7 @@ static void pix_conv(unsigned char *dst, int dw, const unsigned char *src, int s
  * function reserves the memory properly and it has to be freed by the caller
  * with free(3).
  * @param len Pointer to a variable of type size_t which will receive the final
- * lenght of the memory buffer.
+ * length of the memory buffer.
  * @param quality Compression quality, 0-100.
  * @return On success the function returns CAIRO_STATUS_SUCCESS. In case of
  * error CAIRO_STATUS_INVALID_FORMAT is returned.
@@ -272,7 +272,7 @@ static cairo_status_t cj_write(void *closure, const unsigned char *data, unsigne
  * @param closure Pointer to user-supplied variable which is directly passed to
  * write_func().
  * @param quality Compression quality, 0-100.
- * @return This function calles cairo_image_surface_write_to_jpeg_mem() and
+ * @return This function calls cairo_image_surface_write_to_jpeg_mem() and
  * returns its return value.
  */
 cairo_status_t cairo_image_surface_write_to_jpeg_stream(cairo_surface_t *sfc, cairo_write_func_t write_func, void *closure, int quality)
@@ -302,9 +302,9 @@ cairo_status_t cairo_image_surface_write_to_jpeg_stream(cairo_surface_t *sfc, ca
  * @param filename Pointer to the filename.
  * @param quality Compression quality, 0-100.
  * @return In case of success CAIRO_STATUS_SUCCESS is returned. If an error
- * occured while opening/creating the file CAIRO_STATUS_DEVICE_ERROR is
+ * occurred while opening/creating the file CAIRO_STATUS_DEVICE_ERROR is
  * returned. The error can be tracked down by inspecting errno(3). The function
- * internally calles cairo_image_surface_write_to_jpeg_stream() and returnes
+ * internally calls cairo_image_surface_write_to_jpeg_stream() and returns
  * its return value respectively (see there).
  */
 cairo_status_t cairo_image_surface_write_to_jpeg(cairo_surface_t *sfc, const char *filename, int quality)
@@ -431,7 +431,7 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg_stream(cairo_read_func_t r
       if (rlen == -1)
          break;
 
-      // check if EOF occured
+      // check if EOF occurred
       if (rlen < CAIRO_JPEG_IO_BLOCK_SIZE)
          eof++;
 #else
