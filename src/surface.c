@@ -686,7 +686,7 @@ PHP_METHOD(CairoSurface, writeToPng)
     zval *stream_zval = NULL;
     stream_closure *closure;
     php_stream *stream = NULL;
-    zend_bool owned_stream = 0;
+    bool owned_stream = false;
     cairo_status_t status;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -743,7 +743,7 @@ PHP_METHOD(CairoSurface, writeToJpeg)
     zval *stream_zval = NULL;
     stream_closure *closure;
     php_stream *stream = NULL;
-    zend_bool owned_stream = 0;
+    bool owned_stream = false;
     cairo_status_t status;
     double quality = 90;
 

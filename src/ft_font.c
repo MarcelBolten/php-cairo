@@ -57,13 +57,13 @@ static void cairo_user_data_callback_ft_free(pecl_ft_container *ft_container) {
     pefree(ft_container, 1);
 }
 
-static zend_bool php_cairo_create_ft_font_face(
+static bool php_cairo_create_ft_font_face(
     pecl_ft_container *ft_container,
     cairo_font_face_object *font_face_object,
     php_stream *stream,
-    zend_bool owned_stream,
+    bool owned_stream,
     int load_flags,
-    zend_bool throw_exceptions
+    bool throw_exceptions
 ) {
     FT_Stream ft_stream;
     stream_closure *closure;
@@ -148,7 +148,7 @@ PHP_METHOD(CairoFtFontFace, __construct)
     pecl_ft_container *ft_container;
 
     php_stream *stream;
-    zend_bool owned_stream = 0;
+    bool owned_stream = 0;
     php_stream_statbuf ssbuf;
 
     ZEND_PARSE_PARAMETERS_START(1, 2)

@@ -300,7 +300,7 @@ PHP_METHOD(CairoImageSurface, createFromPng)
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
     stream_closure *closure;
-    zend_bool owned_stream = 0;
+    bool owned_stream = false;
     php_stream *stream = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -350,7 +350,7 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
     stream_closure *closure;
-    zend_bool owned_stream = 0;
+    bool owned_stream = false;
     php_stream *stream = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)

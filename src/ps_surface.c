@@ -47,7 +47,7 @@ PHP_METHOD(CairoPsSurface, __construct)
     stream_closure *closure;
     php_stream *stream = NULL;
     double width, height;
-    zend_bool owned_stream = 0;
+    bool owned_stream = false;
     cairo_surface_object *surface_object;
 
     ZEND_PARSE_PARAMETERS_START(3, 3)
@@ -165,7 +165,7 @@ ZEND_END_ARG_INFO()
        If eps is TRUE, the PostScript surface will output Encapsulated PostScript. */
 PHP_METHOD(CairoPsSurface, setEps)
 {
-    zend_bool eps = 0;
+    bool eps = false;
     cairo_surface_object *surface_object;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)

@@ -123,7 +123,7 @@ cairo_font_options_t *cairo_font_options_object_get_font_options(zval *zv);
 /* Surface */
 typedef struct _stream_closure {
     php_stream *stream;
-    zend_bool owned_stream;
+    bool owned_stream;
 } stream_closure;
 
 typedef struct _cairo_surface_object {
