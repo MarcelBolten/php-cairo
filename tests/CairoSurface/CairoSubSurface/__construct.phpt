@@ -36,5 +36,5 @@ try {
     echo $e->getMessage();
 }
 --EXPECTF--
-CairoSubSurface cannot be constructed
+Cairo\Surface\SubSurface cannot be constructed
 Internal surface object missing in test2, you must call parent::__construct in extended classes
