@@ -104,6 +104,7 @@ zend_class_entry * php_cairo_get_path_ce()
 
 /* }}} -----------------------------------------------------------*/
 
+// TODO: add methods to retrieve path data
 
 /* ----------------------------------------------------------------
     \Cairo\Path Definition and registration

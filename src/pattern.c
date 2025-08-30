@@ -1018,6 +1018,9 @@ ZEND_BEGIN_ARG_INFO(CairoPatternMesh_setCornerColorRgb_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, blue)
 ZEND_END_ARG_INFO()
 
+// TODO: combine setCornerColorRgb and setCornerColorRgba to setCornerColor
+// default value for alpha = 1.0
+
 /* {{{  proto void \Cairo\Pattern\Mesh::setCornerColorRgb(int corner_num,
  *            float red, float blue, float green)
    Sets the color of a corner of the current patch in a mesh pattern. */
