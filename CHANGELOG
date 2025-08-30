@@ -7,6 +7,8 @@
     * fix some examples
     * add scripts to create coverage reports
     * add convenience macros
+    * add descriptive error messages to Pattern\Mesh
+    * add tests for Pattern\Mesh methods
 
 2022-06-20  Swen Zanon  <swen.zanon@geoglis.de>
     * added new class Cairo\Glyph

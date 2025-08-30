@@ -979,17 +979,17 @@ ZEND_BEGIN_ARG_INFO(CairoPatternMesh_setControlPoint_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, y)
 ZEND_END_ARG_INFO()
 
-/* {{{  proto void \Cairo\Pattern\Mesh::setControlPoint(int corner_num,
+/* {{{  proto void \Cairo\Pattern\Mesh::setControlPoint(int point_num,
  *            float x, float y)
    Set an internal control point of the current patch. */
 PHP_METHOD(CairoPatternMesh, setControlPoint)
 {
     cairo_pattern_object *pattern_object;
-    zend_long corner_num;
+    zend_long point_num;
     double x, y;
 
     ZEND_PARSE_PARAMETERS_START(3, 3)
-        Z_PARAM_LONG(corner_num)
+        Z_PARAM_LONG(point_num)
         Z_PARAM_DOUBLE(x)
         Z_PARAM_DOUBLE(y)
     ZEND_PARSE_PARAMETERS_END();
@@ -999,7 +999,12 @@ PHP_METHOD(CairoPatternMesh, setControlPoint)
         RETURN_THROWS();
     }
 
-    cairo_mesh_pattern_set_control_point(pattern_object->pattern, corner_num, x, y);
+    if (point_num < 0 || point_num > 3) {
+        zend_throw_error(ce_cairo_exception, "Invalid point number. Expected 0, 1, 2, or 3.");
+        RETURN_THROWS();
+    }
+
+    cairo_mesh_pattern_set_control_point(pattern_object->pattern, point_num, x, y);
     if (php_cairo_throw_exception(cairo_pattern_status(pattern_object->pattern))) {
         RETURN_THROWS();
     }
@@ -1031,6 +1036,11 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgb)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
+        RETURN_THROWS();
+    }
+
+    if (corner_num < 0 || corner_num > 3) {
+        zend_throw_error(ce_cairo_exception, "Invalid corner number. Expected 0, 1, 2, or 3.");
         RETURN_THROWS();
     }
 
@@ -1068,6 +1078,11 @@ PHP_METHOD(CairoPatternMesh, setCornerColorRgba)
 
     pattern_object = cairo_pattern_object_get(getThis());
     if (!pattern_object) {
+        RETURN_THROWS();
+    }
+
+    if (corner_num < 0 || corner_num > 3) {
+        zend_throw_error(ce_cairo_exception, "Invalid corner number. Expected 0, 1, 2, or 3.");
         RETURN_THROWS();
     }
 
@@ -1150,6 +1165,7 @@ PHP_METHOD(CairoPatternMesh, getControlPoint)
     cairo_pattern_object *pattern_object;
     zend_long patch_num, point_num;
     double x, y;
+    unsigned int count, max_patch_id;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_LONG(patch_num)
@@ -1161,8 +1177,25 @@ PHP_METHOD(CairoPatternMesh, getControlPoint)
         RETURN_THROWS();
     }
 
-    php_cairo_throw_exception(cairo_mesh_pattern_get_control_point(
-        pattern_object->pattern, patch_num, point_num, &x, &y));
+    cairo_mesh_pattern_get_patch_count(pattern_object->pattern, &count);
+    max_patch_id = count - 1;
+    if (count == 0) {
+        zend_throw_error(ce_cairo_exception, "No patches found or first patch not finished with endPatch().");
+        RETURN_THROWS();
+    } else if (patch_num < 0 || (unsigned int)patch_num > max_patch_id) {
+        zend_throw_error(ce_cairo_exception, "Invalid patch number. Expected 0 to %d.", max_patch_id);
+        RETURN_THROWS();
+    }
+
+    if (point_num < 0 || point_num > 3) {
+        zend_throw_error(ce_cairo_exception, "Invalid point number. Expected 0, 1, 2, or 3.");
+        RETURN_THROWS();
+    }
+
+    if (php_cairo_throw_exception(cairo_mesh_pattern_get_control_point(
+        pattern_object->pattern, patch_num, point_num, &x, &y))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
@@ -1175,13 +1208,14 @@ ZEND_BEGIN_ARG_INFO(CairoPatternMesh_getCornerColorRgba_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, corner_num)
 ZEND_END_ARG_INFO()
 
-/* {{{  proto void \Cairo\Pattern\Mesh::getPoints()
+/* {{{  proto void \Cairo\Pattern\Mesh::getCornerColorRgba()
    Gets the color information in corner of path for a mesh pattern */
 PHP_METHOD(CairoPatternMesh, getCornerColorRgba)
 {
     cairo_pattern_object *pattern_object;
     zend_long patch_num, corner_num;
     double red, green, blue, alpha;
+    unsigned int count, max_patch_id;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
         Z_PARAM_LONG(patch_num)
@@ -1193,8 +1227,25 @@ PHP_METHOD(CairoPatternMesh, getCornerColorRgba)
         RETURN_THROWS();
     }
 
-    php_cairo_throw_exception(cairo_mesh_pattern_get_corner_color_rgba(
-        pattern_object->pattern, patch_num, corner_num, &red, &green, &blue, &alpha));
+    cairo_mesh_pattern_get_patch_count(pattern_object->pattern, &count);
+    max_patch_id = count - 1;
+    if (count == 0) {
+        zend_throw_error(ce_cairo_exception, "No patches found or first patch not finished with endPatch().");
+        RETURN_THROWS();
+    } else if (patch_num < 0 || (unsigned int)patch_num > max_patch_id) {
+        zend_throw_error(ce_cairo_exception, "Invalid patch number. Expected 0 to %d.", max_patch_id);
+        RETURN_THROWS();
+    }
+
+    if (corner_num < 0 || corner_num > 3) {
+        zend_throw_error(ce_cairo_exception, "Invalid corner number. Expected 0, 1, 2, or 3.");
+        RETURN_THROWS();
+    }
+
+    if (php_cairo_throw_exception(cairo_mesh_pattern_get_corner_color_rgba(
+        pattern_object->pattern, patch_num, corner_num, &red, &green, &blue, &alpha))) {
+        RETURN_THROWS();
+    }
 
     array_init(return_value);
     add_assoc_double(return_value, "red", red);
