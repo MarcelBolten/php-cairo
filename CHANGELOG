@@ -9,6 +9,7 @@
     * add convenience macros
     * add descriptive error messages to Pattern\Mesh
     * add tests for Pattern\Mesh methods
+    * add Context->inClip test
 
 2022-06-20  Swen Zanon  <swen.zanon@geoglis.de>
     * added new class Cairo\Glyph
