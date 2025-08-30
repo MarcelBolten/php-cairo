@@ -25,7 +25,6 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 
-/* Total number of args needed = 9 */
 try {
     $pattern->beginPatch(1);
 } catch (TypeError $e) {

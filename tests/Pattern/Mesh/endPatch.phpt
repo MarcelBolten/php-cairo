@@ -21,7 +21,6 @@ $pattern->lineTo(5,5);
 $pattern->endPatch();
 var_dump($pattern->getPatchCount());
 
-/* Total number of args needed = 9 */
 try {
     $pattern->endPatch(1);
 } catch (TypeError $e) {
