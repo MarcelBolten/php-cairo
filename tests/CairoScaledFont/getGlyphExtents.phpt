@@ -1,7 +1,10 @@
 --TEST--
-Cairo\ScaledFont->glyphExtents() method
+Cairo\ScaledFont->getGlyphExtents() method
 --SKIPIF--
 <?php
+if (!extension_loaded('cairo')) {
+    die('skip - Cairo extension not available');
+}
 die('skip - Cairo glyph support not complete');
 --FILE--
 <?php

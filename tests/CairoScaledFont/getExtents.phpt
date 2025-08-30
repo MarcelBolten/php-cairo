@@ -1,5 +1,5 @@
 --TEST--
-Cairo\ScaledFont->extents() method
+Cairo\ScaledFont->getExtents() method
 --SKIPIF--
 <?php
 if (!extension_loaded('cairo')) {
@@ -15,16 +15,11 @@ $fontoptions = new Cairo\FontOptions();
 
 $scaled = new Cairo\ScaledFont($fontface, $matrix1, $matrix2, $fontoptions);
 var_dump($scaled);
+var_dump($scaled->getExtents());
 
 /* Wrong number args */
 try {
-    $scaled->getTextExtents();
-} catch (ArgumentCountError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
-
-try {
-    var_dump($scaled->getTextExtents('foo'));
+    var_dump($scaled->getExtents(1));
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -33,18 +28,16 @@ object(Cairo\FontFace\Toy)#%d (0) {
 }
 object(Cairo\ScaledFont)#%d (0) {
 }
-Cairo\ScaledFont::getTextExtents() expects exactly 1 argument, 0 given
-array(6) {
-  ["x_bearing"]=>
+array(5) {
+  ["ascent"]=>
   float(%f)
-  ["y_bearing"]=>
-  float(%f)
-  ["width"]=>
+  ["descent"]=>
   float(%f)
   ["height"]=>
   float(%f)
-  ["x_advance"]=>
+  ["max_x_advance"]=>
   float(%f)
-  ["y_advance"]=>
+  ["max_y_advance"]=>
   float(%f)
 }
+Cairo\ScaledFont::getExtents() expects exactly 0 arguments, 1 given
