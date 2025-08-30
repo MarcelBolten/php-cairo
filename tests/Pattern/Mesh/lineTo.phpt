@@ -13,28 +13,36 @@ $pattern->beginPatch();
 
 // we have to do stuff here
 $pattern->moveTo(1, 1);
-$pattern->lineTo(1, 5);
 $pattern->lineTo(5, 5);
-$pattern->lineTo(5, 1);
 $pattern->endPatch();
 var_dump($pattern);
 var_dump($pattern->getPatchCount());
-var_dump($pattern->getPath(0));
 
 try {
-    $pattern->getPath();
+    $pattern->lineTo();
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 try {
-    $pattern->getPath(1, 1);
+    $pattern->lineTo(1);
 } catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 try {
-    $pattern->getPath(array());
+    $pattern->lineTo(1, 2, 3);
+} catch (ArgumentCountError $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+
+try {
+    $pattern->lineTo(array(), 1);
+} catch (TypeError $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+try {
+    $pattern->lineTo(1, array());
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

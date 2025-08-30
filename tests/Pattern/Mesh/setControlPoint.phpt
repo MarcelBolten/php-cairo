@@ -75,5 +75,5 @@ Cairo\Pattern\Mesh::setControlPoint() expects exactly 3 arguments, 4 given
 Cairo\Pattern\Mesh::setControlPoint(): Argument #1 ($corner_num) must be of type int, array given
 Cairo\Pattern\Mesh::setControlPoint(): Argument #2 ($x) must be of type float, array given
 Cairo\Pattern\Mesh::setControlPoint(): Argument #3 ($y) must be of type float, array given
-Invalid corner number. Expected 0, 1, 2, or 3.
-Invalid corner number. Expected 0, 1, 2, or 3.
+Invalid point number. Expected 0, 1, 2, or 3.
+Invalid point number. Expected 0, 1, 2, or 3.

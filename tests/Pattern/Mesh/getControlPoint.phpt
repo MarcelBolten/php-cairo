@@ -110,10 +110,10 @@ Cairo\Pattern\Mesh::getControlPoint() expects exactly 2 arguments, 0 given
 Cairo\Pattern\Mesh::getControlPoint() expects exactly 2 arguments, 1 given
 Cairo\Pattern\Mesh::getControlPoint() expects exactly 2 arguments, 3 given
 Cairo\Pattern\Mesh::getControlPoint(): Argument #1 ($patch_num) must be of type int, array given
-Cairo\Pattern\Mesh::getControlPoint(): Argument #2 ($corner_num) must be of type int, array given
+Cairo\Pattern\Mesh::getControlPoint(): Argument #2 ($point_num) must be of type int, array given
 Invalid patch number. Expected 0 to 0.
 Invalid patch number. Expected 0 to 0.
-Invalid corner number. Expected 0, 1, 2, or 3.
-Invalid corner number. Expected 0, 1, 2, or 3.
+Invalid point number. Expected 0, 1, 2, or 3.
+Invalid point number. Expected 0, 1, 2, or 3.
 No patches found or first patch not finished with endPatch().
 No patches found or first patch not finished with endPatch().
