@@ -10,6 +10,7 @@
     * add descriptive error messages to Pattern\Mesh
     * add tests for Pattern\Mesh methods
     * add Context->inClip test
+    * add test for FontFace clone handler
 
 2022-06-20  Swen Zanon  <swen.zanon@geoglis.de>
     * added new class Cairo\Glyph
