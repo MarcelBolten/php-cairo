@@ -8,6 +8,7 @@ on:
 jobs:
     Build_and_Test:
         strategy:
+            fail-fast: false
             matrix:
                 php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
                 os: [ubuntu-latest]
@@ -47,8 +48,12 @@ jobs:
             - name: "Run Tests"
               run: php ./run-tests.php -j$(nproc) -q
 
-            - name: "Create Coverage report"
-              run: ./coverage.sh
+            - name: "Upload test outputs"
+              if: ${{ always() }}
+              uses: actions/upload-artifact@v4
+              with:
+                name: cairo-test-${{ matrix.php-version }}
+                path: tests/**/*.log
 
     Coverage:
         runs-on: ubuntu-latest
@@ -83,7 +88,7 @@ jobs:
                 CAIRO_COVERAGE: yes
 
             - name: "Create Coverage report"
-              run: ./coverage.sh
+              run: chmod +x ./coverage.sh && ./coverage.sh
 
             - name: "Upload coverage report artifacts"
               uses: actions/upload-artifact@v4
