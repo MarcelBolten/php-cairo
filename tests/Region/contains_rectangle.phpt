@@ -2,7 +2,7 @@
 Cairo\Region->containsRectangle() method
 --SKIPIF--
 <?php
-include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $rectangle1 = new Cairo\Rectangle(1,1,100,100);

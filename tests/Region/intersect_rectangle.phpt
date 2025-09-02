@@ -2,7 +2,7 @@
 Cairo\Region->intersectRectangle() method
 --SKIPIF--
 <?php
-include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $rectangle1 = new Cairo\Rectangle(10,10,40,40);
