@@ -156,10 +156,10 @@ PHP_METHOD(CairoSurface, createSimilarImage)
 
 
 ZEND_BEGIN_ARG_INFO(CairoSurface_createForRectangle_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
+    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto CairoSurface object \Cairo\Surface::createForRectangle(double x, double y, double width, double height)

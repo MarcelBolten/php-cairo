@@ -108,12 +108,12 @@ cairo_matrix_t *cairo_matrix_object_get_matrix(zval *zv)
 ------------------------------------------------------------------*/
 
 ZEND_BEGIN_ARG_INFO_EX(CairoMatrix____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_TYPE_INFO(0, xx, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, yx, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, xy, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, yy, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, x0, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, y0, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, xx, IS_DOUBLE, 0, "1.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, yx, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, xy, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, yy, IS_DOUBLE, 0, "1.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x0, IS_DOUBLE, 0, "0.0")
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y0, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct([float xx, float yx, float xy, float yy, float x0, float y0])
