@@ -1207,11 +1207,10 @@ PHP_METHOD(CairoContext, getClipExtents)
     }
 
     array_init(return_value);
-    add_next_index_double(return_value, x1);
-    add_next_index_double(return_value, y1);
-    add_next_index_double(return_value, x2);
-    add_next_index_double(return_value, y2);
-}
+    add_assoc_double(return_value, "x1", x1);
+    add_assoc_double(return_value, "y1", y1);
+    add_assoc_double(return_value, "x2", x2);
+    add_assoc_double(return_value, "y2", y2);}
 /* }}} */
 
 /* {{{ proto array \Cairo\Context::clipRectangleList()
@@ -1319,11 +1318,10 @@ PHP_METHOD(CairoContext, getFillExtents)
     }
 
     array_init(return_value);
-    add_next_index_double(return_value, x1);
-    add_next_index_double(return_value, y1);
-    add_next_index_double(return_value, x2);
-    add_next_index_double(return_value, y2);
-}
+    add_assoc_double(return_value, "x1", x1);
+    add_assoc_double(return_value, "y1", y1);
+    add_assoc_double(return_value, "x2", x2);
+    add_assoc_double(return_value, "y2", y2);}
 /* }}} */
 
 /* {{{ proto bool \Cairo\Context::inFill(int x, int y)
@@ -1522,11 +1520,10 @@ PHP_METHOD(CairoContext, strokeExtents)
     }
 
     array_init(return_value);
-    add_next_index_double(return_value, x1);
-    add_next_index_double(return_value, y1);
-    add_next_index_double(return_value, x2);
-    add_next_index_double(return_value, y2);
-}
+    add_assoc_double(return_value, "x1", x1);
+    add_assoc_double(return_value, "y1", y1);
+    add_assoc_double(return_value, "x2", x2);
+    add_assoc_double(return_value, "y2", y2);}
 /* }}} */
 
 /* {{{ proto bool \Cairo\Context::inStroke(int x, int y)
@@ -1807,8 +1804,6 @@ PHP_METHOD(CairoContext, userToDevice)
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
     add_assoc_double(return_value, "y", y);
-    add_next_index_double(return_value, x);
-    add_next_index_double(return_value, y);
 }
 /* }}} */
 
@@ -1839,8 +1834,6 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
     add_assoc_double(return_value, "y", y);
-    add_next_index_double(return_value, x);
-    add_next_index_double(return_value, y);
 }
 /* }}} */
 
@@ -1870,8 +1863,6 @@ PHP_METHOD(CairoContext, deviceToUser)
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
     add_assoc_double(return_value, "y", y);
-    add_next_index_double(return_value, x);
-    add_next_index_double(return_value, y);
 }
 /* }}} */
 
@@ -1900,8 +1891,6 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
     add_assoc_double(return_value, "y", y);
-    add_next_index_double(return_value, x);
-    add_next_index_double(return_value, y);
 }
 /* }}} */
 
@@ -2022,8 +2011,6 @@ PHP_METHOD(CairoContext, getCurrentPoint)
     array_init(return_value);
     add_assoc_double(return_value, "x", x);
     add_assoc_double(return_value, "y", y);
-    add_next_index_double(return_value, x);
-    add_next_index_double(return_value, y);
 }
 /* }}} */
 
@@ -2580,10 +2567,10 @@ PHP_METHOD(CairoContext, getPathExtents)
 
     cairo_path_extents(context_object->context, &x1, &y1, &x2, &y2);
     array_init(return_value);
-    add_next_index_double(return_value, x1);
-    add_next_index_double(return_value, y1);
-    add_next_index_double(return_value, x2);
-    add_next_index_double(return_value, y2);
+    add_assoc_double(return_value, "x1", x1);
+    add_assoc_double(return_value, "y1", y1);
+    add_assoc_double(return_value, "x2", x2);
+    add_assoc_double(return_value, "y2", y2);
 }
 /* }}} */
 

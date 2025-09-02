@@ -24,14 +24,10 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(0)
   ["y"]=>
-  float(0)
-  [0]=>
-  float(0)
-  [1]=>
   float(0)
 }
 Cairo\Context::getCurrentPoint() expects exactly 0 arguments, 1 given

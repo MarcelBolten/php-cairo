@@ -26,24 +26,16 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(1)
   ["y"]=>
-  float(1)
-  [0]=>
-  float(1)
-  [1]=>
   float(1)
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(10)
   ["y"]=>
-  float(10)
-  [0]=>
-  float(10)
-  [1]=>
   float(10)
 }
 Cairo\Surface::getDeviceScale() expects exactly 0 arguments, 1 given

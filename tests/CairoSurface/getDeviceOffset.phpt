@@ -19,14 +19,10 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(0)
   ["y"]=>
-  float(0)
-  [0]=>
-  float(0)
-  [1]=>
   float(0)
 }
 Cairo\Surface::getDeviceOffset() expects exactly 0 %s, 1 given

@@ -23,13 +23,13 @@ object(Cairo\Surface\Image)#%d (0) {
 object(Cairo\Context)#%d (0) {
 }
 array(4) {
-  [0]=>
+  ["x1"]=>
   float(0)
-  [1]=>
+  ["y1"]=>
   float(0)
-  [2]=>
+  ["x2"]=>
   float(50)
-  [3]=>
+  ["y2"]=>
   float(50)
 }
 Cairo\Context::getClipExtents() expects exactly 0 arguments, 1 given

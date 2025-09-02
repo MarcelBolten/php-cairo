@@ -20,14 +20,10 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(%d)
   ["y"]=>
-  float(%d)
-  [0]=>
-  float(%d)
-  [1]=>
   float(%d)
 }
 Cairo\Surface::getFallbackResolution() expects exactly 0 arguments, 1 given

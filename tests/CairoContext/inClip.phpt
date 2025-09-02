@@ -63,13 +63,13 @@ object(Cairo\Surface\Image)#%d (0) {
 object(Cairo\Context)#%d (0) {
 }
 array(4) {
-  [0]=>
+  ["x1"]=>
   float(10)
-  [1]=>
+  ["y1"]=>
   float(10)
-  [2]=>
+  ["x2"]=>
   float(40)
-  [3]=>
+  ["y2"]=>
   float(40)
 }
 Cairo\Context::inClip() expects exactly 2 arguments, 0 given

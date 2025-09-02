@@ -52,14 +52,10 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-array(4) {
+array(2) {
   ["x"]=>
   float(5)
   ["y"]=>
-  float(5)
-  [0]=>
-  float(5)
-  [1]=>
   float(5)
 }
 Cairo\Context::userToDeviceDistance() expects exactly 2 arguments, 0 given
