@@ -93,5 +93,5 @@ jobs:
             - name: "Upload coverage report artifacts"
               uses: actions/upload-artifact@v4
               with:
-                name: cairo-build-8.4
+                name: cairo-coverage-8.4
                 path: coverage_html

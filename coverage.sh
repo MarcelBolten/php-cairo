@@ -12,6 +12,7 @@ fi
 echo "Generating coverage report..."
 lcov --capture \
   --directory src/.libs \
+  --rc geninfo_unexecuted_blocks=1 \
   --output-file coverage_raw.info \
   --quiet \
   -j $(nproc)
@@ -20,6 +21,7 @@ echo "Filtering coverage data..."
 lcov --remove coverage_raw.info \
   '/usr/local/include/php/*' \
   '/usr/include/php/*' \
+  --ignore-errors unused \
   --output-file coverage.info \
   --quiet \
   -j $(nproc)
