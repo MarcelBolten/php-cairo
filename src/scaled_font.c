@@ -463,6 +463,107 @@ PHP_METHOD(CairoScaledFont, getType)
 }
 /* }}} */
 
+ZEND_BEGIN_ARG_INFO_EX(CairoScaledFont_textToGlyphs_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 3)
+    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+    ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
+    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, cluster, _IS_BOOL, 0, "false")
+ZEND_END_ARG_INFO()
+
+/* {{{ proto void \Cairo\ScaledFont->textToGlyphs()
+       Converts UTF-8 text to an array of glyphs,
+       optionally with cluster mapping,
+       that can be used to render later using scaled_font . */
+PHP_METHOD(CairoScaledFont, textToGlyphs)
+{
+    cairo_scaled_font_object *scaled_font_object;
+
+    double x, y;
+    char *utf8Str;
+    size_t utf8Str_len = 0;
+    bool return_clusters = false;
+
+    int num_glyphs, num_clusters;
+    cairo_glyph_t *glyphs = NULL;
+    cairo_text_cluster_t *clusters = NULL;
+    cairo_text_cluster_flags_t cluster_flags;
+
+    cairo_status_t status;
+    zval glyphs_zv;
+    zval clusters_zv;
+    zval cluster_flags_zv;
+
+    ZEND_PARSE_PARAMETERS_START(3, 4)
+        Z_PARAM_DOUBLE(x)
+        Z_PARAM_DOUBLE(y)
+        Z_PARAM_STRING(utf8Str, utf8Str_len)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_BOOL(return_clusters)
+    ZEND_PARSE_PARAMETERS_END();
+
+    scaled_font_object = cairo_scaled_font_object_get(getThis());
+    if (!scaled_font_object) {
+        RETURN_THROWS();
+    }
+
+    status = cairo_scaled_font_text_to_glyphs(
+        scaled_font_object->scaled_font,
+        x, y,
+        utf8Str, utf8Str_len,
+        &glyphs, &num_glyphs,
+        return_clusters ? &clusters : NULL,
+        return_clusters ? &num_clusters : NULL,
+        return_clusters ? &cluster_flags : NULL
+    );
+
+    if (php_cairo_throw_exception(status)) {
+        cairo_glyph_free(glyphs);
+        if (return_clusters) {
+            cairo_text_cluster_free(clusters);
+        }
+        RETURN_THROWS();
+    }
+
+    array_init_size(&glyphs_zv, num_glyphs);
+    for (int i = 0; i < num_glyphs; i++) {
+        zval glyph;
+        object_init_ex(&glyph, ce_cairo_glyph);
+        cairo_glyph_object *glyph_obj = Z_CAIRO_GLYPH_P(&glyph);
+        *glyph_obj->glyph = glyphs[i];
+        add_next_index_zval(&glyphs_zv, &glyph);
+    }
+
+    ZVAL_NULL(&clusters_zv);
+    ZVAL_LONG(&cluster_flags_zv, 0);
+    if (return_clusters) {
+        if (num_clusters) {
+            array_init(&clusters_zv);
+            for (int i = 0; i < num_clusters; i++) {
+                zval cluster_zv;
+                object_init_ex(&cluster_zv, ce_cairo_text_cluster);
+                cairo_text_cluster_object *cluster_obj = Z_CAIRO_TEXT_CLUSTER_P(&cluster_zv);
+                *cluster_obj->text_cluster = clusters[i];
+                add_next_index_zval(&clusters_zv, &cluster_zv);
+            }
+        }
+
+        if (cluster_flags) {
+            ZVAL_LONG(&cluster_flags_zv, cluster_flags);
+        }
+    }
+
+    // TODO: perhaps returning an object would be better
+    array_init_size(return_value, 3);
+    add_assoc_zval(return_value, "glyphs", &glyphs_zv);
+    add_assoc_zval(return_value, "clusters", &clusters_zv);
+    add_assoc_zval(return_value, "cluster_flags", &cluster_flags_zv);
+
+    cairo_glyph_free(glyphs);
+    if (return_clusters) {
+        cairo_text_cluster_free(clusters);
+    }
+}
+/* }}} */
 /* ----------------------------------------------------------------
     Cairo\FontOptions Definition and registration
 ------------------------------------------------------------------*/
@@ -483,6 +584,7 @@ static const zend_function_entry cairo_scaled_font_methods[] = {
     PHP_ME(CairoScaledFont, getCtm, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getScaleMatrix, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
     PHP_ME(CairoScaledFont, getType, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
+    PHP_ME(CairoScaledFont, textToGlyphs, CairoScaledFont_textToGlyphs_args, ZEND_ACC_PUBLIC)
     ZEND_FE_END
 };
 /* }}} */
