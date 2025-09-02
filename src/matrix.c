@@ -342,7 +342,6 @@ ZEND_END_ARG_INFO()
        then it has no inverse and this function will fail. */
 PHP_METHOD(CairoMatrix, invert)
 {
-    cairo_status_t status;
     cairo_matrix_object *matrix_object;
 
     ZEND_PARSE_PARAMETERS_NONE();
@@ -352,8 +351,7 @@ PHP_METHOD(CairoMatrix, invert)
         RETURN_THROWS();
     }
 
-    status = cairo_matrix_invert(matrix_object->matrix);
-    if (php_cairo_throw_exception(status)) {
+    if (php_cairo_throw_exception(cairo_matrix_invert(matrix_object->matrix))) {
         RETURN_THROWS();
     }
 }
