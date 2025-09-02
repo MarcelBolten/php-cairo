@@ -46,7 +46,7 @@ jobs:
                 CAIRO_COVERAGE: yes
 
             - name: "Run Tests"
-              run: php ./run-tests.php -j$(nproc) -q
+              run: php ./run-tests.php -j$(nproc) -q --show-diff
 
             - name: "Upload test outputs"
               if: ${{ always() }}
