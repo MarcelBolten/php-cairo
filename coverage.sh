@@ -19,6 +19,7 @@ lcov --capture \
 echo "Filtering coverage data..."
 lcov --remove coverage_raw.info \
   '/usr/local/include/php/*' \
+  '/usr/include/php/*' \
   --output-file coverage.info \
   --quiet \
   -j $(nproc)
