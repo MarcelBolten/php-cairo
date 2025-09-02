@@ -29,7 +29,16 @@ catch (ErrorException $e) {
             throw $e;
         }
 }
-var_dump($rect->banana);
+try {
+    var_dump($rect->banana);
+}
+catch (ErrorException $e) {
+        if ($e->getSeverity() === E_DEPRECATED) {
+            // ignore: Deprecated: Creation of dynamic property Cairo\Rectangle::$banana is deprecated
+        } else {
+            throw $e;
+        }
+}
 --EXPECT--
 int(1)
 int(2)

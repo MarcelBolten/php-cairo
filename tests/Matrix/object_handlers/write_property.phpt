@@ -33,7 +33,16 @@ catch (ErrorException $e) {
             throw $e;
         }
 }
-var_dump($matrix->banana);
+try {
+    var_dump($matrix->banana);
+}
+catch (ErrorException $e) {
+        if ($e->getSeverity() === E_DEPRECATED) {
+            // ignore: Deprecated: Creation of dynamic property Cairo\Matrix::$banana is deprecated
+        } else {
+            throw $e;
+        }
+}
 --EXPECT--
 float(1)
 float(2)
