@@ -41,14 +41,14 @@ cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)
 #define CAIRO_ALLOC_GLYPH(glyph_value) if (!glyph_value) \
     { glyph_value = ecalloc(1, sizeof(cairo_glyph_t)); }
 
-#define CAIRO_VALUE_FROM_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_FROM_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         value = glyph_object->glyph->n; \
         break; \
     }
 
-#define CAIRO_VALUE_TO_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_TO_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         if (Z_TYPE_P(value) == IS_LONG) { \
             glyph_object->glyph->n = zval_get_long(value); \
         } else { \
@@ -57,9 +57,13 @@ cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)
         break; \
     }
 
-#define CAIRO_ADD_STRUCT_VALUE(n, m) \
-    ZVAL_DOUBLE(&tmp, glyph_object->glyph->n); \
-    zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
+#define CAIRO_ADD_STRUCT_VALUE(n) \
+    if (strcmp(#n, "index") == 0) { \
+        ZVAL_LONG(&tmp, glyph_object->glyph->n); \
+    } else { \
+        ZVAL_DOUBLE(&tmp, glyph_object->glyph->n); \
+    } \
+    zend_hash_str_update(props, #n, sizeof(#n)-1, &tmp);
 
 /* ----------------------------------------------------------------
     \Cairo\Glyph C API
@@ -189,9 +193,10 @@ static zval *cairo_glyph_object_read_property(zend_object *zobj, zend_string *me
     }
 
     do {
-        CAIRO_VALUE_FROM_STRUCT(index, "index");
-        CAIRO_VALUE_FROM_STRUCT(x, "x");
-        CAIRO_VALUE_FROM_STRUCT(y, "y");
+        // break if struct member
+        CAIRO_VALUE_FROM_STRUCT(index);
+        CAIRO_VALUE_FROM_STRUCT(x);
+        CAIRO_VALUE_FROM_STRUCT(y);
 
         // not a struct member
         retval = (zend_get_std_object_handlers())->read_property(zobj, member, type, cache_slot, rv);
@@ -200,7 +205,11 @@ static zval *cairo_glyph_object_read_property(zend_object *zobj, zend_string *me
     } while(0);
 
     retval = rv;
-    ZVAL_DOUBLE(retval, value);
+    if (strcmp(member->val, "index") == 0) {
+        ZVAL_LONG(retval, value);
+    } else {
+        ZVAL_DOUBLE(retval, value);
+    }
 
     return retval;
 }
@@ -217,9 +226,9 @@ static zval *cairo_glyph_object_write_property(zend_object *zobj, zend_string *m
     }
 
     do {
-        CAIRO_VALUE_TO_STRUCT(index, "index");
-        CAIRO_VALUE_TO_STRUCT(x, "x");
-        CAIRO_VALUE_TO_STRUCT(y, "y");
+        CAIRO_VALUE_TO_STRUCT(index);
+        CAIRO_VALUE_TO_STRUCT(x);
+        CAIRO_VALUE_TO_STRUCT(y);
     } while(0);
 
     // not a struct member
@@ -233,6 +242,7 @@ static zval *cairo_glyph_object_write_property(zend_object *zobj, zend_string *m
 static HashTable *cairo_glyph_object_get_properties(zend_object *zobj)
 {
     HashTable *props;
+    // used in CAIRO_ADD_STRUCT_VALUE below
     zval tmp;
     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);
 
@@ -242,9 +252,9 @@ static HashTable *cairo_glyph_object_get_properties(zend_object *zobj)
         return props;
     }
 
-    CAIRO_ADD_STRUCT_VALUE(index, "index");
-    CAIRO_ADD_STRUCT_VALUE(x, "x");
-    CAIRO_ADD_STRUCT_VALUE(y, "y");
+    CAIRO_ADD_STRUCT_VALUE(index);
+    CAIRO_ADD_STRUCT_VALUE(x);
+    CAIRO_ADD_STRUCT_VALUE(y);
 
     return props;
 }

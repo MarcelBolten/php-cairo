@@ -58,21 +58,21 @@ static inline long cairo_rectangle_get_property_value(zend_object *object, char 
 #define CAIRO_ALLOC_RECT(rect_value) if (!rect_value) \
     { rect_value = ecalloc(1, sizeof(cairo_rectangle_int_t)); }
 
-#define CAIRO_VALUE_FROM_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_FROM_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         value = rectangle_object->rect->n; \
         break; \
     }
 
-#define CAIRO_VALUE_TO_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_TO_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         rectangle_object->rect->n = zval_get_long(value); \
         break; \
     }
 
-#define CAIRO_ADD_STRUCT_VALUE(n, m) \
+#define CAIRO_ADD_STRUCT_VALUE(n) \
     ZVAL_LONG(&tmp, rectangle_object->rect->n); \
-    zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
+    zend_hash_str_update(props, #n, sizeof(#n)-1, &tmp);
 
 /* ----------------------------------------------------------------
     \Cairo\Rectangle C API
@@ -223,10 +223,10 @@ static zval *cairo_rectangle_object_read_property(zend_object *object, zend_stri
     }
 
     do {
-        CAIRO_VALUE_FROM_STRUCT(x, "x");
-        CAIRO_VALUE_FROM_STRUCT(y, "y");
-        CAIRO_VALUE_FROM_STRUCT(width, "width");
-        CAIRO_VALUE_FROM_STRUCT(height, "height");
+        CAIRO_VALUE_FROM_STRUCT(x);
+        CAIRO_VALUE_FROM_STRUCT(y);
+        CAIRO_VALUE_FROM_STRUCT(width);
+        CAIRO_VALUE_FROM_STRUCT(height);
 
         /* not a struct member */
         retval = (zend_get_std_object_handlers())->read_property(object, member, type, cache_slot, rv);
@@ -252,10 +252,10 @@ static zval *cairo_rectangle_object_write_property(zend_object *object, zend_str
     }
 
     do {
-        CAIRO_VALUE_TO_STRUCT(x, "x");
-        CAIRO_VALUE_TO_STRUCT(y, "y");
-        CAIRO_VALUE_TO_STRUCT(width, "width");
-        CAIRO_VALUE_TO_STRUCT(height, "height");
+        CAIRO_VALUE_TO_STRUCT(x);
+        CAIRO_VALUE_TO_STRUCT(y);
+        CAIRO_VALUE_TO_STRUCT(width);
+        CAIRO_VALUE_TO_STRUCT(height);
 
     } while(0);
 
@@ -270,6 +270,7 @@ static zval *cairo_rectangle_object_write_property(zend_object *object, zend_str
 static HashTable *cairo_rectangle_object_get_properties(zend_object *object)
 {
     HashTable *props;
+    // used in CAIRO_ADD_STRUCT_VALUE below
     zval tmp;
     cairo_rectangle_object *rectangle_object = cairo_rectangle_fetch_object(object);
 
@@ -279,10 +280,10 @@ static HashTable *cairo_rectangle_object_get_properties(zend_object *object)
         return props;
     }
 
-    CAIRO_ADD_STRUCT_VALUE(x, "x");
-    CAIRO_ADD_STRUCT_VALUE(y, "y");
-    CAIRO_ADD_STRUCT_VALUE(width, "width");
-    CAIRO_ADD_STRUCT_VALUE(height, "height");
+    CAIRO_ADD_STRUCT_VALUE(x);
+    CAIRO_ADD_STRUCT_VALUE(y);
+    CAIRO_ADD_STRUCT_VALUE(width);
+    CAIRO_ADD_STRUCT_VALUE(height);
 
     return props;
 }

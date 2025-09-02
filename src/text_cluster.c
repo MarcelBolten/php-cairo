@@ -50,21 +50,21 @@ static inline long cairo_text_cluster_get_property_default(zend_class_entry *ce,
 #define CAIRO_ALLOC_TEXT_CLUSTER(text_cluster_value) if (!text_cluster_value) \
     { text_cluster_value = ecalloc(1, sizeof(cairo_text_cluster_t)); }
 
-#define CAIRO_VALUE_FROM_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_FROM_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         value = text_cluster_object->text_cluster->n; \
         break; \
     }
 
-#define CAIRO_VALUE_TO_STRUCT(n, m) \
-    if (strcmp(member->val, m) == 0) { \
+#define CAIRO_VALUE_TO_STRUCT(n) \
+    if (strcmp(member->val, #n) == 0) { \
         text_cluster_object->text_cluster->n = zval_get_long(value); \
         break; \
     }
 
-#define CAIRO_ADD_STRUCT_VALUE(n, m) \
+#define CAIRO_ADD_STRUCT_VALUE(n) \
     ZVAL_LONG(&tmp, text_cluster_object->text_cluster->n); \
-    zend_hash_str_update(props, m, sizeof(m)-1, &tmp);
+    zend_hash_str_update(props, #n, sizeof(#n)-1, &tmp);
 
 /* ----------------------------------------------------------------
     \Cairo\TextCluster C API
@@ -194,8 +194,8 @@ static zval *cairo_text_cluster_object_read_property(zend_object *zobj, zend_str
     }
 
     do {
-        CAIRO_VALUE_FROM_STRUCT(num_bytes, "num_bytes");
-        CAIRO_VALUE_FROM_STRUCT(num_glyphs, "num_glyphs");
+        CAIRO_VALUE_FROM_STRUCT(num_bytes);
+        CAIRO_VALUE_FROM_STRUCT(num_glyphs);
 
         // not a struct member
         retval = (zend_get_std_object_handlers())->read_property(zobj, member, type, cache_slot, rv);
@@ -221,8 +221,8 @@ static zval *cairo_text_cluster_object_write_property(zend_object *zobj, zend_st
     }
 
     do {
-        CAIRO_VALUE_TO_STRUCT(num_bytes, "num_bytes");
-        CAIRO_VALUE_TO_STRUCT(num_glyphs, "num_glyphs");
+        CAIRO_VALUE_TO_STRUCT(num_bytes);
+        CAIRO_VALUE_TO_STRUCT(num_glyphs);
     } while(0);
 
     // not a struct member
@@ -236,6 +236,7 @@ static zval *cairo_text_cluster_object_write_property(zend_object *zobj, zend_st
 static HashTable *cairo_text_cluster_object_get_properties(zend_object *zobj)
 {
     HashTable *props;
+    // used in CAIRO_ADD_STRUCT_VALUE below
     zval tmp;
     cairo_text_cluster_object *text_cluster_object = cairo_text_cluster_fetch_object(zobj);
 
@@ -245,8 +246,8 @@ static HashTable *cairo_text_cluster_object_get_properties(zend_object *zobj)
         return props;
     }
 
-    CAIRO_ADD_STRUCT_VALUE(num_bytes, "num_bytes");
-    CAIRO_ADD_STRUCT_VALUE(num_glyphs, "num_glyphs");
+    CAIRO_ADD_STRUCT_VALUE(num_bytes);
+    CAIRO_ADD_STRUCT_VALUE(num_glyphs);
 
     return props;
 }
