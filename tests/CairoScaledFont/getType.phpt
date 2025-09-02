@@ -26,5 +26,5 @@ object(Cairo\FontFace\Toy)#%d (0) {
 }
 object(Cairo\ScaledFont)#%d (0) {
 }
-enum(Cairo\FontType::USER)
+enum(Cairo\FontType::%s)
 Cairo\ScaledFont::getType() expects exactly 0 arguments, 1 given
