@@ -2362,6 +2362,7 @@ ZEND_BEGIN_ARG_INFO(CairoContext_showTextGlyphs_args, ZEND_SEND_BY_VAL)
     ZEND_ARG_INFO(0, utf8Str)
     ZEND_ARG_ARRAY_INFO(0, glyphs, 0)
     ZEND_ARG_ARRAY_INFO(0, clusters, 0)
+    ZEND_ARG_TYPE_INFO(0, cluster_flags, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::showTextGlyphs(string text, array glyphs, array clusters)
@@ -2379,17 +2380,18 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     int num_glyphs = 0;
     cairo_text_cluster_t *clusters_array;
     int num_clusters = 0;
-    //cairo_text_cluster_flags_t cluster_flags;
     zval *php_glyphs = NULL, *pzval;
     zval *php_clusters = NULL;
+    long cluster_flags;
     HashTable *glyphs_hash = NULL;
     HashTable *clusters_hash = NULL;
     int i = 0;
 
-    ZEND_PARSE_PARAMETERS_START(3, 3)
+    ZEND_PARSE_PARAMETERS_START(4, 4)
         Z_PARAM_STRING(utf8Str, utf8Str_len)
         Z_PARAM_ARRAY(php_glyphs)
         Z_PARAM_ARRAY(php_clusters)
+        Z_PARAM_LONG(cluster_flags)
     ZEND_PARSE_PARAMETERS_END();
 
     context_object = cairo_context_object_get(getThis());
@@ -2431,9 +2433,10 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     }
     ZEND_HASH_FOREACH_END();
 
-    cairo_show_text_glyphs(context_object->context, utf8Str, utf8Str_len, glyphs_array, num_glyphs, clusters_array, num_clusters, 0);
+    cairo_show_text_glyphs(context_object->context, utf8Str, utf8Str_len, glyphs_array, num_glyphs, clusters_array, num_clusters, (cairo_text_cluster_flags_t) cluster_flags);
     efree(glyphs_array);
     efree(clusters_array);
+
     if (php_cairo_throw_exception(cairo_status(context_object->context))) {
         RETURN_THROWS();
     }
