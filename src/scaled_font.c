@@ -38,7 +38,7 @@ static inline cairo_scaled_font_object *cairo_scaled_font_object_get(zval *zv)
     cairo_scaled_font_object *object = Z_CAIRO_SCALED_FONT_P(zv);
     if (object->scaled_font == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal scaled_font object missing in %s, you must call parent::__construct in extended classes",
+            "Internal scaled_font object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }
@@ -285,7 +285,7 @@ PHP_METHOD(CairoScaledFont, getGlyphExtents)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-            zend_throw_exception(zend_ce_type_error, "Cairo\\ScaledFont::getGlyphExtents(): Argument #1 ($glyphs) must be array of type Cairo\\Glyph.", 0);
+            zend_throw_exception(zend_ce_type_error, "Cairo\\ScaledFont::getGlyphExtents(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
             efree(glyphs_array);
             RETURN_THROWS();
         }

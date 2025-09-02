@@ -34,4 +34,4 @@ try {
 --EXPECT--
 Cannot instantiate abstract class Cairo\Pattern\Gradient
 Cairo\Pattern cannot be constructed
-Internal pattern object missing in test2, you must call parent::__construct in extended classes
+Internal pattern object missing in test2, you must call parent::__construct in extended classes.

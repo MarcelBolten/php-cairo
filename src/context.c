@@ -42,7 +42,7 @@ cairo_context_object *cairo_context_object_get(zval *zv) {
 
     if (object->context == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal context object missing in %s, you must call parent::__construct in extended classes",
+            "Internal context object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }
@@ -2305,9 +2305,9 @@ PHP_METHOD(CairoContext, glyphPath)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-                zend_throw_exception(zend_ce_type_error, "Cairo\\Context::glyphPath(): Argument #1 ($glyphs) must be array of type Cairo\\Glyph.", 0);
-                efree(glyphs_array);
-                RETURN_THROWS();
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::glyphPath(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            efree(glyphs_array);
+            RETURN_THROWS();
         }
         glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
     }
@@ -2355,9 +2355,9 @@ PHP_METHOD(CairoContext, showGlyphs)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-                zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showGlyphs(): Argument #1 ($glyphs) must be array of type Cairo\\Glyph.", 0);
-                efree(glyphs_array);
-                RETURN_THROWS();
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            efree(glyphs_array);
+            RETURN_THROWS();
         }
         glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
     }
@@ -2418,9 +2418,9 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-                zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #1 ($glyphs) must be array of type Cairo\\Glyph.", 0);
-                efree(glyphs_array);
-                RETURN_THROWS();
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            efree(glyphs_array);
+            RETURN_THROWS();
         }
         glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
     }
@@ -2432,12 +2432,13 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     num_clusters = zend_hash_num_elements(clusters_hash);
     clusters_array = ecalloc(num_clusters, sizeof(cairo_text_cluster_t));
 
-    /* iterate over the array, each value inside MUST be an instance of CairoCluster */
+    /* iterate over the array, each value inside MUST be an instance of Cairo\\TextCluster */
     ZEND_HASH_FOREACH_VAL(clusters_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_text_cluster) {
-                zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($clusters) must be array of type Cairo\\TextCluster.", 0);
-                efree(clusters_array);
-                RETURN_THROWS();
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($clusters) must be an array of Cairo\\TextCluster objects.", 0);
+            efree(glyphs_array);
+            efree(clusters_array);
+            RETURN_THROWS();
         }
         clusters_array[i++] = *(cairo_text_cluster_object_get_text_cluster(pzval));
     }

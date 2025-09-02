@@ -8,16 +8,10 @@ if (!extension_loaded('cairo')) {
 --FILE--
 <?php
 
-class test extends Cairo\Surface {
-
-}
+class test extends Cairo\Surface {}
 
 class test2 extends Cairo\Surface {
-
-    public function __construct() {
-
-    }
-
+    public function __construct() {}
 }
 
 try {
@@ -37,4 +31,4 @@ try {
 }
 --EXPECTF--
 Cairo\Surface cannot be constructed
-Internal surface object missing in test2, you must call parent::__construct in extended classes
+Internal surface object missing in test2, you must call parent::__construct in extended classes.

@@ -47,7 +47,7 @@ static inline cairo_font_options_object *cairo_font_options_object_get(zval *zv)
     cairo_font_options_object *object = Z_CAIRO_FONT_OPTIONS_P(zv);
     if (object->font_options == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal font options object missing in %s, you must call parent::__construct in extended classes",
+            "Internal font options object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

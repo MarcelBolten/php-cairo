@@ -56,7 +56,7 @@ static inline cairo_pattern_object *cairo_pattern_object_get(zval *zv)
     cairo_pattern_object *object = Z_CAIRO_PATTERN_P(zv);
     if (object->pattern == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal pattern object missing in %s, you must call parent::__construct in extended classes",
+            "Internal pattern object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

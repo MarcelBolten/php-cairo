@@ -31,8 +31,7 @@ try {
 
 /* Wrong arg-types */
 try {
-    $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 10, 10);
-    new Cairo\Region([$surface]);
+    new Cairo\Region('surface');
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -44,5 +43,5 @@ object(Cairo\Region)#%d (0) {
 object(Cairo\Region)#%d (0) {
 }
 Cairo\Region::__construct() expects at most 1 argument, 2 given
-Cairo\Region::__construct(): Argument #1 ($rectangle) must be empty, object or array of type Cairo\Rectangle.
-Cairo\Region::__construct(): Argument #1 ($rectangle) must be empty, object or array of type Cairo\Rectangle.
+Cairo\Region::__construct(): Argument #1 ($rectangle) must be empty, a Cairo\Rectangle object, or an array of Cairo\Rectangle objects.
+Cairo\Region::__construct(): Argument #1 ($rectangle) must be empty, a Cairo\Rectangle object, or an array of Cairo\Rectangle objects.

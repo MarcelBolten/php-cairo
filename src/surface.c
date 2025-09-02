@@ -41,7 +41,7 @@ cairo_surface_object *cairo_surface_object_get(zval *zv)
 
     if (object->surface == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal surface object missing in %s, you must call parent::__construct in extended classes",
+            "Internal surface object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

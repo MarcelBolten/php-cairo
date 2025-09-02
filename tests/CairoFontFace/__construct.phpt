@@ -14,15 +14,15 @@ try {
     $fontFace = new test();
     echo 'Attempting to use constructor should throw an exception';
 } catch (Cairo\Exception $e) {
-    echo $e->getMessage();
+    echo $e->getMessage() . PHP_EOL;
 }
-echo "\n";
+
 try {
     $fontFace = new test2();
     $fontFace->getType();
 } catch (Cairo\Exception $e) {
-    echo $e->getMessage();
+    echo $e->getMessage() . PHP_EOL;
 }
 --EXPECTF--
 Cairo\FontFace cannot be constructed
-Internal font face object missing in test2, you must call parent::__construct in extended classes
+Internal font face object missing in test2, you must call parent::__construct in extended classes.

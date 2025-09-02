@@ -40,7 +40,7 @@ cairo_font_face_object *cairo_font_face_object_get(zval *zv)
 
     if (object->font_face == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal font face object missing in %s, you must call parent::__construct in extended classes",
+            "Internal font face object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

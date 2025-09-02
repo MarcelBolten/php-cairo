@@ -83,9 +83,9 @@ cairo_rectangle_int_t *cairo_rectangle_object_get_rect(zval *zv)
 {
     cairo_rectangle_object *rect_object = Z_CAIRO_RECTANGLE_P(zv);
 
-        if (rect_object->rect == NULL) {
+    if (rect_object->rect == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal rectangle object missing in %s, you must call parent::__construct in extended classes",
+            "Internal rectangle object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

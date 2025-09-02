@@ -21,4 +21,4 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECT--
-Internal pattern object missing in Bad, you must call parent::__construct in extended classes
+Internal pattern object missing in Bad, you must call parent::__construct in extended classes.

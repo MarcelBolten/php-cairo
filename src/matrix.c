@@ -61,7 +61,7 @@ cairo_matrix_object *cairo_matrix_object_get(zval *zv)
 
     if (object->matrix == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal matrix object missing in %s, you must call parent::__construct in extended classes",
+            "Internal matrix object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }

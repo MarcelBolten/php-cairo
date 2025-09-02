@@ -46,7 +46,7 @@ cairo_region_object *cairo_region_object_get(zval *zv)
     cairo_region_object *object = Z_CAIRO_REGION_P(zv);
     if (object->region == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal region object missing in %s, you must call parent::__construct in extended classes",
+            "Internal region object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }
@@ -162,7 +162,7 @@ PHP_METHOD(CairoRegion, __construct)
         /* iterate over the array*/
         ZEND_HASH_FOREACH_VAL(rectangles_hash, pzval) {
             if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_rectangle) {
-                zend_throw_exception(zend_ce_type_error, "Cairo\\Region::__construct(): Argument #1 ($rectangle) must be empty, object or array of type Cairo\\Rectangle.", 0);
+                zend_throw_exception(zend_ce_type_error, "Cairo\\Region::__construct(): Argument #1 ($rectangle) must be empty, a Cairo\\Rectangle object, or an array of Cairo\\Rectangle objects.", 0);
                 efree(rectangles_array);
                 RETURN_THROWS();
             }
@@ -173,7 +173,7 @@ PHP_METHOD(CairoRegion, __construct)
         efree(rectangles_array);
 
     } else {
-        zend_throw_exception(zend_ce_type_error, "Cairo\\Region::__construct(): Argument #1 ($rectangle) must be empty, object or array of type Cairo\\Rectangle.", 0);
+        zend_throw_exception(zend_ce_type_error, "Cairo\\Region::__construct(): Argument #1 ($rectangle) must be empty, a Cairo\\Rectangle object, or an array of Cairo\\Rectangle objects.", 0);
         RETURN_THROWS();
     }
 

@@ -39,7 +39,7 @@ static inline cairo_path_object *cairo_path_object_get(zval *zv)
     cairo_path_object *object = Z_CAIRO_PATH_P(zv);
     if (object->path == NULL) {
         zend_throw_exception_ex(ce_cairo_exception, 0,
-            "Internal path object missing in %s, you must call parent::__construct in extended classes",
+            "Internal path object missing in %s, you must call parent::__construct in extended classes.",
             ZSTR_VAL(Z_OBJCE_P(zv)->name));
         return NULL;
     }
