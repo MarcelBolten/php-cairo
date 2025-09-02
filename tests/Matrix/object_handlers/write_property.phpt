@@ -23,7 +23,16 @@ var_dump($matrix->yx);
 var_dump($matrix->yy);
 var_dump($matrix->y0);
 
-$matrix->banana = 'fruit';
+try {
+    $matrix->banana = 'fruit';
+}
+catch (ErrorException $e) {
+        if ($e->getSeverity() === E_DEPRECATED) {
+            // ignore: Deprecated: Creation of dynamic property Cairo\Matrix::$banana is deprecated
+        } else {
+            throw $e;
+        }
+}
 var_dump($matrix->banana);
 --EXPECT--
 float(1)
@@ -32,6 +41,4 @@ float(3)
 float(4)
 float(5)
 float(6)
-
-Deprecated: Creation of dynamic property Cairo\Matrix::$banana is deprecated in /src/php-cairo/tests/Matrix/object_handlers/write_property.php on line 20
 string(5) "fruit"

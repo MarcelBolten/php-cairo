@@ -14,13 +14,20 @@ var_dump($rect->y);
 var_dump($rect->width);
 var_dump($rect->height);
 
-$rect->banana = 'fruit';
+try {
+    $rect->banana = 'fruit';
+}
+catch (ErrorException $e) {
+        if ($e->getSeverity() === E_DEPRECATED) {
+            // ignore: Deprecated: Creation of dynamic property Cairo\Rectangle::$banana is deprecated
+        } else {
+            throw $e;
+        }
+}
 var_dump($rect->banana);
 --EXPECT--
 int(1)
 int(2)
 int(3)
 int(4)
-
-Deprecated: Creation of dynamic property Cairo\Rectangle::$banana is deprecated in /src/php-cairo/tests/Rectangle/object_handlers/read_property.php on line 11
 string(5) "fruit"
