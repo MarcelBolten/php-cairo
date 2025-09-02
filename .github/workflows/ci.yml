@@ -39,7 +39,7 @@ jobs:
                 phpize
                 ./configure --enable-debug --with-php-config=$(which php-config)
                 make -j$(nproc)
-                make -j$(nproc) install
+                sudo make -j$(nproc) install
               env:
                 CFLAGS: "-ggdb3"
                 CAIRO_COVERAGE: yes
@@ -77,7 +77,7 @@ jobs:
                 phpize
                 ./configure --enable-debug --with-php-config=$(which php-config)
                 make -j$(nproc)
-                make -j$(nproc) install
+                sudo make -j$(nproc) install
               env:
                 CFLAGS: "-ggdb3"
                 CAIRO_COVERAGE: yes
