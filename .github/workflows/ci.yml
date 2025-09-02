@@ -1,0 +1,92 @@
+name: Build and Test
+
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    Build_and_Test:
+        strategy:
+            matrix:
+                php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
+                os: [ubuntu-latest]
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: Install system dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y --no-install-recommends \
+                build-essential autoconf libtool bison re2c pkg-config \
+                libssl-dev libxml2-dev libcairo2-dev \
+                libjpeg-turbo8-dev valgrind lcov wget ca-certificates gzip
+
+            - name: "Set up PHP"
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  ini-values: extension=cairo.so
+              env:
+                debug: true
+
+            - name: "Checkout"
+              uses: actions/checkout@v5
+
+            - name: "Build Cairo"
+              run: |
+                phpize
+                ./configure --enable-debug --with-php-config=$(which php-config)
+                make -j$(nproc)
+                make -j$(nproc) install
+              env:
+                CFLAGS: "-ggdb3"
+                CAIRO_COVERAGE: yes
+
+            - name: "Run Tests"
+              run: php ./run-tests.php -j$(nproc) -q
+
+            - name: "Create Coverage report"
+              run: ./coverage.sh
+
+    Coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Install system dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y --no-install-recommends \
+                build-essential autoconf libtool bison re2c pkg-config \
+                libssl-dev libxml2-dev libcairo2-dev \
+                libjpeg-turbo8-dev valgrind lcov wget ca-certificates gzip
+
+            - name: "Set up PHP"
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.4
+                  ini-values: extension=cairo.so
+              env:
+                debug: true
+
+            - name: "Checkout"
+              uses: actions/checkout@v5
+
+            - name: "Build Cairo"
+              run: |
+                phpize
+                ./configure --enable-debug --with-php-config=$(which php-config)
+                make -j$(nproc)
+                make -j$(nproc) install
+              env:
+                CFLAGS: "-ggdb3"
+                CAIRO_COVERAGE: yes
+
+            - name: "Create Coverage report"
+              run: ./coverage.sh
+
+            - name: "Upload coverage report artifacts"
+              uses: actions/upload-artifact@v4
+              with:
+                name: cairo-build-8.4
+                path: coverage_html
