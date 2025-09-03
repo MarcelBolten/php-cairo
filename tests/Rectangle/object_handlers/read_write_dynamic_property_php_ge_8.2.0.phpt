@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Matrix read_property handler - Deprecation Warning (PHP >= 8.2)
+Cairo\Rectangle read_property handler - Deprecation Warning (PHP >= 8.2)
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
@@ -8,14 +8,14 @@ if (version_compare(PHP_VERSION, '8.2.0', '<')) {
 }
 --FILE--
 <?php
-use Cairo\Matrix;
+use Cairo\Rectangle;
 
-$matrix = new Matrix(1, 2, 3, 4, 5, 6);
+$rect = new Rectangle(1, 2, 3, 4, 5, 6);
 
 // Test dynamic property access (should show deprecation warning in PHP >= 8.2)
-$matrix->customProperty = 'test';
-var_dump($matrix->customProperty);
+$rect->customProperty = 'test';
+var_dump($rect->customProperty);
 --EXPECTF--
 
-Deprecated: Creation of dynamic property Cairo\Matrix::$customProperty is deprecated in %s on line %d
+Deprecated: Creation of dynamic property Cairo\Rectangle::$customProperty is deprecated in %s on line %d
 string(4) "test"
