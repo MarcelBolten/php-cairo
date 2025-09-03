@@ -767,7 +767,12 @@ PHP_METHOD(CairoSurface, writeToJpeg)
     closure->stream = stream;
     closure->owned_stream = owned_stream;
 
-    status = cairo_image_surface_write_to_jpeg_stream(surface_object->surface, php_cairo_write_func, (void *)closure, quality);
+    status = cairo_image_surface_write_to_jpeg_stream(
+        surface_object->surface,
+        php_cairo_write_func,
+        (void *)closure,
+        quality
+    );
     if (owned_stream) {
         php_stream_close(stream);
     }
