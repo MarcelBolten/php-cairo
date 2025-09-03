@@ -1,0 +1,1 @@
+genhtml coverage.info --output-directory coverage_html --title 'PHP Cairo Extension Coverage' --show-details --ignore-errors source --quiet --show-details --num-spaces 4 -j 4
