@@ -65,6 +65,8 @@ in your php.ini file.
 Codec overage reports
 =====================
 
+A [coverage report](https://marcelbolten.github.io/php-cairo/src/) is uploaded to gh-pages during every [Build and Test](https://github.com/MarcelBolten/php-cairo/actions/workflows/ci.yml) workflow.
+
 Requirements: lcov, gzip.
 
 To obtain a code coverage report the extension must be compiled with additional flags:
@@ -76,7 +78,7 @@ make && make install
 coverage.sh
 ```
 
-This will run the all tests and create an html report.
+This will run all tests and create an html report.
 
 Examples
 ====
