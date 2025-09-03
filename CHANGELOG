@@ -11,6 +11,7 @@
     * add tests for Pattern\Mesh methods
     * add Context->inClip test
     * add test for FontFace clone handler
+    * use stubs to create arginfos
 
 2022-06-20  Swen Zanon  <swen.zanon@geoglis.de>
     * added new class Cairo\Glyph
