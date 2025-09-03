@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -393,25 +393,25 @@
 <span id="L331"><span class="lineNum">     331</span>              : /* }}} */</span>
 <span id="L332"><span class="lineNum">     332</span>              : </span>
 <span id="L333"><span class="lineNum">     333</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_ps_surface)</span></span>
+<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_ps_surface)</span></span>
 <span id="L335"><span class="lineNum">     335</span>              : {</span>
 <span id="L336"><span class="lineNum">     336</span>              :     zend_class_entry pssurface_ce;</span>
 <span id="L337"><span class="lineNum">     337</span>              : </span>
-<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(pssurface_ce,</span></span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(pssurface_ce,</span></span>
 <span id="L339"><span class="lineNum">     339</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Surface&quot;), &quot;Ps&quot;,</span>
 <span id="L340"><span class="lineNum">     340</span>              :         cairo_ps_surface_methods);</span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">         423 :     ce_cairo_pssurface = zend_register_internal_class_ex(&amp;pssurface_ce, ce_cairo_surface);</span></span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">         422 :     ce_cairo_pssurface = zend_register_internal_class_ex(&amp;pssurface_ce, ce_cairo_surface);</span></span>
 <span id="L342"><span class="lineNum">     342</span>              : </span>
 <span id="L343"><span class="lineNum">     343</span>              :     /* Ps Level */</span>
-<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Ps&quot;, &quot;Level&quot;)), ce_cairo_pslevel);</span></span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Ps&quot;, &quot;Level&quot;)), ce_cairo_pslevel);</span></span>
 <span id="L345"><span class="lineNum">     345</span>              : </span>
 <span id="L346"><span class="lineNum">     346</span>              : #define CAIRO_PSLEVEL_DECLARE_ENUM_CASE(name) \</span>
 <span id="L347"><span class="lineNum">     347</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pslevel, CAIRO_PS)</span>
 <span id="L348"><span class="lineNum">     348</span>              : </span>
-<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">         423 :     CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_2);</span></span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">         423 :     CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_3);</span></span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">         422 :     CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_2);</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">         422 :     CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_3);</span></span>
 <span id="L351"><span class="lineNum">     351</span>              : </span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
 <span id="L353"><span class="lineNum">     353</span>              : }</span>
 <span id="L354"><span class="lineNum">     354</span>              : </span>
 <span id="L355"><span class="lineNum">     355</span>              : #endif</span>

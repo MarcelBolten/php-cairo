@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -222,35 +222,35 @@
 <span id="L160"><span class="lineNum">     160</span>              : /* }}} */</span>
 <span id="L161"><span class="lineNum">     161</span>              : </span>
 <span id="L162"><span class="lineNum">     162</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_font)</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_font)</span></span>
 <span id="L164"><span class="lineNum">     164</span>              : {</span>
 <span id="L165"><span class="lineNum">     165</span>              :     zend_class_entry toyfont_ce;</span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(toyfont_ce,</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(toyfont_ce,</span></span>
 <span id="L168"><span class="lineNum">     168</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;FontFace&quot;), &quot;Toy&quot;,</span>
 <span id="L169"><span class="lineNum">     169</span>              :         cairo_toy_font_face_methods);</span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         423 :     ce_cairo_toyfontface = zend_register_internal_class_ex(&amp;toyfont_ce, ce_cairo_fontface);</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         423 :     ce_cairo_toyfontface-&gt;create_object = cairo_font_face_create_object;</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         422 :     ce_cairo_toyfontface = zend_register_internal_class_ex(&amp;toyfont_ce, ce_cairo_fontface);</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         422 :     ce_cairo_toyfontface-&gt;create_object = cairo_font_face_create_object;</span></span>
 <span id="L172"><span class="lineNum">     172</span>              : </span>
 <span id="L173"><span class="lineNum">     173</span>              :     /* FontSlant */</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontSlant&quot;, ce_cairo_fontslant);</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontSlant&quot;, ce_cairo_fontslant);</span></span>
 <span id="L175"><span class="lineNum">     175</span>              : </span>
 <span id="L176"><span class="lineNum">     176</span>              : #define CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(name) \</span>
 <span id="L177"><span class="lineNum">     177</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontslant, CAIRO_FONT_SLANT)</span>
 <span id="L178"><span class="lineNum">     178</span>              : </span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         423 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(NORMAL);</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         423 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(ITALIC);</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         423 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(OBLIQUE);</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         422 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(NORMAL);</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         422 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(ITALIC);</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         422 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(OBLIQUE);</span></span>
 <span id="L182"><span class="lineNum">     182</span>              : </span>
 <span id="L183"><span class="lineNum">     183</span>              :     /* FontWeight */</span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontWeight&quot;, ce_cairo_fontweight);</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontWeight&quot;, ce_cairo_fontweight);</span></span>
 <span id="L185"><span class="lineNum">     185</span>              : </span>
 <span id="L186"><span class="lineNum">     186</span>              : #define CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(name) \</span>
 <span id="L187"><span class="lineNum">     187</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontweight, CAIRO_FONT_WEIGHT)</span>
 <span id="L188"><span class="lineNum">     188</span>              : </span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         423 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(NORMAL);</span></span>
-<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         423 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(BOLD);</span></span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         423 : }</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         422 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(NORMAL);</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         422 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(BOLD);</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         422 : }</span></span>
 <span id="L192"><span class="lineNum">     192</span>              : /* }}} */</span>
         </pre>
               </td>

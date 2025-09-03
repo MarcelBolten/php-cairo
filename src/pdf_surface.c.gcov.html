@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -433,64 +433,64 @@
 <span id="L371"><span class="lineNum">     371</span>              : /* }}} */</span>
 <span id="L372"><span class="lineNum">     372</span>              : </span>
 <span id="L373"><span class="lineNum">     373</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC tlaBgGNC">         423 : PHP_MINIT_FUNCTION(cairo_pdf_surface)</span></span>
+<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC tlaBgGNC">         422 : PHP_MINIT_FUNCTION(cairo_pdf_surface)</span></span>
 <span id="L375"><span class="lineNum">     375</span>              : {</span>
 <span id="L376"><span class="lineNum">     376</span>              :     zend_class_entry pdf_ce;</span>
 <span id="L377"><span class="lineNum">     377</span>              : </span>
-<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(pdf_ce,</span></span>
+<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(pdf_ce,</span></span>
 <span id="L379"><span class="lineNum">     379</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Surface&quot;), &quot;Pdf&quot;,</span>
 <span id="L380"><span class="lineNum">     380</span>              :         cairo_pdf_surface_methods);</span>
-<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">         423 :     ce_cairo_pdfsurface = zend_register_internal_class_ex(&amp;pdf_ce, ce_cairo_surface);</span></span>
-<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">         423 :     ce_cairo_pdfsurface-&gt;create_object = cairo_surface_create_object;</span></span>
+<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">         422 :     ce_cairo_pdfsurface = zend_register_internal_class_ex(&amp;pdf_ce, ce_cairo_surface);</span></span>
+<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">         422 :     ce_cairo_pdfsurface-&gt;create_object = cairo_surface_create_object;</span></span>
 <span id="L383"><span class="lineNum">     383</span>              : </span>
 <span id="L384"><span class="lineNum">     384</span>              :     /* PDF-Versions */</span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;Version&quot;)), ce_cairo_pdfversion);</span></span>
+<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;Version&quot;)), ce_cairo_pdfversion);</span></span>
 <span id="L386"><span class="lineNum">     386</span>              : </span>
 <span id="L387"><span class="lineNum">     387</span>              : #define CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(name) \</span>
 <span id="L388"><span class="lineNum">     388</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdfversion, CAIRO_PDF)</span>
 <span id="L389"><span class="lineNum">     389</span>              : </span>
-<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">         423 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_4);</span></span>
-<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">         423 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_5);</span></span>
+<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">         422 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_4);</span></span>
+<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">         422 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_5);</span></span>
 <span id="L392"><span class="lineNum">     392</span>              : </span>
 <span id="L393"><span class="lineNum">     393</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 18, 0)</span>
-<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC">         423 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_6);</span></span>
-<span id="L395"><span class="lineNum">     395</span> <span class="tlaGNC">         423 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_7);</span></span>
+<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC">         422 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_6);</span></span>
+<span id="L395"><span class="lineNum">     395</span> <span class="tlaGNC">         422 :     CAIRO_PDF_VERSIONS_DECLARE_ENUM_CASE(VERSION_1_7);</span></span>
 <span id="L396"><span class="lineNum">     396</span>              : #endif</span>
 <span id="L397"><span class="lineNum">     397</span>              : </span>
 <span id="L398"><span class="lineNum">     398</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 16, 0)</span>
 <span id="L399"><span class="lineNum">     399</span>              :     /* Outline: OUTLINE_ROOT as a constant of the Pdf class */</span>
-<span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">         423 :     zend_declare_class_constant_long(</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">         422 :     zend_declare_class_constant_long(</span></span>
 <span id="L401"><span class="lineNum">     401</span>              :         ce_cairo_pdfsurface,</span>
 <span id="L402"><span class="lineNum">     402</span>              :         &quot;OUTLINE_ROOT&quot;, sizeof(&quot;OUTLINE_ROOT&quot;)-1,</span>
 <span id="L403"><span class="lineNum">     403</span>              :         CAIRO_PDF_OUTLINE_ROOT</span>
 <span id="L404"><span class="lineNum">     404</span>              :     );</span>
 <span id="L405"><span class="lineNum">     405</span>              : </span>
 <span id="L406"><span class="lineNum">     406</span>              :     /* Outline-Flags */</span>
-<span id="L407"><span class="lineNum">     407</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;OutlineFlags&quot;)), ce_cairo_pdf_outlineflag);</span></span>
+<span id="L407"><span class="lineNum">     407</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;OutlineFlags&quot;)), ce_cairo_pdf_outlineflag);</span></span>
 <span id="L408"><span class="lineNum">     408</span>              : </span>
 <span id="L409"><span class="lineNum">     409</span>              : #define CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(name) \</span>
 <span id="L410"><span class="lineNum">     410</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_outlineflag, CAIRO_PDF_OUTLINE_FLAG)</span>
 <span id="L411"><span class="lineNum">     411</span>              : </span>
-<span id="L412"><span class="lineNum">     412</span> <span class="tlaGNC">         423 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(OPEN);</span></span>
-<span id="L413"><span class="lineNum">     413</span> <span class="tlaGNC">         423 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(BOLD);</span></span>
-<span id="L414"><span class="lineNum">     414</span> <span class="tlaGNC">         423 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(ITALIC);</span></span>
+<span id="L412"><span class="lineNum">     412</span> <span class="tlaGNC">         422 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(OPEN);</span></span>
+<span id="L413"><span class="lineNum">     413</span> <span class="tlaGNC">         422 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(BOLD);</span></span>
+<span id="L414"><span class="lineNum">     414</span> <span class="tlaGNC">         422 :     CAIRO_PDF_OUTLINEFLAGS_DECLARE_ENUM_CASE(ITALIC);</span></span>
 <span id="L415"><span class="lineNum">     415</span>              : </span>
 <span id="L416"><span class="lineNum">     416</span>              :     /* Metadata */</span>
-<span id="L417"><span class="lineNum">     417</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;Metadata&quot;)), ce_cairo_pdf_metadata);</span></span>
+<span id="L417"><span class="lineNum">     417</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Pdf&quot;, &quot;Metadata&quot;)), ce_cairo_pdf_metadata);</span></span>
 <span id="L418"><span class="lineNum">     418</span>              : </span>
 <span id="L419"><span class="lineNum">     419</span>              : #define CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(name) \</span>
 <span id="L420"><span class="lineNum">     420</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pdf_metadata, CAIRO_PDF_METADATA)</span>
 <span id="L421"><span class="lineNum">     421</span>              : </span>
-<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(TITLE);</span></span>
-<span id="L423"><span class="lineNum">     423</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(AUTHOR);</span></span>
-<span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(SUBJECT);</span></span>
-<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(KEYWORDS);</span></span>
-<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATOR);</span></span>
-<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATE_DATE);</span></span>
-<span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">         423 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(MOD_DATE);</span></span>
+<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(TITLE);</span></span>
+<span id="L423"><span class="lineNum">     423</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(AUTHOR);</span></span>
+<span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(SUBJECT);</span></span>
+<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(KEYWORDS);</span></span>
+<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATOR);</span></span>
+<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(CREATE_DATE);</span></span>
+<span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">         422 :     CAIRO_PDF_METADATA_DECLARE_ENUM_CASE(MOD_DATE);</span></span>
 <span id="L429"><span class="lineNum">     429</span>              : #endif</span>
 <span id="L430"><span class="lineNum">     430</span>              : </span>
-<span id="L431"><span class="lineNum">     431</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L431"><span class="lineNum">     431</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
 <span id="L432"><span class="lineNum">     432</span>              : }</span>
 <span id="L433"><span class="lineNum">     433</span>              : </span>
 <span id="L434"><span class="lineNum">     434</span>              : #endif</span>

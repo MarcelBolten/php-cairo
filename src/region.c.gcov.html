@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -805,36 +805,36 @@
 <span id="L743"><span class="lineNum">     743</span>              : /* }}} */</span>
 <span id="L744"><span class="lineNum">     744</span>              : </span>
 <span id="L745"><span class="lineNum">     745</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L746"><span class="lineNum">     746</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_region)</span></span>
+<span id="L746"><span class="lineNum">     746</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_region)</span></span>
 <span id="L747"><span class="lineNum">     747</span>              : {</span>
 <span id="L748"><span class="lineNum">     748</span>              :     zend_class_entry region_ce;</span>
 <span id="L749"><span class="lineNum">     749</span>              : </span>
-<span id="L750"><span class="lineNum">     750</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
+<span id="L750"><span class="lineNum">     750</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
 <span id="L751"><span class="lineNum">     751</span>              :         &amp;cairo_region_object_handlers,</span>
 <span id="L752"><span class="lineNum">     752</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L753"><span class="lineNum">     753</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L754"><span class="lineNum">     754</span>              :     );</span>
 <span id="L755"><span class="lineNum">     755</span>              : </span>
-<span id="L756"><span class="lineNum">     756</span> <span class="tlaGNC">         423 :     cairo_region_object_handlers.offset = XtOffsetOf(cairo_region_object, std);</span></span>
-<span id="L757"><span class="lineNum">     757</span> <span class="tlaGNC">         423 :     cairo_region_object_handlers.free_obj = cairo_region_free_obj;</span></span>
-<span id="L758"><span class="lineNum">     758</span> <span class="tlaGNC">         423 :     cairo_region_object_handlers.clone_obj = cairo_region_clone_obj;</span></span>
+<span id="L756"><span class="lineNum">     756</span> <span class="tlaGNC">         422 :     cairo_region_object_handlers.offset = XtOffsetOf(cairo_region_object, std);</span></span>
+<span id="L757"><span class="lineNum">     757</span> <span class="tlaGNC">         422 :     cairo_region_object_handlers.free_obj = cairo_region_free_obj;</span></span>
+<span id="L758"><span class="lineNum">     758</span> <span class="tlaGNC">         422 :     cairo_region_object_handlers.clone_obj = cairo_region_clone_obj;</span></span>
 <span id="L759"><span class="lineNum">     759</span>              : </span>
-<span id="L760"><span class="lineNum">     760</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(region_ce, CAIRO_NAMESPACE, &quot;Region&quot;, cairo_region_methods);</span></span>
-<span id="L761"><span class="lineNum">     761</span> <span class="tlaGNC">         423 :     region_ce.create_object = cairo_region_create_object;</span></span>
-<span id="L762"><span class="lineNum">     762</span> <span class="tlaGNC">         423 :     ce_cairo_region = zend_register_internal_class(&amp;region_ce);</span></span>
+<span id="L760"><span class="lineNum">     760</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(region_ce, CAIRO_NAMESPACE, &quot;Region&quot;, cairo_region_methods);</span></span>
+<span id="L761"><span class="lineNum">     761</span> <span class="tlaGNC">         422 :     region_ce.create_object = cairo_region_create_object;</span></span>
+<span id="L762"><span class="lineNum">     762</span> <span class="tlaGNC">         422 :     ce_cairo_region = zend_register_internal_class(&amp;region_ce);</span></span>
 <span id="L763"><span class="lineNum">     763</span>              : </span>
 <span id="L764"><span class="lineNum">     764</span>              : </span>
 <span id="L765"><span class="lineNum">     765</span>              :     /* Region\Overlap */</span>
-<span id="L766"><span class="lineNum">     766</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Region&quot;, &quot;Overlap&quot;), ce_cairo_region_overlap);</span></span>
+<span id="L766"><span class="lineNum">     766</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Region&quot;, &quot;Overlap&quot;), ce_cairo_region_overlap);</span></span>
 <span id="L767"><span class="lineNum">     767</span>              : </span>
 <span id="L768"><span class="lineNum">     768</span>              : #define CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(name) \</span>
 <span id="L769"><span class="lineNum">     769</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_region_overlap, CAIRO_REGION_OVERLAP)</span>
 <span id="L770"><span class="lineNum">     770</span>              : </span>
-<span id="L771"><span class="lineNum">     771</span> <span class="tlaGNC">         423 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(IN);</span></span>
-<span id="L772"><span class="lineNum">     772</span> <span class="tlaGNC">         423 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(OUT);</span></span>
-<span id="L773"><span class="lineNum">     773</span> <span class="tlaGNC">         423 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(PART);</span></span>
+<span id="L771"><span class="lineNum">     771</span> <span class="tlaGNC">         422 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(IN);</span></span>
+<span id="L772"><span class="lineNum">     772</span> <span class="tlaGNC">         422 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(OUT);</span></span>
+<span id="L773"><span class="lineNum">     773</span> <span class="tlaGNC">         422 :     CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(PART);</span></span>
 <span id="L774"><span class="lineNum">     774</span>              : </span>
-<span id="L775"><span class="lineNum">     775</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L775"><span class="lineNum">     775</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
 <span id="L776"><span class="lineNum">     776</span>              : }</span>
         </pre>
               </td>

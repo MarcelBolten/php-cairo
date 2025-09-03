@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -284,42 +284,42 @@
 <span id="L222"><span class="lineNum">     222</span>              : /* }}} */</span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_font_face)</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_font_face)</span></span>
 <span id="L226"><span class="lineNum">     226</span>              : {</span>
 <span id="L227"><span class="lineNum">     227</span>              :     zend_class_entry fontface_ce;</span>
 <span id="L228"><span class="lineNum">     228</span>              : </span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
 <span id="L230"><span class="lineNum">     230</span>              :         &amp;cairo_font_face_object_handlers,</span>
 <span id="L231"><span class="lineNum">     231</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L232"><span class="lineNum">     232</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L233"><span class="lineNum">     233</span>              :     );</span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              :     /* FontFace */</span>
-<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">         423 :     cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);</span></span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         423 :     cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">         423 :     cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;</span></span>
+<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">         422 :     cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         422 :     cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">         422 :     cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;</span></span>
 <span id="L239"><span class="lineNum">     239</span>              : </span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(fontface_ce, CAIRO_NAMESPACE, &quot;FontFace&quot;, cairo_font_face_methods);</span></span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">         423 :     ce_cairo_fontface = zend_register_internal_class(&amp;fontface_ce);</span></span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">         423 :     ce_cairo_fontface-&gt;create_object = cairo_font_face_create_object;</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">         423 :     ce_cairo_fontface-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(fontface_ce, CAIRO_NAMESPACE, &quot;FontFace&quot;, cairo_font_face_methods);</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">         422 :     ce_cairo_fontface = zend_register_internal_class(&amp;fontface_ce);</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">         422 :     ce_cairo_fontface-&gt;create_object = cairo_font_face_create_object;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">         422 :     ce_cairo_fontface-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
 <span id="L244"><span class="lineNum">     244</span>              : </span>
 <span id="L245"><span class="lineNum">     245</span>              :     /* FontType */</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">         423 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontType&quot;, ce_cairo_fonttype);</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontType&quot;, ce_cairo_fonttype);</span></span>
 <span id="L247"><span class="lineNum">     247</span>              : </span>
 <span id="L248"><span class="lineNum">     248</span>              : #define CAIRO_FONTTYPE_DECLARE_ENUM_CASE(name) \</span>
 <span id="L249"><span class="lineNum">     249</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fonttype, CAIRO_FONT_TYPE)</span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(TOY);</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(FT);</span></span>
-<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(WIN32);</span></span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(QUARTZ);</span></span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(USER);</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(TOY);</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(FT);</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(WIN32);</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(QUARTZ);</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(USER);</span></span>
 <span id="L256"><span class="lineNum">     256</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 18, 0)</span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">         423 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(DWRITE);</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">         422 :     CAIRO_FONTTYPE_DECLARE_ENUM_CASE(DWRITE);</span></span>
 <span id="L258"><span class="lineNum">     258</span>              : #endif</span>
 <span id="L259"><span class="lineNum">     259</span>              : </span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
 <span id="L261"><span class="lineNum">     261</span>              : }</span>
         </pre>
               </td>

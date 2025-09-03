@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 02:27:52</td>
+            <td class="headerValue">2025-09-03 02:39:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -334,34 +334,34 @@
 <span id="L272"><span class="lineNum">     272</span>              : /* }}} */</span>
 <span id="L273"><span class="lineNum">     273</span>              : </span>
 <span id="L274"><span class="lineNum">     274</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_glyph)</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_glyph)</span></span>
 <span id="L276"><span class="lineNum">     276</span>              : {</span>
 <span id="L277"><span class="lineNum">     277</span>              :     zend_class_entry ce;</span>
 <span id="L278"><span class="lineNum">     278</span>              : </span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
 <span id="L280"><span class="lineNum">     280</span>              :         &amp;cairo_glyph_object_handlers,</span>
 <span id="L281"><span class="lineNum">     281</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L282"><span class="lineNum">     282</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L283"><span class="lineNum">     283</span>              :     );</span>
 <span id="L284"><span class="lineNum">     284</span>              : </span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;</span></span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;</span></span>
-<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;</span></span>
-<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;</span></span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;</span></span>
+<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;</span></span>
+<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;</span></span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;</span></span>
 <span id="L292"><span class="lineNum">     292</span>              : </span>
-<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, &quot;Glyph&quot;, cairo_glyph_methods);</span></span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">         423 :     ce.create_object = cairo_glyph_create_object;</span></span>
-<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">         423 :     ce_cairo_glyph = zend_register_internal_class(&amp;ce);</span></span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">         423 :     ce_cairo_glyph-&gt;ce_flags |= ZEND_ACC_FINAL;</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, &quot;Glyph&quot;, cairo_glyph_methods);</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">         422 :     ce.create_object = cairo_glyph_create_object;</span></span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">         422 :     ce_cairo_glyph = zend_register_internal_class(&amp;ce);</span></span>
+<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">         422 :     ce_cairo_glyph-&gt;ce_flags |= ZEND_ACC_FINAL;</span></span>
 <span id="L297"><span class="lineNum">     297</span>              : </span>
-<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">         423 :     zend_declare_property_long(ce_cairo_glyph, &quot;index&quot;, sizeof(&quot;index&quot;)-1, 0, ZEND_ACC_PUBLIC);</span></span>
-<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">         423 :     zend_declare_property_double(ce_cairo_glyph, &quot;x&quot;, sizeof(&quot;x&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
-<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">         423 :     zend_declare_property_double(ce_cairo_glyph, &quot;y&quot;, sizeof(&quot;y&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">         422 :     zend_declare_property_long(ce_cairo_glyph, &quot;index&quot;, sizeof(&quot;index&quot;)-1, 0, ZEND_ACC_PUBLIC);</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">         422 :     zend_declare_property_double(ce_cairo_glyph, &quot;x&quot;, sizeof(&quot;x&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">         422 :     zend_declare_property_double(ce_cairo_glyph, &quot;y&quot;, sizeof(&quot;y&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
 <span id="L301"><span class="lineNum">     301</span>              : </span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
 <span id="L303"><span class="lineNum">     303</span>              : }</span>
 <span id="L304"><span class="lineNum">     304</span>              : /* }}} */</span>
         </pre>
