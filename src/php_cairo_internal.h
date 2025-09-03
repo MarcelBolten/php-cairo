@@ -155,7 +155,7 @@ extern cairo_surface_object *cairo_surface_fetch_object(zend_object *object);
 extern zend_object* cairo_surface_create_object(zend_class_entry *ce);
 extern cairo_surface_object *cairo_surface_object_get(zval *zv);
 extern cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, unsigned int length);
-extern cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length);
+extern cairo_status_t php_cairo_read_func(void *closure, unsigned char *data, unsigned int length);
 
 /* Font + FontFace */
 typedef struct _cairo_font_face_object {

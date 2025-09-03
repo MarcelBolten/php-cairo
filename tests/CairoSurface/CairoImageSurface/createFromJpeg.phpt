@@ -12,6 +12,19 @@ var_dump($surface);
 
 echo dirname(__FILE__) . '/red.jpg' . PHP_EOL;
 $resource = fopen(dirname(__FILE__) . '/red.jpg', 'rb');
+
+echo "Stream position: " . ftell($resource) . "\n";
+echo "EOF: " . (feof($resource) ? 'true' : 'false') . "\n";
+
+$test_bytes = fread($resource, 8);
+echo "First 8 bytes: ";
+for ($i = 0; $i < strlen($test_bytes); $i++) {
+    printf("0x%02x ", ord($test_bytes[$i]));
+}
+echo "\n";
+
+
+rewind($resource);
 $surface = Cairo\Surface\Image::createFromJpeg($resource);
 var_dump($surface);
 fclose($resource);
