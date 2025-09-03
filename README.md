@@ -7,6 +7,8 @@ image buffers, PostScript, PDF, and SVG files.
 
 This extension provides access to Cairo functionality in PHP 8.1+ in the Cairo namespace.
 
+[![Build and Test](https://github.com/MarcelBolten/php-cairo/actions/workflows/ci.yml/badge.svg?branch=overhaul)](https://github.com/MarcelBolten/php-cairo/actions/workflows/ci.yml)
+
 Requirements
 =============
  * PHP 8.1.0+
