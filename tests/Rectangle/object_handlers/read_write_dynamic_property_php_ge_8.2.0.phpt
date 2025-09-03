@@ -10,7 +10,7 @@ if (version_compare(PHP_VERSION, '8.2.0', '<')) {
 <?php
 use Cairo\Rectangle;
 
-$rect = new Rectangle(1, 2, 3, 4, 5, 6);
+$rect = new Rectangle(1, 2, 3, 4);
 
 // Test dynamic property access (should show deprecation warning in PHP >= 8.2)
 $rect->customProperty = 'test';
