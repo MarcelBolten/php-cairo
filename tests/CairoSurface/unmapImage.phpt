@@ -45,6 +45,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Surface\Image)#%d (0) {
 }
-Cairo\Surface::unmapImage(): Argument #1 ($surface) must be of type Cairo\Surface, string given
+Cairo\Surface::unmapImage(): Argument #1 ($surface) must be of type Cairo\Surface\Image, string given
 Cairo\Surface::unmapImage() expects exactly 1 argument, 0 given
 Cairo\Surface::unmapImage() expects exactly 1 argument, 2 given

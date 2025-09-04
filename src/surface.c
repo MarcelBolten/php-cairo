@@ -586,7 +586,7 @@ PHP_METHOD(Cairo_Surface, unmapImage)
     zval *image_surface_zval;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(image_surface_zval, ce_cairo_surface)
+        Z_PARAM_OBJECT_OF_CLASS(image_surface_zval, ce_cairo_imagesurface)
     ZEND_PARSE_PARAMETERS_END();
 
     surface_object = cairo_surface_object_get(getThis());
