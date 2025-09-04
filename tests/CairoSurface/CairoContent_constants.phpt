@@ -8,9 +8,9 @@ if (!extension_loaded('cairo')) {
 --FILE--
 <?php
 $constants = [
-    'COLOR',
-    'ALPHA',
-    'COLOR_ALPHA',
+    'Color',
+    'Alpha',
+    'ColorAlpha',
 ];
 
 $error = false;

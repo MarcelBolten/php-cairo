@@ -19,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-enum(Cairo\Surface\Content::COLOR_ALPHA)
+enum(Cairo\Surface\Content::ColorAlpha)
 Cairo\Surface::getContent() expects exactly 0 arguments, 1 given

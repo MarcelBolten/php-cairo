@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->pushGroupWithContent(Cairo\Surface\Content::COLOR);
+$context->pushGroupWithContent(Cairo\Surface\Content::Color);
 
 /* Wrong number args - needs 1 */
 try {

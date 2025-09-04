@@ -8,20 +8,20 @@ if (!extension_loaded('cairo')) {
 --FILE--
 <?php
 $constants = [
-    'IMAGE',
+    'Image',
     'PDF',
     'PS',
-    'XLIB',
-    'XCB',
-    'GLITZ',
-    'QUARTZ',
-    'WIN32',
-    'BEOS',
-    'DIRECTFB',
+    'Xlib',
+    'Xcb',
+    'Glitz',
+    'Quartz',
+    'Win32',
+    'BeOS',
+    'DirectFB',
     'SVG',
     'OS2',
-    'WIN32_PRINTING',
-    'QUARTZ_IMAGE',
+    'Win32Printing',
+    'QuartzImage',
 ];
 
 $error = false;

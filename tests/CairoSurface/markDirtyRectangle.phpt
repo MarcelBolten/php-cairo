@@ -80,7 +80,7 @@ Cairo\Surface::markDirtyRectangle() expects exactly 4 arguments, 1 given
 Cairo\Surface::markDirtyRectangle() expects exactly 4 arguments, 2 given
 Cairo\Surface::markDirtyRectangle() expects exactly 4 arguments, 2 given
 Cairo\Surface::markDirtyRectangle() expects exactly 4 arguments, 5 given
-Cairo\Surface::markDirtyRectangle(): Argument #1 ($x) must be of type float, array given
-Cairo\Surface::markDirtyRectangle(): Argument #2 ($y) must be of type float, array given
-Cairo\Surface::markDirtyRectangle(): Argument #3 ($width) must be of type float, array given
-Cairo\Surface::markDirtyRectangle(): Argument #4 ($height) must be of type float, array given
+Cairo\Surface::markDirtyRectangle(): Argument #1 ($x) must be of type int, array given
+Cairo\Surface::markDirtyRectangle(): Argument #2 ($y) must be of type int, array given
+Cairo\Surface::markDirtyRectangle(): Argument #3 ($width) must be of type int, array given
+Cairo\Surface::markDirtyRectangle(): Argument #4 ($height) must be of type int, array given

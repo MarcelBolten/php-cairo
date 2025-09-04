@@ -8,7 +8,7 @@ if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
 var_dump($surface);
 
-$newsurface = $surface->createSimilar(Cairo\Surface\Content::COLOR, 10, 10);
+$newsurface = $surface->createSimilar(Cairo\Surface\Content::Color, 10, 10);
 var_dump($newsurface);
 
 /* Wrong number args - 1 */
@@ -20,21 +20,21 @@ try {
 
 /* Wrong number args - 2 */
 try {
-    $surface->createSimilar(Cairo\Surface\Content::COLOR);
+    $surface->createSimilar(Cairo\Surface\Content::Color);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 3 */
 try {
-    $surface->createSimilar(Cairo\Surface\Content::COLOR, 10);
+    $surface->createSimilar(Cairo\Surface\Content::Color, 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 4 */
 try {
-    $surface->createSimilar(Cairo\Surface\Content::COLOR, 10, 10, 10);
+    $surface->createSimilar(Cairo\Surface\Content::Color, 10, 10, 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -48,14 +48,14 @@ try {
 
 /* Wrong arg type 2 */
 try {
-    $surface->createSimilar(Cairo\Surface\Content::COLOR, array(), 10);
+    $surface->createSimilar(Cairo\Surface\Content::Color, array(), 10);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong arg type 3 */
 try {
-    $surface->createSimilar(Cairo\Surface\Content::COLOR, 10, array());
+    $surface->createSimilar(Cairo\Surface\Content::Color, 10, array());
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

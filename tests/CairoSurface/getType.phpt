@@ -19,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-enum(Cairo\Surface\Type::IMAGE)
+enum(Cairo\Surface\Type::Image)
 Cairo\Surface::getType() expects exactly 0 arguments, 1 given
