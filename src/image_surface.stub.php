@@ -2,8 +2,8 @@
 
 /** @generate-class-entries */
 
-namespace Cairo\Surface {
-
+namespace Cairo\Surface
+{
     class Image extends \Cairo\Surface
     {
         public function __construct(
@@ -29,12 +29,20 @@ namespace Cairo\Surface {
 
         public function getStride(): int {}
 
+#ifdef CAIRO_HAS_PNG_FUNCTIONS
         /** @param string|resource $file */
-        public function createFromPng($file): Image {}
+        public static function createFromPng(
+            $file
+        ): Image {}
+#endif
 
+#ifdef CAIRO_HAS_JPEG_FUNCTIONS
         /** @param string|resource $file */
-        public function createFromJpeg($file): Image {}
+        public static function createFromJpeg(
+            $file
+        ): Image {}
     }
+#endif
 
     enum ImageFormat: int
     {
@@ -64,6 +72,9 @@ namespace Cairo\Surface {
         case RGB96F = UNKNOWN;
 #endif
 
-        public static function strideForWidth(ImageFormat $format, int $width): int {}
+        public static function strideForWidth(
+            ImageFormat $format,
+            int $width
+        ): int {}
     }
 }

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1e40ed9b1486abf1cb121c5abc7c273623961b29 */
+ * Stub hash: 98db445d5f27bfcf39b48782438f37e65d484f20 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Image___construct, 0, 0, 3)
 	ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
@@ -27,11 +27,17 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Surface_Image_getStride arginfo_class_Cairo_Surface_Image_getWidth
 
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Surface_Image_createFromPng, 0, 1, Cairo\\Surface\\Image, 0)
 	ZEND_ARG_INFO(0, file)
 ZEND_END_ARG_INFO()
+#endif
 
-#define arginfo_class_Cairo_Surface_Image_createFromJpeg arginfo_class_Cairo_Surface_Image_createFromPng
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Surface_Image_createFromJpeg, 0, 1, Cairo\\Surface\\Image, 0)
+	ZEND_ARG_INFO(0, file)
+ZEND_END_ARG_INFO()
+#endif
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_ImageFormat_strideForWidth, 0, 2, IS_LONG, 0)
 	ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
@@ -45,10 +51,15 @@ ZEND_METHOD(Cairo_Surface_Image, getFormat);
 ZEND_METHOD(Cairo_Surface_Image, getWidth);
 ZEND_METHOD(Cairo_Surface_Image, getHeight);
 ZEND_METHOD(Cairo_Surface_Image, getStride);
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
 ZEND_METHOD(Cairo_Surface_Image, createFromPng);
+#endif
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 ZEND_METHOD(Cairo_Surface_Image, createFromJpeg);
+#endif
 ZEND_METHOD(Cairo_Surface_ImageFormat, strideForWidth);
 
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 static const zend_function_entry class_Cairo_Surface_Image_methods[] = {
 	ZEND_ME(Cairo_Surface_Image, __construct, arginfo_class_Cairo_Surface_Image___construct, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface_Image, createForData, arginfo_class_Cairo_Surface_Image_createForData, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -57,16 +68,20 @@ static const zend_function_entry class_Cairo_Surface_Image_methods[] = {
 	ZEND_ME(Cairo_Surface_Image, getWidth, arginfo_class_Cairo_Surface_Image_getWidth, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface_Image, getHeight, arginfo_class_Cairo_Surface_Image_getHeight, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface_Image, getStride, arginfo_class_Cairo_Surface_Image_getStride, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Surface_Image, createFromPng, arginfo_class_Cairo_Surface_Image_createFromPng, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Surface_Image, createFromJpeg, arginfo_class_Cairo_Surface_Image_createFromJpeg, ZEND_ACC_PUBLIC)
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
+	ZEND_ME(Cairo_Surface_Image, createFromPng, arginfo_class_Cairo_Surface_Image_createFromPng, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+#endif
+	ZEND_ME(Cairo_Surface_Image, createFromJpeg, arginfo_class_Cairo_Surface_Image_createFromJpeg, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
+#endif
 
 static const zend_function_entry class_Cairo_Surface_ImageFormat_methods[] = {
 	ZEND_ME(Cairo_Surface_ImageFormat, strideForWidth, arginfo_class_Cairo_Surface_ImageFormat_strideForWidth, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 static zend_class_entry *register_class_Cairo_Surface_Image(zend_class_entry *class_entry_Cairo_Surface)
 {
 	zend_class_entry ce, *class_entry;
@@ -76,6 +91,7 @@ static zend_class_entry *register_class_Cairo_Surface_Image(zend_class_entry *cl
 
 	return class_entry;
 }
+#endif
 
 static zend_class_entry *register_class_Cairo_Surface_ImageFormat(void)
 {
