@@ -4,20 +4,22 @@
 
 namespace Cairo;
 
-final readonly class Rectangle
+// Todo: Make properties read-only in PHP 8.1+
+// Todo: Make class final
+class Rectangle
 {
-    public float $x;
+    public int $x = 0;
 
-    public float $y;
+    public int $y = 0;
 
-    public float $width;
+    public int $width = 0;
 
-    public float $height;
+    public int $height = 0;
 
     public function __construct(
-        float $x,
-        float $y,
-        float $width,
-        float $height,
+        int $x = 0,
+        int $y = 0,
+        int $width = 0,
+        int $height = 0,
     ) {}
 }
