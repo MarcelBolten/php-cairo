@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "surface_arginfo.h"
 
 zend_class_entry *ce_cairo_surface;
 zend_class_entry *ce_cairo_content;
@@ -53,26 +54,17 @@ cairo_surface_object *cairo_surface_object_get(zval *zv)
     Cairo\Pattern Class API
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoSurface___construct_args, ZEND_SEND_BY_VAL, 0, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void contruct()
-   CairoSurface CANNOT be extended in userspace, this will throw an exception on use */
-PHP_METHOD(CairoSurface, __construct) {
+       CairoSurface CANNOT be extended in userspace, this will throw an exception on use */
+PHP_METHOD(Cairo_Surface, __construct) {
     ZEND_PARSE_PARAMETERS_NONE();
     zend_throw_exception(ce_cairo_exception, "Cairo\\Surface cannot be constructed", 0);
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_createSimilar_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
-    ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoSurface object \Cairo\Surface::createSimilar(\Cairo\Content content, double width, double height)
        Create a new surface that is as compatible as possible with an existing surface. */
-PHP_METHOD(CairoSurface, createSimilar)
+PHP_METHOD(Cairo_Surface, createSimilar)
 {
     cairo_surface_object *surface_object, *new_surface_object;
     cairo_surface_t *new_surface;
@@ -108,17 +100,10 @@ PHP_METHOD(CairoSurface, createSimilar)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_createSimilarImage_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoSurface object \Cairo\Surface::createSimilarImage(\Cairo\Format format, double width, double height)
        Create a new image surface that is as compatible as possible for uploading to and the use in conjunction with an existing surface.
        Unlike cairo_surface_create_similar() the new image surface won't inherit the device scale from other. */
-PHP_METHOD(CairoSurface, createSimilarImage)
+PHP_METHOD(Cairo_Surface, createSimilarImage)
 {
     cairo_surface_object *surface_object, *new_surface_object;
     cairo_surface_t *new_surface;
@@ -154,17 +139,9 @@ PHP_METHOD(CairoSurface, createSimilarImage)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_createForRectangle_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoSurface object \Cairo\Surface::createForRectangle(double x, double y, double width, double height)
        create a new surface that is a rectangle within the target surface. */
-PHP_METHOD(CairoSurface, createForRectangle)
+PHP_METHOD(Cairo_Surface, createForRectangle)
 {
     zval *surface_zval = NULL;
     cairo_surface_object *surface_object, *new_surface_object;
@@ -197,7 +174,7 @@ PHP_METHOD(CairoSurface, createForRectangle)
 
 /* {{{ proto \Cairo\Status \Cairo\Surface::getStatus()
        Checks whether an error has previously occurred for this surface. */
-PHP_METHOD(CairoSurface, getStatus)
+PHP_METHOD(Cairo_Surface, getStatus)
 {
     cairo_surface_object *surface_object;
     zval status_case;
@@ -223,7 +200,7 @@ PHP_METHOD(CairoSurface, getStatus)
 /* {{{ proto void \Cairo\Surface::finish()
        This function finishes the surface and drops all references to external resources. For example,
        for the Xlib backend it means that cairo will no longer access the drawable, which can be freed. */
-PHP_METHOD(CairoSurface, finish)
+PHP_METHOD(Cairo_Surface, finish)
 {
     cairo_surface_object *surface_object;
 
@@ -242,7 +219,7 @@ PHP_METHOD(CairoSurface, finish)
        Do any pending drawing for the surface and also restore any temporary modification's cairo has made
        to the surface's state. This function must be called before switching from drawing on the surface
        with cairo to drawing on it directly with native APIs. */
-PHP_METHOD(CairoSurface, flush)
+PHP_METHOD(Cairo_Surface, flush)
 {
     cairo_surface_object *surface_object;
 
@@ -259,7 +236,7 @@ PHP_METHOD(CairoSurface, flush)
 
 /* {{{ proto CairoFontOptions object \Cairo\Surface::getFontOptions()
        Retrieves the default font rendering options for the surface. */
-PHP_METHOD(CairoSurface, getFontOptions)
+PHP_METHOD(Cairo_Surface, getFontOptions)
 {
     cairo_surface_object *surface_object;
     cairo_font_options_object *font_object;
@@ -282,7 +259,7 @@ PHP_METHOD(CairoSurface, getFontOptions)
 
 /* {{{ proto \Cairo\Content \Cairo\Surface::getContent()
        This function returns the content type of surface which indicates whether the surface contains color and/or alpha information. */
-PHP_METHOD(CairoSurface, getContent)
+PHP_METHOD(Cairo_Surface, getContent)
 {
     cairo_surface_object *surface_object;
     zval content_case;
@@ -307,7 +284,7 @@ PHP_METHOD(CairoSurface, getContent)
 
 /* {{{ proto void \Cairo\Surface::markDirty()
        Tells cairo that drawing has been done to surface using means other than cairo, and that cairo should reread any cached areas. */
-PHP_METHOD(CairoSurface, markDirty)
+PHP_METHOD(Cairo_Surface, markDirty)
 {
     cairo_surface_object *surface_object;
 
@@ -322,26 +299,19 @@ PHP_METHOD(CairoSurface, markDirty)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_markDirtyRectangle_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::markDirtyRectangle(float x, float y, float width, float height)
        Drawing has been done only to the specified rectangle, so that cairo can retain cached contents for other parts of the surface.
        Any cached clip set on the surface will be reset by this function, to make sure that future cairo calls have the clip set that they expect.*/
-PHP_METHOD(CairoSurface, markDirtyRectangle)
+PHP_METHOD(Cairo_Surface, markDirtyRectangle)
 {
     cairo_surface_object *surface_object;
-    double x = 0.0, y = 0.0, width = 0.0, height = 0.0;
+    long x = 0, y = 0, width = 0, height = 0;
 
     ZEND_PARSE_PARAMETERS_START(4, 4)
-        Z_PARAM_DOUBLE(x)
-        Z_PARAM_DOUBLE(y)
-        Z_PARAM_DOUBLE(width)
-        Z_PARAM_DOUBLE(height)
+        Z_PARAM_LONG(x)
+        Z_PARAM_LONG(y)
+        Z_PARAM_LONG(width)
+        Z_PARAM_LONG(height)
     ZEND_PARSE_PARAMETERS_END();
 
     surface_object = cairo_surface_object_get(getThis());
@@ -353,14 +323,9 @@ PHP_METHOD(CairoSurface, markDirtyRectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_setDeviceOffset_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::setDeviceOffset(float x, float y)
        Sets an offset that is added to the device coordinates determined by the CTM when drawing to surface. */
-PHP_METHOD(CairoSurface, setDeviceOffset)
+PHP_METHOD(Cairo_Surface, setDeviceOffset)
 {
     cairo_surface_object *surface_object;
     double x = 0.0, y = 0.0;
@@ -381,7 +346,7 @@ PHP_METHOD(CairoSurface, setDeviceOffset)
 
 /* {{{ proto array \Cairo\Surface::getDeviceOffset()
        This function returns the previous device offset */
-PHP_METHOD(CairoSurface, getDeviceOffset)
+PHP_METHOD(Cairo_Surface, getDeviceOffset)
 {
     cairo_surface_object *surface_object;
     double x, y;
@@ -401,19 +366,13 @@ PHP_METHOD(CairoSurface, getDeviceOffset)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_setDeviceScale_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::setDeviceScale(float x, float y)
        Sets a scale that is multiplied to the device coordinates determined by the CTM when drawing to surface.
        One common use for this is to render to very high resolution display devices at a scale factor,
        so that code that assumes 1 pixel will be a certain size will still work.
        Setting a transformation via cairo_translate() isn't sufficient to do this,
        since functions like cairo_device_to_user() will expose the hidden scale. */
-PHP_METHOD(CairoSurface, setDeviceScale)
+PHP_METHOD(Cairo_Surface, setDeviceScale)
 {
     cairo_surface_object *surface_object;
     double x = 0.0, y = 0.0;
@@ -434,7 +393,7 @@ PHP_METHOD(CairoSurface, setDeviceScale)
 
 /* {{{ proto array \Cairo\Surface::getDeviceScale()
        This function returns the previous set device scale. */
-PHP_METHOD(CairoSurface, getDeviceScale)
+PHP_METHOD(Cairo_Surface, getDeviceScale)
 {
     cairo_surface_object *surface_object;
     double x, y;
@@ -454,17 +413,11 @@ PHP_METHOD(CairoSurface, getDeviceScale)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_setFallbackResolution_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::setFallbackResolution(float x, float y)
       Set the horizontal and vertical resolution for image fallbacks.
       When certain operations aren't supported natively by a backend, cairo will fallback by
       rendering operations to an image and then overlaying that image onto the output. */
-PHP_METHOD(CairoSurface, setFallbackResolution)
+PHP_METHOD(Cairo_Surface, setFallbackResolution)
 {
     cairo_surface_object *surface_object;
     double x = 0.0, y = 0.0;
@@ -485,7 +438,7 @@ PHP_METHOD(CairoSurface, setFallbackResolution)
 
 /* {{{ proto array \Cairo\Surface::getFallbackResolution()
        This function returns the previous fallback resolution */
-PHP_METHOD(CairoSurface, getFallbackResolution)
+PHP_METHOD(Cairo_Surface, getFallbackResolution)
 {
     cairo_surface_object *surface_object;
     double x, y;
@@ -507,7 +460,7 @@ PHP_METHOD(CairoSurface, getFallbackResolution)
 
 /* {{{ proto \Cairo\Surface\Type \Cairo\Surface::getType()
        This function returns the type of the backend used to create a surface. */
-PHP_METHOD(CairoSurface, getType)
+PHP_METHOD(Cairo_Surface, getType)
 {
     cairo_surface_object *surface_object;
     zval surface_case;
@@ -533,7 +486,7 @@ PHP_METHOD(CairoSurface, getType)
 /* {{{ proto void \Cairo\Surface::showPage()
        Emits and clears the current page for backends that support multiple pages.
        Same as CairoContext->showPage(); */
-PHP_METHOD(CairoSurface, showPage)
+PHP_METHOD(Cairo_Surface, showPage)
 {
     cairo_surface_object *surface_object;
 
@@ -552,7 +505,7 @@ PHP_METHOD(CairoSurface, showPage)
        Emits the current page for backends that support multiple pages,
        but doesn't clear it, so that the contents of the current page will be retained for the next page.
        Same as CairoContext->copyPage(); */
-PHP_METHOD(CairoSurface, copyPage)
+PHP_METHOD(Cairo_Surface, copyPage)
 {
     cairo_surface_object *surface_object;
 
@@ -570,7 +523,7 @@ PHP_METHOD(CairoSurface, copyPage)
 /* {{{ proto bool \Cairo\Surface::hasShowTextGlyphs()
        Returns whether the surface supports sophisticated cairo_show_text_glyphs() operations
        Users can use this function to avoid computing UTF-8 text and cluster mapping if the target surface does not use it. */
-PHP_METHOD(CairoSurface, hasShowTextGlyphs)
+PHP_METHOD(Cairo_Surface, hasShowTextGlyphs)
 {
     cairo_surface_object *surface_object;
 
@@ -585,14 +538,9 @@ PHP_METHOD(CairoSurface, hasShowTextGlyphs)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO_EX(CairoSurface_mapToImage_args, ZEND_SEND_BY_VAL, 0, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoSurface object \Cairo\Surface::mapToImage([\Cairo\Rectangle rectangle])
        .... */
-PHP_METHOD(CairoSurface, mapToImage)
+PHP_METHOD(Cairo_Surface, mapToImage)
 {
     cairo_surface_object *surface_object, *new_surface_object;
     cairo_surface_t *new_surface;
@@ -630,14 +578,9 @@ PHP_METHOD(CairoSurface, mapToImage)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_unmapImage_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, image_surface)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoSurface object \Cairo\Surface::unmapImage([\Cairo\Sourface\Image image_surface])
        .... */
-PHP_METHOD(CairoSurface, unmapImage)
+PHP_METHOD(Cairo_Surface, unmapImage)
 {
     cairo_surface_object *surface_object, *image_surface_object;
     zval *image_surface_zval;
@@ -666,15 +609,10 @@ PHP_METHOD(CairoSurface, unmapImage)
 
 
 #ifdef CAIRO_HAS_PNG_FUNCTIONS
-
-ZEND_BEGIN_ARG_INFO(CairoSurface_writeToPng_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, file)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::writeToPng(file|resource file)
        Writes the contents of surface to a new file filename or PHP stream as a PNG image.
        Unlike some other stream supporting functions, you may NOT pass a null filename */
-PHP_METHOD(CairoSurface, writeToPng)
+PHP_METHOD(Cairo_Surface, writeToPng)
 {
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
@@ -722,16 +660,10 @@ PHP_METHOD(CairoSurface, writeToPng)
 
 
 #ifdef CAIRO_HAS_JPEG_FUNCTIONS
-
-ZEND_BEGIN_ARG_INFO_EX(CairoSurface_writeToJpeg_args, ZEND_SEND_BY_VAL, 0, 1)
-    ZEND_ARG_INFO(0, file)
-    ZEND_ARG_TYPE_INFO(0, quality, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Surface::writeToJpeg(file|resource file)
        Writes the contents of surface to a new file filename or PHP stream as a JPEG image.
        Unlike some other stream supporting functions, you may NOT pass a null filename */
-PHP_METHOD(CairoSurface, writeToJpeg)
+PHP_METHOD(Cairo_Surface, writeToJpeg)
 {
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
@@ -960,47 +892,6 @@ zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)
     Cairo\Surface Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoSurface_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_pattern_methods[] */
-static const zend_function_entry cairo_surface_methods[] = {
-    PHP_ME(CairoSurface, __construct, CairoSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoSurface, createSimilar, CairoSurface_createSimilar_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, createSimilarImage, CairoSurface_createSimilarImage_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, createForRectangle, CairoSurface_createForRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getStatus, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, finish, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, flush, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getFontOptions, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getContent, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, markDirty, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, markDirtyRectangle, CairoSurface_markDirtyRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, setDeviceOffset, CairoSurface_setDeviceOffset_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getDeviceOffset, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 14, 0)
-    PHP_ME(CairoSurface, setDeviceScale, CairoSurface_setDeviceScale_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getDeviceScale, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-#endif
-    PHP_ME(CairoSurface, setFallbackResolution, CairoSurface_setFallbackResolution_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getFallbackResolution, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, getType, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, showPage, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, copyPage, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, hasShowTextGlyphs, CairoSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, mapToImage, CairoSurface_mapToImage_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoSurface, unmapImage, CairoSurface_unmapImage_args, ZEND_ACC_PUBLIC)
-#ifdef CAIRO_HAS_PNG_FUNCTIONS
-    PHP_ME(CairoSurface, writeToPng, CairoSurface_writeToPng_args, ZEND_ACC_PUBLIC)
-#endif
-#ifdef CAIRO_HAS_JPEG_FUNCTIONS
-    PHP_ME(CairoSurface, writeToJpeg, CairoSurface_writeToJpeg_args, ZEND_ACC_PUBLIC)
-#endif
-    ZEND_FE_END
-};
-/* }}} */
-
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_surface)
 {
@@ -1016,53 +907,14 @@ PHP_MINIT_FUNCTION(cairo_surface)
     cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);
     cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;
 
-    INIT_NS_CLASS_ENTRY(surface_ce, CAIRO_NAMESPACE, "Surface", cairo_surface_methods);
-    ce_cairo_surface = zend_register_internal_class(&surface_ce);
+    ce_cairo_surface = register_class_Cairo_Surface();
     ce_cairo_surface->create_object = cairo_surface_create_object;
-    ce_cairo_surface->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
 
     /* CairoContent */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", "Content"), ce_cairo_content);
-
-#define CAIRO_CONTENT_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_content, CAIRO_CONTENT)
-
-    CAIRO_CONTENT_DECLARE_ENUM_CASE(COLOR);
-    CAIRO_CONTENT_DECLARE_ENUM_CASE(ALPHA);
-    CAIRO_CONTENT_DECLARE_ENUM_CASE(COLOR_ALPHA);
-
+    ce_cairo_content = register_class_Cairo_Surface_Content();
 
     /* SurfaceType */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", "Type"), ce_cairo_surfacetype);
-
-#define CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_surfacetype, CAIRO_SURFACE_TYPE)
-
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(IMAGE);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(PDF);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(PS);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XLIB);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XCB);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(GLITZ);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QUARTZ);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(WIN32);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(BEOS);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(DIRECTFB);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SVG);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(OS2);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(WIN32_PRINTING);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QUARTZ_IMAGE);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SCRIPT);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(QT);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(RECORDING);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(VG);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(GL);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(DRM);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(TEE);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(XML);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SKIA);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(SUBSURFACE);
-    CAIRO_SURFACE_TYPE_DECLARE_ENUM_CASE(COGL);
+    ce_cairo_surfacetype = register_class_Cairo_Surface_Type();
 
     return SUCCESS;
 }
