@@ -326,6 +326,24 @@ PHP_METHOD(Cairo_Surface_Pdf, setCustomMetadata)
         RETURN_THROWS();
     }
 
+    if (strcasecmp(field, "Title") == 0
+        || strcasecmp(field, "Author") == 0
+        || strcasecmp(field, "Subject") == 0
+        || strcasecmp(field, "Keywords") == 0
+        || strcasecmp(field, "Creator") == 0
+        || strcasecmp(field, "Producer") == 0
+        || strcasecmp(field, "CreationDate") == 0
+        || strcasecmp(field, "ModDate") == 0
+        || strcasecmp(field, "Trapped") == 0
+    ) {
+        zend_throw_exception_ex(zend_ce_value_error, 0,
+            "Cairo\\Surface\\Pdf::setCustomMetadata(): "
+            "Argument #1 ($field) may be any string except for the following names reserved by PDF: "
+            "Title, Author, Subject, Keywords, Creator, Producer, CreationDate, ModDate, Trapped."
+        );
+        RETURN_THROWS();
+    }
+
     cairo_pdf_surface_set_custom_metadata(
         surface_object->surface,
         (const char *)field,
