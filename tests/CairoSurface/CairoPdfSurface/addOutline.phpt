@@ -14,7 +14,7 @@ $surface = new Cairo\Surface\Pdf(NULL, 50, 50);
 var_dump($surface);
 $name = "Link";
 $linkAttr = "uri='https://cairographics.org'";
-$flag = \Cairo\Surface\Pdf\OutlineFlags::BOLD;
+$flag = \Cairo\Surface\Pdf\OutlineFlags::Bold;
 
 $target = $surface->addOutline(\Cairo\Surface\Pdf::OUTLINE_ROOT, $name, $linkAttr, $flag);
 var_dump($target);

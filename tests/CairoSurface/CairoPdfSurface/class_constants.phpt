@@ -12,20 +12,22 @@ if (\Cairo\VERSION >= 11600) {
     $constants = [
         '\Cairo\Surface\Pdf::OUTLINE_ROOT',
 
-        '\Cairo\Surface\Pdf\OutlineFlags::OPEN',
-        '\Cairo\Surface\Pdf\OutlineFlags::BOLD',
-        '\Cairo\Surface\Pdf\OutlineFlags::ITALIC',
+        '\Cairo\Surface\Pdf\OutlineFlags::Open',
+        '\Cairo\Surface\Pdf\OutlineFlags::Bold',
+        '\Cairo\Surface\Pdf\OutlineFlags::Italic',
 
-        '\Cairo\Surface\Pdf\Metadata::TITLE',
-        '\Cairo\Surface\Pdf\Metadata::AUTHOR',
-        '\Cairo\Surface\Pdf\Metadata::SUBJECT',
-        '\Cairo\Surface\Pdf\Metadata::KEYWORDS',
-        '\Cairo\Surface\Pdf\Metadata::CREATOR',
-        '\Cairo\Surface\Pdf\Metadata::CREATE_DATE',
-        '\Cairo\Surface\Pdf\Metadata::MOD_DATE',
+        '\Cairo\Surface\Pdf\Metadata::Title',
+        '\Cairo\Surface\Pdf\Metadata::Author',
+        '\Cairo\Surface\Pdf\Metadata::Subject',
+        '\Cairo\Surface\Pdf\Metadata::Keywords',
+        '\Cairo\Surface\Pdf\Metadata::Creator',
+        '\Cairo\Surface\Pdf\Metadata::CreateDate',
+        '\Cairo\Surface\Pdf\Metadata::ModDate',
 
-        '\Cairo\Surface\Pdf\Version::VERSION_1_4',
-        '\Cairo\Surface\Pdf\Version::VERSION_1_5'
+        '\Cairo\Surface\Pdf\Version::Version_1_4',
+        '\Cairo\Surface\Pdf\Version::Version_1_5',
+        '\Cairo\Surface\Pdf\Version::Version_1_6',
+        '\Cairo\Surface\Pdf\Version::Version_1_7'
     ];
 } else {
     $constants = [];

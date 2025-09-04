@@ -10,7 +10,7 @@ if (!in_array('PDF', Cairo::availableSurfaces())) {
 }
 --FILE--
 <?php
-echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::VERSION_1_5), PHP_EOL;
+echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::Version_1_5), PHP_EOL;
 
 /* Wrong number args */
 try {

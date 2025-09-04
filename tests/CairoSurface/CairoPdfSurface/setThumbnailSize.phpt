@@ -56,5 +56,5 @@ object(Cairo\Surface\Pdf)#%d (0) {
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 0 given
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 1 given
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 3 given
-Cairo\Surface\Pdf::setThumbnailSize(): Argument #1 ($width) must be of type float, array given
-Cairo\Surface\Pdf::setThumbnailSize(): Argument #2 ($height) must be of type float, array given
+Cairo\Surface\Pdf::setThumbnailSize(): Argument #1 ($width) must be of type int, array given
+Cairo\Surface\Pdf::setThumbnailSize(): Argument #2 ($height) must be of type int, array given

@@ -13,7 +13,7 @@ if (!in_array('PDF', Cairo::availableSurfaces())) {
 $surface = new Cairo\Surface\Pdf(NULL, 50, 50);
 var_dump($surface);
 
-$surface->restrictToVersion(Cairo\Surface\Pdf\Version::VERSION_1_5);
+$surface->restrictToVersion(Cairo\Surface\Pdf\Version::Version_1_5);
 
 /* Wrong number args */
 try {
