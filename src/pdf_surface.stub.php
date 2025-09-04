@@ -74,11 +74,11 @@ namespace Cairo\Surface
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
         /**
          * Set custom metadata for the PDF document.
-         * $name may be any string except for the following names reserved by PDF:
+         * $field may be any string except for the following names reserved by PDF:
          * Title, Author, Subject, Keywords, Creator, Producer, CreationDate, ModDate, Trapped
          */
         public function setCustomMetadata(
-            string $name,
+            string $field,
             string $value
         ): void {}
 #endif
