@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Surface\Pdf->setPageLabel() method
+Cairo\Surface\Pdf->setMetadata() method
 --SKIPIF--
 <?php
 if (!extension_loaded('cairo')) {
