@@ -7,8 +7,8 @@ if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not avail
 --FILE--
 <?php
 $constants = array(
-	'LEVEL_2',
-	'LEVEL_3',
+	'Level_2',
+	'Level_3',
 );
 
 $error = false;

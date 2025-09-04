@@ -11,14 +11,14 @@ $surface = new Cairo\Surface\Ps(NULL, 50, 50);
 var_dump($surface);
 
 // explicitly provide value
-$surface->restrictToLevel(Cairo\Surface\Ps\Level::LEVEL_3);
+$surface->restrictToLevel(Cairo\Surface\Ps\Level::Level_3);
 
 // set default value
 $surface->restrictToLevel();
 
 /* Wrong number args 2 */
 try {
-    $surface->restrictToLevel(Cairo\Surface\Ps\Level::LEVEL_2, 1);
+    $surface->restrictToLevel(Cairo\Surface\Ps\Level::Level_2, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

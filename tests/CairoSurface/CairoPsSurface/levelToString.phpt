@@ -7,7 +7,7 @@ if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not avail
 if(!method_exists('Cairo\Surface\Ps', 'levelToString')) die('skip - Cairo\Surface\Ps::levelToString not available');
 --FILE--
 <?php
-echo Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level::LEVEL_2), PHP_EOL;
+echo Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level::Level_2), PHP_EOL;
 
 /* Wrong number args */
 try {
