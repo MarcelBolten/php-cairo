@@ -21,6 +21,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "text_cluster_arginfo.h"
 
 zend_class_entry *ce_cairo_text_cluster;
 
@@ -83,14 +84,9 @@ cairo_text_cluster_t *cairo_text_cluster_object_get_text_cluster(zval *zv)
     \Cairo\TextCluster Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoTextCluster____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_INFO(0, num_bytes)
-    ZEND_ARG_INFO(0, num_glyphs)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void __construct(int num_bytes, int num_glyphs)
     Creates a new text_cluster with the properties populated */
-PHP_METHOD(CairoTextCluster, __construct)
+PHP_METHOD(Cairo_TextCluster, __construct)
 {
     cairo_text_cluster_object *text_cluster_object;
 
@@ -257,13 +253,6 @@ static HashTable *cairo_text_cluster_object_get_properties(zend_object *zobj)
     \Cairo\TextCluster Definition and registration
 ------------------------------------------------------------------*/
 
-/* {{{ cairo_text_cluster_methods[] */
-const zend_function_entry cairo_text_cluster_methods[] = {
-    PHP_ME(CairoTextCluster, __construct, CairoTextCluster____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_text_cluster)
 {
@@ -283,13 +272,8 @@ PHP_MINIT_FUNCTION(cairo_text_cluster)
     cairo_text_cluster_object_handlers.get_property_ptr_ptr = NULL;
     cairo_text_cluster_object_handlers.get_properties = cairo_text_cluster_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "TextCluster", cairo_text_cluster_methods);
-    ce.create_object = cairo_text_cluster_create_object;
-    ce_cairo_text_cluster = zend_register_internal_class(&ce);
-    ce_cairo_text_cluster->ce_flags |= ZEND_ACC_FINAL;
-
-    zend_declare_property_long(ce_cairo_text_cluster, "num_bytes", sizeof("num_bytes")-1, 0.0, ZEND_ACC_PUBLIC);
-    zend_declare_property_long(ce_cairo_text_cluster, "num_glyphs", sizeof("num_glyphs")-1, 0.0, ZEND_ACC_PUBLIC);
+    ce_cairo_text_cluster = register_class_Cairo_TextCluster();
+    ce_cairo_text_cluster->create_object = cairo_text_cluster_create_object;
 
     return SUCCESS;
 }
