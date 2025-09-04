@@ -305,6 +305,40 @@ PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)
 /* }}} */
 
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+/* {{{ proto void \Cairo\Surface\Pdf::setCustomMetadata(string name, string value)
+       Set custom metadata for the PDF document.
+       name may be any string except for the following names reserved by PDF:
+       "Title", "Author", "Subject", "Keywords", "Creator", "Producer", "CreationDate", "ModDate", "Trapped" .*/
+PHP_METHOD(Cairo_Surface_Pdf, setCustomMetadata)
+{
+    char *name, *value;
+    size_t name_len, value_len;
+    cairo_surface_object *surface_object;
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_STRING(name, name_len)
+        Z_PARAM_STRING(value, value_len)
+    ZEND_PARSE_PARAMETERS_END();
+
+    surface_object = cairo_surface_object_get(getThis());
+    if (!surface_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_pdf_surface_set_custom_metadata(
+        surface_object->surface,
+        (const char *)name,
+        (const char *)value
+    );
+
+    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+#endif
+
 /* ----------------------------------------------------------------
     \Cairo\Surface\Pdf Definition and registration
 ------------------------------------------------------------------*/
