@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a81cf5d25decb87d776263e53d7af470bbee55e7 */
+ * Stub hash: 274f9dba45d0cb42052acf1da5537fd4173bcc5a */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -40,10 +40,10 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_Cairo_Surface_markDirty arginfo_class_Cairo_Surface_finish
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_markDirtyRectangle, 0, 4, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_setDeviceOffset, 0, 2, IS_VOID, 0)
@@ -54,9 +54,15 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_getDeviceOffset, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_Cairo_Surface_setDeviceScale arginfo_class_Cairo_Surface_setDeviceOffset
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 14, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_setDeviceScale, 0, 2, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
 
-#define arginfo_class_Cairo_Surface_getDeviceScale arginfo_class_Cairo_Surface_getDeviceOffset
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_getDeviceScale, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+#endif
 
 #define arginfo_class_Cairo_Surface_setFallbackResolution arginfo_class_Cairo_Surface_setDeviceOffset
 
@@ -80,14 +86,18 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_unmapImage, 
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
 ZEND_END_ARG_INFO()
 
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_writeToPng, 0, 1, IS_VOID, 0)
 	ZEND_ARG_INFO(0, file)
 ZEND_END_ARG_INFO()
+#endif
 
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_writeToJpeg, 0, 1, IS_VOID, 0)
 	ZEND_ARG_INFO(0, file)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, quality, IS_LONG, 0, "90")
 ZEND_END_ARG_INFO()
+#endif
 
 ZEND_METHOD(Cairo_Surface, __construct);
 ZEND_METHOD(Cairo_Surface, createSimilar);
@@ -102,8 +112,10 @@ ZEND_METHOD(Cairo_Surface, markDirty);
 ZEND_METHOD(Cairo_Surface, markDirtyRectangle);
 ZEND_METHOD(Cairo_Surface, setDeviceOffset);
 ZEND_METHOD(Cairo_Surface, getDeviceOffset);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 14, 0)
 ZEND_METHOD(Cairo_Surface, setDeviceScale);
 ZEND_METHOD(Cairo_Surface, getDeviceScale);
+#endif
 ZEND_METHOD(Cairo_Surface, setFallbackResolution);
 ZEND_METHOD(Cairo_Surface, getFallbackResolution);
 ZEND_METHOD(Cairo_Surface, getType);
@@ -112,8 +124,12 @@ ZEND_METHOD(Cairo_Surface, copyPage);
 ZEND_METHOD(Cairo_Surface, hasShowTextGlyphs);
 ZEND_METHOD(Cairo_Surface, mapToImage);
 ZEND_METHOD(Cairo_Surface, unmapImage);
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
 ZEND_METHOD(Cairo_Surface, writeToPng);
+#endif
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 ZEND_METHOD(Cairo_Surface, writeToJpeg);
+#endif
 
 static const zend_function_entry class_Cairo_Surface_methods[] = {
 	ZEND_ME(Cairo_Surface, __construct, arginfo_class_Cairo_Surface___construct, ZEND_ACC_PUBLIC)
@@ -129,8 +145,10 @@ static const zend_function_entry class_Cairo_Surface_methods[] = {
 	ZEND_ME(Cairo_Surface, markDirtyRectangle, arginfo_class_Cairo_Surface_markDirtyRectangle, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, setDeviceOffset, arginfo_class_Cairo_Surface_setDeviceOffset, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, getDeviceOffset, arginfo_class_Cairo_Surface_getDeviceOffset, ZEND_ACC_PUBLIC)
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 14, 0)
 	ZEND_ME(Cairo_Surface, setDeviceScale, arginfo_class_Cairo_Surface_setDeviceScale, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, getDeviceScale, arginfo_class_Cairo_Surface_getDeviceScale, ZEND_ACC_PUBLIC)
+#endif
 	ZEND_ME(Cairo_Surface, setFallbackResolution, arginfo_class_Cairo_Surface_setFallbackResolution, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, getFallbackResolution, arginfo_class_Cairo_Surface_getFallbackResolution, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, getType, arginfo_class_Cairo_Surface_getType, ZEND_ACC_PUBLIC)
@@ -139,8 +157,12 @@ static const zend_function_entry class_Cairo_Surface_methods[] = {
 	ZEND_ME(Cairo_Surface, hasShowTextGlyphs, arginfo_class_Cairo_Surface_hasShowTextGlyphs, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, mapToImage, arginfo_class_Cairo_Surface_mapToImage, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Surface, unmapImage, arginfo_class_Cairo_Surface_unmapImage, ZEND_ACC_PUBLIC)
+#if defined(CAIRO_HAS_PNG_FUNCTIONS)
 	ZEND_ME(Cairo_Surface, writeToPng, arginfo_class_Cairo_Surface_writeToPng, ZEND_ACC_PUBLIC)
+#endif
+#if defined(CAIRO_HAS_JPEG_FUNCTIONS)
 	ZEND_ME(Cairo_Surface, writeToJpeg, arginfo_class_Cairo_Surface_writeToJpeg, ZEND_ACC_PUBLIC)
+#endif
 	ZEND_FE_END
 };
 

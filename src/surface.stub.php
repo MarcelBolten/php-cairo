@@ -6,13 +6,29 @@ namespace Cairo
 {
     abstract class Surface
     {
+        /**
+         * @throws \Cairo\Exception
+         */
         public function __construct() {}
 
-        public function createSimilar(Surface\Content $content, float $width, float $height): Surface {}
+        public function createSimilar(
+            Surface\Content $content,
+            float $width,
+            float $height
+        ): Surface {}
 
-        public function createSimilarImage(Surface\ImageFormat $format, float $width, float $height): Surface {}
+        public function createSimilarImage(
+            Surface\ImageFormat $format,
+            float $width,
+            float $height
+        ): Surface {}
 
-        public function createForRectangle(float $x, float $y, float $width, float $height): Surface {}
+        public function createForRectangle(
+            float $x,
+            float $y,
+            float $width,
+            float $height
+        ): Surface {}
 
         public function getStatus(): Status {}
 
@@ -26,23 +42,39 @@ namespace Cairo
 
         public function markDirty(): void {}
 
-        public function markDirtyRectangle(float $x, float $y, float $width, float $height): void {}
+        public function markDirtyRectangle(
+            int $x,
+            int $y,
+            int $width,
+            int $height
+        ): void {}
 
-        public function setDeviceOffset(float $x, float $y): void {}
+        public function setDeviceOffset(
+            float $x,
+            float $y
+        ): void {}
 
         /**
          * @return array{x: float, y: float}
          */
         public function getDeviceOffset(): array {}
 
-        public function setDeviceScale(float $x, float $y): void {}
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 14, 0)
+        public function setDeviceScale(
+            float $x,
+            float $y
+        ): void {}
 
         /**
          * @return array{x: float, y: float}
          */
         public function getDeviceScale(): array {}
+#endif
 
-        public function setFallbackResolution(float $x, float $y): void {}
+        public function setFallbackResolution(
+            float $x,
+            float $y
+        ): void {}
 
         /**
          * @return array{x: float, y: float}
@@ -57,19 +89,35 @@ namespace Cairo
 
         public function hasShowTextGlyphs(): bool {}
 
-        public function mapToImage(null|Rectangle $rectangle = NULL): Surface {}
+        public function mapToImage(
+            null|Rectangle $rectangle = NULL
+        ): Surface\Image {}
 
-        public function unmapImage(Surface $surface): void {}
+        /**
+         * $surface must be a surface created by mapToImage() or the behavior is undefined.
+         */
+        public function unmapImage(
+            Surface\Image $surface
+        ): void {}
 
+#ifdef CAIRO_HAS_PNG_FUNCTIONS
         /**
          * @param string|resource $file
          */
-        public function writeToPng($file): void {}
+        public function writeToPng(
+            $file
+        ): void {}
+#endif
 
+#ifdef CAIRO_HAS_JPEG_FUNCTIONS
         /**
          * @param string|resource $file
          */
-        public function writeToJpeg($file, int $quality = 90): void {}
+        public function writeToJpeg(
+            $file,
+            int $quality = 90
+        ): void {}
+#endif
     }
 }
 
