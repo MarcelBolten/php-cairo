@@ -7,19 +7,32 @@ namespace Cairo\Surface
     class Ps Extends \Cairo\Surface
     {
         /**
-         * @param string|resource $file
+         * @param null|string|resource $file
          */
-        public function __construct($file, float $width, float $height) {}
+        public function __construct(
+            $file,
+            float $width,
+            float $height
+        ) {}
 
-        public function setSize(float $width, float $height): void {}
+        public function setSize(
+            float $width,
+            float $height
+        ): void {}
 
-        public function restrictToLevel(Ps\Level $level): void {}
+        public function restrictToLevel(
+            Ps\Level $level = Ps\Level::Level_2
+        ): void {}
 
         public static function getLevels(): array {}
 
-        public static function levelToString(Ps\Level $level): string {}
+        public static function levelToString(
+            Ps\Level $level
+        ): string {}
 
-        public function setEps(bool $eps): void {}
+        public function setEps(
+            bool $eps
+        ): void {}
 
         public function getEps(): bool {}
 
@@ -27,7 +40,9 @@ namespace Cairo\Surface
 
         public function dscBeginPageSetup(): void {}
 
-        public function dscComment(string $comment): void {}
+        public function dscComment(
+            string $comment
+        ): void {}
     }
 }
 

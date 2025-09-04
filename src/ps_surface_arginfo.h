@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 99ab0a69565bd73c761ae76ab5dedeeb057dd1d7 */
+ * Stub hash: 5cd9c885628598add2d6dd3913db91bc2dd178be */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Ps___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -12,8 +12,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Ps_setSize, 
 	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Ps_restrictToLevel, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_INFO(0, level, Cairo\\Surface\\Ps\\Level, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Ps_restrictToLevel, 0, 0, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, level, Cairo\\Surface\\Ps\\Level, 0, "Cairo\\Surface\\Ps\\Level::Level_2")
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Ps_getLevels, 0, 0, IS_ARRAY, 0)
