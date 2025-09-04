@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 03:00:46</td>
+            <td class="headerValue">2025-09-04 06:33:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.2&nbsp;%</td>
@@ -3174,90 +3174,90 @@
 <span id="L3112"><span class="lineNum">    3112</span>              : /* }}} */</span>
 <span id="L3113"><span class="lineNum">    3113</span>              : </span>
 <span id="L3114"><span class="lineNum">    3114</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L3115"><span class="lineNum">    3115</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
+<span id="L3115"><span class="lineNum">    3115</span> <span class="tlaGNC">         424 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
 <span id="L3116"><span class="lineNum">    3116</span>              : {</span>
 <span id="L3117"><span class="lineNum">    3117</span>              :     zend_class_entry context_ce;</span>
 <span id="L3118"><span class="lineNum">    3118</span>              : </span>
-<span id="L3119"><span class="lineNum">    3119</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
+<span id="L3119"><span class="lineNum">    3119</span> <span class="tlaGNC">         424 :     memcpy(</span></span>
 <span id="L3120"><span class="lineNum">    3120</span>              :         &amp;cairo_context_object_handlers,</span>
 <span id="L3121"><span class="lineNum">    3121</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L3122"><span class="lineNum">    3122</span>              :         sizeof(cairo_context_object_handlers)</span>
 <span id="L3123"><span class="lineNum">    3123</span>              :     );</span>
 <span id="L3124"><span class="lineNum">    3124</span>              : </span>
 <span id="L3125"><span class="lineNum">    3125</span>              :     /* Context */</span>
-<span id="L3126"><span class="lineNum">    3126</span> <span class="tlaGNC">         422 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
-<span id="L3127"><span class="lineNum">    3127</span> <span class="tlaGNC">         422 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
+<span id="L3126"><span class="lineNum">    3126</span> <span class="tlaGNC">         424 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
+<span id="L3127"><span class="lineNum">    3127</span> <span class="tlaGNC">         424 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
 <span id="L3128"><span class="lineNum">    3128</span>              : </span>
-<span id="L3129"><span class="lineNum">    3129</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(context_ce, CAIRO_NAMESPACE, &quot;Context&quot;, cairo_context_methods);</span></span>
-<span id="L3130"><span class="lineNum">    3130</span> <span class="tlaGNC">         422 :     ce_cairo_context = zend_register_internal_class(&amp;context_ce);</span></span>
-<span id="L3131"><span class="lineNum">    3131</span> <span class="tlaGNC">         422 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
+<span id="L3129"><span class="lineNum">    3129</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(context_ce, CAIRO_NAMESPACE, &quot;Context&quot;, cairo_context_methods);</span></span>
+<span id="L3130"><span class="lineNum">    3130</span> <span class="tlaGNC">         424 :     ce_cairo_context = zend_register_internal_class(&amp;context_ce);</span></span>
+<span id="L3131"><span class="lineNum">    3131</span> <span class="tlaGNC">         424 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
 <span id="L3132"><span class="lineNum">    3132</span>              : </span>
 <span id="L3133"><span class="lineNum">    3133</span>              :     /* FillRule */</span>
-<span id="L3134"><span class="lineNum">    3134</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;FillRule&quot;, ce_cairo_fillrule);</span></span>
+<span id="L3134"><span class="lineNum">    3134</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;FillRule&quot;, ce_cairo_fillrule);</span></span>
 <span id="L3135"><span class="lineNum">    3135</span>              : </span>
 <span id="L3136"><span class="lineNum">    3136</span>              : #define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \</span>
 <span id="L3137"><span class="lineNum">    3137</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fillrule, CAIRO_FILL_RULE)</span>
 <span id="L3138"><span class="lineNum">    3138</span>              : </span>
-<span id="L3139"><span class="lineNum">    3139</span> <span class="tlaGNC">         422 :     CAIRO_FILLRULE_DECLARE_ENUM_CASE(WINDING);</span></span>
-<span id="L3140"><span class="lineNum">    3140</span> <span class="tlaGNC">         422 :     CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);</span></span>
+<span id="L3139"><span class="lineNum">    3139</span> <span class="tlaGNC">         424 :     CAIRO_FILLRULE_DECLARE_ENUM_CASE(WINDING);</span></span>
+<span id="L3140"><span class="lineNum">    3140</span> <span class="tlaGNC">         424 :     CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);</span></span>
 <span id="L3141"><span class="lineNum">    3141</span>              : </span>
 <span id="L3142"><span class="lineNum">    3142</span>              :     /* LineCap */</span>
-<span id="L3143"><span class="lineNum">    3143</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;LineCap&quot;, ce_cairo_linecap);</span></span>
+<span id="L3143"><span class="lineNum">    3143</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;LineCap&quot;, ce_cairo_linecap);</span></span>
 <span id="L3144"><span class="lineNum">    3144</span>              : </span>
 <span id="L3145"><span class="lineNum">    3145</span>              : #define CAIRO_LINECAP_DECLARE_ENUM_CASE(name) \</span>
 <span id="L3146"><span class="lineNum">    3146</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linecap, CAIRO_LINE_CAP)</span>
 <span id="L3147"><span class="lineNum">    3147</span>              : </span>
-<span id="L3148"><span class="lineNum">    3148</span> <span class="tlaGNC">         422 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(BUTT);</span></span>
-<span id="L3149"><span class="lineNum">    3149</span> <span class="tlaGNC">         422 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(ROUND);</span></span>
-<span id="L3150"><span class="lineNum">    3150</span> <span class="tlaGNC">         422 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(SQUARE);</span></span>
+<span id="L3148"><span class="lineNum">    3148</span> <span class="tlaGNC">         424 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(BUTT);</span></span>
+<span id="L3149"><span class="lineNum">    3149</span> <span class="tlaGNC">         424 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(ROUND);</span></span>
+<span id="L3150"><span class="lineNum">    3150</span> <span class="tlaGNC">         424 :     CAIRO_LINECAP_DECLARE_ENUM_CASE(SQUARE);</span></span>
 <span id="L3151"><span class="lineNum">    3151</span>              : </span>
 <span id="L3152"><span class="lineNum">    3152</span>              :     /* LineJoin */</span>
-<span id="L3153"><span class="lineNum">    3153</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;LineJoin&quot;, ce_cairo_linejoin);</span></span>
+<span id="L3153"><span class="lineNum">    3153</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;LineJoin&quot;, ce_cairo_linejoin);</span></span>
 <span id="L3154"><span class="lineNum">    3154</span>              : </span>
 <span id="L3155"><span class="lineNum">    3155</span>              : #define CAIRO_LINEJOIN_DECLARE_ENUM_CASE(name) \</span>
 <span id="L3156"><span class="lineNum">    3156</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linejoin, CAIRO_LINE_JOIN)</span>
 <span id="L3157"><span class="lineNum">    3157</span>              : </span>
-<span id="L3158"><span class="lineNum">    3158</span> <span class="tlaGNC">         422 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(MITER);</span></span>
-<span id="L3159"><span class="lineNum">    3159</span> <span class="tlaGNC">         422 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(ROUND);</span></span>
-<span id="L3160"><span class="lineNum">    3160</span> <span class="tlaGNC">         422 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(BEVEL);</span></span>
+<span id="L3158"><span class="lineNum">    3158</span> <span class="tlaGNC">         424 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(MITER);</span></span>
+<span id="L3159"><span class="lineNum">    3159</span> <span class="tlaGNC">         424 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(ROUND);</span></span>
+<span id="L3160"><span class="lineNum">    3160</span> <span class="tlaGNC">         424 :     CAIRO_LINEJOIN_DECLARE_ENUM_CASE(BEVEL);</span></span>
 <span id="L3161"><span class="lineNum">    3161</span>              : </span>
 <span id="L3162"><span class="lineNum">    3162</span>              :     /* Operator */</span>
-<span id="L3163"><span class="lineNum">    3163</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;Operator&quot;, ce_cairo_operator);</span></span>
+<span id="L3163"><span class="lineNum">    3163</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;Operator&quot;, ce_cairo_operator);</span></span>
 <span id="L3164"><span class="lineNum">    3164</span>              : </span>
 <span id="L3165"><span class="lineNum">    3165</span>              : #define CAIRO_OPERATOR_DECLARE_ENUM_CASE(name) \</span>
 <span id="L3166"><span class="lineNum">    3166</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_operator, CAIRO_OPERATOR)</span>
 <span id="L3167"><span class="lineNum">    3167</span>              : </span>
-<span id="L3168"><span class="lineNum">    3168</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(CLEAR);</span></span>
-<span id="L3169"><span class="lineNum">    3169</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOURCE);</span></span>
-<span id="L3170"><span class="lineNum">    3170</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVER);</span></span>
-<span id="L3171"><span class="lineNum">    3171</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(IN);</span></span>
-<span id="L3172"><span class="lineNum">    3172</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OUT);</span></span>
-<span id="L3173"><span class="lineNum">    3173</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(ATOP);</span></span>
-<span id="L3174"><span class="lineNum">    3174</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST);</span></span>
-<span id="L3175"><span class="lineNum">    3175</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OVER);</span></span>
-<span id="L3176"><span class="lineNum">    3176</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_IN);</span></span>
-<span id="L3177"><span class="lineNum">    3177</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OUT);</span></span>
-<span id="L3178"><span class="lineNum">    3178</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_ATOP);</span></span>
-<span id="L3179"><span class="lineNum">    3179</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(XOR);</span></span>
-<span id="L3180"><span class="lineNum">    3180</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(ADD);</span></span>
-<span id="L3181"><span class="lineNum">    3181</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SATURATE);</span></span>
-<span id="L3182"><span class="lineNum">    3182</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(MULTIPLY);</span></span>
-<span id="L3183"><span class="lineNum">    3183</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SCREEN);</span></span>
-<span id="L3184"><span class="lineNum">    3184</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVERLAY);</span></span>
-<span id="L3185"><span class="lineNum">    3185</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DARKEN);</span></span>
-<span id="L3186"><span class="lineNum">    3186</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(LIGHTEN);</span></span>
-<span id="L3187"><span class="lineNum">    3187</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_DODGE);</span></span>
-<span id="L3188"><span class="lineNum">    3188</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_BURN);</span></span>
-<span id="L3189"><span class="lineNum">    3189</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HARD_LIGHT);</span></span>
-<span id="L3190"><span class="lineNum">    3190</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOFT_LIGHT);</span></span>
-<span id="L3191"><span class="lineNum">    3191</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DIFFERENCE);</span></span>
-<span id="L3192"><span class="lineNum">    3192</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(EXCLUSION);</span></span>
-<span id="L3193"><span class="lineNum">    3193</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_HUE);</span></span>
-<span id="L3194"><span class="lineNum">    3194</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_SATURATION);</span></span>
-<span id="L3195"><span class="lineNum">    3195</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_COLOR);</span></span>
-<span id="L3196"><span class="lineNum">    3196</span> <span class="tlaGNC">         422 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_LUMINOSITY);</span></span>
+<span id="L3168"><span class="lineNum">    3168</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(CLEAR);</span></span>
+<span id="L3169"><span class="lineNum">    3169</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOURCE);</span></span>
+<span id="L3170"><span class="lineNum">    3170</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVER);</span></span>
+<span id="L3171"><span class="lineNum">    3171</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(IN);</span></span>
+<span id="L3172"><span class="lineNum">    3172</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OUT);</span></span>
+<span id="L3173"><span class="lineNum">    3173</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(ATOP);</span></span>
+<span id="L3174"><span class="lineNum">    3174</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST);</span></span>
+<span id="L3175"><span class="lineNum">    3175</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OVER);</span></span>
+<span id="L3176"><span class="lineNum">    3176</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_IN);</span></span>
+<span id="L3177"><span class="lineNum">    3177</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OUT);</span></span>
+<span id="L3178"><span class="lineNum">    3178</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_ATOP);</span></span>
+<span id="L3179"><span class="lineNum">    3179</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(XOR);</span></span>
+<span id="L3180"><span class="lineNum">    3180</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(ADD);</span></span>
+<span id="L3181"><span class="lineNum">    3181</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SATURATE);</span></span>
+<span id="L3182"><span class="lineNum">    3182</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(MULTIPLY);</span></span>
+<span id="L3183"><span class="lineNum">    3183</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SCREEN);</span></span>
+<span id="L3184"><span class="lineNum">    3184</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVERLAY);</span></span>
+<span id="L3185"><span class="lineNum">    3185</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DARKEN);</span></span>
+<span id="L3186"><span class="lineNum">    3186</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(LIGHTEN);</span></span>
+<span id="L3187"><span class="lineNum">    3187</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_DODGE);</span></span>
+<span id="L3188"><span class="lineNum">    3188</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_BURN);</span></span>
+<span id="L3189"><span class="lineNum">    3189</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HARD_LIGHT);</span></span>
+<span id="L3190"><span class="lineNum">    3190</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOFT_LIGHT);</span></span>
+<span id="L3191"><span class="lineNum">    3191</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(DIFFERENCE);</span></span>
+<span id="L3192"><span class="lineNum">    3192</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(EXCLUSION);</span></span>
+<span id="L3193"><span class="lineNum">    3193</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_HUE);</span></span>
+<span id="L3194"><span class="lineNum">    3194</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_SATURATION);</span></span>
+<span id="L3195"><span class="lineNum">    3195</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_COLOR);</span></span>
+<span id="L3196"><span class="lineNum">    3196</span> <span class="tlaGNC">         424 :     CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_LUMINOSITY);</span></span>
 <span id="L3197"><span class="lineNum">    3197</span>              : </span>
-<span id="L3198"><span class="lineNum">    3198</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
+<span id="L3198"><span class="lineNum">    3198</span> <span class="tlaGNC">         424 :     return SUCCESS;</span></span>
 <span id="L3199"><span class="lineNum">    3199</span>              : }</span>
 <span id="L3200"><span class="lineNum">    3200</span>              : /* }}} */</span>
         </pre>

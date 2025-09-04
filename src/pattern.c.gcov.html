@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-03 03:00:46</td>
+            <td class="headerValue">2025-09-04 06:33:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.7&nbsp;%</td>
@@ -1521,7 +1521,7 @@
 <span id="L1459"><span class="lineNum">    1459</span>              : /* }}} */</span>
 <span id="L1460"><span class="lineNum">    1460</span>              : </span>
 <span id="L1461"><span class="lineNum">    1461</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L1462"><span class="lineNum">    1462</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_pattern)</span></span>
+<span id="L1462"><span class="lineNum">    1462</span> <span class="tlaGNC">         424 : PHP_MINIT_FUNCTION(cairo_pattern)</span></span>
 <span id="L1463"><span class="lineNum">    1463</span>              : {</span>
 <span id="L1464"><span class="lineNum">    1464</span>              :     zend_class_entry pattern_ce,</span>
 <span id="L1465"><span class="lineNum">    1465</span>              :         gradient_ce,</span>
@@ -1532,97 +1532,97 @@
 <span id="L1470"><span class="lineNum">    1470</span>              :         mesh_ce,</span>
 <span id="L1471"><span class="lineNum">    1471</span>              :         raster_ce;</span>
 <span id="L1472"><span class="lineNum">    1472</span>              : </span>
-<span id="L1473"><span class="lineNum">    1473</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
+<span id="L1473"><span class="lineNum">    1473</span> <span class="tlaGNC">         424 :     memcpy(</span></span>
 <span id="L1474"><span class="lineNum">    1474</span>              :         &amp;cairo_pattern_object_handlers,</span>
 <span id="L1475"><span class="lineNum">    1475</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L1476"><span class="lineNum">    1476</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L1477"><span class="lineNum">    1477</span>              :     );</span>
 <span id="L1478"><span class="lineNum">    1478</span>              : </span>
-<span id="L1479"><span class="lineNum">    1479</span> <span class="tlaGNC">         422 :     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);</span></span>
-<span id="L1480"><span class="lineNum">    1480</span> <span class="tlaGNC">         422 :     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;</span></span>
+<span id="L1479"><span class="lineNum">    1479</span> <span class="tlaGNC">         424 :     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);</span></span>
+<span id="L1480"><span class="lineNum">    1480</span> <span class="tlaGNC">         424 :     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;</span></span>
 <span id="L1481"><span class="lineNum">    1481</span>              : </span>
-<span id="L1482"><span class="lineNum">    1482</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(pattern_ce, CAIRO_NAMESPACE, &quot;Pattern&quot;, cairo_pattern_methods);</span></span>
-<span id="L1483"><span class="lineNum">    1483</span> <span class="tlaGNC">         422 :     ce_cairo_pattern = zend_register_internal_class(&amp;pattern_ce);</span></span>
-<span id="L1484"><span class="lineNum">    1484</span> <span class="tlaGNC">         422 :     ce_cairo_pattern-&gt;create_object = cairo_pattern_create_object;</span></span>
-<span id="L1485"><span class="lineNum">    1485</span> <span class="tlaGNC">         422 :     ce_cairo_pattern-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
+<span id="L1482"><span class="lineNum">    1482</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(pattern_ce, CAIRO_NAMESPACE, &quot;Pattern&quot;, cairo_pattern_methods);</span></span>
+<span id="L1483"><span class="lineNum">    1483</span> <span class="tlaGNC">         424 :     ce_cairo_pattern = zend_register_internal_class(&amp;pattern_ce);</span></span>
+<span id="L1484"><span class="lineNum">    1484</span> <span class="tlaGNC">         424 :     ce_cairo_pattern-&gt;create_object = cairo_pattern_create_object;</span></span>
+<span id="L1485"><span class="lineNum">    1485</span> <span class="tlaGNC">         424 :     ce_cairo_pattern-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
 <span id="L1486"><span class="lineNum">    1486</span>              : </span>
-<span id="L1487"><span class="lineNum">    1487</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(solid_ce,</span></span>
+<span id="L1487"><span class="lineNum">    1487</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(solid_ce,</span></span>
 <span id="L1488"><span class="lineNum">    1488</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Pattern&quot;), &quot;Solid&quot;,</span>
 <span id="L1489"><span class="lineNum">    1489</span>              :         cairo_pattern_solid_methods);</span>
-<span id="L1490"><span class="lineNum">    1490</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_solid = zend_register_internal_class_ex(&amp;solid_ce, ce_cairo_pattern);</span></span>
+<span id="L1490"><span class="lineNum">    1490</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_solid = zend_register_internal_class_ex(&amp;solid_ce, ce_cairo_pattern);</span></span>
 <span id="L1491"><span class="lineNum">    1491</span>              : </span>
-<span id="L1492"><span class="lineNum">    1492</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(gradient_ce,</span></span>
+<span id="L1492"><span class="lineNum">    1492</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(gradient_ce,</span></span>
 <span id="L1493"><span class="lineNum">    1493</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Pattern&quot;), &quot;Gradient&quot;,</span>
 <span id="L1494"><span class="lineNum">    1494</span>              :         cairo_pattern_gradient_methods);</span>
-<span id="L1495"><span class="lineNum">    1495</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_gradient = zend_register_internal_class_ex(&amp;gradient_ce, ce_cairo_pattern);</span></span>
-<span id="L1496"><span class="lineNum">    1496</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_gradient-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
+<span id="L1495"><span class="lineNum">    1495</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_gradient = zend_register_internal_class_ex(&amp;gradient_ce, ce_cairo_pattern);</span></span>
+<span id="L1496"><span class="lineNum">    1496</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_gradient-&gt;ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;</span></span>
 <span id="L1497"><span class="lineNum">    1497</span>              : </span>
-<span id="L1498"><span class="lineNum">    1498</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(radial_ce,</span></span>
+<span id="L1498"><span class="lineNum">    1498</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(radial_ce,</span></span>
 <span id="L1499"><span class="lineNum">    1499</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME(&quot;Pattern&quot;, &quot;Gradient&quot;)), &quot;Radial&quot;,</span>
 <span id="L1500"><span class="lineNum">    1500</span>              :         cairo_pattern_gradient_radial_methods);</span>
-<span id="L1501"><span class="lineNum">    1501</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&amp;radial_ce, ce_cairo_pattern_gradient);</span></span>
+<span id="L1501"><span class="lineNum">    1501</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_gradient_radial = zend_register_internal_class_ex(&amp;radial_ce, ce_cairo_pattern_gradient);</span></span>
 <span id="L1502"><span class="lineNum">    1502</span>              : </span>
-<span id="L1503"><span class="lineNum">    1503</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(linear_ce,</span></span>
+<span id="L1503"><span class="lineNum">    1503</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(linear_ce,</span></span>
 <span id="L1504"><span class="lineNum">    1504</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME(&quot;Pattern&quot;, &quot;Gradient&quot;)), &quot;Linear&quot;,</span>
 <span id="L1505"><span class="lineNum">    1505</span>              :         cairo_pattern_gradient_linear_methods);</span>
-<span id="L1506"><span class="lineNum">    1506</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&amp;linear_ce, ce_cairo_pattern_gradient);</span></span>
+<span id="L1506"><span class="lineNum">    1506</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_gradient_linear = zend_register_internal_class_ex(&amp;linear_ce, ce_cairo_pattern_gradient);</span></span>
 <span id="L1507"><span class="lineNum">    1507</span>              : </span>
-<span id="L1508"><span class="lineNum">    1508</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(surface_ce,</span></span>
+<span id="L1508"><span class="lineNum">    1508</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(surface_ce,</span></span>
 <span id="L1509"><span class="lineNum">    1509</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Pattern&quot;), &quot;Surface&quot;,</span>
 <span id="L1510"><span class="lineNum">    1510</span>              :         cairo_pattern_surface_methods);</span>
-<span id="L1511"><span class="lineNum">    1511</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_surface = zend_register_internal_class_ex(&amp;surface_ce, ce_cairo_pattern);</span></span>
+<span id="L1511"><span class="lineNum">    1511</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_surface = zend_register_internal_class_ex(&amp;surface_ce, ce_cairo_pattern);</span></span>
 <span id="L1512"><span class="lineNum">    1512</span>              : </span>
-<span id="L1513"><span class="lineNum">    1513</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(mesh_ce,</span></span>
+<span id="L1513"><span class="lineNum">    1513</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(mesh_ce,</span></span>
 <span id="L1514"><span class="lineNum">    1514</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Pattern&quot;), &quot;Mesh&quot;,</span>
 <span id="L1515"><span class="lineNum">    1515</span>              :         cairo_pattern_mesh_methods);</span>
-<span id="L1516"><span class="lineNum">    1516</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_mesh = zend_register_internal_class_ex(&amp;mesh_ce, ce_cairo_pattern);</span></span>
+<span id="L1516"><span class="lineNum">    1516</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_mesh = zend_register_internal_class_ex(&amp;mesh_ce, ce_cairo_pattern);</span></span>
 <span id="L1517"><span class="lineNum">    1517</span>              : </span>
-<span id="L1518"><span class="lineNum">    1518</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(raster_ce,</span></span>
+<span id="L1518"><span class="lineNum">    1518</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(raster_ce,</span></span>
 <span id="L1519"><span class="lineNum">    1519</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Pattern&quot;), &quot;RasterSource&quot;,</span>
 <span id="L1520"><span class="lineNum">    1520</span>              :         cairo_pattern_raster_methods);</span>
-<span id="L1521"><span class="lineNum">    1521</span> <span class="tlaGNC">         422 :     ce_cairo_pattern_raster = zend_register_internal_class_ex(&amp;raster_ce, ce_cairo_pattern);</span></span>
+<span id="L1521"><span class="lineNum">    1521</span> <span class="tlaGNC">         424 :     ce_cairo_pattern_raster = zend_register_internal_class_ex(&amp;raster_ce, ce_cairo_pattern);</span></span>
 <span id="L1522"><span class="lineNum">    1522</span>              : </span>
 <span id="L1523"><span class="lineNum">    1523</span>              : </span>
 <span id="L1524"><span class="lineNum">    1524</span>              :     // Pattern Type</span>
-<span id="L1525"><span class="lineNum">    1525</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Pattern&quot;, &quot;Type&quot;), ce_cairo_pattern_type);</span></span>
+<span id="L1525"><span class="lineNum">    1525</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Pattern&quot;, &quot;Type&quot;), ce_cairo_pattern_type);</span></span>
 <span id="L1526"><span class="lineNum">    1526</span>              : </span>
 <span id="L1527"><span class="lineNum">    1527</span>              : #define CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(name) \</span>
 <span id="L1528"><span class="lineNum">    1528</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pattern_type, CAIRO_PATTERN_TYPE)</span>
 <span id="L1529"><span class="lineNum">    1529</span>              : </span>
-<span id="L1530"><span class="lineNum">    1530</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SOLID);</span></span>
-<span id="L1531"><span class="lineNum">    1531</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SURFACE);</span></span>
-<span id="L1532"><span class="lineNum">    1532</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(LINEAR);</span></span>
-<span id="L1533"><span class="lineNum">    1533</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RADIAL);</span></span>
-<span id="L1534"><span class="lineNum">    1534</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(MESH);</span></span>
-<span id="L1535"><span class="lineNum">    1535</span> <span class="tlaGNC">         422 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RASTER_SOURCE);</span></span>
+<span id="L1530"><span class="lineNum">    1530</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SOLID);</span></span>
+<span id="L1531"><span class="lineNum">    1531</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(SURFACE);</span></span>
+<span id="L1532"><span class="lineNum">    1532</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(LINEAR);</span></span>
+<span id="L1533"><span class="lineNum">    1533</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RADIAL);</span></span>
+<span id="L1534"><span class="lineNum">    1534</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(MESH);</span></span>
+<span id="L1535"><span class="lineNum">    1535</span> <span class="tlaGNC">         424 :     CAIRO_PATTERN_TYPE_DECLARE_ENUM_CASE(RASTER_SOURCE);</span></span>
 <span id="L1536"><span class="lineNum">    1536</span>              : </span>
 <span id="L1537"><span class="lineNum">    1537</span>              : </span>
 <span id="L1538"><span class="lineNum">    1538</span>              :     // Extend</span>
-<span id="L1539"><span class="lineNum">    1539</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;Extend&quot;, ce_cairo_extend);</span></span>
+<span id="L1539"><span class="lineNum">    1539</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;Extend&quot;, ce_cairo_extend);</span></span>
 <span id="L1540"><span class="lineNum">    1540</span>              : </span>
 <span id="L1541"><span class="lineNum">    1541</span>              : #define CAIRO_EXTEND_DECLARE_ENUM_CASE(name) \</span>
 <span id="L1542"><span class="lineNum">    1542</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_extend, CAIRO_EXTEND)</span>
 <span id="L1543"><span class="lineNum">    1543</span>              : </span>
-<span id="L1544"><span class="lineNum">    1544</span> <span class="tlaGNC">         422 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(NONE);</span></span>
-<span id="L1545"><span class="lineNum">    1545</span> <span class="tlaGNC">         422 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(REPEAT);</span></span>
-<span id="L1546"><span class="lineNum">    1546</span> <span class="tlaGNC">         422 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(REFLECT);</span></span>
-<span id="L1547"><span class="lineNum">    1547</span> <span class="tlaGNC">         422 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(PAD);</span></span>
+<span id="L1544"><span class="lineNum">    1544</span> <span class="tlaGNC">         424 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(NONE);</span></span>
+<span id="L1545"><span class="lineNum">    1545</span> <span class="tlaGNC">         424 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(REPEAT);</span></span>
+<span id="L1546"><span class="lineNum">    1546</span> <span class="tlaGNC">         424 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(REFLECT);</span></span>
+<span id="L1547"><span class="lineNum">    1547</span> <span class="tlaGNC">         424 :     CAIRO_EXTEND_DECLARE_ENUM_CASE(PAD);</span></span>
 <span id="L1548"><span class="lineNum">    1548</span>              : </span>
 <span id="L1549"><span class="lineNum">    1549</span>              : </span>
 <span id="L1550"><span class="lineNum">    1550</span>              :     // Filter</span>
-<span id="L1551"><span class="lineNum">    1551</span> <span class="tlaGNC">         422 :     CAIRO_REGISTER_ENUM_LONG(&quot;Filter&quot;, ce_cairo_filter);</span></span>
+<span id="L1551"><span class="lineNum">    1551</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;Filter&quot;, ce_cairo_filter);</span></span>
 <span id="L1552"><span class="lineNum">    1552</span>              : </span>
 <span id="L1553"><span class="lineNum">    1553</span>              : #define CAIRO_FILTER_DECLARE_ENUM_CASE(name) \</span>
 <span id="L1554"><span class="lineNum">    1554</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_filter, CAIRO_FILTER)</span>
 <span id="L1555"><span class="lineNum">    1555</span>              : </span>
-<span id="L1556"><span class="lineNum">    1556</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(FAST);</span></span>
-<span id="L1557"><span class="lineNum">    1557</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(GOOD);</span></span>
-<span id="L1558"><span class="lineNum">    1558</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(BEST);</span></span>
-<span id="L1559"><span class="lineNum">    1559</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(NEAREST);</span></span>
-<span id="L1560"><span class="lineNum">    1560</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(BILINEAR);</span></span>
-<span id="L1561"><span class="lineNum">    1561</span> <span class="tlaGNC">         422 :     CAIRO_FILTER_DECLARE_ENUM_CASE(GAUSSIAN);</span></span>
+<span id="L1556"><span class="lineNum">    1556</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(FAST);</span></span>
+<span id="L1557"><span class="lineNum">    1557</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(GOOD);</span></span>
+<span id="L1558"><span class="lineNum">    1558</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(BEST);</span></span>
+<span id="L1559"><span class="lineNum">    1559</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(NEAREST);</span></span>
+<span id="L1560"><span class="lineNum">    1560</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(BILINEAR);</span></span>
+<span id="L1561"><span class="lineNum">    1561</span> <span class="tlaGNC">         424 :     CAIRO_FILTER_DECLARE_ENUM_CASE(GAUSSIAN);</span></span>
 <span id="L1562"><span class="lineNum">    1562</span>              : </span>
-<span id="L1563"><span class="lineNum">    1563</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
+<span id="L1563"><span class="lineNum">    1563</span> <span class="tlaGNC">         424 :     return SUCCESS;</span></span>
 <span id="L1564"><span class="lineNum">    1564</span>              : }</span>
         </pre>
               </td>
