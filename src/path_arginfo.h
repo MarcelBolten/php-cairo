@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 2d1d0c6cbdc260a5591d5e9d02d460bd4c664e70 */
+ * Stub hash: 4e6a25245929e0135e6d77ac86ab9b266cdbd392 */
 
 static zend_class_entry *register_class_Cairo_Path(void)
 {

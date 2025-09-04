@@ -2,13 +2,13 @@
 
 /** @generate-class-entries */
 
-namespace Cairo {
-
+namespace Cairo
+{
     class Path {}
 }
 
-namespace Cairo\Path {
-
+namespace Cairo\Path
+{
     enum DataType: int {
         /** @cvalue CAIRO_PATH_MOVE_TO */
         case MoveTo = UNKNOWN;
