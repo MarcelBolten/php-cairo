@@ -1,9 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: b679de7461dd7b4d342d7d89001d9dee6b85b2e0 */
+ * Stub hash: 5e3a7d915ab336d07b7e07d552703ae738c34c09 */
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_TextCluster___construct, 0, 0, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, num_bytes, IS_LONG, 0, "0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, num_glyphs, IS_LONG, 0, "0")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_TextCluster___construct, 0, 0, 2)
+	ZEND_ARG_TYPE_INFO(0, num_bytes, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, num_glyphs, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_METHOD(Cairo_TextCluster, __construct);
