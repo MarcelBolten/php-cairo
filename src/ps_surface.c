@@ -25,6 +25,7 @@
 
 #if CAIRO_HAS_PS_SURFACE
 #include <cairo-ps.h>
+#include "ps_surface_arginfo.h"
 
 zend_class_entry *ce_cairo_pssurface;
 zend_class_entry *ce_cairo_pslevel;
@@ -33,15 +34,9 @@ zend_class_entry *ce_cairo_pslevel;
     Cairo\Surface\Ps Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface___construct_args, ZEND_SEND_BY_VAL)
-ZEND_ARG_INFO(0, file)
-ZEND_ARG_INFO(0, width)
-ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoPsSurface->__construct(string|resource file, int|float width, int|float height)
        Creates a PS surface of the specified size in points to be written to filename. */
-PHP_METHOD(CairoPsSurface, __construct)
+PHP_METHOD(Cairo_Surface_Ps, __construct)
 {
     zval *stream_zval = NULL;
     stream_closure *closure;
@@ -93,15 +88,10 @@ PHP_METHOD(CairoPsSurface, __construct)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface_setSize_args, ZEND_SEND_BY_VAL)
-ZEND_ARG_INFO(0, width)
-ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoPsSurface->setSize(double width, double height)
        Changes the size of a PS surface for the current (and subsequent) pages.
        This should be called before any drawing takes place on the surface */
-PHP_METHOD(CairoPsSurface, setSize)
+PHP_METHOD(Cairo_Surface_Ps, setSize)
 {
     double width = 0.0, height = 0.0;
     cairo_surface_object *surface_object;
@@ -117,19 +107,16 @@ PHP_METHOD(CairoPsSurface, setSize)
     }
 
     cairo_ps_surface_set_size(surface_object->surface, width, height);
+
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
         RETURN_THROWS();
     }
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoPsSurface_restrictToLevel_args, ZEND_SEND_BY_VAL, 0, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, level, Cairo\\Surface\\Ps\\Level, 0, "Cairo\\Surface\\Ps\\Level::LEVEL_2")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoPsSurface->restrictToLevel(int level)
-       Restricts the generated PostSript file to level. */
-PHP_METHOD(CairoPsSurface, restrictToLevel)
+       Restricts the generated PostScript file to level. */
+PHP_METHOD(Cairo_Surface_Ps, restrictToLevel)
 {
     cairo_surface_object *surface_object;
     zval *level = NULL;
@@ -157,13 +144,9 @@ PHP_METHOD(CairoPsSurface, restrictToLevel)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface_setEps_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, eps)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoPsSurface->setEps(boolean eps)
        If eps is TRUE, the PostScript surface will output Encapsulated PostScript. */
-PHP_METHOD(CairoPsSurface, setEps)
+PHP_METHOD(Cairo_Surface_Ps, setEps)
 {
     bool eps = false;
     cairo_surface_object *surface_object;
@@ -178,6 +161,7 @@ PHP_METHOD(CairoPsSurface, setEps)
     }
 
     cairo_ps_surface_set_eps(surface_object->surface, eps);
+
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
         RETURN_THROWS();
     }
@@ -186,7 +170,7 @@ PHP_METHOD(CairoPsSurface, setEps)
 
 /* {{{ proto boolean CairoPsSurface->getEps(void)
        Check whether the PostScript surface will output Encapsulated PostScript. */
-PHP_METHOD(CairoPsSurface, getEps)
+PHP_METHOD(Cairo_Surface_Ps, getEps)
 {
     cairo_surface_object *surface_object;
 
@@ -196,6 +180,7 @@ PHP_METHOD(CairoPsSurface, getEps)
     if (!surface_object) {
         RETURN_THROWS();
     }
+
     RETURN_BOOL(cairo_ps_surface_get_eps(surface_object->surface));
 }
 /* }}} */
@@ -203,7 +188,7 @@ PHP_METHOD(CairoPsSurface, getEps)
 /* {{{ proto void CairoPsSurface->dscBeginSetup(void)
        This function indicates that subsequent calls to cairo_ps_surface_dsc_comment() should
        direct comments to the Setup section of the PostScript output. */
-PHP_METHOD(CairoPsSurface, dscBeginSetup)
+PHP_METHOD(Cairo_Surface_Ps, dscBeginSetup)
 {
     cairo_surface_object *surface_object;
 
@@ -213,6 +198,7 @@ PHP_METHOD(CairoPsSurface, dscBeginSetup)
     if (!surface_object) {
         RETURN_THROWS();
     }
+
     cairo_ps_surface_dsc_begin_setup(surface_object->surface);
 }
 /* }}} */
@@ -224,7 +210,7 @@ PHP_METHOD(CairoPsSurface, dscBeginSetup)
        This function call is only needed for the first page of a surface.
        It should be called after any call to cairo_ps_surface_dsc_begin_setup()
        and before any drawing is performed to the surface. */
-PHP_METHOD(CairoPsSurface, dscBeginPageSetup)
+PHP_METHOD(Cairo_Surface_Ps, dscBeginPageSetup)
 {
     cairo_surface_object *surface_object;
 
@@ -234,17 +220,14 @@ PHP_METHOD(CairoPsSurface, dscBeginPageSetup)
     if (!surface_object) {
         RETURN_THROWS();
     }
+
     cairo_ps_surface_dsc_begin_page_setup(surface_object->surface);
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface_dscComment_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, comment)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoPsSurface->dscComment(string comment)
        Emit a comment into the PostScript output for the given surface. */
-PHP_METHOD(CairoPsSurface, dscComment)
+PHP_METHOD(Cairo_Surface_Ps, dscComment)
 {
     cairo_surface_object *surface_object;
     char *comment, *cairo_comment;
@@ -271,7 +254,7 @@ PHP_METHOD(CairoPsSurface, dscComment)
 
 /* {{{ proto array CairoPsSurface::getLevels(void)
        Used to retrieve the list of supported levels. See cairo_ps_surface_restrict_to_level(). */
-PHP_METHOD(CairoPsSurface, getLevels)
+PHP_METHOD(Cairo_Surface_Ps, getLevels)
 {
     const cairo_ps_level_t *levels;
     int num_levels, i;
@@ -289,13 +272,9 @@ PHP_METHOD(CairoPsSurface, getLevels)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface_long_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, level, Cairo\\Surface\\Ps\\Level, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto string \Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level level)
        Get the string representation of the given level id. */
-PHP_METHOD(CairoPsSurface, levelToString)
+PHP_METHOD(Cairo_Surface_Ps, levelToString)
 {
     zval *level;
 
@@ -311,43 +290,15 @@ PHP_METHOD(CairoPsSurface, levelToString)
     Cairo\Surface\ps Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoPsSurface_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_ps_surface_methods[] */
-static const zend_function_entry cairo_ps_surface_methods[] = {
-    PHP_ME(CairoPsSurface, __construct, CairoPsSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoPsSurface, setSize, CairoPsSurface_setSize_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, restrictToLevel, CairoPsSurface_restrictToLevel_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, getLevels, CairoPsSurface_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoPsSurface, levelToString, CairoPsSurface_long_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoPsSurface, setEps, CairoPsSurface_setEps_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, getEps, CairoPsSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, dscBeginSetup, CairoPsSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, dscBeginPageSetup, CairoPsSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoPsSurface, dscComment, CairoPsSurface_dscComment_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_ps_surface)
 {
     zend_class_entry pssurface_ce;
 
-    INIT_NS_CLASS_ENTRY(pssurface_ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "Ps",
-        cairo_ps_surface_methods);
-    ce_cairo_pssurface = zend_register_internal_class_ex(&pssurface_ce, ce_cairo_surface);
+    ce_cairo_pssurface = register_class_Cairo_Surface_Ps(ce_cairo_surface);
 
     /* Ps Level */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Surface", ZEND_NS_NAME("Ps", "Level")), ce_cairo_pslevel);
-
-#define CAIRO_PSLEVEL_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_pslevel, CAIRO_PS)
-
-    CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_2);
-    CAIRO_PSLEVEL_DECLARE_ENUM_CASE(LEVEL_3);
+    ce_cairo_pslevel = register_class_Cairo_Surface_Ps_Level();
 
     return SUCCESS;
 }
