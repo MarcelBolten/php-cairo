@@ -2,8 +2,8 @@
 
 /** @generate-class-entries */
 
-namespace Cairo\Surface {
-
+namespace Cairo\Surface
+{
     class Pdf extends \Cairo\Surface
     {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
@@ -15,20 +15,31 @@ namespace Cairo\Surface {
 #endif
 
         /**
-         * @param string|resource $file
+         * @param null|string|resource $file
          */
-        public function __construct($file, float $width, float $height) {}
+        public function __construct(
+            $file,
+            float $width,
+            float $height
+        ) {}
 
-        public function restrictToVersion(Pdf\Version $version): void {}
+        public function restrictToVersion(
+            Pdf\Version $version
+        ): void {}
 
         /**
          * @return Pdf\Version[]
          */
         public static function getVersions(): array {}
 
-        public static function versionToString(Pdf\Version $version): string {}
+        public static function versionToString(
+            Pdf\Version $version
+        ): string {}
 
-        public function setSize(float $width, float $height): void {}
+        public function setSize(
+            float $width,
+            float $height
+        ): void {}
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
         /**
@@ -39,28 +50,43 @@ namespace Cairo\Surface {
          * Returns the id for the added item.
          */
         public function addOutline(
-            int $parent,
+            int $parent_id,
             string $name,
             string $link_attribs,
             Pdf\OutlineFlags $outline_flag,
         ): int {}
 
-        public function setMetadata(Pdf\Metadata $field, string $value = ""): void {}
+        public function setMetadata(
+            Pdf\Metadata $field,
+            string $value = ""
+        ): void {}
 
-        public function setPageLabel(string $label): void {}
+        public function setPageLabel(
+            string $label
+        ): void {}
 
-        public function setThumbnailSize(float $width, float $height): void {}
+        public function setThumbnailSize(
+            int $width,
+            int $height
+        ): void {}
 #endif
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
-        /** TODO: implement */
-        public function setCustomMetadata(string $name, string $value): void {}
+        /**
+         * Set custom metadata for the PDF document.
+         * $name may be any string except for the following names reserved by PDF:
+         * Title, Author, Subject, Keywords, Creator, Producer, CreationDate, ModDate, Trapped
+         */
+        public function setCustomMetadata(
+            string $name,
+            string $value
+        ): void {}
 #endif
     }
 }
 
-namespace Cairo\Surface\Pdf {
-
+namespace Cairo\Surface\Pdf
+{
     enum Version: int
     {
         /** @cvalue CAIRO_PDF_VERSION_1_4 */

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 78fefa818d7bc6a57740a8ae302eed7ce2a6ab72 */
+ * Stub hash: 17120e04f5bb9c745b4b647ab7e151ffc7af35c4 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Pdf___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -25,7 +25,7 @@ ZEND_END_ARG_INFO()
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Pdf_addOutline, 0, 4, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, parent, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, parent_id, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 	ZEND_ARG_TYPE_INFO(0, link_attribs, IS_STRING, 0)
 	ZEND_ARG_OBJ_INFO(0, outline_flag, Cairo\\Surface\\Pdf\\OutlineFlags, 0)
@@ -41,8 +41,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Pdf_setPageL
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Pdf_setThumbnailSize, 0, 2, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 #endif
 
