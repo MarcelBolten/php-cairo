@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "image_surface_arginfo.h"
 
 zend_class_entry *ce_cairo_imagesurface;
 zend_class_entry *ce_cairo_format;
@@ -30,16 +31,10 @@ zend_class_entry *ce_cairo_format;
     Cairo\ImageSurface Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoImageSurface___construct_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
-    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
-    ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void __construct(int format, int width, int height)
        Creates an image surface of the specified format and dimensions.
        Initially the surface contents are set to 0. */
-PHP_METHOD(CairoImageSurface, __construct)
+PHP_METHOD(Cairo_Surface_Image, __construct)
 {
     zend_long width, height;
     cairo_surface_object *surface_object;
@@ -67,16 +62,9 @@ PHP_METHOD(CairoImageSurface, __construct)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoImageSurface_createForData_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 4)
-    ZEND_ARG_TYPE_INFO(0, data, IS_STRING, 0)
-    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
-    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
-    ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Surface\Image Object \Cairo\Surface\Image::createForData(string data, Cairo\Surface\ImageFormat format, int width, int height, int stride)
        Creates an image surface for the provided pixel data. */
-PHP_METHOD(CairoImageSurface, createForData)
+PHP_METHOD(Cairo_Surface_Image, createForData)
 {
     /* NOTE: we have to keep the data buffer around, so we put it in the cairo_surface_object */
     char *data;
@@ -136,7 +124,10 @@ PHP_METHOD(CairoImageSurface, createForData)
     );
 
     /* create our surface and check for errors */
-    surface_object->surface = cairo_image_surface_create_for_data((unsigned char*)surface_object->buffer, format, width, height, stride);
+    surface_object->surface = cairo_image_surface_create_for_data(
+        (unsigned char*)surface_object->buffer,
+        format, width, height, stride
+    );
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
         RETURN_THROWS();
     }
@@ -145,7 +136,7 @@ PHP_METHOD(CairoImageSurface, createForData)
 
 /* {{{ proto string \Cairo\Surface\Image->getData()
        Get the string data of the image surface, for direct inspection or modification */
-PHP_METHOD(CairoImageSurface, getData)
+PHP_METHOD(Cairo_Surface_Image, getData)
 {
     cairo_surface_object *surface_object;
     unsigned char *data;
@@ -172,7 +163,7 @@ PHP_METHOD(CairoImageSurface, getData)
 
 /* {{{ proto int \Cairo\Surface\Image->getFormat()
        Get the format of the surface */
-PHP_METHOD(CairoImageSurface, getFormat)
+PHP_METHOD(Cairo_Surface_Image, getFormat)
 {
     cairo_surface_object *surface_object;
     zval format_case;
@@ -201,7 +192,7 @@ PHP_METHOD(CairoImageSurface, getFormat)
 
 /* {{{ proto int \Cairo\Surface\Image->getWidth()
        Get the width of the image surface in pixels. */
-PHP_METHOD(CairoImageSurface, getWidth)
+PHP_METHOD(Cairo_Surface_Image, getWidth)
 {
     cairo_surface_object *surface_object;
 
@@ -222,7 +213,7 @@ PHP_METHOD(CairoImageSurface, getWidth)
 
 /* {{{ proto int \Cairo\Surface\Image->getHeight()
        Get the height of the image surface in pixels. */
-PHP_METHOD(CairoImageSurface, getHeight)
+PHP_METHOD(Cairo_Surface_Image, getHeight)
 {
     cairo_surface_object *surface_object;
 
@@ -243,7 +234,7 @@ PHP_METHOD(CairoImageSurface, getHeight)
 
 /* {{{ proto int \Cairo\Surface\Image->getStride()
        Get the stride of the image surface in bytes */
-PHP_METHOD(CairoImageSurface, getStride)
+PHP_METHOD(Cairo_Surface_Image, getStride)
 {
     cairo_surface_object *surface_object;
 
@@ -262,40 +253,10 @@ PHP_METHOD(CairoImageSurface, getStride)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoFormat_strideForWidth_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
-    ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto int CairoFormat::strideForWidth(long format, long width)
-        This function provides a stride value that will respect all alignment
-        requirements of the accelerated image-rendering code within cairo. */
-PHP_METHOD(CairoFormat, strideForWidth)
-{
-    long width;
-    zval *format;
-
-    ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)
-        Z_PARAM_LONG(width)
-    ZEND_PARSE_PARAMETERS_END();
-
-    RETURN_LONG(cairo_format_stride_for_width(
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),
-        width
-    ));
-}
-/* }}} */
-
 #ifdef CAIRO_HAS_PNG_FUNCTIONS
-
-ZEND_BEGIN_ARG_INFO(CairoImageSurface_createFromPng_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, file)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Surface\Image object \Cairo\Surface\Image::createFromPng(file|resource file)
        Creates a new image surface and initializes the contents to the given PNG file. */
-PHP_METHOD(CairoImageSurface, createFromPng)
+PHP_METHOD(Cairo_Surface_Image, createFromPng)
 {
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
@@ -339,13 +300,10 @@ PHP_METHOD(CairoImageSurface, createFromPng)
 #endif
 
 
-ZEND_BEGIN_ARG_INFO(CairoImageSurface_createFromJpeg_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, file)
-ZEND_END_ARG_INFO()
-
+#ifdef CAIRO_HAS_JPEG_FUNCTIONS
 /* {{{ proto \Cairo\Surface\Image object \Cairo\Surface\Image::createFromJpeg(file|resource file)
        Creates a new image surface and initializes the contents to the given JPEG file. */
-PHP_METHOD(CairoImageSurface, createFromJpeg)
+PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
 {
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
@@ -389,71 +347,39 @@ PHP_METHOD(CairoImageSurface, createFromJpeg)
     }
 }
 /* }}} */
+#endif
+
+/* {{{ proto int CairoFormat::strideForWidth(long format, long width)
+        This function provides a stride value that will respect all alignment
+        requirements of the accelerated image-rendering code within cairo. */
+PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)
+{
+    long width;
+    zval *format;
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)
+        Z_PARAM_LONG(width)
+    ZEND_PARSE_PARAMETERS_END();
+
+    RETURN_LONG(cairo_format_stride_for_width(
+        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),
+        width
+    ));
+}
+/* }}} */
 
 
 /* ----------------------------------------------------------------
     Cairo\FontOptions Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoImageSurface_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_imagesurface_methods[] */
-static const zend_function_entry cairo_imagesurface_methods[] = {
-    PHP_ME(CairoImageSurface, __construct, CairoImageSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoImageSurface, createForData, CairoImageSurface_createForData_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-    PHP_ME(CairoImageSurface, getData, CairoImageSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoImageSurface, getFormat, CairoImageSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoImageSurface, getWidth, CairoImageSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoImageSurface, getHeight, CairoImageSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoImageSurface, getStride, CairoImageSurface_method_no_args, ZEND_ACC_PUBLIC)
-#ifdef CAIRO_HAS_PNG_FUNCTIONS
-    PHP_ME(CairoImageSurface, createFromPng, CairoImageSurface_createFromPng_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-#endif
-#ifdef CAIRO_HAS_JPEG_FUNCTIONS
-    PHP_ME(CairoImageSurface, createFromJpeg, CairoImageSurface_createFromJpeg_args, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-#endif
-    ZEND_FE_END
-};
-/* }}} */
-
-/* {{{ cairo_format_methods[] */
-static const zend_function_entry cairo_format_methods[] = {
-    PHP_ME(CairoFormat, strideForWidth, CairoFormat_strideForWidth_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_image_surface)
 {
-    zend_class_entry ce, format_ce;
+    ce_cairo_imagesurface = register_class_Cairo_Surface_Image(ce_cairo_surface);
 
-    INIT_NS_CLASS_ENTRY(ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "Image",
-        cairo_imagesurface_methods);
-    ce_cairo_imagesurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
-
-    ce_cairo_format = zend_register_internal_enum(
-        ZEND_NS_NAME(CAIRO_NAMESPACE, ZEND_NS_NAME("Surface", "ImageFormat")),
-        IS_LONG,
-        cairo_format_methods
-    );
-
-#define CAIRO_FORMAT_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_format, CAIRO_FORMAT)
-
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(ARGB32);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB24);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(A8);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(A1);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB16_565);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB30);
-
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 17, 2)
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGBA128F);
-    CAIRO_FORMAT_DECLARE_ENUM_CASE(RGB96F);
-#endif
+    ce_cairo_format = register_class_Cairo_Surface_ImageFormat();
 
     return SUCCESS;
 }
