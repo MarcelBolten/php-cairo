@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "rectangle_arginfo.h"
 
 zend_class_entry *ce_cairo_rectangle;
 
@@ -98,16 +99,9 @@ cairo_rectangle_int_t *cairo_rectangle_object_get_rect(zval *zv)
     \Cairo\Rectangle Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRectangle____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void __construct([int x, int y, int width, int height])
     Creates a new rectangle with the properties populated */
-PHP_METHOD(CairoRectangle, __construct)
+PHP_METHOD(Cairo_Rectangle, __construct)
 {
     cairo_rectangle_object *rectangle_object;
     zend_object *object = Z_OBJ_P(getThis());
@@ -293,13 +287,6 @@ static HashTable *cairo_rectangle_object_get_properties(zend_object *object)
     \Cairo\Rectangle Definition and registration
 ------------------------------------------------------------------*/
 
-/* {{{ cairo_rectangle_methods[] */
-const zend_function_entry cairo_rectangle_methods[] = {
-    PHP_ME(CairoRectangle, __construct, CairoRectangle____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_rectangle)
 {
@@ -319,14 +306,8 @@ PHP_MINIT_FUNCTION(cairo_rectangle)
     cairo_rectangle_object_handlers.get_property_ptr_ptr = NULL;
     cairo_rectangle_object_handlers.get_properties = cairo_rectangle_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "Rectangle", cairo_rectangle_methods);
-    ce.create_object = cairo_rectangle_create_object;
-    ce_cairo_rectangle = zend_register_internal_class(&ce);
-
-    zend_declare_property_long(ce_cairo_rectangle, "x", sizeof("x")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_long(ce_cairo_rectangle, "y", sizeof("y")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_long(ce_cairo_rectangle, "width", sizeof("width")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_long(ce_cairo_rectangle, "height", sizeof("height")-1, 0, ZEND_ACC_PUBLIC);
+    ce_cairo_rectangle = register_class_Cairo_Rectangle();
+    ce_cairo_rectangle->create_object = cairo_rectangle_create_object;
 
     return SUCCESS;
 }
