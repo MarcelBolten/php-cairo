@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 507724310aa6cdc782265a917a41ac63ea892098 */
+ * Stub hash: bc2a86eea9854895b4559e487b75556c592d692d */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Context___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
@@ -548,7 +548,11 @@ static zend_class_entry *register_class_Cairo_Context(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Context", class_Cairo_Context_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	return class_entry;
 }

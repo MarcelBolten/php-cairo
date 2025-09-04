@@ -1,12 +1,16 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 4e6a25245929e0135e6d77ac86ab9b266cdbd392 */
+ * Stub hash: 4a5024f39563f96c88b68b67bc01a010cb5eb8b5 */
 
 static zend_class_entry *register_class_Cairo_Path(void)
 {
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Path", NULL);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	return class_entry;
 }

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: da11e3d9d230ae9e8ebce583f9e087e28f13d2f9 */
+ * Stub hash: 532e2adfa394f0120b711d5a23894740b4bb9c5c */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -26,7 +26,12 @@ static zend_class_entry *register_class_Cairo_FontFace(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "FontFace", class_Cairo_FontFace_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_ABSTRACT);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_ABSTRACT;
+#endif
 
 	return class_entry;
 }

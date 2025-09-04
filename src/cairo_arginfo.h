@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 45e603ec825e29ba3cd2ae1ff852c68e1d536474 */
+ * Stub hash: 7433662f54ebc00aa22068c4f7c821fc006c5f41 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_Cairo_version, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -27,8 +27,16 @@ ZEND_METHOD(Cairo_Cairo, availableFonts);
 ZEND_METHOD(Cairo_Status, getMessage);
 
 static const zend_function_entry ext_functions[] = {
+#if (PHP_VERSION_ID >= 80400)
 	ZEND_RAW_FENTRY(ZEND_NS_NAME("Cairo", "version"), zif_Cairo_version, arginfo_Cairo_version, 0, NULL, NULL)
+#else
+	ZEND_RAW_FENTRY(ZEND_NS_NAME("Cairo", "version"), zif_Cairo_version, arginfo_Cairo_version, 0)
+#endif
+#if (PHP_VERSION_ID >= 80400)
 	ZEND_RAW_FENTRY(ZEND_NS_NAME("Cairo", "version_sting"), zif_Cairo_version_sting, arginfo_Cairo_version_sting, 0, NULL, NULL)
+#else
+	ZEND_RAW_FENTRY(ZEND_NS_NAME("Cairo", "version_sting"), zif_Cairo_version_sting, arginfo_Cairo_version_sting, 0)
+#endif
 	ZEND_FE_END
 };
 
@@ -50,7 +58,12 @@ static zend_class_entry *register_class_Cairo_Cairo(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Cairo", class_Cairo_Cairo_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_ABSTRACT);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_ABSTRACT;
+#endif
 
 	zval const_VERSION_value;
 	ZVAL_LONG(&const_VERSION_value, CAIRO_VERSION);
@@ -73,7 +86,11 @@ static zend_class_entry *register_class_Cairo_Exception(zend_class_entry *class_
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Exception", NULL);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Exception, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Exception);
+#endif
 
 	return class_entry;
 }

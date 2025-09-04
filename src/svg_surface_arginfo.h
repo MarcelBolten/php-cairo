@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 40cbf033164459fb6f2fb2c1b3e2de0a8bbd0618 */
+ * Stub hash: 665d90867e8d7364c75912191eaa305a747dfc21 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_SVG___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -53,7 +53,11 @@ static zend_class_entry *register_class_Cairo_Surface_SVG(zend_class_entry *clas
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Surface", "SVG", class_Cairo_Surface_SVG_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Surface, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Surface);
+#endif
 
 	return class_entry;
 }

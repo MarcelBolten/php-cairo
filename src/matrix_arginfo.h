@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 377b794e03f1a7d6691f5b911992f613191c2aa7 */
+ * Stub hash: d656f3364953a1cedf7c0f7778413ce481aa95e8 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Matrix___construct, 0, 0, 0)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, xx, IS_DOUBLE, 0, "1.0")
@@ -93,7 +93,11 @@ static zend_class_entry *register_class_Cairo_Matrix(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Matrix", class_Cairo_Matrix_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	zval property_xx_default_value;
 	ZVAL_UNDEF(&property_xx_default_value);

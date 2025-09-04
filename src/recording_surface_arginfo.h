@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 01e87930f73e66f6e02b5bd51ca52bab550efbd4 */
+ * Stub hash: 11e69a3b561cafe68e014083e4b4e0a564055f8e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Recording___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
@@ -28,7 +28,11 @@ static zend_class_entry *register_class_Cairo_Surface_Recording(zend_class_entry
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Surface", "Recording", class_Cairo_Surface_Recording_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Surface, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Surface);
+#endif
 
 	return class_entry;
 }

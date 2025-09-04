@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 64cbd8143b31649c19de62c6faec6373c3c04946 */
+ * Stub hash: 0bacb91a5485bf3ca8e58a709ebd55f1edd125fd */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_ScaledFont___construct, 0, 0, 4)
 	ZEND_ARG_OBJ_INFO(0, font_face, Cairo\\FontFace, 0)
@@ -66,7 +66,11 @@ static zend_class_entry *register_class_Cairo_ScaledFont(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "ScaledFont", class_Cairo_ScaledFont_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	return class_entry;
 }

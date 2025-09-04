@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 3ea9e653ce09b210248c960f64fc321955c5b03a */
+ * Stub hash: 03e43d07fb6b45ea760dd5f31b8cf5923750754f */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Pattern___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -269,7 +269,12 @@ static zend_class_entry *register_class_Cairo_Pattern(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Pattern", class_Cairo_Pattern_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_ABSTRACT);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_ABSTRACT;
+#endif
 
 	return class_entry;
 }
@@ -360,7 +365,11 @@ static zend_class_entry *register_class_Cairo_Pattern_Solid(zend_class_entry *cl
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern", "Solid", class_Cairo_Pattern_Solid_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern);
+#endif
 
 	return class_entry;
 }
@@ -370,7 +379,12 @@ static zend_class_entry *register_class_Cairo_Pattern_Gradient(zend_class_entry 
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern", "Gradient", class_Cairo_Pattern_Gradient_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern, ZEND_ACC_ABSTRACT);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern);
+	class_entry->ce_flags |= ZEND_ACC_ABSTRACT;
+#endif
 
 	return class_entry;
 }
@@ -380,7 +394,11 @@ static zend_class_entry *register_class_Cairo_Pattern_Surface(zend_class_entry *
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern", "Surface", class_Cairo_Pattern_Surface_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern);
+#endif
 
 	return class_entry;
 }
@@ -390,7 +408,11 @@ static zend_class_entry *register_class_Cairo_Pattern_Mesh(zend_class_entry *cla
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern", "Mesh", class_Cairo_Pattern_Mesh_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern);
+#endif
 
 	return class_entry;
 }
@@ -431,7 +453,11 @@ static zend_class_entry *register_class_Cairo_Pattern_Gradient_Linear(zend_class
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern\\Gradient", "Linear", class_Cairo_Pattern_Gradient_Linear_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern_Gradient, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern_Gradient);
+#endif
 
 	return class_entry;
 }
@@ -441,7 +467,11 @@ static zend_class_entry *register_class_Cairo_Pattern_Gradient_Radial(zend_class
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Pattern\\Gradient", "Radial", class_Cairo_Pattern_Gradient_Radial_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Pattern_Gradient, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Pattern_Gradient);
+#endif
 
 	return class_entry;
 }

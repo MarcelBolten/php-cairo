@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 5e3a7d915ab336d07b7e07d552703ae738c34c09 */
+ * Stub hash: bb125598928ab30247e010e4a9dfdfd325be6f07 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_TextCluster___construct, 0, 0, 2)
 	ZEND_ARG_TYPE_INFO(0, num_bytes, IS_LONG, 0)
@@ -18,7 +18,12 @@ static zend_class_entry *register_class_Cairo_TextCluster(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "TextCluster", class_Cairo_TextCluster_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_FINAL);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_FINAL;
+#endif
 
 	zval property_num_bytes_default_value;
 	ZVAL_LONG(&property_num_bytes_default_value, 0);

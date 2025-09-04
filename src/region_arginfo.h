@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 8b8aa50a3abad8885501238335f0b07a9e40e9dd */
+ * Stub hash: 73562071c07892c7f2039067c1304bbae80697ec */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Region___construct, 0, 0, 0)
 	ZEND_ARG_OBJ_TYPE_MASK(0, rectangles, Cairo\\Rectangle, MAY_BE_NULL|MAY_BE_ARRAY, "NULL")
@@ -104,7 +104,11 @@ static zend_class_entry *register_class_Cairo_Region(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Region", class_Cairo_Region_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	return class_entry;
 }

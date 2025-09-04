@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 5cd9c885628598add2d6dd3913db91bc2dd178be */
+ * Stub hash: dac4e3e8bbc3b2275081f9561626a90981ebba53 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Ps___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -69,7 +69,11 @@ static zend_class_entry *register_class_Cairo_Surface_Ps(zend_class_entry *class
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Surface", "Ps", class_Cairo_Surface_Ps_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Surface, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Surface);
+#endif
 
 	return class_entry;
 }

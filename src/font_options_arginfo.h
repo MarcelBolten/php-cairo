@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: b94473595b5247baa8f97e41385076914822324d */
+ * Stub hash: cdea5c69def1eb75a746abd20da7cf9e8cead2bc */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontOptions___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -143,7 +143,11 @@ static zend_class_entry *register_class_Cairo_FontOptions(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "FontOptions", class_Cairo_FontOptions_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
 
 	zval const_PALETTE_DEFAULT_value;

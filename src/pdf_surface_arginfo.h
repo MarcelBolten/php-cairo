@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6f31374d15f0bb44734594d8352c970714f509e3 */
+ * Stub hash: 0c04b7887ca191c3e4dd5e0ff85cad2f43533c7e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Pdf___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -91,7 +91,11 @@ static zend_class_entry *register_class_Cairo_Surface_Pdf(zend_class_entry *clas
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Surface", "Pdf", class_Cairo_Surface_Pdf_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Surface, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Surface);
+#endif
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 
 	zval const_OUTLINE_ROOT_value;

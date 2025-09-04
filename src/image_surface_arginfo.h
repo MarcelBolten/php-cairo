@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 98db445d5f27bfcf39b48782438f37e65d484f20 */
+ * Stub hash: 2fa9fa43d013095c282e54cf4871bee6dc0d017d */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Image___construct, 0, 0, 3)
 	ZEND_ARG_OBJ_INFO(0, format, Cairo\\Surface\\ImageFormat, 0)
@@ -87,7 +87,11 @@ static zend_class_entry *register_class_Cairo_Surface_Image(zend_class_entry *cl
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo\\Surface", "Image", class_Cairo_Surface_Image_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_Cairo_Surface, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_Cairo_Surface);
+#endif
 
 	return class_entry;
 }

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 2f359e4d43e85a68611f88b4c33ed9f173da34ed */
+ * Stub hash: 0bed5a4a3c595bcbe15edbfcc4676ae7a24bae61 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Rectangle___construct, 0, 0, 0)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x, IS_LONG, 0, "0")
@@ -20,7 +20,11 @@ static zend_class_entry *register_class_Cairo_Rectangle(void)
 	zend_class_entry ce, *class_entry;
 
 	INIT_NS_CLASS_ENTRY(ce, "Cairo", "Rectangle", class_Cairo_Rectangle_methods);
+#if (PHP_VERSION_ID >= 80400)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, 0);
+#else
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+#endif
 
 	zval property_x_default_value;
 	ZVAL_LONG(&property_x_default_value, 0);
