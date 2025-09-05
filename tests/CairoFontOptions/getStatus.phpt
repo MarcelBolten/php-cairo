@@ -1,5 +1,5 @@
 --TEST--
-Cairo\FontOptions->status() method
+Cairo\FontOptions->getStatus() method
 --SKIPIF--
 <?php
 if (!extension_loaded('cairo')) {
