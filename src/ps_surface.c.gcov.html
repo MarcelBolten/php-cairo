@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-05 06:35:55</td>
+            <td class="headerValue">2025-09-05 17:40:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -353,16 +353,16 @@
 <span id="L291"><span class="lineNum">     291</span>              : ------------------------------------------------------------------*/</span>
 <span id="L292"><span class="lineNum">     292</span>              : </span>
 <span id="L293"><span class="lineNum">     293</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">         426 : PHP_MINIT_FUNCTION(cairo_ps_surface)</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_ps_surface)</span></span>
 <span id="L295"><span class="lineNum">     295</span>              : {</span>
 <span id="L296"><span class="lineNum">     296</span>              :     zend_class_entry pssurface_ce;</span>
 <span id="L297"><span class="lineNum">     297</span>              : </span>
-<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">         426 :     ce_cairo_pssurface = register_class_Cairo_Surface_Ps(ce_cairo_surface);</span></span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">         433 :     ce_cairo_pssurface = register_class_Cairo_Surface_Ps(ce_cairo_surface);</span></span>
 <span id="L299"><span class="lineNum">     299</span>              : </span>
 <span id="L300"><span class="lineNum">     300</span>              :     /* Ps Level */</span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">         426 :     ce_cairo_pslevel = register_class_Cairo_Surface_Ps_Level();</span></span>
+<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">         433 :     ce_cairo_pslevel = register_class_Cairo_Surface_Ps_Level();</span></span>
 <span id="L302"><span class="lineNum">     302</span>              : </span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">         426 :     return SUCCESS;</span></span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
 <span id="L304"><span class="lineNum">     304</span>              : }</span>
 <span id="L305"><span class="lineNum">     305</span>              : </span>
 <span id="L306"><span class="lineNum">     306</span>              : #endif</span>

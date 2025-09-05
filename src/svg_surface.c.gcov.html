@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-05 06:35:55</td>
+            <td class="headerValue">2025-09-05 17:40:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -303,45 +303,45 @@
 <span id="L241"><span class="lineNum">     241</span>              : /* }}} */</span>
 <span id="L242"><span class="lineNum">     242</span>              : </span>
 <span id="L243"><span class="lineNum">     243</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">         426 : PHP_MINIT_FUNCTION(cairo_svg_surface)</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_svg_surface)</span></span>
 <span id="L245"><span class="lineNum">     245</span>              : {</span>
 <span id="L246"><span class="lineNum">     246</span>              :     zend_class_entry surface_ce;</span>
 <span id="L247"><span class="lineNum">     247</span>              : </span>
 <span id="L248"><span class="lineNum">     248</span>              :     /* Svg-Surface */</span>
-<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">         426 :     INIT_NS_CLASS_ENTRY(surface_ce,</span></span>
+<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">         433 :     INIT_NS_CLASS_ENTRY(surface_ce,</span></span>
 <span id="L250"><span class="lineNum">     250</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;Surface&quot;), &quot;Svg&quot;,</span>
 <span id="L251"><span class="lineNum">     251</span>              :         cairo_svg_surface_methods);</span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         426 :     ce_cairo_svgsurface = zend_register_internal_class_ex(&amp;surface_ce, ce_cairo_surface);</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         433 :     ce_cairo_svgsurface = zend_register_internal_class_ex(&amp;surface_ce, ce_cairo_surface);</span></span>
 <span id="L253"><span class="lineNum">     253</span>              : </span>
 <span id="L254"><span class="lineNum">     254</span>              :     /* Svg-Version */</span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         426 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Svg&quot;, &quot;Version&quot;)), ce_cairo_svgversion);</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         433 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Svg&quot;, &quot;Version&quot;)), ce_cairo_svgversion);</span></span>
 <span id="L256"><span class="lineNum">     256</span>              : </span>
 <span id="L257"><span class="lineNum">     257</span>              : #define CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(name) \</span>
 <span id="L258"><span class="lineNum">     258</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgversion, CAIRO_SVG)</span>
 <span id="L259"><span class="lineNum">     259</span>              : </span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         426 :     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_1);</span></span>
-<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">         426 :     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_2);</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         433 :     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_1);</span></span>
+<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">         433 :     CAIRO_SVG_VERSION_DECLARE_ENUM_CASE(VERSION_1_2);</span></span>
 <span id="L262"><span class="lineNum">     262</span>              : </span>
 <span id="L263"><span class="lineNum">     263</span>              :     /* Svg-Unit */</span>
 <span id="L264"><span class="lineNum">     264</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 16, 0)</span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">         426 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Svg&quot;, &quot;Unit&quot;)), ce_cairo_svgunit);</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">         433 :     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME(&quot;Surface&quot;, ZEND_NS_NAME(&quot;Svg&quot;, &quot;Unit&quot;)), ce_cairo_svgunit);</span></span>
 <span id="L266"><span class="lineNum">     266</span>              : </span>
 <span id="L267"><span class="lineNum">     267</span>              : #define CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(name) \</span>
 <span id="L268"><span class="lineNum">     268</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_svgunit, CAIRO_SVG_UNIT)</span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(USER);</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EM);</span></span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EX);</span></span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PX);</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(IN);</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(CM);</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(MM);</span></span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PT);</span></span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PC);</span></span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         426 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PERCENT);</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(USER);</span></span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EM);</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(EX);</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PX);</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(IN);</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(CM);</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(MM);</span></span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PT);</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PC);</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         433 :     CAIRO_SVG_UNIT_DECLARE_ENUM_CASE(PERCENT);</span></span>
 <span id="L280"><span class="lineNum">     280</span>              : #endif</span>
 <span id="L281"><span class="lineNum">     281</span>              : </span>
-<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">         426 :     return SUCCESS;</span></span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
 <span id="L283"><span class="lineNum">     283</span>              : }</span>
 <span id="L284"><span class="lineNum">     284</span>              : </span>
 <span id="L285"><span class="lineNum">     285</span>              : #endif</span>

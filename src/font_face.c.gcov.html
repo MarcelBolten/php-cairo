@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-05 06:35:55</td>
+            <td class="headerValue">2025-09-05 17:40:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -274,26 +274,26 @@
 <span id="L212"><span class="lineNum">     212</span>              : ------------------------------------------------------------------*/</span>
 <span id="L213"><span class="lineNum">     213</span>              : </span>
 <span id="L214"><span class="lineNum">     214</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">         426 : PHP_MINIT_FUNCTION(cairo_font_face)</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_font_face)</span></span>
 <span id="L216"><span class="lineNum">     216</span>              : {</span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         426 :     memcpy(</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         433 :     memcpy(</span></span>
 <span id="L218"><span class="lineNum">     218</span>              :         &amp;cairo_font_face_object_handlers,</span>
 <span id="L219"><span class="lineNum">     219</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L220"><span class="lineNum">     220</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L221"><span class="lineNum">     221</span>              :     );</span>
 <span id="L222"><span class="lineNum">     222</span>              : </span>
 <span id="L223"><span class="lineNum">     223</span>              :     /* FontFace */</span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         426 :     cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);</span></span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         426 :     cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;</span></span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">         426 :     cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         433 :     cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         433 :     cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">         433 :     cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         426 :     ce_cairo_fontface = register_class_Cairo_FontFace();</span></span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         426 :     ce_cairo_fontface-&gt;create_object = cairo_font_face_create_object;</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         433 :     ce_cairo_fontface = register_class_Cairo_FontFace();</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         433 :     ce_cairo_fontface-&gt;create_object = cairo_font_face_create_object;</span></span>
 <span id="L230"><span class="lineNum">     230</span>              : </span>
 <span id="L231"><span class="lineNum">     231</span>              :     /* FontType */</span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">         426 :     ce_cairo_fonttype = register_class_Cairo_FontType();</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">         433 :     ce_cairo_fonttype = register_class_Cairo_FontType();</span></span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">         426 :     return SUCCESS;</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
 <span id="L235"><span class="lineNum">     235</span>              : }</span>
         </pre>
               </td>
