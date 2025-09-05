@@ -32,8 +32,8 @@ static double php_cairo_get_double_from_array(zval *val, const char *name)
 {
     zval *tmp;
 
-    //zend_string *key = zend_string_init_fast(name, strlen(name));
-    //tmp = zend_hash_find(Z_ARR_P(val), key);
+    // zend_string *key = zend_string_init_fast(name, strlen(name));
+    // tmp = zend_hash_find(Z_ARR_P(val), key);
     tmp = zend_hash_str_find(Z_ARRVAL_P(val), name, strlen(name));
     if (tmp != NULL) {
         if (Z_TYPE_P(tmp) != IS_DOUBLE) {
@@ -41,9 +41,10 @@ static double php_cairo_get_double_from_array(zval *val, const char *name)
         }
 
         return Z_DVAL_P(tmp);
-    } else {
-        zend_error(E_WARNING, "Key '%s' does not exist", name);
     }
+
+    zend_error(E_WARNING, "Key '%s' does not exist", name);
+
     return 0;
 }
 
