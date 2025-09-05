@@ -7,7 +7,7 @@ include __DIR__ . '/../skipif.inc';
 <?php
 use Cairo\Status;
 
-$enum = Status::SUCCESS;
+$enum = Status::Success;
 var_dump($enum);
 
 var_dump($enum->getMessage());
@@ -18,6 +18,6 @@ try {
     echo $e->getMessage();
 }
 --EXPECTF--
-enum(Cairo\Status::SUCCESS)
+enum(Cairo\Status::Success)
 string(21) "no error has occurred"
 Cairo\Status::getMessage() expects exactly 0 arguments, 1 given

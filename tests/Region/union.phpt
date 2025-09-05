@@ -12,14 +12,14 @@ var_dump( $region->getExtents() );
 $rectangle = new Cairo\Rectangle(10,10,100,100);
 $region2 = new Cairo\Region($rectangle);
 var_dump( $region2->getNumRectangles() );
-var_dump( $region->union($region2) == \CAIRO\STATUS::SUCCESS );
+var_dump( $region->union($region2) == \CAIRO\STATUS::Success );
 var_dump( $region->getExtents() );
 
 $rectangle2 = new Cairo\Rectangle(80,10,40,110);
 $region3 = new Cairo\Region($rectangle2);
 var_dump( $region3->getNumRectangles() );
 var_dump( $region2->getExtents() );
-var_dump( $region2->union($region3) == \CAIRO\STATUS::SUCCESS );
+var_dump( $region2->union($region3) == \CAIRO\STATUS::Success );
 var_dump( $region2->getExtents() );
 var_dump( $region2->getNumRectangles() );
 

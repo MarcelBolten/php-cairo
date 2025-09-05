@@ -11,12 +11,12 @@ var_dump( $region->getNumRectangles() );
 var_dump( $region->getExtents() );
 
 $rectangle1 = new Cairo\Rectangle(10,10,10,10);
-var_dump( $region->xorRectangle($rectangle1) == \CAIRO\STATUS::SUCCESS );
+var_dump( $region->xorRectangle($rectangle1) == \CAIRO\STATUS::Success );
 var_dump( $region->getNumRectangles() );
 var_dump( $region->getExtents() );
 
 $rectangle2 = new Cairo\Rectangle(5,5,20,20);
-var_dump( $region->xorRectangle($rectangle2) == \CAIRO\STATUS::SUCCESS );
+var_dump( $region->xorRectangle($rectangle2) == \CAIRO\STATUS::Success );
 var_dump( $region->getNumRectangles() );
 var_dump( $region->getExtents() );
 

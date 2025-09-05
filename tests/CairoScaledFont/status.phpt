@@ -19,7 +19,7 @@ var_dump($scaled);
 $status = $scaled->getStatus();
 var_dump($status);
 
-var_dump($status == \Cairo\Status::SUCCESS);
+var_dump($status == \Cairo\Status::Success);
 
 /* Wrong number args */
 try {
@@ -32,6 +32,6 @@ object(Cairo\FontFace\Toy)#%d (0) {
 }
 object(Cairo\ScaledFont)#%d (0) {
 }
-enum(Cairo\Status::SUCCESS)
+enum(Cairo\Status::Success)
 bool(true)
 Cairo\ScaledFont::getStatus() expects exactly 0 arguments, 1 given

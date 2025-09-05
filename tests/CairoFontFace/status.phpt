@@ -11,7 +11,7 @@ var_dump($fontface);
 $status = $fontface->getStatus();
 var_dump($status);
 
-var_dump($status == Cairo\Status::SUCCESS);
+var_dump($status == Cairo\Status::Success);
 
 /* Wrong number args */
 try {
@@ -22,6 +22,6 @@ try {
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
-enum(Cairo\Status::SUCCESS)
+enum(Cairo\Status::Success)
 bool(true)
 Cairo\FontFace::getStatus() expects exactly 0 arguments, 1 given
