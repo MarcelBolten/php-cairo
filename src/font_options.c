@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "font_options_arginfo.h"
 
 zend_class_entry *ce_cairo_fontoptions;
 zend_class_entry *ce_cairo_subpixelorder;
@@ -126,7 +127,7 @@ cairo_font_options_t *cairo_font_options_object_get_font_options(zval *zv)
 ------------------------------------------------------------------*/
 /* {{{ proto void __contruct(void)
        Creates a new \Cairo\FontOptions object with all options initialized to default values.*/
-PHP_METHOD(CairoFontOptions, __construct)
+PHP_METHOD(Cairo_FontOptions, __construct)
 {
     cairo_font_options_object *font_options_object;
 
@@ -146,7 +147,7 @@ PHP_METHOD(CairoFontOptions, __construct)
 
 /* {{{ proto void \Cairo\FontOptions::getStatus(void)
         Checks whether an error has previously occurred for this font options object.*/
-PHP_METHOD(CairoFontOptions, getStatus)
+PHP_METHOD(Cairo_FontOptions, getStatus)
 {
     cairo_font_options_object *font_options_object;
     zval status_case;
@@ -169,14 +170,9 @@ PHP_METHOD(CairoFontOptions, getStatus)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_fontoptions_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, other, Cairo\\FontOptions, 0)
-    //ZEND_ARG_INFO(0, other)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::merge(\Cairo\FontOptions other)
         Merges non-default options from other into options, replacing existing values.*/
-PHP_METHOD(CairoFontOptions, merge)
+PHP_METHOD(Cairo_FontOptions, merge)
 {
     zval *other_zval = NULL;
     cairo_font_options_object *options_object, *other_object;
@@ -196,16 +192,16 @@ PHP_METHOD(CairoFontOptions, merge)
     }
 
     cairo_font_options_merge(options_object->font_options, other_object->font_options);
+
     if (php_cairo_throw_exception(cairo_font_options_status(options_object->font_options))) {
         RETURN_THROWS();
     }
 }
 /* }}} */
 
-
 /* {{{ proto long \Cairo\FontOptions::hash(void)
         Compute a hash for the font options object.*/
-PHP_METHOD(CairoFontOptions, hash)
+PHP_METHOD(Cairo_FontOptions, hash)
 {
     cairo_font_options_object *font_options_object;
 
@@ -220,10 +216,9 @@ PHP_METHOD(CairoFontOptions, hash)
 }
 /* }}} */
 
-
 /* {{{ proto boolean \Cairo\FontOptions::equal(\Cairo\FontOptions other)
         Compares two font options objects for equality.*/
-PHP_METHOD(CairoFontOptions, equal)
+PHP_METHOD(Cairo_FontOptions, equal)
 {
     zval *other_zval = NULL;
     cairo_font_options_object *options_object_a, *options_object_b;
@@ -246,13 +241,9 @@ PHP_METHOD(CairoFontOptions, equal)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_setAntialias_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, antialias)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::setAntialias(\Cairo\Antialias::Good)
         Sets the antialiasing mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, setAntialias)
+PHP_METHOD(Cairo_FontOptions, setAntialias)
 {
     cairo_font_options_object *font_options_object;
     zval *antialias_case;
@@ -270,6 +261,7 @@ PHP_METHOD(CairoFontOptions, setAntialias)
         font_options_object->font_options,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(antialias_case)))
     );
+
     if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
@@ -278,7 +270,7 @@ PHP_METHOD(CairoFontOptions, setAntialias)
 
 /* {{{ proto int \Cairo\FontOptions::getAntialias(void)
         Gets the antialiasing mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, getAntialias)
+PHP_METHOD(Cairo_FontOptions, getAntialias)
 {
     cairo_font_options_object *font_options_object;
     zval antialias_case;
@@ -301,14 +293,9 @@ PHP_METHOD(CairoFontOptions, getAntialias)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setSubpixelOrder_args, ZEND_SEND_BY_VAL, 0, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, subpixel_order, Cairo\\SubpixelOrder, 0, "Cairo\\SubpixelOrder::Default")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::setSubpixelOrder(void)
         Sets the subpixel order for the font options object.*/
-PHP_METHOD(CairoFontOptions, setSubpixelOrder)
+PHP_METHOD(Cairo_FontOptions, setSubpixelOrder)
 {
     cairo_font_options_object *font_options_object;
     zval *subpixel_order_case = NULL;
@@ -329,6 +316,7 @@ PHP_METHOD(CairoFontOptions, setSubpixelOrder)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(subpixel_order_case)))
             : CAIRO_SUBPIXEL_ORDER_DEFAULT
     );
+
     if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
@@ -337,7 +325,7 @@ PHP_METHOD(CairoFontOptions, setSubpixelOrder)
 
 /* {{{ proto int \Cairo\FontOptions::getSubpixelOrder(void)
         Gets the subpixel order for the font options object.*/
-PHP_METHOD(CairoFontOptions, getSubpixelOrder)
+PHP_METHOD(Cairo_FontOptions, getSubpixelOrder)
 {
     cairo_font_options_object *font_options_object;
     zval subpixel_order_case;
@@ -360,13 +348,9 @@ PHP_METHOD(CairoFontOptions, getSubpixelOrder)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setHintStyle_args, ZEND_SEND_BY_VAL, 0, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, hint_style, Cairo\\HintStyle, 0, "Cairo\\HintStyle::Default")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::setHintStyle(void)
         Sets the hint style for font outlines for the font options object.*/
-PHP_METHOD(CairoFontOptions, setHintStyle)
+PHP_METHOD(Cairo_FontOptions, setHintStyle)
 {
     cairo_font_options_object *font_options_object;
     zval *hint_style_case = NULL;
@@ -387,6 +371,7 @@ PHP_METHOD(CairoFontOptions, setHintStyle)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(hint_style_case)))
             : CAIRO_HINT_STYLE_DEFAULT
     );
+
     if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
@@ -395,7 +380,7 @@ PHP_METHOD(CairoFontOptions, setHintStyle)
 
 /* {{{ proto int \Cairo\FontOptions::getHintStyle(void)
         Gets the hint style for font outlines for the font options object.*/
-PHP_METHOD(CairoFontOptions, getHintStyle)
+PHP_METHOD(Cairo_FontOptions, getHintStyle)
 {
     cairo_font_options_object *font_options_object;
     zval hint_style_case;
@@ -418,13 +403,9 @@ PHP_METHOD(CairoFontOptions, getHintStyle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoFontOptions_setHintMetrics_args, ZEND_SEND_BY_VAL, 0, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, hint_metrics, Cairo\\HintMetrics, 0, "Cairo\\HintMetrics::Default")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::setHintMetrics(void)
         Sets the metrics hinting mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, setHintMetrics)
+PHP_METHOD(Cairo_FontOptions, setHintMetrics)
 {
     cairo_font_options_object *font_options_object;
     zval *hint_metrics_case = NULL;
@@ -445,6 +426,7 @@ PHP_METHOD(CairoFontOptions, setHintMetrics)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(hint_metrics_case)))
             : CAIRO_HINT_METRICS_DEFAULT
     );
+
     if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
@@ -453,7 +435,7 @@ PHP_METHOD(CairoFontOptions, setHintMetrics)
 
 /* {{{ proto int \Cairo\FontOptions::getHintMetrics(void)
         Gets the metrics hinting mode for the font options object.*/
-PHP_METHOD(CairoFontOptions, getHintMetrics)
+PHP_METHOD(Cairo_FontOptions, getHintMetrics)
 {
     cairo_font_options_object *font_options_object;
     zval hint_metrics_case;
@@ -479,23 +461,19 @@ PHP_METHOD(CairoFontOptions, getHintMetrics)
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_setVariations_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, variations)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\FontOptions::setVariations(string variations)
        Sets the OpenType font variations for the font options object.
        Font variations are specified as a string with a format that is similar to the CSS font-variation-settings.
        The string contains a comma-separated list of axis assignments, which each assignment consists of a
        4-character axis name and a value, separated by whitespace and optional equals sign. */
-PHP_METHOD(CairoFontOptions, setVariations)
+PHP_METHOD(Cairo_FontOptions, setVariations)
 {
     cairo_font_options_object *font_options_object;
     char *variations;
     size_t variations_len;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
-            Z_PARAM_STRING(variations, variations_len)
+        Z_PARAM_STRING(variations, variations_len)
     ZEND_PARSE_PARAMETERS_END();
 
     font_options_object = cairo_font_options_object_get(getThis());
@@ -504,6 +482,7 @@ PHP_METHOD(CairoFontOptions, setVariations)
     }
 
     cairo_font_options_set_variations(font_options_object->font_options, (const char *)variations);
+
     if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
@@ -514,7 +493,7 @@ PHP_METHOD(CairoFontOptions, setVariations)
        Returns the font variations for the font options object.
        Gets the OpenType font variations for the font options object.
        The returned string belongs to the options and must not be modified. */
-PHP_METHOD(CairoFontOptions, getVariations)
+PHP_METHOD(Cairo_FontOptions, getVariations)
 {
     cairo_font_options_object *font_options_object;
 
@@ -535,37 +514,9 @@ PHP_METHOD(CairoFontOptions, getVariations)
     Cairo\FontOptions Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoFontOptions_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_pattern_methods[] */
-static const zend_function_entry cairo_font_options_methods[] = {
-    PHP_ME(CairoFontOptions, __construct, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoFontOptions, getStatus, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, merge, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, hash, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, equal, CairoFontOptions_fontoptions_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, setAntialias, CairoFontOptions_setAntialias_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, getAntialias, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, setSubpixelOrder, CairoFontOptions_setSubpixelOrder_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, getSubpixelOrder, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, setHintStyle, CairoFontOptions_setHintStyle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, getHintStyle, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, setHintMetrics, CairoFontOptions_setHintMetrics_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, getHintMetrics, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-    PHP_ME(CairoFontOptions, setVariations, CairoFontOptions_setVariations_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoFontOptions, getVariations, CairoFontOptions_method_no_args, ZEND_ACC_PUBLIC)
-#endif
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_font_options)
 {
-    zend_class_entry fontoptions_ce;
-
     memcpy(
         &cairo_font_options_object_handlers,
         zend_get_std_object_handlers(),
@@ -576,72 +527,25 @@ PHP_MINIT_FUNCTION(cairo_font_options)
     cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);
     cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;
 
-    INIT_NS_CLASS_ENTRY(fontoptions_ce, CAIRO_NAMESPACE, "FontOptions", cairo_font_options_methods);
-    fontoptions_ce.create_object = cairo_font_options_create_object;
-    ce_cairo_fontoptions = zend_register_internal_class(&fontoptions_ce);
+    ce_cairo_fontoptions = register_class_Cairo_FontOptions();
+    ce_cairo_fontoptions->create_object = cairo_font_options_create_object;
 
 
     /* Antialias */
-    CAIRO_REGISTER_ENUM_LONG("Antialias", ce_cairo_antialias);
-
-#define CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_antialias, CAIRO_ANTIALIAS)
-
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(DEFAULT);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(NONE);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(GRAY);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(SUBPIXEL);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(FAST);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(GOOD);
-    CAIRO_ANTIALIAS_DECLARE_ENUM_CASE(BEST);
-
+    ce_cairo_antialias = register_class_Cairo_Antialias();
 
     /* SubPixelOrder */
-    CAIRO_REGISTER_ENUM_LONG("SubPixelOrder", ce_cairo_subpixelorder);
-
-#define CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_subpixelorder, CAIRO_SUBPIXEL_ORDER)
-
-    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(DEFAULT);
-    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(RGB);
-    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(BGR);
-    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(VRGB);
-    CAIRO_SUBPIXEL_ORDER_DECLARE_ENUM_CASE(VBGR);
-
+    ce_cairo_subpixelorder = register_class_Cairo_SubPixelOrder();
 
     /* HintStyle */
-    CAIRO_REGISTER_ENUM_LONG("HintStyle", ce_cairo_hintstyle);
-
-#define CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintstyle, CAIRO_HINT_STYLE)
-
-    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(DEFAULT);
-    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(NONE);
-    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(SLIGHT);
-    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(MEDIUM);
-    CAIRO_HINT_STYLE_DECLARE_ENUM_CASE(FULL);
-
+    ce_cairo_hintstyle = register_class_Cairo_HintStyle();
 
     /* HintMetrics */
-    CAIRO_REGISTER_ENUM_LONG("HintMetrics", ce_cairo_hintmetrics);
+    ce_cairo_hintmetrics = register_class_Cairo_HintMetrics();
 
-#define CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_hintmetrics, CAIRO_HINT_METRICS)
-
-    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(DEFAULT);
-    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(OFF);
-    CAIRO_HINT_METRICS_DECLARE_ENUM_CASE(ON);
-
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
     /* ColorMode */
-    CAIRO_REGISTER_ENUM_LONG("ColorMode", ce_cairo_color_mode);
-
-#define CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_color_mode, CAIRO_COLOR_MODE)
-
-    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(DEFAULT);
-    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(NO_COLOR);
-    CAIRO_COLOR_MODE_DECLARE_ENUM_CASE(COLOR);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+    ce_cairo_color_mode = register_class_Cairo_ColorMode();
 #endif
 
     return SUCCESS;
