@@ -7,31 +7,41 @@
 
 namespace Cairo\Surface
 {
-    class SVG extends \Cairo\Surface
+    class Svg extends \Cairo\Surface
     {
         /**
          * @param null|string|resource $file
          */
-        public function __construct($file, float $width, float $height) {}
+        public function __construct(
+            $file,
+            float $width,
+            float $height
+        ) {}
 
-        public function restrictToVersion(SVG\Version $version): void {}
+        public function restrictToVersion(
+            Svg\Version $version
+        ): void {}
 
-        public static function versionToString(SVG\Version $version): string {}
+        public static function versionToString(
+            Svg\Version $version
+        ): string {}
 
         /**
-         * @return SVG\Version[]
+         * @return Svg\Version[]
          */
         public static function getVersions(): array {}
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-        public function setDocumentUnit(Svg\Unit $unit): void {}
+        public function setDocumentUnit(
+            Svg\Unit $unit
+        ): void {}
 
         public function getDocumentUnit(): Svg\Unit {}
 #endif
     }
 }
 
-namespace Cairo\Surface\SVG
+namespace Cairo\Surface\Svg
 {
     enum Version: int
     {
