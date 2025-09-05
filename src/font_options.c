@@ -509,6 +509,111 @@ PHP_METHOD(Cairo_FontOptions, getVariations)
 /* }}} */
 #endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+/* {{{ proto \Cairo\ColorMode \Cairo\FontOptions::getColorMode() */
+PHP_METHOD(Cairo_FontOptions, getColorMode)
+{
+    cairo_font_options_object *font_options_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\FontOptions::setColorMode(\Cairo\ColorMode $color_mode) */
+PHP_METHOD(Cairo_FontOptions, setColorMode)
+{
+    cairo_font_options_object *font_options_object;
+    zval *color_mode;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(color_mode, ce_cairo_color_mode)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto int \Cairo\FontOptions::getColorPalette() */
+PHP_METHOD(Cairo_FontOptions, getColorPalette)
+{
+    cairo_font_options_object *font_options_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\FontOptions::setColorPalette(int $color_palette) */
+PHP_METHOD(Cairo_FontOptions, setColorPalette)
+{
+    cairo_font_options_object *font_options_object;
+    zend_long color_palette = CAIRO_COLOR_PALETTE_DEFAULT;
+
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_LONG(color_palette)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\FontOptions::setCustomPaletteColor(int $color_id, float $red, float $green, float $blue, float $alpha = 1.0) */
+PHP_METHOD(Cairo_FontOptions, setCustomPaletteColor)
+{
+    cairo_font_options_object *font_options_object;
+    zend_long color_id;
+    double red, green, blue, alpha = 1.0;
+
+    ZEND_PARSE_PARAMETERS_START(4, 5)
+        Z_PARAM_LONG(color_id);
+        Z_PARAM_DOUBLE(red)
+        Z_PARAM_DOUBLE(green)
+        Z_PARAM_DOUBLE(blue)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_DOUBLE(alpha)
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto array \Cairo\FontOptions::getCustomPaletteColor(int $color_id) */
+PHP_METHOD(Cairo_FontOptions, getCustomPaletteColor)
+{
+    cairo_font_options_object *font_options_object;
+    zend_long color_id;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_LONG(color_id);
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+#endif
+
 
 /* ----------------------------------------------------------------
     Cairo\FontOptions Definition and registration
