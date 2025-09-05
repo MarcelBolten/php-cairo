@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0c42ea26adef2045b1b658931c253fe4d3ecfe17 */
+ * Stub hash: 69ab15a15e392cf43f66729bf76d1640b8cfd943 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace_Ft___construct, 0, 0, 1)
 	ZEND_ARG_INFO(0, stream)

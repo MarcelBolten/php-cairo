@@ -7,8 +7,6 @@
 
 namespace Cairo\FontFace;
 
-require_once 'cairo.stub.php';
-
 class Ft extends \Cairo\FontFace
 {
     /**
