@@ -21,5 +21,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\SubPixelOrder::DEFAULT)
+enum(Cairo\SubPixelOrder::Default)
 Cairo\FontOptions::getSubpixelOrder() expects exactly 0 arguments, 1 given

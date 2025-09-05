@@ -21,5 +21,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\Antialias::DEFAULT)
+enum(Cairo\Antialias::Default)
 Cairo\FontOptions::getAntialias() expects exactly 0 arguments, 1 given

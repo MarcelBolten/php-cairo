@@ -8,9 +8,9 @@ if (!extension_loaded('cairo')) {
 --FILE--
 <?php
 $constants = [
-    'DEFAULT',
-    'ON',
-    'OFF',
+    'Default',
+    'On',
+    'Off',
 ];
 
 foreach($constants as $name) {

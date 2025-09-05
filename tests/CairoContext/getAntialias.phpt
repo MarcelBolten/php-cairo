@@ -24,5 +24,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\Antialias::DEFAULT)
+enum(Cairo\Antialias::Default)
 Cairo\Context::getAntialias() expects exactly 0 arguments, 1 given

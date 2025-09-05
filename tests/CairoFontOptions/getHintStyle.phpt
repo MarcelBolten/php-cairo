@@ -19,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\HintStyle::DEFAULT)
+enum(Cairo\HintStyle::Default)
 Cairo\FontOptions::getHintStyle() expects exactly 0 arguments, 1 given

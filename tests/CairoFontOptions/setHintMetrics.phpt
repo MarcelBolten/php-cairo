@@ -10,12 +10,12 @@ if (!extension_loaded('cairo')) {
 $options = new Cairo\FontOptions();
 var_dump($options);
 
-$options->setHintMetrics(Cairo\HintMetrics::ON);
+$options->setHintMetrics(Cairo\HintMetrics::On);
 $options->setHintMetrics();
 
 /* Wrong number args 2 */
 try {
-    $options->setHintMetrics(Cairo\HintMetrics::ON, 1);
+    $options->setHintMetrics(Cairo\HintMetrics::On, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

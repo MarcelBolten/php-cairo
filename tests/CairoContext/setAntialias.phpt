@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setAntialias(Cairo\Antialias::GRAY);
+$context->setAntialias(Cairo\Antialias::Gray);
 var_dump($context->getAntialias());
 
 /* Wrong number args - 1 */
@@ -39,7 +39,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\Antialias::GRAY)
+enum(Cairo\Antialias::Gray)
 Cairo\Context::setAntialias() expects exactly 1 argument, 0 given
 Cairo\Context::setAntialias() expects exactly 1 argument, 2 given
 Cairo\Context::setAntialias(): Argument #1 ($antialias) must be of type Cairo\Antialias, array given

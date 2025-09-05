@@ -8,11 +8,11 @@ if (!extension_loaded('cairo')) {
 --FILE--
 <?php
 $constants = [
-    'DEFAULT',
-    'NONE',
-    'SLIGHT',
-    'MEDIUM',
-    'FULL',
+    'Default',
+    'None',
+    'Slight',
+    'Medium',
+    'Full',
 ];
 
 foreach ($constants as $name) {
