@@ -514,12 +514,22 @@ PHP_METHOD(Cairo_FontOptions, getVariations)
 PHP_METHOD(Cairo_FontOptions, getColorMode)
 {
     cairo_font_options_object *font_options_object;
+    zval color_mode_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
         RETURN_THROWS();
+    }
+
+    color_mode_case = php_enum_from_cairo_c_enum(
+        ce_cairo_color_mode,
+        cairo_font_options_get_color_mode(font_options_object->font_options)
+    );
+
+    if (Z_TYPE(color_mode_case) == IS_OBJECT) {
+        RETURN_ZVAL(&color_mode_case, 1, 1);
     }
 }
 /* }}} */
@@ -528,14 +538,25 @@ PHP_METHOD(Cairo_FontOptions, getColorMode)
 PHP_METHOD(Cairo_FontOptions, setColorMode)
 {
     cairo_font_options_object *font_options_object;
-    zval *color_mode;
+    zval *color_mode_case = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(color_mode, ce_cairo_color_mode)
+        Z_PARAM_OBJECT_OF_CLASS(color_mode_case, ce_cairo_color_mode)
     ZEND_PARSE_PARAMETERS_END();
 
     font_options_object = cairo_font_options_object_get(getThis());
     if (!font_options_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_font_options_set_color_mode(
+        font_options_object->font_options,
+        color_mode_case
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(color_mode_case)))
+            : CAIRO_COLOR_MODE_DEFAULT
+    );
+
+    if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
 }
@@ -552,6 +573,8 @@ PHP_METHOD(Cairo_FontOptions, getColorPalette)
     if (!font_options_object) {
         RETURN_THROWS();
     }
+
+    RETURN_LONG(cairo_font_options_get_color_palette(font_options_object->font_options));
 }
 /* }}} */
 
@@ -570,6 +593,43 @@ PHP_METHOD(Cairo_FontOptions, setColorPalette)
     if (!font_options_object) {
         RETURN_THROWS();
     }
+
+    cairo_font_options_set_color_palette(font_options_object->font_options, color_palette);
+
+    if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto array \Cairo\FontOptions::getCustomPaletteColor(int $color_id) */
+PHP_METHOD(Cairo_FontOptions, getCustomPaletteColor)
+{
+    cairo_font_options_object *font_options_object;
+    zend_long color_id;
+    double red, green, blue, alpha;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_LONG(color_id);
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_options_object = cairo_font_options_object_get(getThis());
+    if (!font_options_object) {
+        RETURN_THROWS();
+    }
+
+    if (php_cairo_throw_exception(cairo_font_options_get_custom_palette_color(
+        font_options_object->font_options,
+        color_id, &red, &green, &blue, &alpha
+    ))) {
+        RETURN_THROWS();
+    }
+
+    array_init(return_value);
+    add_assoc_double(return_value, "red", red);
+    add_assoc_double(return_value, "green", green);
+    add_assoc_double(return_value, "blue", blue);
+    add_assoc_double(return_value, "alpha", alpha);
 }
 /* }}} */
 
@@ -593,21 +653,13 @@ PHP_METHOD(Cairo_FontOptions, setCustomPaletteColor)
     if (!font_options_object) {
         RETURN_THROWS();
     }
-}
-/* }}} */
 
-/* {{{ proto array \Cairo\FontOptions::getCustomPaletteColor(int $color_id) */
-PHP_METHOD(Cairo_FontOptions, getCustomPaletteColor)
-{
-    cairo_font_options_object *font_options_object;
-    zend_long color_id;
+    cairo_font_options_set_custom_palette_color(
+        font_options_object->font_options,
+        color_id, red, green, blue, alpha
+    );
 
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_LONG(color_id);
-    ZEND_PARSE_PARAMETERS_END();
-
-    font_options_object = cairo_font_options_object_get(getThis());
-    if (!font_options_object) {
+    if (php_cairo_throw_exception(cairo_font_options_status(font_options_object->font_options))) {
         RETURN_THROWS();
     }
 }
