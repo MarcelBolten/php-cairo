@@ -1,9 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 11e69a3b561cafe68e014083e4b4e0a564055f8e */
+ * Stub hash: 08b17ccf0a73de0bf9be15a73042d77b55607e52 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Recording___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, extends, IS_ARRAY, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, extents, IS_ARRAY, 1, "null")
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Recording_inkExtents, 0, 0, IS_ARRAY, 0)
