@@ -540,7 +540,8 @@ PHP_METHOD(Cairo_FontOptions, setColorMode)
     cairo_font_options_object *font_options_object;
     zval *color_mode_case = NULL;
 
-    ZEND_PARSE_PARAMETERS_START(1, 1)
+    ZEND_PARSE_PARAMETERS_START(0, 1)
+        Z_PARAM_OPTIONAL
         Z_PARAM_OBJECT_OF_CLASS(color_mode_case, ce_cairo_color_mode)
     ZEND_PARSE_PARAMETERS_END();
 

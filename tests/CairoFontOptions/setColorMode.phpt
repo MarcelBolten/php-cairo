@@ -8,14 +8,11 @@ if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 $options = new Cairo\FontOptions();
 var_dump($options);
 
-$options->setColorMode(\Cairo\ColorMode::Color);
+$options->setColorMode();
+var_dump($options->getColorMode());
 
-/* Wrong number args 0 */
-try {
-    $options->setColorMode();
-} catch (ArgumentCountError $e) {
-    echo $e->getMessage(), PHP_EOL;
-}
+$options->setColorMode(\Cairo\ColorMode::Color);
+var_dump($options->getColorMode());
 
 /* Wrong number args 2 */
 try {
@@ -33,6 +30,7 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-Cairo\FontOptions::setColorMode() expects exactly 1 argument, 0 given
-Cairo\FontOptions::setColorMode() expects exactly 1 argument, 2 given
+enum(Cairo\ColorMode::Default)
+enum(Cairo\ColorMode::Color)
+Cairo\FontOptions::setColorMode() expects at most 1 argument, 2 given
 Cairo\FontOptions::setColorMode(): Argument #1 ($color_mode) must be of type Cairo\ColorMode, array given
