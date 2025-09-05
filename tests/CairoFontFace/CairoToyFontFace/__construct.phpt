@@ -6,7 +6,7 @@ if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 --FILE--
 <?php
 // Test with all parameters
-$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL, Cairo\FontWeight::NORMAL);
+$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::Normal, Cairo\FontWeight::Normal);
 var_dump($c);
 
 // Test with 1 param
@@ -14,13 +14,13 @@ $c = new Cairo\FontFace\Toy("sans-serif");
 var_dump($c);
 
 // test with 2 params
-$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL);
+$c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::Normal);
 var_dump($c);
 
 // test with named parameters
 $c = new Cairo\FontFace\Toy(
     family: "sans-serif",
-    weight: Cairo\FontWeight::NORMAL);
+    weight: Cairo\FontWeight::Normal);
 var_dump($c);
 
 // We shouldn't accept 0 args
@@ -53,7 +53,7 @@ try {
 
 /* Wrong arg type 3 */
 try {
-    $c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::NORMAL, []);
+    $c = new Cairo\FontFace\Toy("sans-serif", Cairo\FontSlant::Normal, []);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

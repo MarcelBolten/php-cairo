@@ -19,7 +19,7 @@ var_dump($fontface);
 try {
     $context->selectFontFace(
         family: 'sans-serif',
-        weight: Cairo\FontWeight::NORMAL
+        weight: Cairo\FontWeight::Normal
     );
 } catch (Exception | Error $e) {
     var_dump($e);
@@ -35,7 +35,7 @@ try {
 
 /* Wrong number args - too many */
 try {
-    $context->selectFontFace('sans-serif', Cairo\FontSlant::NORMAL, Cairo\FontWeight::NORMAL, 1);
+    $context->selectFontFace('sans-serif', Cairo\FontSlant::Normal, Cairo\FontWeight::Normal, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -56,7 +56,7 @@ try {
 
 /* Wrong arg type - int */
 try {
-    $context->selectFontFace('sans-serif', Cairo\FontSlant::NORMAL, []);
+    $context->selectFontFace('sans-serif', Cairo\FontSlant::Normal, []);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
