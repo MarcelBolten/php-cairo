@@ -222,30 +222,6 @@ class Context
 #endif
 }
 
-enum Antialias: int
-{
-    /** @cvalue CAIRO_ANTIALIAS_DEFAULT */
-    case Default = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_NONE */
-    case None = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_GRAY */
-    case Gray = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_SUBPIXEL */
-    case Subpixel = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_FAST */
-    case Fast = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_GOOD */
-    case Good = UNKNOWN;
-
-    /** @cvalue CAIRO_ANTIALIAS_BEST */
-    case Best = UNKNOWN;
-}
-
 enum FillRule: int
 {
     /** @cvalue CAIRO_FILL_RULE_WINDING */

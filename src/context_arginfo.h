@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: bc2a86eea9854895b4559e487b75556c592d692d */
+ * Stub hash: 78a024d4ee5c2e53b6c0b785e22312bc4d3147af */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Context___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
@@ -553,41 +553,6 @@ static zend_class_entry *register_class_Cairo_Context(void)
 #else
 	class_entry = zend_register_internal_class_ex(&ce, NULL);
 #endif
-
-	return class_entry;
-}
-
-static zend_class_entry *register_class_Cairo_Antialias(void)
-{
-	zend_class_entry *class_entry = zend_register_internal_enum("Cairo\\Antialias", IS_LONG, NULL);
-
-	zval enum_case_Default_value;
-	ZVAL_LONG(&enum_case_Default_value, CAIRO_ANTIALIAS_DEFAULT);
-	zend_enum_add_case_cstr(class_entry, "Default", &enum_case_Default_value);
-
-	zval enum_case_None_value;
-	ZVAL_LONG(&enum_case_None_value, CAIRO_ANTIALIAS_NONE);
-	zend_enum_add_case_cstr(class_entry, "None", &enum_case_None_value);
-
-	zval enum_case_Gray_value;
-	ZVAL_LONG(&enum_case_Gray_value, CAIRO_ANTIALIAS_GRAY);
-	zend_enum_add_case_cstr(class_entry, "Gray", &enum_case_Gray_value);
-
-	zval enum_case_Subpixel_value;
-	ZVAL_LONG(&enum_case_Subpixel_value, CAIRO_ANTIALIAS_SUBPIXEL);
-	zend_enum_add_case_cstr(class_entry, "Subpixel", &enum_case_Subpixel_value);
-
-	zval enum_case_Fast_value;
-	ZVAL_LONG(&enum_case_Fast_value, CAIRO_ANTIALIAS_FAST);
-	zend_enum_add_case_cstr(class_entry, "Fast", &enum_case_Fast_value);
-
-	zval enum_case_Good_value;
-	ZVAL_LONG(&enum_case_Good_value, CAIRO_ANTIALIAS_GOOD);
-	zend_enum_add_case_cstr(class_entry, "Good", &enum_case_Good_value);
-
-	zval enum_case_Best_value;
-	ZVAL_LONG(&enum_case_Best_value, CAIRO_ANTIALIAS_BEST);
-	zend_enum_add_case_cstr(class_entry, "Best", &enum_case_Best_value);
 
 	return class_entry;
 }
