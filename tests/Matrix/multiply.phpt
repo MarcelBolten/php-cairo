@@ -65,5 +65,5 @@ object(Cairo\Matrix)#%d (6) {
 Cairo\Matrix::multiply() expects exactly 2 arguments, 0 given
 Cairo\Matrix::multiply() expects exactly 2 arguments, 1 given
 Cairo\Matrix::multiply() expects exactly 2 arguments, 3 given
-Cairo\Matrix::multiply(): Argument #1 ($matrix1) must be of type Cairo\Matrix, int given
-Cairo\Matrix::multiply(): Argument #2 ($matrix2) must be of type Cairo\Matrix, int given
+Cairo\Matrix::multiply(): Argument #1 ($m1) must be of type Cairo\Matrix, int given
+Cairo\Matrix::multiply(): Argument #2 ($m2) must be of type Cairo\Matrix, int given

@@ -71,5 +71,5 @@ array(2) {
 Cairo\Matrix::transformPoint() expects exactly 2 arguments, 0 given
 Cairo\Matrix::transformPoint() expects exactly 2 arguments, 1 given
 Cairo\Matrix::transformPoint() expects exactly 2 arguments, 3 given
-Cairo\Matrix::transformPoint(): Argument #1 ($dx) must be of type float, array given
-Cairo\Matrix::transformPoint(): Argument #2 ($dy) must be of type float, array given
+Cairo\Matrix::transformPoint(): Argument #1 ($x) must be of type float, array given
+Cairo\Matrix::transformPoint(): Argument #2 ($y) must be of type float, array given

@@ -11,8 +11,8 @@ $matrix = new Matrix();
 unset($matrix);
 
 class neo extends Matrix{
-    public $xx = 8;
-    public $xy = 5;
+    public float $xx = 8;
+    public float $xy = 5;
 }
 
 $mr_andersen = new neo();
