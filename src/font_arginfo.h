@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: de50838e0cb102e44bc4f18cd782e835cb554e0d */
+ * Stub hash: 4d7e28c28f2e54102d4a219ca2d2f1a38a66ba3f */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace_Toy___construct, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)

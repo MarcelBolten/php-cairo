@@ -39,7 +39,6 @@ namespace Cairo
 
     enum FontWeight: int
     {
-        // workaround as cases cannot be assigned a value via @cvalue directly for now
         /** @cvalue CAIRO_FONT_WEIGHT_NORMAL */
         case Normal = UNKNOWN;
 
