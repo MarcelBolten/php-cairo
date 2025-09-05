@@ -18,5 +18,5 @@ try {
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
-enum(Cairo\FontType::TOY)
+enum(Cairo\FontType::Toy)
 Cairo\FontFace::getType() expects exactly 0 arguments, 1 given
