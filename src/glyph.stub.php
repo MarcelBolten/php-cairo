@@ -7,17 +7,17 @@
 
 namespace Cairo;
 
-final readonly class Glyph
+final class Glyph
 {
-    public int $index;
+    public int $index = 0;
 
-    public float $x;
+    public float $x = 0.0;
 
-    public float $y;
+    public float $y = 0.0;
 
     public function __construct(
         int $index,
-        float $x,
-        float $y,
+        float $x = 0.0,
+        float $y = 0.0
     ) {}
 }

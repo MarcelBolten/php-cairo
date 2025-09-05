@@ -21,6 +21,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "glyph_arginfo.h"
 
 zend_class_entry *ce_cairo_glyph;
 
@@ -82,15 +83,9 @@ cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)
     \Cairo\Glyph Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoGlyph____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
-    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 1)
-    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 1)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void __construct(int index [, float x, float y])
     Creates a new glyph with the properties populated */
-PHP_METHOD(CairoGlyph, __construct)
+PHP_METHOD(Cairo_Glyph, __construct)
 {
     cairo_glyph_object *glyph_object;
 
@@ -264,18 +259,9 @@ static HashTable *cairo_glyph_object_get_properties(zend_object *zobj)
     \Cairo\Glyph Definition and registration
 ------------------------------------------------------------------*/
 
-/* {{{ cairo_glyph_methods[] */
-const zend_function_entry cairo_glyph_methods[] = {
-    PHP_ME(CairoGlyph, __construct, CairoGlyph____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_glyph)
 {
-    zend_class_entry ce;
-
     memcpy(
         &cairo_glyph_object_handlers,
         zend_get_std_object_handlers(),
@@ -290,14 +276,8 @@ PHP_MINIT_FUNCTION(cairo_glyph)
     cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;
     cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "Glyph", cairo_glyph_methods);
-    ce.create_object = cairo_glyph_create_object;
-    ce_cairo_glyph = zend_register_internal_class(&ce);
-    ce_cairo_glyph->ce_flags |= ZEND_ACC_FINAL;
-
-    zend_declare_property_long(ce_cairo_glyph, "index", sizeof("index")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_glyph, "x", sizeof("x")-1, 0.0, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_glyph, "y", sizeof("y")-1, 0.0, ZEND_ACC_PUBLIC);
+    ce_cairo_glyph = register_class_Cairo_Glyph();
+    ce_cairo_glyph->create_object = cairo_glyph_create_object;
 
     return SUCCESS;
 }
