@@ -9,7 +9,7 @@ if(!in_array('SVG', Cairo::availableSurfaces())) die('skip - SVG surface not ava
 $surface = new Cairo\Surface\Svg(NULL, 50, 50);
 var_dump($surface);
 
-$surface->restrictToVersion(Cairo\Surface\Svg\Version::VERSION_1_1);
+$surface->restrictToVersion(Cairo\Surface\Svg\Version::Version_1_1);
 
 /* Wrong number args */
 try {

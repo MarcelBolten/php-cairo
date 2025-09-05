@@ -24,5 +24,5 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECTF--
-enum(Cairo\Surface\Svg\Unit::USER)
+enum(Cairo\Surface\Svg\Unit::User)
 Cairo\Surface\Svg::getDocumentUnit() expects exactly 0 arguments, 1 given

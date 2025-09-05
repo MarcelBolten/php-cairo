@@ -6,7 +6,7 @@ if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
 if(!in_array('SVG', Cairo::availableSurfaces())) die('skip - SVG surface not available');
 --FILE--
 <?php
-echo Cairo\Surface\Svg::versionToString(Cairo\Surface\Svg\Version::VERSION_1_1), PHP_EOL;
+echo Cairo\Surface\Svg::versionToString(Cairo\Surface\Svg\Version::Version_1_1), PHP_EOL;
 
 /* Wrong number args */
 try {
