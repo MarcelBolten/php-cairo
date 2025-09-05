@@ -14,12 +14,12 @@ namespace Cairo;
  */
 class Matrix
 {
-    public int $xx;
-    public int $yx;
-    public int $xy;
-    public int $yy;
-    public int $x0;
-    public int $y0;
+    public float $xx = 1.0;
+    public float $yx = 0.0;
+    public float $xy = 0.0;
+    public float $yy = 1.0;
+    public float $x0 = 0.0;
+    public float $y0 = 0.0;
 
     public function __construct(
         float $xx = 1.0,
@@ -32,19 +32,38 @@ class Matrix
 
     public static function initIdentity(): Matrix {}
 
-    public static function initTranslate(float $tx, float $ty): Matrix {}
+    public static function initTranslate(
+        float $tx,
+        float $ty
+    ): Matrix {}
 
-    public static function initScale(float $sx, float $sy): Matrix {}
+    public static function initScale(
+        float $sx,
+        float $sy
+    ): Matrix {}
 
-    public static function initRotate(float $radians): Matrix {}
+    public static function initRotate(
+        float $radians
+    ): Matrix {}
 
-    public static function multiply(Matrix $a, Matrix $b): Matrix {}
+    public static function multiply(
+        Matrix $m1,
+        Matrix $m2
+    ): Matrix {}
 
-    public function translate(float $tx, float $ty): void {}
+    public function translate(
+        float $tx,
+        float $ty
+    ): void {}
 
-    public function scale(float $sx, float $sy): void {}
+    public function scale(
+        float $sx,
+        float $sy
+    ): void {}
 
-    public function rotate(float $radians): void {}
+    public function rotate(
+        float $radians
+    ): void {}
 
     public function invert(): void {}
 
@@ -52,11 +71,17 @@ class Matrix
      * @return array{"x": float, "y": float}
      * // TODO: return Vector Class
      */
-    public function transformDistance(float $dx, float $dy): array {}
+    public function transformDistance(
+        float $dx,
+        float $dy
+    ): array {}
 
     /**
      * @return array{"x": float, "y": float}
      * // TODO: return Point Class
      */
-    public function transformPoint(float $x, float $y): array {}
+    public function transformPoint(
+        float $x,
+        float $y
+    ): array {}
 }
