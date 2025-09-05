@@ -31,13 +31,13 @@
             <td class="headerValue">PHP Cairo Extension Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">90.6&nbsp;%</td>
-            <td class="headerCovTableEntry">53</td>
-            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntryMed">89.4&nbsp;%</td>
+            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntry">42</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-04 06:43:31</td>
+            <td class="headerValue">2025-09-05 06:35:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -84,174 +84,142 @@
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span>              : #include &quot;php_cairo.h&quot;</span>
 <span id="L24"><span class="lineNum">      24</span>              : #include &quot;php_cairo_internal.h&quot;</span>
-<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span>              : #include &quot;font_arginfo.h&quot;</span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span>              : zend_class_entry *ce_cairo_fontslant;</span>
-<span id="L28"><span class="lineNum">      28</span>              : zend_class_entry *ce_cairo_fontweight;</span>
-<span id="L29"><span class="lineNum">      29</span>              : zend_class_entry *ce_cairo_toyfontface;</span>
-<span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span>              : /* ----------------------------------------------------------------</span>
-<span id="L32"><span class="lineNum">      32</span>              :     \Cairo\FontFace\Toy Class API</span>
-<span id="L33"><span class="lineNum">      33</span>              : ------------------------------------------------------------------*/</span>
-<span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span>              : ZEND_BEGIN_ARG_INFO_EX(CairoToyFontFace___construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)</span>
-<span id="L36"><span class="lineNum">      36</span>              :     ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)</span>
-<span id="L37"><span class="lineNum">      37</span>              :     ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, slant, Cairo\\FontSlant, 0, &quot;Cairo\\FontSlant::NORMAL&quot;)</span>
-<span id="L38"><span class="lineNum">      38</span>              :     ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, weight, Cairo\\FontWeight, 0, &quot;Cairo\\FontWeight::NORMAL&quot;)</span>
-<span id="L39"><span class="lineNum">      39</span>              : ZEND_END_ARG_INFO()</span>
-<span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              : /* {{{ proto void __construct(string family, \Cairo\FontSlant slant, \Cairo\FontWeight weight)</span>
-<span id="L42"><span class="lineNum">      42</span>              :        Creates a font face from a triplet of family, slant, and weight. These font</span>
-<span id="L43"><span class="lineNum">      43</span>              :        faces are used in implementation of the the &quot;toy&quot; font API.*/</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC tlaBgGNC">          36 : PHP_METHOD(CairoToyFontFace, __construct)</span></span>
-<span id="L45"><span class="lineNum">      45</span>              : {</span>
-<span id="L46"><span class="lineNum">      46</span>              :     char *family;</span>
-<span id="L47"><span class="lineNum">      47</span>              :     size_t family_len;</span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          36 :     zval *slant = NULL;</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          36 :     zval *weight = NULL;</span></span>
-<span id="L50"><span class="lineNum">      50</span>              :     cairo_font_face_object *font_face_object;</span>
-<span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          36 :     ZEND_PARSE_PARAMETERS_START(1, 3)</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          70 :         Z_PARAM_STRING(family, family_len)</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          34 :         Z_PARAM_OPTIONAL</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          66 :         Z_PARAM_OBJECT_OF_CLASS(slant, ce_cairo_fontslant)</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          61 :         Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          36 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span>              : zend_class_entry *ce_cairo_fontslant;</span>
+<span id="L29"><span class="lineNum">      29</span>              : zend_class_entry *ce_cairo_fontweight;</span>
+<span id="L30"><span class="lineNum">      30</span>              : zend_class_entry *ce_cairo_toyfontface;</span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
+<span id="L32"><span class="lineNum">      32</span>              : /* ----------------------------------------------------------------</span>
+<span id="L33"><span class="lineNum">      33</span>              :     \Cairo\FontFace\Toy Class API</span>
+<span id="L34"><span class="lineNum">      34</span>              : ------------------------------------------------------------------*/</span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span>              : /* {{{ proto void __construct(string family, \Cairo\FontSlant slant, \Cairo\FontWeight weight)</span>
+<span id="L37"><span class="lineNum">      37</span>              :        Creates a font face from a triplet of family, slant, and weight. These font</span>
+<span id="L38"><span class="lineNum">      38</span>              :        faces are used in implementation of the the &quot;toy&quot; font API.*/</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC tlaBgGNC">          36 : PHP_METHOD(Cairo_FontFace_Toy, __construct)</span></span>
+<span id="L40"><span class="lineNum">      40</span>              : {</span>
+<span id="L41"><span class="lineNum">      41</span>              :     char *family;</span>
+<span id="L42"><span class="lineNum">      42</span>              :     size_t family_len;</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          36 :     zval *slant = NULL;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          36 :     zval *weight = NULL;</span></span>
+<span id="L45"><span class="lineNum">      45</span>              :     cairo_font_face_object *font_face_object;</span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          36 :     ZEND_PARSE_PARAMETERS_START(1, 3)</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          70 :         Z_PARAM_STRING(family, family_len)</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          34 :         Z_PARAM_OPTIONAL</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          66 :         Z_PARAM_OBJECT_OF_CLASS(slant, ce_cairo_fontslant)</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          61 :         Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          36 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L53"><span class="lineNum">      53</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          64 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          32 :     if (!font_face_object) {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L57"><span class="lineNum">      57</span>              :     }</span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          64 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          32 :     if (!font_face_object) {</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
-<span id="L62"><span class="lineNum">      62</span>              :     }</span>
-<span id="L63"><span class="lineNum">      63</span>              : </span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC tlaBgGNC">          35 :     font_face_object-&gt;font_face = cairo_toy_font_face_create(</span></span>
-<span id="L65"><span class="lineNum">      65</span>              :         (const char *)family,</span>
-<span id="L66"><span class="lineNum">      66</span>              :         slant</span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          62 :             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))</span></span>
-<span id="L68"><span class="lineNum">      68</span>              :             : CAIRO_FONT_SLANT_NORMAL,</span>
-<span id="L69"><span class="lineNum">      69</span>              :         weight</span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          61 :             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))</span></span>
-<span id="L71"><span class="lineNum">      71</span>              :             : CAIRO_FONT_WEIGHT_NORMAL</span>
-<span id="L72"><span class="lineNum">      72</span>              :     );</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          32 :     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object-&gt;font_face))) {</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L75"><span class="lineNum">      75</span>              :     }</span>
-<span id="L76"><span class="lineNum">      76</span>              : }</span>
-<span id="L77"><span class="lineNum">      77</span>              : </span>
-<span id="L78"><span class="lineNum">      78</span>              : /* {{{ proto string \Cairo\FontFace\Toy::getFamily()</span>
-<span id="L79"><span class="lineNum">      79</span>              :         Gets the family name of a toy font. */</span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC tlaBgGNC">           1 : PHP_METHOD(CairoToyFontFace, getFamily)</span></span>
-<span id="L81"><span class="lineNum">      81</span>              : {</span>
-<span id="L82"><span class="lineNum">      82</span>              :     cairo_font_face_object *font_face_object;</span>
-<span id="L83"><span class="lineNum">      83</span>              : </span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           1 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
-<span id="L85"><span class="lineNum">      85</span>              : </span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           2 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           1 :     if (!font_face_object) {</span></span>
-<span id="L88"><span class="lineNum">      88</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L89"><span class="lineNum">      89</span>              :     }</span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC tlaBgGNC">          35 :     font_face_object-&gt;font_face = cairo_toy_font_face_create(</span></span>
+<span id="L60"><span class="lineNum">      60</span>              :         (const char *)family,</span>
+<span id="L61"><span class="lineNum">      61</span>              :         slant</span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          62 :             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))</span></span>
+<span id="L63"><span class="lineNum">      63</span>              :             : CAIRO_FONT_SLANT_NORMAL,</span>
+<span id="L64"><span class="lineNum">      64</span>              :         weight</span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          61 :             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))</span></span>
+<span id="L66"><span class="lineNum">      66</span>              :             : CAIRO_FONT_WEIGHT_NORMAL</span>
+<span id="L67"><span class="lineNum">      67</span>              :     );</span>
+<span id="L68"><span class="lineNum">      68</span>              : </span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          32 :     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object-&gt;font_face))) {</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L71"><span class="lineNum">      71</span>              :     }</span>
+<span id="L72"><span class="lineNum">      72</span>              : }</span>
+<span id="L73"><span class="lineNum">      73</span>              : </span>
+<span id="L74"><span class="lineNum">      74</span>              : /* {{{ proto string \Cairo\FontFace\Toy::getFamily()</span>
+<span id="L75"><span class="lineNum">      75</span>              :         Gets the family name of a toy font. */</span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC tlaBgGNC">           1 : PHP_METHOD(Cairo_FontFace_Toy, getFamily)</span></span>
+<span id="L77"><span class="lineNum">      77</span>              : {</span>
+<span id="L78"><span class="lineNum">      78</span>              :     cairo_font_face_object *font_face_object;</span>
+<span id="L79"><span class="lineNum">      79</span>              : </span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           1 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L81"><span class="lineNum">      81</span>              : </span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           2 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           1 :     if (!font_face_object) {</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L85"><span class="lineNum">      85</span>              :     }</span>
+<span id="L86"><span class="lineNum">      86</span>              : </span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC tlaBgGNC">           2 :     RETURN_STRING(cairo_toy_font_face_get_family(font_face_object-&gt;font_face));</span></span>
+<span id="L88"><span class="lineNum">      88</span>              : }</span>
+<span id="L89"><span class="lineNum">      89</span>              : /* }}} */</span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC tlaBgGNC">           2 :     RETURN_STRING(cairo_toy_font_face_get_family(font_face_object-&gt;font_face));</span></span>
-<span id="L92"><span class="lineNum">      92</span>              : }</span>
-<span id="L93"><span class="lineNum">      93</span>              : /* }}} */</span>
-<span id="L94"><span class="lineNum">      94</span>              : </span>
-<span id="L95"><span class="lineNum">      95</span>              : /* {{{ proto \Cairo\FontSlant \Cairo\FontFace\Toy::getSlant()</span>
-<span id="L96"><span class="lineNum">      96</span>              :         Gets the slant of a toy font. */</span>
-<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           2 : PHP_METHOD(CairoToyFontFace, getSlant)</span></span>
-<span id="L98"><span class="lineNum">      98</span>              : {</span>
-<span id="L99"><span class="lineNum">      99</span>              :     cairo_font_face_object *font_face_object;</span>
-<span id="L100"><span class="lineNum">     100</span>              :     zval slant_case;</span>
-<span id="L101"><span class="lineNum">     101</span>              : </span>
-<span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">           4 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
-<span id="L103"><span class="lineNum">     103</span>              : </span>
-<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">           4 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           2 :     if (!font_face_object) {</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L107"><span class="lineNum">     107</span>              :     }</span>
-<span id="L108"><span class="lineNum">     108</span>              : </span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC tlaBgGNC">           2 :     slant_case = php_enum_from_cairo_c_enum(</span></span>
-<span id="L110"><span class="lineNum">     110</span>              :         ce_cairo_fontslant,</span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           2 :         cairo_toy_font_face_get_slant(font_face_object-&gt;font_face)</span></span>
-<span id="L112"><span class="lineNum">     112</span>              :     );</span>
-<span id="L113"><span class="lineNum">     113</span>              : </span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           2 :     if (Z_TYPE(slant_case) == IS_OBJECT) {</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           4 :         RETURN_ZVAL(&amp;slant_case, 1, 1);</span></span>
-<span id="L116"><span class="lineNum">     116</span>              :     }</span>
-<span id="L117"><span class="lineNum">     117</span>              : }</span>
-<span id="L118"><span class="lineNum">     118</span>              : /* }}} */</span>
-<span id="L119"><span class="lineNum">     119</span>              : </span>
-<span id="L120"><span class="lineNum">     120</span>              : /* {{{ proto long \Cairo\FontFace\Toy::getWeight()</span>
-<span id="L121"><span class="lineNum">     121</span>              :         Gets the weight of a toy font. */</span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           2 : PHP_METHOD(CairoToyFontFace, getWeight)</span></span>
-<span id="L123"><span class="lineNum">     123</span>              : {</span>
-<span id="L124"><span class="lineNum">     124</span>              :     cairo_font_face_object *font_face_object;</span>
-<span id="L125"><span class="lineNum">     125</span>              :     zval weight_case;</span>
-<span id="L126"><span class="lineNum">     126</span>              : </span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           4 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
-<span id="L128"><span class="lineNum">     128</span>              : </span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           4 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           2 :     if (!font_face_object) {</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L132"><span class="lineNum">     132</span>              :     }</span>
-<span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC tlaBgGNC">           2 :     weight_case = php_enum_from_cairo_c_enum(</span></span>
-<span id="L135"><span class="lineNum">     135</span>              :         ce_cairo_fontweight,</span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           2 :         cairo_toy_font_face_get_weight(font_face_object-&gt;font_face)</span></span>
-<span id="L137"><span class="lineNum">     137</span>              :     );</span>
-<span id="L138"><span class="lineNum">     138</span>              : </span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           2 :     if (Z_TYPE(weight_case) == IS_OBJECT) {</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           4 :         RETURN_ZVAL(&amp;weight_case, 1, 1);</span></span>
-<span id="L141"><span class="lineNum">     141</span>              :     }</span>
-<span id="L142"><span class="lineNum">     142</span>              : }</span>
-<span id="L143"><span class="lineNum">     143</span>              : /* }}} */</span>
+<span id="L91"><span class="lineNum">      91</span>              : /* {{{ proto \Cairo\FontSlant \Cairo\FontFace\Toy::getSlant()</span>
+<span id="L92"><span class="lineNum">      92</span>              :         Gets the slant of a toy font. */</span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_FontFace_Toy, getSlant)</span></span>
+<span id="L94"><span class="lineNum">      94</span>              : {</span>
+<span id="L95"><span class="lineNum">      95</span>              :     cairo_font_face_object *font_face_object;</span>
+<span id="L96"><span class="lineNum">      96</span>              :     zval slant_case;</span>
+<span id="L97"><span class="lineNum">      97</span>              : </span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">           4 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L99"><span class="lineNum">      99</span>              : </span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           4 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
+<span id="L101"><span class="lineNum">     101</span> <span class="tlaGNC">           2 :     if (!font_face_object) {</span></span>
+<span id="L102"><span class="lineNum">     102</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L103"><span class="lineNum">     103</span>              :     }</span>
+<span id="L104"><span class="lineNum">     104</span>              : </span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC tlaBgGNC">           2 :     slant_case = php_enum_from_cairo_c_enum(</span></span>
+<span id="L106"><span class="lineNum">     106</span>              :         ce_cairo_fontslant,</span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">           2 :         cairo_toy_font_face_get_slant(font_face_object-&gt;font_face)</span></span>
+<span id="L108"><span class="lineNum">     108</span>              :     );</span>
+<span id="L109"><span class="lineNum">     109</span>              : </span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">           2 :     if (Z_TYPE(slant_case) == IS_OBJECT) {</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           4 :         RETURN_ZVAL(&amp;slant_case, 1, 1);</span></span>
+<span id="L112"><span class="lineNum">     112</span>              :     }</span>
+<span id="L113"><span class="lineNum">     113</span>              : }</span>
+<span id="L114"><span class="lineNum">     114</span>              : /* }}} */</span>
+<span id="L115"><span class="lineNum">     115</span>              : </span>
+<span id="L116"><span class="lineNum">     116</span>              : /* {{{ proto long \Cairo\FontFace\Toy::getWeight()</span>
+<span id="L117"><span class="lineNum">     117</span>              :         Gets the weight of a toy font. */</span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_FontFace_Toy, getWeight)</span></span>
+<span id="L119"><span class="lineNum">     119</span>              : {</span>
+<span id="L120"><span class="lineNum">     120</span>              :     cairo_font_face_object *font_face_object;</span>
+<span id="L121"><span class="lineNum">     121</span>              :     zval weight_case;</span>
+<span id="L122"><span class="lineNum">     122</span>              : </span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           4 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L124"><span class="lineNum">     124</span>              : </span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           4 :     font_face_object = cairo_font_face_object_get(getThis());</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           2 :     if (!font_face_object) {</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L128"><span class="lineNum">     128</span>              :     }</span>
+<span id="L129"><span class="lineNum">     129</span>              : </span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC tlaBgGNC">           2 :     weight_case = php_enum_from_cairo_c_enum(</span></span>
+<span id="L131"><span class="lineNum">     131</span>              :         ce_cairo_fontweight,</span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           2 :         cairo_toy_font_face_get_weight(font_face_object-&gt;font_face)</span></span>
+<span id="L133"><span class="lineNum">     133</span>              :     );</span>
+<span id="L134"><span class="lineNum">     134</span>              : </span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           2 :     if (Z_TYPE(weight_case) == IS_OBJECT) {</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           4 :         RETURN_ZVAL(&amp;weight_case, 1, 1);</span></span>
+<span id="L137"><span class="lineNum">     137</span>              :     }</span>
+<span id="L138"><span class="lineNum">     138</span>              : }</span>
+<span id="L139"><span class="lineNum">     139</span>              : /* }}} */</span>
+<span id="L140"><span class="lineNum">     140</span>              : </span>
+<span id="L141"><span class="lineNum">     141</span>              : /* ----------------------------------------------------------------</span>
+<span id="L142"><span class="lineNum">     142</span>              :     \Cairo\FontFace\Toy Definition and registration</span>
+<span id="L143"><span class="lineNum">     143</span>              : ------------------------------------------------------------------*/</span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
-<span id="L145"><span class="lineNum">     145</span>              : /* ----------------------------------------------------------------</span>
-<span id="L146"><span class="lineNum">     146</span>              :     \Cairo\FontFace\Toy Definition and registration</span>
-<span id="L147"><span class="lineNum">     147</span>              : ------------------------------------------------------------------*/</span>
-<span id="L148"><span class="lineNum">     148</span>              : </span>
-<span id="L149"><span class="lineNum">     149</span>              : ZEND_BEGIN_ARG_INFO(CairoToyFontFace_method_no_args, ZEND_SEND_BY_VAL)</span>
-<span id="L150"><span class="lineNum">     150</span>              : ZEND_END_ARG_INFO()</span>
+<span id="L145"><span class="lineNum">     145</span>              : </span>
+<span id="L146"><span class="lineNum">     146</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">         426 : PHP_MINIT_FUNCTION(cairo_font)</span></span>
+<span id="L148"><span class="lineNum">     148</span>              : {</span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         426 :     ce_cairo_toyfontface = register_class_Cairo_FontFace_Toy(ce_cairo_fontface);</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         426 :     ce_cairo_toyfontface-&gt;create_object = cairo_font_face_create_object;</span></span>
 <span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span>              : /* {{{ cairo_toy_font_face_methods */</span>
-<span id="L153"><span class="lineNum">     153</span>              : static const zend_function_entry cairo_toy_font_face_methods[] = {</span>
-<span id="L154"><span class="lineNum">     154</span>              :     PHP_ME(CairoToyFontFace, __construct, CairoToyFontFace___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)</span>
-<span id="L155"><span class="lineNum">     155</span>              :     PHP_ME(CairoToyFontFace, getFamily, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)</span>
-<span id="L156"><span class="lineNum">     156</span>              :     PHP_ME(CairoToyFontFace, getSlant, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)</span>
-<span id="L157"><span class="lineNum">     157</span>              :     PHP_ME(CairoToyFontFace, getWeight, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)</span>
-<span id="L158"><span class="lineNum">     158</span>              :     ZEND_FE_END</span>
-<span id="L159"><span class="lineNum">     159</span>              : };</span>
+<span id="L152"><span class="lineNum">     152</span>              :     /* FontSlant */</span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         426 :     ce_cairo_fontslant = register_class_Cairo_FontSlant();</span></span>
+<span id="L154"><span class="lineNum">     154</span>              : </span>
+<span id="L155"><span class="lineNum">     155</span>              :     /* FontWeight */</span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         426 :     ce_cairo_fontweight = register_class_Cairo_FontWeight();</span></span>
+<span id="L157"><span class="lineNum">     157</span>              : </span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">         426 :     return SUCCESS;</span></span>
+<span id="L159"><span class="lineNum">     159</span>              : }</span>
 <span id="L160"><span class="lineNum">     160</span>              : /* }}} */</span>
-<span id="L161"><span class="lineNum">     161</span>              : </span>
-<span id="L162"><span class="lineNum">     162</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         424 : PHP_MINIT_FUNCTION(cairo_font)</span></span>
-<span id="L164"><span class="lineNum">     164</span>              : {</span>
-<span id="L165"><span class="lineNum">     165</span>              :     zend_class_entry toyfont_ce;</span>
-<span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         424 :     INIT_NS_CLASS_ENTRY(toyfont_ce,</span></span>
-<span id="L168"><span class="lineNum">     168</span>              :         ZEND_NS_NAME(CAIRO_NAMESPACE, &quot;FontFace&quot;), &quot;Toy&quot;,</span>
-<span id="L169"><span class="lineNum">     169</span>              :         cairo_toy_font_face_methods);</span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         424 :     ce_cairo_toyfontface = zend_register_internal_class_ex(&amp;toyfont_ce, ce_cairo_fontface);</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         424 :     ce_cairo_toyfontface-&gt;create_object = cairo_font_face_create_object;</span></span>
-<span id="L172"><span class="lineNum">     172</span>              : </span>
-<span id="L173"><span class="lineNum">     173</span>              :     /* FontSlant */</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontSlant&quot;, ce_cairo_fontslant);</span></span>
-<span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span>              : #define CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(name) \</span>
-<span id="L177"><span class="lineNum">     177</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontslant, CAIRO_FONT_SLANT)</span>
-<span id="L178"><span class="lineNum">     178</span>              : </span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         424 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(NORMAL);</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         424 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(ITALIC);</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         424 :     CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(OBLIQUE);</span></span>
-<span id="L182"><span class="lineNum">     182</span>              : </span>
-<span id="L183"><span class="lineNum">     183</span>              :     /* FontWeight */</span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         424 :     CAIRO_REGISTER_ENUM_LONG(&quot;FontWeight&quot;, ce_cairo_fontweight);</span></span>
-<span id="L185"><span class="lineNum">     185</span>              : </span>
-<span id="L186"><span class="lineNum">     186</span>              : #define CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(name) \</span>
-<span id="L187"><span class="lineNum">     187</span>              :     CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontweight, CAIRO_FONT_WEIGHT)</span>
-<span id="L188"><span class="lineNum">     188</span>              : </span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         424 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(NORMAL);</span></span>
-<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         424 :     CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(BOLD);</span></span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         424 : }</span></span>
-<span id="L192"><span class="lineNum">     192</span>              : /* }}} */</span>
         </pre>
               </td>
             </tr>

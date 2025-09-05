@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-04 06:43:31</td>
+            <td class="headerValue">2025-09-05 06:35:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -350,28 +350,28 @@
 <span id="L288"><span class="lineNum">     288</span>              : ------------------------------------------------------------------*/</span>
 <span id="L289"><span class="lineNum">     289</span>              : </span>
 <span id="L290"><span class="lineNum">     290</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">         424 : PHP_MINIT_FUNCTION(cairo_rectangle)</span></span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">         426 : PHP_MINIT_FUNCTION(cairo_rectangle)</span></span>
 <span id="L292"><span class="lineNum">     292</span>              : {</span>
 <span id="L293"><span class="lineNum">     293</span>              :     zend_class_entry ce;</span>
 <span id="L294"><span class="lineNum">     294</span>              : </span>
-<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">         424 :     memcpy(</span></span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">         426 :     memcpy(</span></span>
 <span id="L296"><span class="lineNum">     296</span>              :         &amp;cairo_rectangle_object_handlers,</span>
 <span id="L297"><span class="lineNum">     297</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L298"><span class="lineNum">     298</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L299"><span class="lineNum">     299</span>              :     );</span>
 <span id="L300"><span class="lineNum">     300</span>              : </span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.offset = XtOffsetOf(cairo_rectangle_object, std);</span></span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.free_obj = cairo_rectangle_free_obj;</span></span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.clone_obj = cairo_rectangle_clone_obj;</span></span>
-<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.read_property = cairo_rectangle_object_read_property;</span></span>
-<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.write_property = cairo_rectangle_object_write_property;</span></span>
-<span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.get_property_ptr_ptr = NULL;</span></span>
-<span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">         424 :     cairo_rectangle_object_handlers.get_properties = cairo_rectangle_object_get_properties;</span></span>
+<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.offset = XtOffsetOf(cairo_rectangle_object, std);</span></span>
+<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.free_obj = cairo_rectangle_free_obj;</span></span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.clone_obj = cairo_rectangle_clone_obj;</span></span>
+<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.read_property = cairo_rectangle_object_read_property;</span></span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.write_property = cairo_rectangle_object_write_property;</span></span>
+<span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.get_property_ptr_ptr = NULL;</span></span>
+<span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">         426 :     cairo_rectangle_object_handlers.get_properties = cairo_rectangle_object_get_properties;</span></span>
 <span id="L308"><span class="lineNum">     308</span>              : </span>
-<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">         424 :     ce_cairo_rectangle = register_class_Cairo_Rectangle();</span></span>
-<span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">         424 :     ce_cairo_rectangle-&gt;create_object = cairo_rectangle_create_object;</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">         426 :     ce_cairo_rectangle = register_class_Cairo_Rectangle();</span></span>
+<span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">         426 :     ce_cairo_rectangle-&gt;create_object = cairo_rectangle_create_object;</span></span>
 <span id="L311"><span class="lineNum">     311</span>              : </span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">         424 :     return SUCCESS;</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">         426 :     return SUCCESS;</span></span>
 <span id="L313"><span class="lineNum">     313</span>              : }</span>
 <span id="L314"><span class="lineNum">     314</span>              : /* }}} */</span>
         </pre>
