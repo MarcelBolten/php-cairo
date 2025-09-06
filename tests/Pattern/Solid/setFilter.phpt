@@ -9,9 +9,9 @@ use Cairo\Pattern\Solid;
 
 $pattern = new Solid(1, 1, 1);
 
-$pattern->setFilter(Cairo\Filter::GOOD);
+$pattern->setFilter(Cairo\Filter::Good);
 $filter = $pattern->getFilter();
-var_dump($filter == Cairo\Filter::GOOD);
+var_dump($filter == Cairo\Filter::Good);
 
 /* Total number of args needed = 1 */
 try {

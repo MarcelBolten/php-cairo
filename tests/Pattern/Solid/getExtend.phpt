@@ -9,8 +9,7 @@ use Cairo\Pattern\Solid;
 
 $pattern = new Solid(1, 1, 1);
 $extend = $pattern->getExtend();
-
-var_dump($extend == Cairo\Extend::PAD);
+var_dump($extend);
 
 /* Total number of args needed = 0 */
 try {
@@ -19,5 +18,5 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECT--
-bool(true)
+enum(Cairo\Extend::Pad)
 Cairo\Pattern::getExtend() expects exactly 0 arguments, 1 given

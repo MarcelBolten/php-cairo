@@ -26,13 +26,13 @@ array(56) {
   [7]=>
   string(18) "Cairo\Pattern\Mesh"
   [8]=>
-  string(26) "Cairo\Pattern\RasterSource"
-  [9]=>
   string(18) "Cairo\Pattern\Type"
-  [10]=>
+  [9]=>
   string(12) "Cairo\Extend"
-  [11]=>
+  [10]=>
   string(12) "Cairo\Filter"
+  [11]=>
+  string(12) "Cairo\Dither"
   [12]=>
   string(15) "Cairo\Rectangle"
   [13]=>

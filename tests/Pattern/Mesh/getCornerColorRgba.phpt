@@ -127,7 +127,7 @@ Cairo\Pattern\Mesh::getCornerColorRgba() expects exactly 2 arguments, 1 given
 Cairo\Pattern\Mesh::getCornerColorRgba() expects exactly 2 arguments, 3 given
 Cairo\Pattern\Mesh::getCornerColorRgba(): Argument #1 ($patch_num) must be of type int, array given
 Cairo\Pattern\Mesh::getCornerColorRgba(): Argument #2 ($corner_num) must be of type int, array given
-Invalid patch number. Expected 0 to 0.
-Invalid patch number. Expected 0 to 0.
-Invalid corner number. Expected 0, 1, 2, or 3.
-Invalid corner number. Expected 0, 1, 2, or 3.
+Invalid $patch_num. Expected 0 to 0.
+Invalid $patch_num. Expected 0 to 0.
+Invalid $corner_num. Expected 0, 1, 2, or 3.
+Invalid $corner_num. Expected 0, 1, 2, or 3.

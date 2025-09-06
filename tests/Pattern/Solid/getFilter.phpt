@@ -10,7 +10,7 @@ use Cairo\Pattern\Solid;
 $pattern = new Solid(1, 1, 1);
 $filter = $pattern->getFilter();
 
-var_dump($filter == Cairo\Filter::GOOD);
+var_dump($filter);
 
 /* Total number of args needed = 0 */
 try {
@@ -19,5 +19,5 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECT--
-bool(true)
+enum(Cairo\Filter::Good)
 Cairo\Pattern::getFilter() expects exactly 0 arguments, 1 given

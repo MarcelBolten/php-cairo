@@ -11,10 +11,10 @@ var_dump($surface);
 $pattern = new Cairo\Pattern\Surface($surface);
 var_dump($pattern);
 
-$pattern->setFilter(Cairo\Filter::NEAREST);
+$pattern->setFilter(Cairo\Filter::Nearest);
 $filter = $pattern->getFilter();
 var_dump($filter);
-var_dump($filter == Cairo\Filter::NEAREST);
+var_dump($filter == Cairo\Filter::Nearest);
 
 /* Total number of args needed = 1 */
 try {
@@ -44,7 +44,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-enum(Cairo\Filter::NEAREST)
+enum(Cairo\Filter::Nearest)
 bool(true)
 Cairo\Pattern::setFilter() expects exactly 1 argument, 0 given
 Cairo\Pattern::setFilter() expects exactly 1 argument, 2 given

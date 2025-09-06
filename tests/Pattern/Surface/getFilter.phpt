@@ -11,10 +11,10 @@ var_dump($surface);
 $pattern = new Cairo\Pattern\Surface($surface);
 var_dump($pattern);
 
-$pattern->setFilter(Cairo\Filter::GOOD);
+$pattern->setFilter(Cairo\Filter::Good);
 $filter = $pattern->getFilter();
 var_dump($filter);
-var_dump($filter == Cairo\Filter::GOOD);
+var_dump($filter == Cairo\Filter::Good);
 
 /* Total number of args needed = 0 */
 try {
@@ -27,6 +27,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-enum(Cairo\Filter::GOOD)
+enum(Cairo\Filter::Good)
 bool(true)
 Cairo\Pattern::getFilter() expects exactly 0 arguments, 1 given

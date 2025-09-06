@@ -61,7 +61,9 @@ try {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECT--
-array(4) {
+array(5) {
+  ["offset"]=>
+  float(0.2)
   ["red"]=>
   float(0.8)
   ["green"]=>

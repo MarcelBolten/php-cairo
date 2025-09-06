@@ -10,7 +10,7 @@ use Cairo\Pattern\Solid;
 $pattern = new Solid(1, 1, 1);
 $type = $pattern->getType();
 var_dump($type instanceof Cairo\Pattern\Type);
-var_dump($type == Cairo\Pattern\Type::SOLID);
+var_dump($type == Cairo\Pattern\Type::Solid);
 
 try {
     $pattern->getType('foo');

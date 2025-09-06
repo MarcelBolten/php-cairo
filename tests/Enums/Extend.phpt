@@ -11,11 +11,11 @@ var_dump(Extend::cases());
 --EXPECTF--
 array(4) {
   [0]=>
-  enum(Cairo\Extend::NONE)
+  enum(Cairo\Extend::None)
   [1]=>
-  enum(Cairo\Extend::REPEAT)
+  enum(Cairo\Extend::Repeat)
   [2]=>
-  enum(Cairo\Extend::REFLECT)
+  enum(Cairo\Extend::Reflect)
   [3]=>
-  enum(Cairo\Extend::PAD)
+  enum(Cairo\Extend::Pad)
 }
