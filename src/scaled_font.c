@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "scaled_font_arginfo.h"
 
 
 zend_class_entry *ce_cairo_scaled_font;
@@ -44,6 +45,7 @@ static inline cairo_scaled_font_object *cairo_scaled_font_object_get(zval *zv)
     }
     return object;
 }
+
 
 /* ----------------------------------------------------------------
     Cairo\FontOptions Object management
@@ -101,6 +103,7 @@ static zend_object* cairo_scaled_font_create_object(zend_class_entry *ce)
 }
 /* }}} */
 
+
 /* ----------------------------------------------------------------
     Cairo\FontOptions C API
 ------------------------------------------------------------------*/
@@ -115,16 +118,9 @@ zend_class_entry * php_cairo_get_scaled_font_ce()
     Cairo\FontOptions Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoScaledFont___construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 4)
-    ZEND_ARG_OBJ_INFO(0, font_face, Cairo\\FontFace, 0)
-    ZEND_ARG_OBJ_INFO(0, matrix, Cairo\\Matrix, 0)
-    ZEND_ARG_OBJ_INFO(0, ctm, Cairo\\Matrix, 0)
-    ZEND_ARG_OBJ_INFO(0, options, Cairo\\FontOptions, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void __construct(\Cairo\FontFace font_face, \Cairo\Matrix matrix, \Cairo\Matrix ctm, \Cairo\FontOptions options)
        Creates a \Cairo\ScaledFont object from a font face and matrices that describe the size of the font and the environment in which it will be used */
-PHP_METHOD(CairoScaledFont, __construct)
+PHP_METHOD(Cairo_ScaledFont, __construct)
 {
     zval *font_face_zval, *matrix_zval, *ctm_zval, *font_options_zval;
     cairo_scaled_font_object *scaled_font_object;
@@ -161,7 +157,7 @@ PHP_METHOD(CairoScaledFont, __construct)
 
 /* {{{ proto \Cairo\Status \Cairo\ScaledFont::getStatus()
        Returns the current integer status of the CairoScaledFont */
-PHP_METHOD(CairoScaledFont, getStatus)
+PHP_METHOD(Cairo_ScaledFont, getStatus)
 {
     cairo_scaled_font_object *scaled_font_object;
     zval status_case;
@@ -187,7 +183,7 @@ PHP_METHOD(CairoScaledFont, getStatus)
 /* {{{ proto array \Cairo\ScaledFont::getExtents()
        Gets the metrics for a scaled font in an assoc array
 */
-PHP_METHOD(CairoScaledFont, getExtents)
+PHP_METHOD(Cairo_ScaledFont, getExtents)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_font_extents_t extents;
@@ -210,15 +206,11 @@ PHP_METHOD(CairoScaledFont, getExtents)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoScaledFont_getTextExtents_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, text)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto array \Cairo\ScaledFont::getTextExtents(string text)
        previous method-name was textExtents()
        Gets the extents for a string of UTF8 text.
 */
-PHP_METHOD(CairoScaledFont, getTextExtents)
+PHP_METHOD(Cairo_ScaledFont, getTextExtents)
 {
     cairo_scaled_font_object *scaled_font_object;
     char *text, *cairo_text;
@@ -248,15 +240,11 @@ PHP_METHOD(CairoScaledFont, getTextExtents)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoScaledFont_getGlyphExtents_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, glyphs)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto array \Cairo\ScaledFont::getGlyphExtents(array glyphs)
     previous method-name was "glyphExtents".
     Gets the extents for an array of glyphs. The extents describe a user-space
     rectangle that encloses the "inked" portion of the glyphs. */
-PHP_METHOD(CairoScaledFont, getGlyphExtents)
+PHP_METHOD(Cairo_ScaledFont, getGlyphExtents)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_glyph_t *glyphs_array;
@@ -307,7 +295,7 @@ PHP_METHOD(CairoScaledFont, getGlyphExtents)
 
 /* {{{ proto \Cairo\FontFace object \Cairo\ScaledFont::getFontFace()
        Retrieves the font face used to create the scaled font. */
-PHP_METHOD(CairoScaledFont, getFontFace)
+PHP_METHOD(Cairo_ScaledFont, getFontFace)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_font_face_object *font_face_object;
@@ -338,7 +326,7 @@ PHP_METHOD(CairoScaledFont, getFontFace)
 
 /* {{{ proto \Cairo\FontOptions object \Cairo\ScaledFont::getFontOptions()
        Retrieves the font options used to create the scaled font. */
-PHP_METHOD(CairoScaledFont, getFontOptions)
+PHP_METHOD(Cairo_ScaledFont, getFontOptions)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_font_options_object *font_options_object;
@@ -369,7 +357,7 @@ PHP_METHOD(CairoScaledFont, getFontOptions)
 
 /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getFontMatrix()
        Returns the font matrix used when creating the scaled font */
-PHP_METHOD(CairoScaledFont, getFontMatrix)
+PHP_METHOD(Cairo_ScaledFont, getFontMatrix)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_matrix_object *matrix_object;
@@ -393,7 +381,7 @@ PHP_METHOD(CairoScaledFont, getFontMatrix)
 
 /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getCtm()
         Returns the ctm matrix used when creating the scaled font */
-PHP_METHOD(CairoScaledFont, getCtm)
+PHP_METHOD(Cairo_ScaledFont, getCtm)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_matrix_object *matrix_object;
@@ -418,7 +406,7 @@ PHP_METHOD(CairoScaledFont, getCtm)
 /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getScaleMatrix()
        The scale matrix is product of the font matrix and the ctm associated with the scaled font,
        and hence is the matrix mapping from font space to device space */
-PHP_METHOD(CairoScaledFont, getScaleMatrix)
+PHP_METHOD(Cairo_ScaledFont, getScaleMatrix)
 {
     cairo_scaled_font_object *scaled_font_object;
     cairo_matrix_object *matrix_object;
@@ -440,7 +428,7 @@ PHP_METHOD(CairoScaledFont, getScaleMatrix)
 
 /* {{{ proto long \Cairo\ScaledFont::getType()
        Returns the current integer type of the CairoScaledFont backend */
-PHP_METHOD(CairoScaledFont, getType)
+PHP_METHOD(Cairo_ScaledFont, getType)
 {
     cairo_scaled_font_object *scaled_font_object;
     zval font_type_case;
@@ -463,18 +451,11 @@ PHP_METHOD(CairoScaledFont, getType)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoScaledFont_textToGlyphs_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 3)
-    ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
-    ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, cluster, _IS_BOOL, 0, "false")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\ScaledFont->textToGlyphs()
        Converts UTF-8 text to an array of glyphs,
        optionally with cluster mapping,
        that can be used to render later using scaled_font . */
-PHP_METHOD(CairoScaledFont, textToGlyphs)
+PHP_METHOD(Cairo_ScaledFont, textToGlyphs)
 {
     cairo_scaled_font_object *scaled_font_object;
 
@@ -564,36 +545,15 @@ PHP_METHOD(CairoScaledFont, textToGlyphs)
     }
 }
 /* }}} */
+
+
 /* ----------------------------------------------------------------
     Cairo\FontOptions Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoScaledFont_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_scaled_font_methods[] */
-static const zend_function_entry cairo_scaled_font_methods[] = {
-    PHP_ME(CairoScaledFont, __construct, CairoScaledFont___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoScaledFont, getStatus, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getExtents, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getTextExtents, CairoScaledFont_getTextExtents_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getGlyphExtents, CairoScaledFont_getGlyphExtents_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getFontFace, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getFontOptions, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getFontMatrix, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getCtm, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getScaleMatrix, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, getType, CairoScaledFont_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoScaledFont, textToGlyphs, CairoScaledFont_textToGlyphs_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_scaled_font)
 {
-    zend_class_entry scaled_font_ce;
-
     memcpy(
         &cairo_scaled_font_object_handlers,
         zend_get_std_object_handlers(),
@@ -604,9 +564,8 @@ PHP_MINIT_FUNCTION(cairo_scaled_font)
     cairo_scaled_font_object_handlers.offset = XtOffsetOf(cairo_scaled_font_object, std);
     cairo_scaled_font_object_handlers.free_obj = cairo_scaled_font_free_obj;
 
-    INIT_NS_CLASS_ENTRY(scaled_font_ce, CAIRO_NAMESPACE, "ScaledFont", cairo_scaled_font_methods);
-    scaled_font_ce.create_object = cairo_scaled_font_create_object;
-    ce_cairo_scaled_font = zend_register_internal_class(&scaled_font_ce);
+    ce_cairo_scaled_font = register_class_Cairo_ScaledFont();
+    ce_cairo_scaled_font->create_object = cairo_scaled_font_create_object;
 
     return SUCCESS;
 }
