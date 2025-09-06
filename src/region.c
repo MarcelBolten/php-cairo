@@ -286,11 +286,6 @@ PHP_METHOD(Cairo_Region, isEmpty)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_containsPoint_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto long \Cairo\Region::containsPoint(long x, long y)
    Checks whether (x, y) is contained in region. Returns TRUE if (x, y) is contained in region, FALSE if it is not. */
 PHP_METHOD(Cairo_Region, containsPoint)
