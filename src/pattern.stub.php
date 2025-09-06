@@ -11,89 +11,104 @@ namespace Cairo
     {
         public function __construct() {}
 
-        public function getType(): Pattern\Type {}
-
         public function getStatus(): Status {}
 
-        public function getMatrix(): Matrix {}
-
-        public function setMatrix(Matrix $matrix): void {}
+        public function getType(): Pattern\Type {}
 
         public function getExtend(): Extend {}
 
-        public function setExtend(Extend $extend): void {}
+        public function setExtend(
+            Extend $extend
+        ): void {}
 
         public function getFilter(): Filter {}
 
-        public function setFilter(Filter $filter): void {}
+        public function setFilter(
+            Filter $filter
+        ): void {}
+
+        public function getMatrix(): Matrix {}
+
+        public function setMatrix(
+            Matrix $matrix
+        ): void {}
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
         public function getDither(): Dither {}
 
-        public function setDither(Dither $dither): void {}
+        public function setDither(
+            Dither $dither
+        ): void {}
 #endif
     }
 
     enum Extend: int
     {
-        /** @value CAIRO_EXTEND_NONE */
+        /** @cvalue CAIRO_EXTEND_NONE */
         case None = UNKNOWN;
 
-        /** @value CAIRO_EXTEND_REPEAT */
+        /** @cvalue CAIRO_EXTEND_REPEAT */
         case Repeat = UNKNOWN;
 
-        /** @value CAIRO_EXTEND_REFLECT */
+        /** @cvalue CAIRO_EXTEND_REFLECT */
         case Reflect = UNKNOWN;
 
-        /** @value CAIRO_EXTEND_PAD */
+        /** @cvalue CAIRO_EXTEND_PAD */
         case Pad = UNKNOWN;
     }
 
     enum Filter: int
     {
-        /** @value CAIRO_FILTER_FAST */
+        /** @cvalue CAIRO_FILTER_FAST */
         case Fast = UNKNOWN;
 
-        /** @value CAIRO_FILTER_GOOD */
+        /** @cvalue CAIRO_FILTER_GOOD */
         case Good = UNKNOWN;
 
-        /** @value CAIRO_FILTER_BEST */
+        /** @cvalue CAIRO_FILTER_BEST */
         case Best = UNKNOWN;
 
-        /** @value CAIRO_FILTER_NEAREST */
+        /** @cvalue CAIRO_FILTER_NEAREST */
         case Nearest = UNKNOWN;
 
-        /** @value CAIRO_FILTER_BILINEAR */
+        /** @cvalue CAIRO_FILTER_BILINEAR */
         case Bilinear = UNKNOWN;
 
-        /** @value CAIRO_FILTER_GAUSSIAN */
+        /** @cvalue CAIRO_FILTER_GAUSSIAN */
         case Gaussian = UNKNOWN;
     }
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
     enum Dither: int
     {
-        /** @value CAIRO_DITHER_NONE */
+        /** @cvalue CAIRO_DITHER_NONE */
         case None = UNKNOWN;
 
-        /** @value CAIRO_DITHER_DEFAULT */
+        /** @cvalue CAIRO_DITHER_DEFAULT */
         case Default = UNKNOWN;
 
-        /** @value CAIRO_DITHER_FAST */
+        /** @cvalue CAIRO_DITHER_FAST */
         case Fast = UNKNOWN;
 
-        /** @value CAIRO_DITHER_GOOD */
+        /** @cvalue CAIRO_DITHER_GOOD */
         case Good = UNKNOWN;
 
-        /** @value CAIRO_DITHER_BEST */
+        /** @cvalue CAIRO_DITHER_BEST */
         case Best = UNKNOWN;
     }
+#endif
 }
 
 namespace Cairo\Pattern
 {
     class Solid extends \Cairo\Pattern
     {
-        public function __construct(float $red, float $green, float $blue, float $alpha = 0) {}
+        public function __construct(
+            float $red,
+            float $green,
+            float $blue,
+            null|float $alpha = null
+        ) {}
 
         /**
          * @return array{red: float, green: float, blue: float, alpha: float}
@@ -103,21 +118,38 @@ namespace Cairo\Pattern
 
     abstract class Gradient extends \Cairo\Pattern
     {
-        public function getColorStopCount(): int {}
+        public function addColorStopRgb(
+            float $offset,
+            float $red,
+            float $green,
+            float $blue
+        ): void {}
+
+        public function addColorStopRgba(
+            float $offset,
+            float $red,
+            float $green,
+            float $blue,
+            float $alpha
+        ): void {}
 
         /**
-         * @return array{red: float, green: float, blue: float, alpha: float}
+         * Gets the offset and color information at the given index (zero-based) for a gradient pattern
+         *
+         * @return array{offset: float, red: float, green: float, blue: float, alpha: float}
          */
-        public function getColorStopRgba(int $index): array {}
+        public function getColorStopRgba(
+            int $index
+        ): array {}
 
-        public function addColorStopRgb(float $offset, float $red, float $green, float $blue): void {}
-
-        public function addColorStopRgba(float $offset, float $red, float $green, float $blue, float $alpha): void {}
+        public function getColorStopCount(): int {}
     }
 
     class Surface extends \Cairo\Pattern
     {
-        public function __construct(\Cairo\Surface $surface) {}
+        public function __construct(
+            \Cairo\Surface $surface
+        ) {}
 
         public function getSurface(): \Cairo\Surface {}
     }
@@ -130,31 +162,70 @@ namespace Cairo\Pattern
 
         public function endPatch(): void {}
 
-        public function moveTo(float $x, float $y): void {}
+        public function moveTo(
+            float $x,
+            float $y
+        ): void {}
 
-        public function lineTo(float $x, float $y): void {}
+        public function lineTo(
+            float $x,
+            float $y
+        ): void {}
 
-        public function curveTo(float $x1, float $y1, float $x2, float $y2, float $x3, float $y3): void {}
+        public function curveTo(
+            float $x1,
+            float $y1,
+            float $x2,
+            float $y2,
+            float $x3,
+            float $y3
+        ): void {}
 
-        public function setControlPoint(int $corner_num, float $x, float $y): void {}
+        public function setControlPoint(
+            int $point_num,
+            float $x,
+            float $y
+        ): void {}
 
-        public function setCornerColorRgb(int $corner_num, float $red, float $green, float $blue): void {}
+        public function setCornerColorRgb(
+            int $corner_num,
+            float $red,
+            float $green,
+            float $blue
+        ): void {}
 
-        public function setCornerColorRgba(int $corner_num, float $red, float $green, float $blue, float $alpha): void {}
+        public function setCornerColorRgba(
+            int $corner_num,
+            float $red,
+            float $green,
+            float $blue,
+            float $alpha
+        ): void {}
 
         public function getPatchCount(): int {}
 
-        public function getPath(int $patch_num): \Cairo\Path {}
+        /**
+         * Gets the path for a given patch (zero-based) for a mesh pattern
+         */
+        public function getPath(
+            int $patch_num
+        ): \Cairo\Path {}
 
         /**
          * @return array{x: float, y: float}
          */
-        public function getControlPoint(int $patch_num, int $point_num): array {}
+        public function getControlPoint(
+            int $patch_num,
+            int $point_num
+        ): array {}
 
         /**
          * @return array{red: float, green: float, blue: float, alpha: float}
          */
-        public function getCornerColorRgba(int $patch_num, int $corner_num): array {}
+        public function getCornerColorRgba(
+            int $patch_num,
+            int $corner_num
+        ): array {}
     }
 
     // Not implemented
@@ -166,32 +237,44 @@ namespace Cairo\Pattern
     //         int $height
     //     ) {}
 
-    //     public abstract function acquire(): void {}
-    //     public abstract function release(): void {}
+    //     public abstract function acquire(
+    //         \Cairo\Surface $surface
+    //         $extents
+    //     ): void {}
+
+    //     public abstract function release(
+    //         \Cairo\Surface $surface
+    //     ): void {}
+
     //     public abstract function snapshot(): void {}
-    //     public abstract function copy(): void {}
+
+    //     public abstract function copy(
+    //         \Cairo\Pattern $pattern
+    //     ): void {}
+
     //     public abstract function finish(): void {}
     // }
 
     enum Type: int
     {
-        /**@cvlaue CAIRO_PATTERN_TYPE_SOLID */
+        /** @cvalue CAIRO_PATTERN_TYPE_SOLID */
         case Solid = UNKNOWN;
 
-        /**@cvlaue CAIRO_PATTERN_TYPE_SURFACE */
+        /** @cvalue CAIRO_PATTERN_TYPE_SURFACE */
         case Surface = UNKNOWN;
 
-        /**@cvlaue CAIRO_PATTERN_TYPE_LINEAR */
+        /** @cvalue CAIRO_PATTERN_TYPE_LINEAR */
         case Linear = UNKNOWN;
 
-        /**@cvlaue CAIRO_PATTERN_TYPE_RADIAL */
+        /** @cvalue CAIRO_PATTERN_TYPE_RADIAL */
         case Radial = UNKNOWN;
 
-        /**@cvlaue CAIRO_PATTERN_TYPE_MESH */
+        /** @cvalue CAIRO_PATTERN_TYPE_MESH */
         case Mesh = UNKNOWN;
 
-        /**@cvlaue CAIRO_PATTERN_TYPE_RASTER_SOURCE */
-        case RasterSource = UNKNOWN;
+        // Not implemented
+        // /** @cvalue CAIRO_PATTERN_TYPE_RASTER_SOURCE */
+        // case RasterSource = UNKNOWN;
     }
 }
 
