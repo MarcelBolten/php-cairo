@@ -10,7 +10,7 @@ var_dump($ext->getClassNames());
 --EXPECT--
 array(56) {
   [0]=>
-  string(5) "Cairo"
+  string(11) "Cairo\Cairo"
   [1]=>
   string(13) "Cairo\Pattern"
   [2]=>

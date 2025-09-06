@@ -5,13 +5,14 @@ Cairo\version_string()
 include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
-$version = Cairo\version_string();
+namespace Cairo;
+$version = version_string();
 var_dump($version);
 
 try {
-    Cairo\version_string('foo');
-} catch (ArgumentCountError $e) {
-    echo $e->getMessage();
+    version_string('foo');
+} catch (\ArgumentCountError $e) {
+    echo $e->getMessage() . PHP_EOL;
 }
 --EXPECTF--
 string(%d) "%d.%d.%d"
