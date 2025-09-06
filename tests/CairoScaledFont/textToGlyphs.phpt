@@ -131,5 +131,5 @@ Cairo\ScaledFont::textToGlyphs() expects at least 3 arguments, 2 given
 Cairo\ScaledFont::textToGlyphs() expects at most 4 arguments, 5 given
 Cairo\ScaledFont::textToGlyphs(): Argument #1 ($x) must be of type float, array given
 Cairo\ScaledFont::textToGlyphs(): Argument #2 ($y) must be of type float, array given
-Cairo\ScaledFont::textToGlyphs(): Argument #3 ($string) must be of type string, array given
-Cairo\ScaledFont::textToGlyphs(): Argument #4 ($cluster) must be of type bool, array given
+Cairo\ScaledFont::textToGlyphs(): Argument #3 ($text) must be of type string, array given
+Cairo\ScaledFont::textToGlyphs(): Argument #4 ($return_clusters) must be of type bool, array given
