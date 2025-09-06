@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "cairo_arginfo.h"
 
 /* ----------------------------------------------------------------
     Cairo Namespace
@@ -70,12 +71,9 @@ zval php_enum_from_cairo_c_enum(
 }
 
 
-ZEND_BEGIN_ARG_INFO(Cairo_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto int \Cairo\version(void)
        Returns an integer version number of the cairo library being used */
-PHP_FUNCTION(version)
+PHP_FUNCTION(Cairo_version)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -85,7 +83,7 @@ PHP_FUNCTION(version)
 
 /* {{{ proto string \Cairo\version_string(void)
        Returns a string version of the cairo library being used */
-PHP_FUNCTION(version_string)
+PHP_FUNCTION(Cairo_version_string)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -95,7 +93,7 @@ PHP_FUNCTION(version_string)
 
 /* {{{ proto int \Cairo::version(void)
        Returns an integer version number of the cairo library being used */
-PHP_METHOD(Cairo, version)
+PHP_METHOD(Cairo_Cairo, version)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -105,7 +103,7 @@ PHP_METHOD(Cairo, version)
 
 /* {{{ proto string \Cairo::versionString(void)
        Returns a string version of the cairo library being used */
-PHP_METHOD(Cairo, versionString)
+PHP_METHOD(Cairo_Cairo, versionString)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -115,7 +113,7 @@ PHP_METHOD(Cairo, versionString)
 
 /* {{{ proto array \Cairo::availableSurfaces(void)
        Returns an array of available Cairo backend surfaces */
-PHP_METHOD(Cairo, availableSurfaces)
+PHP_METHOD(Cairo_Cairo, availableSurfaces)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -162,7 +160,7 @@ PHP_METHOD(Cairo, availableSurfaces)
 
 /* {{{ proto array \Cairo::availableFonts(void)
        Returns an array of available Cairo font backends */
-PHP_METHOD(Cairo, availableFonts)
+PHP_METHOD(Cairo_Cairo, availableFonts)
 {
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -184,39 +182,16 @@ PHP_METHOD(Cairo, availableFonts)
 /* }}} */
 
 
-/* {{{ cairo_functions[] */
-static const zend_function_entry cairo_functions[] = {
-    ZEND_NS_FE("Cairo", version, Cairo_method_no_args)
-    ZEND_NS_FE("Cairo", version_string, Cairo_method_no_args)
-    ZEND_FE_END
-};
-/* }}} */
-
-/* {{{ cairo_class_functions[] */
-const zend_function_entry cairo_methods[] = {
-    PHP_ME(Cairo, version, Cairo_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(Cairo, versionString, Cairo_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(Cairo, availableSurfaces, Cairo_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(Cairo, availableFonts, Cairo_method_no_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    {NULL, NULL, NULL}
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo)
 {
     zend_class_entry ce;
     zend_class_entry *cairo_ce_cairo;
 
-    INIT_CLASS_ENTRY(ce, "Cairo", cairo_methods);
-    cairo_ce_cairo = zend_register_internal_class(&ce);
-    cairo_ce_cairo->ce_flags |= ZEND_ACC_EXPLICIT_ABSTRACT_CLASS;
+    cairo_ce_cairo = register_class_Cairo_Cairo();
 
     /* Namespaced version constants */
-    REGISTER_NS_LONG_CONSTANT("Cairo", "VERSION",
-        CAIRO_VERSION, CONST_PERSISTENT);
-    REGISTER_NS_STRING_CONSTANT("Cairo", "VERSION_STRING",
-        CAIRO_VERSION_STRING, CONST_PERSISTENT);
+    register_cairo_symbols(module_number);
 
     PHP_MINIT(cairo_pattern)(INIT_FUNC_ARGS_PASSTHRU);
     PHP_MINIT(cairo_rectangle)(INIT_FUNC_ARGS_PASSTHRU);
@@ -247,6 +222,7 @@ PHP_MINIT_FUNCTION(cairo)
     PHP_MINIT(cairo_context)(INIT_FUNC_ARGS_PASSTHRU);
     PHP_MINIT(cairo_glyph)(INIT_FUNC_ARGS_PASSTHRU);
     PHP_MINIT(cairo_text_cluster)(INIT_FUNC_ARGS_PASSTHRU);
+
     return SUCCESS;
 }
 /* }}} */
@@ -379,7 +355,7 @@ zend_module_entry cairo_module_entry = {
     NULL,
     NULL,
     "cairo",
-    cairo_functions,
+    ext_functions,
     PHP_MINIT(cairo),
     PHP_MSHUTDOWN(cairo),
     NULL,
