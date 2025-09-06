@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-05 17:40:52</td>
+            <td class="headerValue">2025-09-06 06:26:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,12 +93,12 @@
 <span id="L31"><span class="lineNum">      31</span>              :     Cairo C API</span>
 <span id="L32"><span class="lineNum">      32</span>              : ------------------------------------------------------------------*/</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         748 : bool php_cairo_throw_exception(cairo_status_t status)</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         751 : bool php_cairo_throw_exception(cairo_status_t status)</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : {</span>
 <span id="L36"><span class="lineNum">      36</span>              :     char * error_message;</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         748 :     if (status == CAIRO_STATUS_SUCCESS) {</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         742 :         return false;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         751 :     if (status == CAIRO_STATUS_SUCCESS) {</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         745 :         return false;</span></span>
 <span id="L40"><span class="lineNum">      40</span>              :     }</span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           6 :     error_message = estrdup(cairo_status_to_string(status));</span></span>
@@ -128,13 +128,13 @@
 <span id="L66"><span class="lineNum">      66</span>              : ------------------------------------------------------------------*/</span>
 <span id="L67"><span class="lineNum">      67</span>              : </span>
 <span id="L68"><span class="lineNum">      68</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_exception)</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         417 : PHP_MINIT_FUNCTION(cairo_exception)</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : {</span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         433 :     ce_cairo_exception = register_class_Cairo_Exception(zend_ce_exception);</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         417 :     ce_cairo_exception = register_class_Cairo_Exception(zend_ce_exception);</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         433 :     ce_cairo_status = register_class_Cairo_Status();</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         417 :     ce_cairo_status = register_class_Cairo_Status();</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         417 :     return SUCCESS;</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : }</span>
 <span id="L77"><span class="lineNum">      77</span>              : /* }}} */</span>
         </pre>
