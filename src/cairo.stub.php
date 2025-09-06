@@ -7,18 +7,18 @@
 
 namespace Cairo;
 
+/**
+ * @var int
+ * @cvalue CAIRO_VERSION */
+const VERSION = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue CAIRO_VERSION_STRING */
+const VERSION_STRING = UNKNOWN;
+
 abstract class Cairo
 {
-    /**
-     * @var int
-     * @cvalue CAIRO_VERSION */
-    public const VERSION = UNKNOWN;
-
-    /**
-     * @var string
-     * @cvalue CAIRO_VERSION_STRING */
-    public const VERSION_STRING = UNKNOWN;
-
     public static function version(): int {}
 
     public static function versionString(): string {}
@@ -30,4 +30,4 @@ abstract class Cairo
 
 function version(): int {}
 
-function version_sting(): string {}
+function version_string(): string {}
