@@ -13,13 +13,13 @@ $rectangle4 = new Cairo\Rectangle(300,200,100,100);
 $region1 = new Cairo\Region($rectangle1);
 var_dump( $region1 );
 var_dump( $region1->getNumRectangles() );
-var_dump( $region1->getRectangle(1) );
+var_dump( $region1->getRectangle(0) );
 
 $region2 = new Cairo\Region([$rectangle1, $rectangle2, $rectangle3, $rectangle4]);
 var_dump( $region2 );
 var_dump( $region2->getNumRectangles() );
+var_dump( $region2->getRectangle(1) );
 var_dump( $region2->getRectangle(2) );
-var_dump( $region2->getRectangle(3) );
 var_dump( $region1->getRectangle(99) );
 
 /* Wrong number args */
@@ -66,4 +66,4 @@ object(Cairo\Rectangle)#%d (4) {
   int(100)
 }
 bool(false)
-Cairo\Region::getRectangle(): Argument #1 ($number) must be of type int, string given
+Cairo\Region::getRectangle(): Argument #1 ($rectId) must be of type int, string given

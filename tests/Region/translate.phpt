@@ -13,7 +13,7 @@ var_dump( $region->containsPoint(1, 1) );
 $rectangle = new Cairo\Rectangle(1,1,100,100);
 $region2 = new Cairo\Region($rectangle);
 var_dump( $region2->containsPoint(5, 5) );
-$region2->translate(10.5, 10.5);
+$region2->translate(11, 11);
 var_dump( $region2->containsPoint(5, 5) );
 var_dump( $region2->containsPoint(50, 50) );
 
