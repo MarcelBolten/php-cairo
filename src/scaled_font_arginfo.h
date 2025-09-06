@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0bacb91a5485bf3ca8e58a709ebd55f1edd125fd */
+ * Stub hash: 8570f608b0754bdf2919275180bf9d3bc17f5333 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_ScaledFont___construct, 0, 0, 4)
 	ZEND_ARG_OBJ_INFO(0, font_face, Cairo\\FontFace, 0)
@@ -14,9 +14,13 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_ScaledFont_getExtents, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_Cairo_ScaledFont_getTextExtents arginfo_class_Cairo_ScaledFont_getExtents
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_ScaledFont_getTextExtents, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, text, IS_STRING, 0)
+ZEND_END_ARG_INFO()
 
-#define arginfo_class_Cairo_ScaledFont_getGlyphExtents arginfo_class_Cairo_ScaledFont_getExtents
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_ScaledFont_getGlyphExtents, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, glyph, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_ScaledFont_getFontFace, 0, 0, Cairo\\FontFace, 0)
 ZEND_END_ARG_INFO()
@@ -34,6 +38,13 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_ScaledFont_getType, 0, 0, Cairo\\FontType, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_ScaledFont_textToGlyphs, 0, 3, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, text, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, return_clusters, _IS_BOOL, 0, "false")
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(Cairo_ScaledFont, __construct);
 ZEND_METHOD(Cairo_ScaledFont, getStatus);
 ZEND_METHOD(Cairo_ScaledFont, getExtents);
@@ -45,6 +56,7 @@ ZEND_METHOD(Cairo_ScaledFont, getFontMatrix);
 ZEND_METHOD(Cairo_ScaledFont, getCtm);
 ZEND_METHOD(Cairo_ScaledFont, getScaleMatrix);
 ZEND_METHOD(Cairo_ScaledFont, getType);
+ZEND_METHOD(Cairo_ScaledFont, textToGlyphs);
 
 static const zend_function_entry class_Cairo_ScaledFont_methods[] = {
 	ZEND_ME(Cairo_ScaledFont, __construct, arginfo_class_Cairo_ScaledFont___construct, ZEND_ACC_PUBLIC)
@@ -58,6 +70,7 @@ static const zend_function_entry class_Cairo_ScaledFont_methods[] = {
 	ZEND_ME(Cairo_ScaledFont, getCtm, arginfo_class_Cairo_ScaledFont_getCtm, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_ScaledFont, getScaleMatrix, arginfo_class_Cairo_ScaledFont_getScaleMatrix, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_ScaledFont, getType, arginfo_class_Cairo_ScaledFont_getType, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_ScaledFont, textToGlyphs, arginfo_class_Cairo_ScaledFont_textToGlyphs, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

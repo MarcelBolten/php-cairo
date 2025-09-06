@@ -26,12 +26,17 @@ namespace Cairo
         /**
          * @return array{x_bearing: float, y_bearing: float, width: float, height: float, x_advance: float, y_advance: float}
          */
-        public function getTextExtents(): array {}
+        public function getTextExtents(
+            string $text
+        ): array {}
 
         /**
+         * @param Glyph[] $glyph
          * @return array{x_bearing: float, y_bearing: float, width: float, height: float, x_advance: float, y_advance: float}
          */
-        public function getGlyphExtents(): array {}
+        public function getGlyphExtents(
+            array $glyph
+        ): array {}
 
         public function getFontFace(): FontFace {}
 
@@ -44,5 +49,15 @@ namespace Cairo
         public function getScaleMatrix(): Matrix {}
 
         public function getType(): FontType {}
+
+        /**
+         * @return array{glyphs: Glyphs[], clusters: TextCluster[], cluster_flags: int}
+         */
+        public function textToGlyphs(
+            float $x,
+            float $y,
+            string $text,
+            bool $return_clusters = false
+        ): array {}
     }
 }
