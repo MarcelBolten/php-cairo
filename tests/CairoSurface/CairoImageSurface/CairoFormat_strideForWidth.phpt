@@ -2,8 +2,9 @@
 Cairo\Surface\ImageFormat::strideForWidth() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!method_exists('Cairo\Surface\ImageFormat', 'strideForWidth')) die('skip - Cairo\Surface\ImageFormat::strideForWidth not available');
+include __DIR__ . '/../../skipif.inc';
+if (!method_exists('Cairo\Surface\ImageFormat', 'strideForWidth'))
+    die('skip - Cairo\Surface\ImageFormat::strideForWidth not available');
 --FILE--
 <?php
 echo Cairo\Surface\ImageFormat::strideForWidth(Cairo\Surface\ImageFormat::from(1), 5), PHP_EOL;

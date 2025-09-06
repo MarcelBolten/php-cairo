@@ -2,7 +2,7 @@
 new Cairo\FontFace [ __construct method ]
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 class test extends Cairo\FontFace {}

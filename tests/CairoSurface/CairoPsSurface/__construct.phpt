@@ -2,12 +2,8 @@
 new Cairo\Surface\Ps [__construct() method ]
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PS', Cairo::availableSurfaces())) {
-    die('skip - PS surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Ps(NULL, 50, 50);

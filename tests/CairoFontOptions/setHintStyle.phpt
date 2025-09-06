@@ -2,9 +2,7 @@
 Cairo\FontOptions->setHintStyle() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();

@@ -2,7 +2,7 @@
 Cairo\Surface\Image::createForData() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = Cairo\Surface\Image::createForData('', Cairo\Surface\ImageFormat::ARGB32, 50, 50);

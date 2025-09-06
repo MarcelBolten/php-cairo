@@ -2,9 +2,7 @@
 Cairo\Surface->unmapImage() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 if (!method_exists('Cairo\Surface', 'unmapImage')) {
     die('skip - Cairo\Surface->unmapImage not available');
 }

@@ -2,9 +2,7 @@
 Cairo\Surface->setDeviceScale() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 if (!method_exists('Cairo\Surface', 'setDeviceScale')) {
     die('skip - Cairo\Surface->setDeviceScale not available');
 }

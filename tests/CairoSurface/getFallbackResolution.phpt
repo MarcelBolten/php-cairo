@@ -2,8 +2,9 @@
 Cairo\Surface->getFallbackResolution() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!method_exists('Cairo\Surface', 'getFallbackResolution')) die('skip - Cairo\Surface->getFallbackResolution not available');
+include __DIR__ . '/../skipif.inc';
+if (!method_exists('Cairo\Surface', 'getFallbackResolution'))
+    die('skip - Cairo\Surface->getFallbackResolution not available');
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);

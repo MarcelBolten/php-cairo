@@ -2,10 +2,8 @@
 Cairo\Surface::writeToPng() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PNG', Cairo::availableSurfaces())) {
+include __DIR__ . '/../skipif.inc';
+if (!in_array('PNG', Cairo\Cairo::availableSurfaces())) {
     die('skip - PNG support not available');
 }
 --FILE--

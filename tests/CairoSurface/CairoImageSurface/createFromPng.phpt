@@ -2,8 +2,9 @@
 Cairo\Surface\Image::createFromPng() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('PNG', Cairo::availableSurfaces())) die('skip - PNG support not available');
+include __DIR__ . '/../../skipif.inc';
+if (!in_array('PNG', Cairo\Cairo::availableSurfaces()))
+    die('skip - PNG support not available');
 --FILE--
 <?php
 $surface = Cairo\Surface\Image::createFromPng(dirname(__FILE__) . '/red.png');

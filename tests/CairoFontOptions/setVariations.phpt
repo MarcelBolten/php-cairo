@@ -2,9 +2,7 @@
 Cairo\FontOptions->setVariations() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 if (!method_exists('Cairo\FontOptions', 'setVariations')) {
     die('skip - Cairo\FontOptions->setVariations not available');
 }

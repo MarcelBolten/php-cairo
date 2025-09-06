@@ -2,12 +2,8 @@
 new Cairo\Surface\Recording [__construct() method ]
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('RECORDING', Cairo::availableSurfaces())) {
-    die('skip - RECORDING surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha);

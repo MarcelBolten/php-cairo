@@ -2,8 +2,8 @@
 Cairo\FontFace\Toy clone object
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!class_exists('Cairo\FontFace\Toy')) die('skip - Cairo\FontFace\Toy not enabled');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 // Test with all parameters

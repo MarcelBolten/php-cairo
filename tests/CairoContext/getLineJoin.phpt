@@ -2,7 +2,7 @@
 Cairo\Context->getLineJoin() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);

@@ -2,9 +2,8 @@
 CairoWin32Fontface::__construct() function
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo'))
-	die('skip - Cairo extension not available');
-if(!class_exists('\\Cairo\\FontFace\\Win32'))
+include __DIR__ . '/../../skipif.inc';
+if (!class_exists('\Cairo\FontFace\Win32'))
 	die('skip - Cairo\FontFace\Win32 class not available');
 --FILE--
 <?php

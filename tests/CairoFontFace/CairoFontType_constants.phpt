@@ -2,7 +2,7 @@
 CairoFontType class constants
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $constants = array(
@@ -12,17 +12,17 @@ $constants = array(
 );
 
 $version = \Cairo\version();
-if($version > 10600) {
+if ($version > 10600) {
     $constants[] = 'Quartz';
 }
-if($version > 10800) {
+if ($version > 10800) {
     $constants[] = 'User';
 }
 $error = false;
 foreach($constants as $name) {
-    if (!defined('Cairo\\FontType::' . $name)) {
+    if (!defined('Cairo\FontType::' . $name)) {
         $error = true;
-        echo 'Missing Constant: Cairo\\FontType::' . $name . "\n";
+        echo 'Missing Constant: Cairo\FontType::' . $name . "\n";
     }
 }
 if (!$error) {

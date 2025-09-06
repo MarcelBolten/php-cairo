@@ -2,9 +2,10 @@
 Cairo\Surface\Ps->restrictToLevel() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not available');
-if(!method_exists('Cairo\Surface\Ps', 'restrictToLevel')) die('skip - Cairo\Surface\Ps->restrictToLevel not available');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
+if (!method_exists('\Cairo\Surface\Ps', 'restrictToLevel'))
+    die('skip - Cairo\Surface\Ps->restrictToLevel not available');
 --FILE--
 <?php
 $surface = new Cairo\Surface\Ps(NULL, 50, 50);

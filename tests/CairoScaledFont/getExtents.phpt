@@ -2,9 +2,7 @@
 Cairo\ScaledFont->getExtents() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 include(dirname(__FILE__) . '/create_toyfont.inc');

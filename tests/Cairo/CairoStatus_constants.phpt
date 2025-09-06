@@ -2,9 +2,7 @@
 CairoStatus class constants
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $constants = array(
@@ -55,7 +53,7 @@ if (\Cairo\VERSION >= 10800)
 
 $error = false;
 foreach ($constants as $name) {
-    $constant = '\\Cairo\\Status::' . $name;
+    $constant = '\Cairo\Status::' . $name;
     if (!defined($constant)) {
         $error = true;
         echo 'Missing Constant: ' . $constant . "\n";
