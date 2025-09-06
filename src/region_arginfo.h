@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 73562071c07892c7f2039067c1304bbae80697ec */
+ * Stub hash: 1323e58dca5539e0122ad551e98d2e398c727bbd */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Region___construct, 0, 0, 0)
 	ZEND_ARG_OBJ_TYPE_MASK(0, rectangles, Cairo\\Rectangle, MAY_BE_NULL|MAY_BE_ARRAY, "NULL")
@@ -14,7 +14,8 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_getNumRectangles, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_Cairo_Region_getRectangle, 0, 0, Cairo\\Rectangle, MAY_BE_FALSE)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_Cairo_Region_getRectangle, 0, 1, Cairo\\Rectangle, MAY_BE_FALSE)
+	ZEND_ARG_TYPE_INFO(0, rectId, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_isEmpty, 0, 0, _IS_BOOL, 0)
@@ -34,8 +35,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_equal, 0, 1, 
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_translate, 0, 2, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, dx, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, dy, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, dx, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, dy, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Region_intersect, 0, 1, Cairo\\Status, 0)
@@ -50,7 +51,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Region_subtractRectangle arginfo_class_Cairo_Region_intersectRectangle
 
-#define arginfo_class_Cairo_Region_union arginfo_class_Cairo_Region_intersectRectangle
+#define arginfo_class_Cairo_Region_union arginfo_class_Cairo_Region_intersect
 
 #define arginfo_class_Cairo_Region_unionRectangle arginfo_class_Cairo_Region_intersectRectangle
 
@@ -126,7 +127,7 @@ static zend_class_entry *register_class_Cairo_Region_Overlap(void)
 	zend_enum_add_case_cstr(class_entry, "Out", &enum_case_Out_value);
 
 	zval enum_case_Partial_value;
-	ZVAL_LONG(&enum_case_Partial_value, CAIRO_REGION_OVERLAP_PARTIAL);
+	ZVAL_LONG(&enum_case_Partial_value, CAIRO_REGION_OVERLAP_PART);
 	zend_enum_add_case_cstr(class_entry, "Partial", &enum_case_Partial_value);
 
 	return class_entry;
