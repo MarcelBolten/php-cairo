@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 78a024d4ee5c2e53b6c0b785e22312bc4d3147af */
+ * Stub hash: 89ffe2d5d50c03d379e01a437b041ad059187aee */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Context___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
@@ -19,30 +19,25 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_pushGroupWit
 	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_Cairo_Context_popGroup arginfo_class_Cairo_Context_save
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Context_popGroup, 0, 0, Cairo\\Pattern, 0)
+ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_popGroupToSource arginfo_class_Cairo_Context_save
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Context_getGroupSurface, 0, 0, Cairo\\Surface, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setSourceRGB, 0, 3, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setSourceRgba, 0, 3, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, red, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, green, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, blue, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, alpha, IS_DOUBLE, 1, "null")
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setSourceRGBA, 0, 4, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, red, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, green, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, blue, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, alpha, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setSurface, 0, 3, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setSurface, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x, IS_DOUBLE, 0, "0.0")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y, IS_DOUBLE, 0, "0.0")
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_getSurface arginfo_class_Cairo_Context_getGroupSurface
@@ -51,8 +46,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setPattern, 
 	ZEND_ARG_OBJ_INFO(0, pattern, Cairo\\Pattern, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Context_getPattern, 0, 0, Cairo\\Pattern, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_Cairo_Context_getPattern arginfo_class_Cairo_Context_popGroup
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setAntialias, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, antialias, Cairo\\Antialias, 0)
@@ -132,7 +126,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_getClipExtents arginfo_class_Cairo_Context_getDash
 
-#define arginfo_class_Cairo_Context_clipRectangleList arginfo_class_Cairo_Context_getDash
+#define arginfo_class_Cairo_Context_getClipRectangleList arginfo_class_Cairo_Context_getDash
 
 #define arginfo_class_Cairo_Context_fill arginfo_class_Cairo_Context_save
 
@@ -144,11 +138,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_mask arginfo_class_Cairo_Context_setPattern
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_maskSurface, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x, IS_DOUBLE, 0, "0.0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
+#define arginfo_class_Cairo_Context_maskSurface arginfo_class_Cairo_Context_setSurface
 
 #define arginfo_class_Cairo_Context_paint arginfo_class_Cairo_Context_save
 
@@ -168,17 +158,23 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_showPage arginfo_class_Cairo_Context_save
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setHairline, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, hairline, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_getHairline, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+#endif
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_translate, 0, 2, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_scale, 0, 2, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, sx, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, sy, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_Cairo_Context_scale arginfo_class_Cairo_Context_translate
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_angle, 0, 1, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_rotate, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, angle, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
@@ -225,8 +221,8 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_Cairo_Context_closePath arginfo_class_Cairo_Context_save
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_arc, 0, 5, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, xc, IS_DOUBLE, 0)
-	ZEND_ARG_TYPE_INFO(0, yc, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, radius, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, angle1, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, angle2, IS_DOUBLE, 0)
@@ -256,14 +252,6 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_glyphPath, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, glyphs, IS_ARRAY, 0)
-ZEND_END_ARG_INFO()
-
-#define arginfo_class_Cairo_Context_showGlyphs arginfo_class_Cairo_Context_glyphPath
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_showTextGlyphs, 0, 3, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, text, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO(0, glyphs, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0, clusters, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_textPath, 0, 1, IS_VOID, 0)
@@ -315,20 +303,24 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_Cairo_Context_showText arginfo_class_Cairo_Context_textPath
 
+#define arginfo_class_Cairo_Context_showGlyphs arginfo_class_Cairo_Context_glyphPath
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_showTextGlyphs, 0, 4, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, text, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, glyphs, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, clusters, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, cluster_flags, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_Cairo_Context_getFontExtents arginfo_class_Cairo_Context_getDash
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_getTextExtents, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, text, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_setHairline, 0, 1, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, hairline, _IS_BOOL, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_getGlyphExtents, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, glyphs, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Context_getHairline, 0, 0, _IS_BOOL, 0)
-ZEND_END_ARG_INFO()
-#endif
 
 ZEND_METHOD(Cairo_Context, __construct);
 ZEND_METHOD(Cairo_Context, getStatus);
@@ -339,8 +331,7 @@ ZEND_METHOD(Cairo_Context, pushGroupWithContent);
 ZEND_METHOD(Cairo_Context, popGroup);
 ZEND_METHOD(Cairo_Context, popGroupToSource);
 ZEND_METHOD(Cairo_Context, getGroupSurface);
-ZEND_METHOD(Cairo_Context, setSourceRGB);
-ZEND_METHOD(Cairo_Context, setSourceRGBA);
+ZEND_METHOD(Cairo_Context, setSourceRgba);
 ZEND_METHOD(Cairo_Context, setSurface);
 ZEND_METHOD(Cairo_Context, getSurface);
 ZEND_METHOD(Cairo_Context, setPattern);
@@ -369,7 +360,7 @@ ZEND_METHOD(Cairo_Context, inClip);
 ZEND_METHOD(Cairo_Context, clipPreserve);
 ZEND_METHOD(Cairo_Context, resetClip);
 ZEND_METHOD(Cairo_Context, getClipExtents);
-ZEND_METHOD(Cairo_Context, clipRectangleList);
+ZEND_METHOD(Cairo_Context, getClipRectangleList);
 ZEND_METHOD(Cairo_Context, fill);
 ZEND_METHOD(Cairo_Context, fillPreserve);
 ZEND_METHOD(Cairo_Context, getFillExtents);
@@ -384,9 +375,13 @@ ZEND_METHOD(Cairo_Context, getStrokeExtents);
 ZEND_METHOD(Cairo_Context, inStroke);
 ZEND_METHOD(Cairo_Context, copyPage);
 ZEND_METHOD(Cairo_Context, showPage);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+ZEND_METHOD(Cairo_Context, setHairline);
+ZEND_METHOD(Cairo_Context, getHairline);
+#endif
 ZEND_METHOD(Cairo_Context, translate);
 ZEND_METHOD(Cairo_Context, scale);
-ZEND_METHOD(Cairo_Context, angle);
+ZEND_METHOD(Cairo_Context, rotate);
 ZEND_METHOD(Cairo_Context, transform);
 ZEND_METHOD(Cairo_Context, setMatrix);
 ZEND_METHOD(Cairo_Context, getMatrix);
@@ -410,8 +405,6 @@ ZEND_METHOD(Cairo_Context, lineTo);
 ZEND_METHOD(Cairo_Context, moveTo);
 ZEND_METHOD(Cairo_Context, rectangle);
 ZEND_METHOD(Cairo_Context, glyphPath);
-ZEND_METHOD(Cairo_Context, showGlyphs);
-ZEND_METHOD(Cairo_Context, showTextGlyphs);
 ZEND_METHOD(Cairo_Context, textPath);
 ZEND_METHOD(Cairo_Context, relCurveTo);
 ZEND_METHOD(Cairo_Context, relLineTo);
@@ -428,12 +421,11 @@ ZEND_METHOD(Cairo_Context, getFontFace);
 ZEND_METHOD(Cairo_Context, setScaledFont);
 ZEND_METHOD(Cairo_Context, getScaledFont);
 ZEND_METHOD(Cairo_Context, showText);
+ZEND_METHOD(Cairo_Context, showGlyphs);
+ZEND_METHOD(Cairo_Context, showTextGlyphs);
 ZEND_METHOD(Cairo_Context, getFontExtents);
 ZEND_METHOD(Cairo_Context, getTextExtents);
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
-ZEND_METHOD(Cairo_Context, setHairline);
-ZEND_METHOD(Cairo_Context, getHairline);
-#endif
+ZEND_METHOD(Cairo_Context, getGlyphExtents);
 
 static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, __construct, arginfo_class_Cairo_Context___construct, ZEND_ACC_PUBLIC)
@@ -445,8 +437,7 @@ static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, popGroup, arginfo_class_Cairo_Context_popGroup, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, popGroupToSource, arginfo_class_Cairo_Context_popGroupToSource, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getGroupSurface, arginfo_class_Cairo_Context_getGroupSurface, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, setSourceRGB, arginfo_class_Cairo_Context_setSourceRGB, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, setSourceRGBA, arginfo_class_Cairo_Context_setSourceRGBA, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, setSourceRgba, arginfo_class_Cairo_Context_setSourceRgba, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, setSurface, arginfo_class_Cairo_Context_setSurface, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getSurface, arginfo_class_Cairo_Context_getSurface, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, setPattern, arginfo_class_Cairo_Context_setPattern, ZEND_ACC_PUBLIC)
@@ -475,7 +466,7 @@ static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, clipPreserve, arginfo_class_Cairo_Context_clipPreserve, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, resetClip, arginfo_class_Cairo_Context_resetClip, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getClipExtents, arginfo_class_Cairo_Context_getClipExtents, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, clipRectangleList, arginfo_class_Cairo_Context_clipRectangleList, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, getClipRectangleList, arginfo_class_Cairo_Context_getClipRectangleList, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, fill, arginfo_class_Cairo_Context_fill, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, fillPreserve, arginfo_class_Cairo_Context_fillPreserve, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getFillExtents, arginfo_class_Cairo_Context_getFillExtents, ZEND_ACC_PUBLIC)
@@ -490,9 +481,13 @@ static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, inStroke, arginfo_class_Cairo_Context_inStroke, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, copyPage, arginfo_class_Cairo_Context_copyPage, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, showPage, arginfo_class_Cairo_Context_showPage, ZEND_ACC_PUBLIC)
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+	ZEND_ME(Cairo_Context, setHairline, arginfo_class_Cairo_Context_setHairline, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, getHairline, arginfo_class_Cairo_Context_getHairline, ZEND_ACC_PUBLIC)
+#endif
 	ZEND_ME(Cairo_Context, translate, arginfo_class_Cairo_Context_translate, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, scale, arginfo_class_Cairo_Context_scale, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, angle, arginfo_class_Cairo_Context_angle, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, rotate, arginfo_class_Cairo_Context_rotate, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, transform, arginfo_class_Cairo_Context_transform, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, setMatrix, arginfo_class_Cairo_Context_setMatrix, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getMatrix, arginfo_class_Cairo_Context_getMatrix, ZEND_ACC_PUBLIC)
@@ -516,8 +511,6 @@ static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, moveTo, arginfo_class_Cairo_Context_moveTo, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, rectangle, arginfo_class_Cairo_Context_rectangle, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, glyphPath, arginfo_class_Cairo_Context_glyphPath, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, showGlyphs, arginfo_class_Cairo_Context_showGlyphs, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, showTextGlyphs, arginfo_class_Cairo_Context_showTextGlyphs, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, textPath, arginfo_class_Cairo_Context_textPath, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, relCurveTo, arginfo_class_Cairo_Context_relCurveTo, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, relLineTo, arginfo_class_Cairo_Context_relLineTo, ZEND_ACC_PUBLIC)
@@ -534,12 +527,11 @@ static const zend_function_entry class_Cairo_Context_methods[] = {
 	ZEND_ME(Cairo_Context, setScaledFont, arginfo_class_Cairo_Context_setScaledFont, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getScaledFont, arginfo_class_Cairo_Context_getScaledFont, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, showText, arginfo_class_Cairo_Context_showText, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, showGlyphs, arginfo_class_Cairo_Context_showGlyphs, ZEND_ACC_PUBLIC)
+	ZEND_ME(Cairo_Context, showTextGlyphs, arginfo_class_Cairo_Context_showTextGlyphs, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getFontExtents, arginfo_class_Cairo_Context_getFontExtents, ZEND_ACC_PUBLIC)
 	ZEND_ME(Cairo_Context, getTextExtents, arginfo_class_Cairo_Context_getTextExtents, ZEND_ACC_PUBLIC)
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
-	ZEND_ME(Cairo_Context, setHairline, arginfo_class_Cairo_Context_setHairline, ZEND_ACC_PUBLIC)
-	ZEND_ME(Cairo_Context, getHairline, arginfo_class_Cairo_Context_getHairline, ZEND_ACC_PUBLIC)
-#endif
+	ZEND_ME(Cairo_Context, getGlyphExtents, arginfo_class_Cairo_Context_getGlyphExtents, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
