@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Context->textExtents() method
+Cairo\Context->getTextExtents() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

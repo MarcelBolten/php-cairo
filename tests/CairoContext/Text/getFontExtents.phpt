@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Context->fontExtents() method
+Cairo\Context->getFontExtents() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';

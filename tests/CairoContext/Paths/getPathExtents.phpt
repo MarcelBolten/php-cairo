@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Context->pathExtents() method
+Cairo\Context->getPathExtents() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
