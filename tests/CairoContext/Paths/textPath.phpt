@@ -40,4 +40,4 @@ object(Cairo\Context)#%d (0) {
 }
 Cairo\Context::textPath() expects exactly 1 argument, 0 given
 Cairo\Context::textPath() expects exactly 1 argument, 2 given
-Cairo\Context::textPath(): Argument #1 ($string) must be of type string, array given
+Cairo\Context::textPath(): Argument #1 ($text) must be of type string, array given

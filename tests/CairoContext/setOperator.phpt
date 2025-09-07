@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setOperator(\Cairo\Operator::CLEAR);
+$context->setOperator(\Cairo\Operator::Clear);
 var_dump($context->getOperator());
 
 
@@ -24,7 +24,7 @@ catch (TypeError $ex) {
 	echo $ex->getMessage(), PHP_EOL;
 }
 try {
-	$context->setOperator(\Cairo\Operator::CLEAR, 1);
+	$context->setOperator(\Cairo\Operator::Clear, 1);
 	trigger_error('Cairo\Context->setOperator() expects 1 param');
 }
 catch (TypeError $ex) {
@@ -44,7 +44,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\Operator::CLEAR)
+enum(Cairo\Operator::Clear)
 Cairo\Context::setOperator() expects exactly 1 argument, 0 given
 Cairo\Context::setOperator() expects exactly 1 argument, 2 given
 Cairo\Context::setOperator(): Argument #1 ($operator) must be of type Cairo\Operator, array given

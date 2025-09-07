@@ -24,5 +24,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\LineJoin::MITER)
+enum(Cairo\LineJoin::Miter)
 Cairo\Context::getLineJoin() expects exactly 0 arguments, 1 given

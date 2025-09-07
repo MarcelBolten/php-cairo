@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setOperator(\Cairo\Operator::CLEAR);
+$context->setOperator(\Cairo\Operator::Clear);
 var_dump($context->getOperator());
 
 try {
@@ -25,5 +25,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\Operator::CLEAR)
+enum(Cairo\Operator::Clear)
 Cairo\Context::getOperator() expects exactly 0 arguments, 1 given

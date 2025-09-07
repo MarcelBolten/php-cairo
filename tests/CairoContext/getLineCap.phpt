@@ -24,5 +24,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\LineCap::BUTT)
+enum(Cairo\LineCap::Butt)
 Cairo\Context::getLineCap() expects exactly 0 arguments, 1 given

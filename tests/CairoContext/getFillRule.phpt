@@ -24,5 +24,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\FillRule::WINDING)
+enum(Cairo\FillRule::Winding)
 Cairo\Context::getFillRule() expects exactly 0 %s, 1 given

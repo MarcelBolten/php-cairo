@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Context->strokeExtents() method
+Cairo\Context->getStrokeExtents() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
@@ -11,11 +11,11 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-var_dump($context->strokeExtents());
+var_dump($context->getStrokeExtents());
 
 /* Wrong number args */
 try {
-    $context->strokeExtents('foobar');
+    $context->getStrokeExtents('foobar');
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -34,4 +34,4 @@ array(4) {
   ["y2"]=>
   float(0)
 }
-Cairo\Context::strokeExtents() expects exactly 0 %s, 1 given
+Cairo\Context::getStrokeExtents() expects exactly 0 %s, 1 given

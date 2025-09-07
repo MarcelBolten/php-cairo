@@ -1,5 +1,5 @@
 --TEST--
-Cairo\Context->clipRectangleList() method
+Cairo\Context->getClipRectangleList() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';
@@ -11,10 +11,10 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-var_dump($context->clipRectangleList());
+var_dump($context->getClipRectangleList());
 
 try {
-    $context->clipRectangleList('foo');
+    $context->getClipRectangleList('foo');
 } catch (ArgumentCountError $e) {
     echo $e->getMessage();
 }
@@ -36,4 +36,4 @@ array(1) {
     float(50)
   }
 }
-Cairo\Context::clipRectangleList() expects exactly 0 arguments, 1 given
+Cairo\Context::getClipRectangleList() expects exactly 0 arguments, 1 given
