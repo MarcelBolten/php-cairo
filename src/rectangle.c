@@ -290,8 +290,6 @@ static HashTable *cairo_rectangle_object_get_properties(zend_object *object)
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_rectangle)
 {
-    zend_class_entry ce;
-
     memcpy(
         &cairo_rectangle_object_handlers,
         zend_get_std_object_handlers(),
