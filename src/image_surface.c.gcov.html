@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-06 06:26:19</td>
+            <td class="headerValue">2025-09-07 05:41:59</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">90.9&nbsp;%</td>
@@ -96,29 +96,29 @@
 <span id="L34"><span class="lineNum">      34</span>              : /* {{{ proto void __construct(int format, int width, int height)</span>
 <span id="L35"><span class="lineNum">      35</span>              :        Creates an image surface of the specified format and dimensions.</span>
 <span id="L36"><span class="lineNum">      36</span>              :        Initially the surface contents are set to 0. */</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC tlaBgGNC">         149 : PHP_METHOD(Cairo_Surface_Image, __construct)</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC tlaBgGNC">         148 : PHP_METHOD(Cairo_Surface_Image, __construct)</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : {</span>
 <span id="L39"><span class="lineNum">      39</span>              :     zend_long width, height;</span>
 <span id="L40"><span class="lineNum">      40</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L41"><span class="lineNum">      41</span>              :     zval *format_case;</span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         149 :     ZEND_PARSE_PARAMETERS_START(3, 3)</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         290 :         Z_PARAM_OBJECT_OF_CLASS(format_case, ce_cairo_format)</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         288 :         Z_PARAM_LONG(width)</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         286 :         Z_PARAM_LONG(height)</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         149 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         148 :     ZEND_PARSE_PARAMETERS_START(3, 3)</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         288 :         Z_PARAM_OBJECT_OF_CLASS(format_case, ce_cairo_format)</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         286 :         Z_PARAM_LONG(width)</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         284 :         Z_PARAM_LONG(height)</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         148 :     ZEND_PARSE_PARAMETERS_END();</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         284 :     surface_object = Z_CAIRO_SURFACE_P(getThis());</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         142 :     if (!surface_object) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         282 :     surface_object = Z_CAIRO_SURFACE_P(getThis());</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         141 :     if (!surface_object) {</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L52"><span class="lineNum">      52</span>              :     }</span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC tlaBgGNC">         426 :     surface_object-&gt;surface = cairo_image_surface_create(</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         284 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case))),</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC tlaBgGNC">         423 :     surface_object-&gt;surface = cairo_image_surface_create(</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         282 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case))),</span></span>
 <span id="L56"><span class="lineNum">      56</span>              :         width,</span>
 <span id="L57"><span class="lineNum">      57</span>              :         height</span>
 <span id="L58"><span class="lineNum">      58</span>              :     );</span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">         142 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">         141 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L61"><span class="lineNum">      61</span>              :     }</span>
 <span id="L62"><span class="lineNum">      62</span>              : }</span>
@@ -437,13 +437,13 @@
 <span id="L375"><span class="lineNum">     375</span>              : ------------------------------------------------------------------*/</span>
 <span id="L376"><span class="lineNum">     376</span>              : </span>
 <span id="L377"><span class="lineNum">     377</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">         417 : PHP_MINIT_FUNCTION(cairo_image_surface)</span></span>
+<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">         416 : PHP_MINIT_FUNCTION(cairo_image_surface)</span></span>
 <span id="L379"><span class="lineNum">     379</span>              : {</span>
-<span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">         417 :     ce_cairo_imagesurface = register_class_Cairo_Surface_Image(ce_cairo_surface);</span></span>
+<span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">         416 :     ce_cairo_imagesurface = register_class_Cairo_Surface_Image(ce_cairo_surface);</span></span>
 <span id="L381"><span class="lineNum">     381</span>              : </span>
-<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">         417 :     ce_cairo_format = register_class_Cairo_Surface_ImageFormat();</span></span>
+<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">         416 :     ce_cairo_format = register_class_Cairo_Surface_ImageFormat();</span></span>
 <span id="L383"><span class="lineNum">     383</span>              : </span>
-<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">         417 :     return SUCCESS;</span></span>
+<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">         416 :     return SUCCESS;</span></span>
 <span id="L385"><span class="lineNum">     385</span>              : }</span>
 <span id="L386"><span class="lineNum">     386</span>              : /* }}} */</span>
         </pre>
