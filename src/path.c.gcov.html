@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-07 05:41:59</td>
+            <td class="headerValue">2025-09-07 15:42:01</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -174,25 +174,25 @@
 <span id="L112"><span class="lineNum">     112</span>              : ------------------------------------------------------------------*/</span>
 <span id="L113"><span class="lineNum">     113</span>              : </span>
 <span id="L114"><span class="lineNum">     114</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">         416 : PHP_MINIT_FUNCTION(cairo_path)</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">         418 : PHP_MINIT_FUNCTION(cairo_path)</span></span>
 <span id="L116"><span class="lineNum">     116</span>              : {</span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">         416 :     memcpy(</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">         418 :     memcpy(</span></span>
 <span id="L118"><span class="lineNum">     118</span>              :         &amp;cairo_path_object_handlers,</span>
 <span id="L119"><span class="lineNum">     119</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L120"><span class="lineNum">     120</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L121"><span class="lineNum">     121</span>              :     );</span>
 <span id="L122"><span class="lineNum">     122</span>              : </span>
 <span id="L123"><span class="lineNum">     123</span>              :     /* Path */</span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">         416 :     cairo_path_object_handlers.offset = XtOffsetOf(cairo_path_object, std);</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">         416 :     cairo_path_object_handlers.free_obj = cairo_path_free_obj;</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">         418 :     cairo_path_object_handlers.offset = XtOffsetOf(cairo_path_object, std);</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">         418 :     cairo_path_object_handlers.free_obj = cairo_path_free_obj;</span></span>
 <span id="L126"><span class="lineNum">     126</span>              : </span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         416 :     ce_cairo_path = register_class_Cairo_Path();</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">         416 :     ce_cairo_path-&gt;create_object = cairo_path_create_object;</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         418 :     ce_cairo_path = register_class_Cairo_Path();</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">         418 :     ce_cairo_path-&gt;create_object = cairo_path_create_object;</span></span>
 <span id="L129"><span class="lineNum">     129</span>              : </span>
 <span id="L130"><span class="lineNum">     130</span>              :     /* Path\DataType */</span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">         416 :     ce_cairo_path_datatype = register_class_Cairo_Path_DataType();</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">         418 :     ce_cairo_path_datatype = register_class_Cairo_Path_DataType();</span></span>
 <span id="L132"><span class="lineNum">     132</span>              : </span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">         416 :     return SUCCESS;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">         418 :     return SUCCESS;</span></span>
 <span id="L134"><span class="lineNum">     134</span>              : }</span>
 <span id="L135"><span class="lineNum">     135</span>              : /* }}} */</span>
         </pre>

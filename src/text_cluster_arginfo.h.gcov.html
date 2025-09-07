@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-07 05:41:59</td>
+            <td class="headerValue">2025-09-07 15:42:01</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -75,31 +75,31 @@
 <span id="L13"><span class="lineNum">      13</span>              :     ZEND_FE_END</span>
 <span id="L14"><span class="lineNum">      14</span>              : };</span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">         416 : static zend_class_entry *register_class_Cairo_TextCluster(void)</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">         418 : static zend_class_entry *register_class_Cairo_TextCluster(void)</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : {</span>
 <span id="L18"><span class="lineNum">      18</span>              :     zend_class_entry ce, *class_entry;</span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         416 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo&quot;, &quot;TextCluster&quot;, class_Cairo_TextCluster_methods);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         418 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo&quot;, &quot;TextCluster&quot;, class_Cairo_TextCluster_methods);</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         416 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, NULL, ZEND_ACC_FINAL);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         418 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, NULL, ZEND_ACC_FINAL);</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : #else</span>
 <span id="L24"><span class="lineNum">      24</span>              :     class_entry = zend_register_internal_class_ex(&amp;ce, NULL);</span>
 <span id="L25"><span class="lineNum">      25</span>              :     class_entry-&gt;ce_flags |= ZEND_ACC_FINAL;</span>
 <span id="L26"><span class="lineNum">      26</span>              : #endif</span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     zval property_num_bytes_default_value;</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         416 :     ZVAL_LONG(&amp;property_num_bytes_default_value, 0);</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         416 :     zend_string *property_num_bytes_name = zend_string_init(&quot;num_bytes&quot;, sizeof(&quot;num_bytes&quot;) - 1, 1);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         416 :     zend_declare_typed_property(class_entry, property_num_bytes_name, &amp;property_num_bytes_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;property_num_bytes_default_value, 0);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         418 :     zend_string *property_num_bytes_name = zend_string_init(&quot;num_bytes&quot;, sizeof(&quot;num_bytes&quot;) - 1, 1);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         418 :     zend_declare_typed_property(class_entry, property_num_bytes_name, &amp;property_num_bytes_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     zend_string_release(property_num_bytes_name);</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :     zval property_num_glyphs_default_value;</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         416 :     ZVAL_LONG(&amp;property_num_glyphs_default_value, 0);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         416 :     zend_string *property_num_glyphs_name = zend_string_init(&quot;num_glyphs&quot;, sizeof(&quot;num_glyphs&quot;) - 1, 1);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         416 :     zend_declare_typed_property(class_entry, property_num_glyphs_name, &amp;property_num_glyphs_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;property_num_glyphs_default_value, 0);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         418 :     zend_string *property_num_glyphs_name = zend_string_init(&quot;num_glyphs&quot;, sizeof(&quot;num_glyphs&quot;) - 1, 1);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         418 :     zend_declare_typed_property(class_entry, property_num_glyphs_name, &amp;property_num_glyphs_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));</span></span>
 <span id="L38"><span class="lineNum">      38</span>              :     zend_string_release(property_num_glyphs_name);</span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         416 :     return class_entry;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         418 :     return class_entry;</span></span>
 <span id="L41"><span class="lineNum">      41</span>              : }</span>
         </pre>
               </td>
