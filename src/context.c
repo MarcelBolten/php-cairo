@@ -2785,7 +2785,7 @@ PHP_METHOD(Cairo_Context, showTextGlyphs)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
             efree(glyphs_array);
             RETURN_THROWS();
         }
@@ -2802,7 +2802,7 @@ PHP_METHOD(Cairo_Context, showTextGlyphs)
     /* iterate over the array, each value inside MUST be an instance of Cairo\\TextCluster */
     ZEND_HASH_FOREACH_VAL(clusters_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_text_cluster) {
-            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($clusters) must be an array of Cairo\\TextCluster objects.", 0);
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #3 ($clusters) must be an array of Cairo\\TextCluster objects.", 0);
             efree(glyphs_array);
             efree(clusters_array);
             RETURN_THROWS();

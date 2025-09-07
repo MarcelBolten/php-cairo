@@ -97,5 +97,5 @@ Cairo\Context::showTextGlyphs(): Argument #1 ($text) must be of type string, arr
 Cairo\Context::showTextGlyphs(): Argument #2 ($glyphs) must be of type array, int given
 Cairo\Context::showTextGlyphs(): Argument #3 ($clusters) must be of type array, int given
 Cairo\Context::showTextGlyphs(): Argument #4 ($cluster_flags) must be of type int, array given
-Cairo\Context::showTextGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\Glyph objects.
-Cairo\Context::showTextGlyphs(): Argument #2 ($clusters) must be an array of Cairo\TextCluster objects.
+Cairo\Context::showTextGlyphs(): Argument #2 ($glyphs) must be an array of Cairo\Glyph objects.
+Cairo\Context::showTextGlyphs(): Argument #3 ($clusters) must be an array of Cairo\TextCluster objects.
