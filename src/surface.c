@@ -565,7 +565,7 @@ PHP_METHOD(Cairo_Surface, mapToImage)
         new_surface = cairo_surface_map_to_image(surface_object->surface, NULL);
     }
 
-    object_init_ex(return_value, ce_cairo_imagesurface);
+    object_init_ex(return_value, php_cairo_get_imagesurface_ce());
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
     if (!new_surface_object) {
         RETURN_NULL();

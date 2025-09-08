@@ -28,6 +28,16 @@ zend_class_entry *ce_cairo_imagesurface;
 zend_class_entry *ce_cairo_format;
 
 /* ----------------------------------------------------------------
+    \Cairo\TextCluster C API
+------------------------------------------------------------------*/
+
+zend_class_entry* php_cairo_get_imagesurface_ce()
+{
+    return ce_cairo_imagesurface;
+}
+
+
+/* ----------------------------------------------------------------
     Cairo\ImageSurface Class API
 ------------------------------------------------------------------*/
 
