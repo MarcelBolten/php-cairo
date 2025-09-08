@@ -80,6 +80,11 @@ cairo_text_cluster_t *cairo_text_cluster_object_get_text_cluster(zval *zv)
 }
 /* }}} */
 
+zend_class_entry* php_cairo_get_text_cluster_ce()
+{
+    return ce_cairo_text_cluster;
+}
+
 /* ----------------------------------------------------------------
     \Cairo\TextCluster Class API
 ------------------------------------------------------------------*/

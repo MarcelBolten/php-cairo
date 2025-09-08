@@ -521,7 +521,7 @@ PHP_METHOD(Cairo_ScaledFont, textToGlyphs)
             array_init(&clusters_zv);
             for (int i = 0; i < num_clusters; i++) {
                 zval cluster_zv;
-                object_init_ex(&cluster_zv, ce_cairo_text_cluster);
+                object_init_ex(&cluster_zv, php_cairo_get_text_cluster_ce());
                 cairo_text_cluster_object *cluster_obj = Z_CAIRO_TEXT_CLUSTER_P(&cluster_zv);
                 *cluster_obj->text_cluster = clusters[i];
                 add_next_index_zval(&clusters_zv, &cluster_zv);
