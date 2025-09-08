@@ -70,6 +70,18 @@ try {
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
+
+try {
+    Cairo\Surface\Image::createForData('', Cairo\Surface\ImageFormat::from(1), 0, 1);
+} catch (Cairo\Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
+
+try {
+    Cairo\Surface\Image::createForData('', Cairo\Surface\ImageFormat::from(1), 1, 0);
+} catch (Cairo\Exception $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
@@ -82,3 +94,5 @@ Cairo\Surface\Image::createForData(): Argument #1 ($data) must be of type string
 Cairo\Surface\Image::createForData(): Argument #2 ($format) must be of type Cairo\Surface\ImageFormat, array given
 Cairo\Surface\Image::createForData(): Argument #3 ($width) must be of type int, array given
 Cairo\Surface\Image::createForData(): Argument #4 ($height) must be of type int, array given
+Cairo\Surface\Image::createForData(): invalid surface dimensions. Arguments #3 ($width) and #4 ($height) must be positive integers.
+Cairo\Surface\Image::createForData(): invalid surface dimensions. Arguments #3 ($width) and #4 ($height) must be positive integers.

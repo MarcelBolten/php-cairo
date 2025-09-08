@@ -17,6 +17,12 @@ $scaled = new Cairo\ScaledFont(
 var_dump($scaled);
 
 var_dump($scaled->getGlyphExtents($scaled->textToGlyphs(0, 0, 'W')['glyphs']));
+
+try {
+    $scaled->getGlyphExtents(array('not', 'glyphs'));
+} catch (TypeError $e) {
+    echo $e->getMessage(), PHP_EOL;
+}
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
@@ -36,3 +42,4 @@ array(6) {
   ["y_advance"]=>
   float(%f)
 }
+Cairo\ScaledFont::getGlyphExtents(): Argument #1 ($glyphs) must be an array of Cairo\Glyph objects.
