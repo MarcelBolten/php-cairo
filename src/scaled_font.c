@@ -318,7 +318,7 @@ PHP_METHOD(Cairo_ScaledFont, getFontFace)
     CAIRO_RETURN_IF_REF(scaled_font_object->font_face);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_toyfontface);
+    object_init_ex(return_value, php_cairo_get_toyfontface_ce());
     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
     font_face_object->font_face = font_face;
 }

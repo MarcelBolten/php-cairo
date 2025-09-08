@@ -30,6 +30,16 @@ zend_class_entry *ce_cairo_fontweight;
 zend_class_entry *ce_cairo_toyfontface;
 
 /* ----------------------------------------------------------------
+    Cairo\FontOptions C API
+------------------------------------------------------------------*/
+
+zend_class_entry * php_cairo_get_toyfontface_ce()
+{
+    return ce_cairo_toyfontface;
+}
+
+
+/* ----------------------------------------------------------------
     \Cairo\FontFace\Toy Class API
 ------------------------------------------------------------------*/
 

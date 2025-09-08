@@ -92,6 +92,7 @@ extern zend_class_entry* php_cairo_get_fontoptions_ce();
 extern zend_class_entry* php_cairo_get_fontface_ce();
 extern zend_class_entry* php_cairo_get_path_ce();
 extern zend_class_entry* php_cairo_get_matrix_ce();
+extern zend_class_entry* php_cairo_get_toyfontface_ce();
 
 /* Pattern */
 typedef struct _cairo_pattern_object {

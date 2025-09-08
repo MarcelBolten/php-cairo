@@ -2601,7 +2601,7 @@ PHP_METHOD(Cairo_Context, getFontFace)
     CAIRO_RETURN_IF_REF(context_object->font_face);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_toyfontface);
+    object_init_ex(return_value, php_cairo_get_toyfontface_ce());
     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
     font_face_object->font_face = cairo_get_font_face(context_object->context);
     cairo_font_face_reference(font_face_object->font_face);
