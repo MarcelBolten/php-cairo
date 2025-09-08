@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-07 15:42:01</td>
+            <td class="headerValue">2025-09-08 07:23:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -63,41 +63,41 @@
 <span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit the .stub.php file instead.</span>
 <span id="L2"><span class="lineNum">       2</span>              :  * Stub hash: 4a5024f39563f96c88b68b67bc01a010cb5eb8b5 */</span>
 <span id="L3"><span class="lineNum">       3</span>              : </span>
-<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC tlaBgGNC">         418 : static zend_class_entry *register_class_Cairo_Path(void)</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC tlaBgGNC">         423 : static zend_class_entry *register_class_Cairo_Path(void)</span></span>
 <span id="L5"><span class="lineNum">       5</span>              : {</span>
 <span id="L6"><span class="lineNum">       6</span>              :     zend_class_entry ce, *class_entry;</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">         418 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo&quot;, &quot;Path&quot;, NULL);</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo&quot;, &quot;Path&quot;, NULL);</span></span>
 <span id="L9"><span class="lineNum">       9</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         418 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, NULL, 0);</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         423 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, NULL, 0);</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : #else</span>
 <span id="L12"><span class="lineNum">      12</span>              :     class_entry = zend_register_internal_class_ex(&amp;ce, NULL);</span>
 <span id="L13"><span class="lineNum">      13</span>              : #endif</span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         418 :     return class_entry;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         423 :     return class_entry;</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : }</span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         418 : static zend_class_entry *register_class_Cairo_Path_DataType(void)</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         423 : static zend_class_entry *register_class_Cairo_Path_DataType(void)</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : {</span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         418 :     zend_class_entry *class_entry = zend_register_internal_enum(&quot;Cairo\\Path\\DataType&quot;, IS_LONG, NULL);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         423 :     zend_class_entry *class_entry = zend_register_internal_enum(&quot;Cairo\\Path\\DataType&quot;, IS_LONG, NULL);</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              :     zval enum_case_MoveTo_value;</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;enum_case_MoveTo_value, CAIRO_PATH_MOVE_TO);</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         418 :     zend_enum_add_case_cstr(class_entry, &quot;MoveTo&quot;, &amp;enum_case_MoveTo_value);</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         423 :     ZVAL_LONG(&amp;enum_case_MoveTo_value, CAIRO_PATH_MOVE_TO);</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         423 :     zend_enum_add_case_cstr(class_entry, &quot;MoveTo&quot;, &amp;enum_case_MoveTo_value);</span></span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
 <span id="L26"><span class="lineNum">      26</span>              :     zval enum_case_LineTo_value;</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;enum_case_LineTo_value, CAIRO_PATH_LINE_TO);</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         418 :     zend_enum_add_case_cstr(class_entry, &quot;LineTo&quot;, &amp;enum_case_LineTo_value);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         423 :     ZVAL_LONG(&amp;enum_case_LineTo_value, CAIRO_PATH_LINE_TO);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         423 :     zend_enum_add_case_cstr(class_entry, &quot;LineTo&quot;, &amp;enum_case_LineTo_value);</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              :     zval enum_case_CurveTo_value;</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;enum_case_CurveTo_value, CAIRO_PATH_CURVE_TO);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         418 :     zend_enum_add_case_cstr(class_entry, &quot;CurveTo&quot;, &amp;enum_case_CurveTo_value);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         423 :     ZVAL_LONG(&amp;enum_case_CurveTo_value, CAIRO_PATH_CURVE_TO);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         423 :     zend_enum_add_case_cstr(class_entry, &quot;CurveTo&quot;, &amp;enum_case_CurveTo_value);</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :     zval enum_case_ClosePath_value;</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         418 :     ZVAL_LONG(&amp;enum_case_ClosePath_value, CAIRO_PATH_CLOSE_PATH);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         418 :     zend_enum_add_case_cstr(class_entry, &quot;ClosePath&quot;, &amp;enum_case_ClosePath_value);</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         423 :     ZVAL_LONG(&amp;enum_case_ClosePath_value, CAIRO_PATH_CLOSE_PATH);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         423 :     zend_enum_add_case_cstr(class_entry, &quot;ClosePath&quot;, &amp;enum_case_ClosePath_value);</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         418 :     return class_entry;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         423 :     return class_entry;</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : }</span>
         </pre>
               </td>

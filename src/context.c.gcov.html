@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-07 15:42:01</td>
+            <td class="headerValue">2025-09-08 07:23:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
@@ -1772,7 +1772,7 @@
 <span id="L1710"><span class="lineNum">    1710</span> <span class="tlaGNC tlaBgGNC">          18 :     CAIRO_RETURN_IF_REF(context_object-&gt;matrix);</span></span>
 <span id="L1711"><span class="lineNum">    1711</span>              : </span>
 <span id="L1712"><span class="lineNum">    1712</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L1713"><span class="lineNum">    1713</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, ce_cairo_matrix);</span></span>
+<span id="L1713"><span class="lineNum">    1713</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
 <span id="L1714"><span class="lineNum">    1714</span> <span class="tlaGNC">           1 :     matrix_object = Z_CAIRO_MATRIX_P(return_value);</span></span>
 <span id="L1715"><span class="lineNum">    1715</span> <span class="tlaGNC">           1 :     cairo_get_matrix(context_object-&gt;context, matrix_object-&gt;matrix);</span></span>
 <span id="L1716"><span class="lineNum">    1716</span>              : }</span>
@@ -2544,7 +2544,7 @@
 <span id="L2482"><span class="lineNum">    2482</span> <span class="tlaGNC tlaBgGNC">          23 :     CAIRO_RETURN_IF_REF(context_object-&gt;font_matrix);</span></span>
 <span id="L2483"><span class="lineNum">    2483</span>              : </span>
 <span id="L2484"><span class="lineNum">    2484</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L2485"><span class="lineNum">    2485</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, ce_cairo_matrix);</span></span>
+<span id="L2485"><span class="lineNum">    2485</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
 <span id="L2486"><span class="lineNum">    2486</span> <span class="tlaGNC">           1 :     matrix_object = Z_CAIRO_MATRIX_P(return_value);</span></span>
 <span id="L2487"><span class="lineNum">    2487</span> <span class="tlaGNC">           1 :     cairo_get_font_matrix(context_object-&gt;context, matrix_object-&gt;matrix);</span></span>
 <span id="L2488"><span class="lineNum">    2488</span>              : }</span>
@@ -2607,7 +2607,7 @@
 <span id="L2545"><span class="lineNum">    2545</span> <span class="tlaGNC tlaBgGNC">          23 :     CAIRO_RETURN_IF_REF(context_object-&gt;font_options);</span></span>
 <span id="L2546"><span class="lineNum">    2546</span>              : </span>
 <span id="L2547"><span class="lineNum">    2547</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L2548"><span class="lineNum">    2548</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, ce_cairo_fontoptions);</span></span>
+<span id="L2548"><span class="lineNum">    2548</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_fontoptions_ce());</span></span>
 <span id="L2549"><span class="lineNum">    2549</span> <span class="tlaGNC">           1 :     font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);</span></span>
 <span id="L2550"><span class="lineNum">    2550</span> <span class="tlaGNC">           1 :     font_options_object-&gt;font_options = font_options;</span></span>
 <span id="L2551"><span class="lineNum">    2551</span>              : }</span>
@@ -2663,7 +2663,7 @@
 <span id="L2601"><span class="lineNum">    2601</span> <span class="tlaGNC tlaBgGNC">          26 :     CAIRO_RETURN_IF_REF(context_object-&gt;font_face);</span></span>
 <span id="L2602"><span class="lineNum">    2602</span>              : </span>
 <span id="L2603"><span class="lineNum">    2603</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L2604"><span class="lineNum">    2604</span> <span class="tlaGNC">           2 :     object_init_ex(return_value, ce_cairo_toyfontface);</span></span>
+<span id="L2604"><span class="lineNum">    2604</span> <span class="tlaGNC">           2 :     object_init_ex(return_value, php_cairo_get_toyfontface_ce());</span></span>
 <span id="L2605"><span class="lineNum">    2605</span> <span class="tlaGNC">           2 :     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);</span></span>
 <span id="L2606"><span class="lineNum">    2606</span> <span class="tlaGNC">           2 :     font_face_object-&gt;font_face = cairo_get_font_face(context_object-&gt;context);</span></span>
 <span id="L2607"><span class="lineNum">    2607</span> <span class="tlaGNC">           2 :     cairo_font_face_reference(font_face_object-&gt;font_face);</span></span>
@@ -2728,7 +2728,7 @@
 <span id="L2666"><span class="lineNum">    2666</span> <span class="tlaGNC tlaBgGNC">          25 :     CAIRO_RETURN_IF_REF(context_object-&gt;scaled_font);</span></span>
 <span id="L2667"><span class="lineNum">    2667</span>              : </span>
 <span id="L2668"><span class="lineNum">    2668</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L2669"><span class="lineNum">    2669</span> <span class="tlaGNC">           5 :     object_init_ex(return_value, ce_cairo_scaled_font);</span></span>
+<span id="L2669"><span class="lineNum">    2669</span> <span class="tlaGNC">           5 :     object_init_ex(return_value, php_cairo_get_scaled_font_ce());</span></span>
 <span id="L2670"><span class="lineNum">    2670</span> <span class="tlaGNC">           5 :     scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);</span></span>
 <span id="L2671"><span class="lineNum">    2671</span> <span class="tlaGNC">           5 :     scaled_font_object-&gt;scaled_font = cairo_get_scaled_font(context_object-&gt;context);</span></span>
 <span id="L2672"><span class="lineNum">    2672</span> <span class="tlaGNC">           5 :     cairo_scaled_font_reference(scaled_font_object-&gt;scaled_font);</span></span>
@@ -2999,34 +2999,34 @@
 <span id="L2937"><span class="lineNum">    2937</span>              : ------------------------------------------------------------------*/</span>
 <span id="L2938"><span class="lineNum">    2938</span>              : </span>
 <span id="L2939"><span class="lineNum">    2939</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L2940"><span class="lineNum">    2940</span> <span class="tlaGNC">         418 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
+<span id="L2940"><span class="lineNum">    2940</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
 <span id="L2941"><span class="lineNum">    2941</span>              : {</span>
-<span id="L2942"><span class="lineNum">    2942</span> <span class="tlaGNC">         418 :     memcpy(</span></span>
+<span id="L2942"><span class="lineNum">    2942</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
 <span id="L2943"><span class="lineNum">    2943</span>              :         &amp;cairo_context_object_handlers,</span>
 <span id="L2944"><span class="lineNum">    2944</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L2945"><span class="lineNum">    2945</span>              :         sizeof(cairo_context_object_handlers)</span>
 <span id="L2946"><span class="lineNum">    2946</span>              :     );</span>
 <span id="L2947"><span class="lineNum">    2947</span>              : </span>
 <span id="L2948"><span class="lineNum">    2948</span>              :     /* Context */</span>
-<span id="L2949"><span class="lineNum">    2949</span> <span class="tlaGNC">         418 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
-<span id="L2950"><span class="lineNum">    2950</span> <span class="tlaGNC">         418 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
+<span id="L2949"><span class="lineNum">    2949</span> <span class="tlaGNC">         423 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
+<span id="L2950"><span class="lineNum">    2950</span> <span class="tlaGNC">         423 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
 <span id="L2951"><span class="lineNum">    2951</span>              : </span>
-<span id="L2952"><span class="lineNum">    2952</span> <span class="tlaGNC">         418 :     ce_cairo_context = register_class_Cairo_Context();</span></span>
-<span id="L2953"><span class="lineNum">    2953</span> <span class="tlaGNC">         418 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
+<span id="L2952"><span class="lineNum">    2952</span> <span class="tlaGNC">         423 :     ce_cairo_context = register_class_Cairo_Context();</span></span>
+<span id="L2953"><span class="lineNum">    2953</span> <span class="tlaGNC">         423 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
 <span id="L2954"><span class="lineNum">    2954</span>              : </span>
 <span id="L2955"><span class="lineNum">    2955</span>              :     /* FillRule */</span>
-<span id="L2956"><span class="lineNum">    2956</span> <span class="tlaGNC">         418 :     ce_cairo_fillrule = register_class_Cairo_FillRule();</span></span>
+<span id="L2956"><span class="lineNum">    2956</span> <span class="tlaGNC">         423 :     ce_cairo_fillrule = register_class_Cairo_FillRule();</span></span>
 <span id="L2957"><span class="lineNum">    2957</span>              : </span>
 <span id="L2958"><span class="lineNum">    2958</span>              :     /* LineCap */</span>
-<span id="L2959"><span class="lineNum">    2959</span> <span class="tlaGNC">         418 :     ce_cairo_linecap = register_class_Cairo_LineCap();</span></span>
+<span id="L2959"><span class="lineNum">    2959</span> <span class="tlaGNC">         423 :     ce_cairo_linecap = register_class_Cairo_LineCap();</span></span>
 <span id="L2960"><span class="lineNum">    2960</span>              : </span>
 <span id="L2961"><span class="lineNum">    2961</span>              :     /* LineJoin */</span>
-<span id="L2962"><span class="lineNum">    2962</span> <span class="tlaGNC">         418 :     ce_cairo_linejoin = register_class_Cairo_LineJoin();</span></span>
+<span id="L2962"><span class="lineNum">    2962</span> <span class="tlaGNC">         423 :     ce_cairo_linejoin = register_class_Cairo_LineJoin();</span></span>
 <span id="L2963"><span class="lineNum">    2963</span>              : </span>
 <span id="L2964"><span class="lineNum">    2964</span>              :     /* Operator */</span>
-<span id="L2965"><span class="lineNum">    2965</span> <span class="tlaGNC">         418 :     ce_cairo_operator = register_class_Cairo_Operator();</span></span>
+<span id="L2965"><span class="lineNum">    2965</span> <span class="tlaGNC">         423 :     ce_cairo_operator = register_class_Cairo_Operator();</span></span>
 <span id="L2966"><span class="lineNum">    2966</span>              : </span>
-<span id="L2967"><span class="lineNum">    2967</span> <span class="tlaGNC">         418 :     return SUCCESS;</span></span>
+<span id="L2967"><span class="lineNum">    2967</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
 <span id="L2968"><span class="lineNum">    2968</span>              : }</span>
 <span id="L2969"><span class="lineNum">    2969</span>              : /* }}} */</span>
         </pre>
