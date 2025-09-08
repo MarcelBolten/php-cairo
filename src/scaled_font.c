@@ -508,7 +508,7 @@ PHP_METHOD(Cairo_ScaledFont, textToGlyphs)
     array_init_size(&glyphs_zv, num_glyphs);
     for (int i = 0; i < num_glyphs; i++) {
         zval glyph;
-        object_init_ex(&glyph, ce_cairo_glyph);
+        object_init_ex(&glyph, php_cairo_get_glyph_ce());
         cairo_glyph_object *glyph_obj = Z_CAIRO_GLYPH_P(&glyph);
         *glyph_obj->glyph = glyphs[i];
         add_next_index_zval(&glyphs_zv, &glyph);

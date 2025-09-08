@@ -79,6 +79,11 @@ cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)
 }
 /* }}} */
 
+zend_class_entry* php_cairo_get_glyph_ce()
+{
+    return ce_cairo_glyph;
+}
+
 /* ----------------------------------------------------------------
     \Cairo\Glyph Class API
 ------------------------------------------------------------------*/
