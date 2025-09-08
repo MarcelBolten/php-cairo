@@ -164,7 +164,7 @@ PHP_METHOD(Cairo_Surface, createForRectangle)
     surface_zval = getThis();
     Z_ADDREF_P(surface_zval);
 
-    object_init_ex(return_value, ce_cairo_subsurface);
+    object_init_ex(return_value, php_cairo_get_subsurface_ce());
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
     new_surface_object->parent_zval = surface_zval;
     new_surface_object->surface = new_surface;

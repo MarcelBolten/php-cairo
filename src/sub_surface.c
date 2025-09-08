@@ -27,6 +27,21 @@
 
 zend_class_entry *ce_cairo_subsurface;
 
+
+/* ----------------------------------------------------------------
+    \Cairo\TextCluster C API
+------------------------------------------------------------------*/
+
+zend_class_entry* php_cairo_get_subsurface_ce()
+{
+    return ce_cairo_subsurface;
+}
+
+
+/* ----------------------------------------------------------------
+    \Cairo\TextCluster Class API
+------------------------------------------------------------------*/
+
 /* {{{ proto CairoSubSurface __construct(int content, array extents)
        Returns new CairoSubSurface */
 PHP_METHOD(Cairo_Surface_SubSurface, __construct)

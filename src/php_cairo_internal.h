@@ -95,6 +95,7 @@ extern zend_class_entry* php_cairo_get_matrix_ce();
 extern zend_class_entry* php_cairo_get_scaled_font_ce();
 extern zend_class_entry* php_cairo_get_toyfontface_ce();
 extern zend_class_entry* php_cairo_get_text_cluster_ce();
+extern zend_class_entry* php_cairo_get_subsurface_ce();
 extern zend_class_entry* php_cairo_get_imagesurface_ce();
 
 /* Pattern */
