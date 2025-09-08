@@ -31,7 +31,6 @@ zend_class_entry *ce_cairo_pdfsurface;
 zend_class_entry *ce_cairo_pdf_metadata;
 zend_class_entry *ce_cairo_pdf_outlineflag;
 zend_class_entry *ce_cairo_pdfversion;
-zend_class_entry *ce_cairo_pdf_outline;
 
 /* ----------------------------------------------------------------
     \Cairo\Surface\Pdf Class API

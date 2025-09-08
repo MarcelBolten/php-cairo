@@ -53,7 +53,6 @@ extern zend_class_entry *ce_cairo_svgunit;
 extern zend_class_entry *ce_cairo_pdfsurface;
 #endif
 extern zend_class_entry *ce_cairo_pdf_metadata;
-extern zend_class_entry *ce_cairo_pdf_outline;
 extern zend_class_entry *ce_cairo_pdf_outlineflag;
 extern zend_class_entry *ce_cairo_pdfversion;
 extern zend_class_entry *ce_cairo_pssurface;
