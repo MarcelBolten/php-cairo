@@ -92,11 +92,6 @@ PHP_METHOD(Cairo_Surface_Image, createForData)
 
     format = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case)));
 
-    if (format < 0) {
-        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid format", 0);
-        RETURN_THROWS();
-    }
-
     if (width < 1 || height < 1) {
         zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions", 0);
         RETURN_THROWS();
