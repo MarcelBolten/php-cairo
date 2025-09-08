@@ -1710,7 +1710,7 @@ PHP_METHOD(Cairo_Context, getMatrix)
     CAIRO_RETURN_IF_REF(context_object->matrix);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_get_matrix(context_object->context, matrix_object->matrix);
 }
@@ -2482,7 +2482,7 @@ PHP_METHOD(Cairo_Context, getFontMatrix)
     CAIRO_RETURN_IF_REF(context_object->font_matrix);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_get_font_matrix(context_object->context, matrix_object->matrix);
 }

@@ -104,6 +104,11 @@ cairo_matrix_t *cairo_matrix_object_get_matrix(zval *zv)
 }
 /* }}} */
 
+zend_class_entry* php_cairo_get_matrix_ce()
+{
+    return ce_cairo_matrix;
+}
+
 /* ----------------------------------------------------------------
     Cairo\Matrix Class API
 ------------------------------------------------------------------*/

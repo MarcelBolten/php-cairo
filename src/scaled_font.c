@@ -373,7 +373,7 @@ PHP_METHOD(Cairo_ScaledFont, getFontMatrix)
     CAIRO_RETURN_IF_REF(scaled_font_object->matrix);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_scaled_font_get_font_matrix(scaled_font_object->scaled_font, matrix_object->matrix);
 }
@@ -397,7 +397,7 @@ PHP_METHOD(Cairo_ScaledFont, getCtm)
     CAIRO_RETURN_IF_REF(scaled_font_object->ctm);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_scaled_font_get_ctm(scaled_font_object->scaled_font, matrix_object->matrix);
 }
@@ -419,7 +419,7 @@ PHP_METHOD(Cairo_ScaledFont, getScaleMatrix)
     }
 
     /* This is never stored in the object, but created every time */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
 
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_scaled_font_get_scale_matrix(scaled_font_object->scaled_font, matrix_object->matrix);

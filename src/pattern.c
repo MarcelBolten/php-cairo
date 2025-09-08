@@ -294,7 +294,7 @@ PHP_METHOD(Cairo_Pattern, getMatrix)
     zval *matrix_store = emalloc(sizeof(zval));
     cairo_status_t status;
 
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     cairo_pattern_get_matrix(pattern_object->pattern, cairo_matrix_object_get_matrix(return_value));
     ZVAL_COPY(matrix_store, return_value);
     status = cairo_pattern_set_user_data(
