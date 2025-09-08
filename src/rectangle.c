@@ -95,6 +95,11 @@ cairo_rectangle_int_t *cairo_rectangle_object_get_rect(zval *zv)
 }
 /* }}} */
 
+zend_class_entry* php_cairo_get_rectangle_ce()
+{
+    return ce_cairo_rectangle;
+}
+
 /* ----------------------------------------------------------------
     \Cairo\Rectangle Class API
 ------------------------------------------------------------------*/

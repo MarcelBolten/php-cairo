@@ -25,7 +25,6 @@
 #include "region_arginfo.h"
 
 zend_class_entry *ce_cairo_region;
-extern zend_class_entry *ce_cairo_rectangle;
 zend_class_entry *ce_cairo_region_overlap;
 
 static zend_object_handlers cairo_region_object_handlers;
@@ -219,7 +218,7 @@ PHP_METHOD(Cairo_Region, getExtents)
         RETURN_THROWS();
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
     cairo_region_get_extents(region_object->region, rectangle_object->rect);
 }
@@ -263,7 +262,7 @@ PHP_METHOD(Cairo_Region, getRectangle)
         RETURN_FALSE;
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
     cairo_region_get_rectangle(region_object->region, rectId, rectangle_object->rect);
 }

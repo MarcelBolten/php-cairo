@@ -153,7 +153,7 @@ PHP_METHOD(Cairo_Surface_Recording, getExtents)
         RETURN_FALSE;
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
     rectangle_object->rect->x = rectangle->x;
     rectangle_object->rect->y = rectangle->y;
