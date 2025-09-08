@@ -70,6 +70,7 @@ extern zend_class_entry *ce_cairo_subpixelorder;
 extern zend_class_entry *ce_cairo_hintstyle;
 extern zend_class_entry *ce_cairo_hintmetrics;
 extern zend_class_entry *ce_cairo_antialias;
+extern zend_class_entry *ce_cairo_color_mode;
 
 extern zend_class_entry *ce_cairo_fontslant;
 extern zend_class_entry *ce_cairo_fontweight;
@@ -78,12 +79,20 @@ extern zend_class_entry *ce_cairo_toyfontface;
 extern zend_class_entry *ce_cairo_ftfont;
 
 extern zend_class_entry *ce_cairo_path;
+extern zend_class_entry *ce_cairo_path_datatype;
 
 extern zend_class_entry *ce_cairo_pattern;
+extern zend_class_entry *ce_cairo_pattern_type;
+extern zend_class_entry *ce_cairo_extend;
+extern zend_class_entry *ce_cairo_filter;
+extern zend_class_entry *ce_cairo_dither;
 
 extern zend_class_entry *ce_cairo_glyph;
 
 extern zend_class_entry *ce_cairo_text_cluster;
+
+extern zend_class_entry *ce_cairo_region;
+extern zend_class_entry *ce_cairo_region_overlap;
 
 extern zend_class_entry* php_cairo_get_pattern_ce(cairo_pattern_t *pattern);
 extern zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface);
@@ -96,6 +105,7 @@ extern zend_class_entry* php_cairo_get_toyfontface_ce();
 extern zend_class_entry* php_cairo_get_glyph_ce();
 extern zend_class_entry* php_cairo_get_text_cluster_ce();
 extern zend_class_entry* php_cairo_get_rectangle_ce();
+extern zend_class_entry* php_cairo_get_context_ce();
 extern zend_class_entry* php_cairo_get_subsurface_ce();
 extern zend_class_entry* php_cairo_get_imagesurface_ce();
 
