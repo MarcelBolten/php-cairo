@@ -249,7 +249,7 @@ PHP_METHOD(Cairo_Surface, getFontOptions)
         RETURN_THROWS();
     }
 
-    object_init_ex(return_value, ce_cairo_fontoptions);
+    object_init_ex(return_value, php_cairo_get_fontoptions_ce());
     font_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
 
     cairo_surface_get_font_options(surface_object->surface, options);

@@ -2545,7 +2545,7 @@ PHP_METHOD(Cairo_Context, getFontOptions)
     CAIRO_RETURN_IF_REF(context_object->font_options);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_fontoptions);
+    object_init_ex(return_value, php_cairo_get_fontoptions_ce());
     font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
     font_options_object->font_options = font_options;
 }
