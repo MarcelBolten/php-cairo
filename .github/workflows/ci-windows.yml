@@ -1,0 +1,46 @@
+name: Build on Windows
+
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    get-extension-matrix:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.extension-matrix.outputs.matrix }}
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v5
+        - name: Get the extension matrix
+          id: extension-matrix
+          uses: php/php-windows-builder/extension-matrix@v1
+          with:
+            extension-url: https://github.com/MarcelBolten/php-cairo
+            php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5, master'
+            arch-list: 'x64, x86'
+            ts-list: 'nts, ts'
+
+    build:
+        needs: get-extension-matrix
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix: ${{fromJson(needs.get-extension-matrix.outputs.matrix)}}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+
+            - name: Build the extension
+              uses: php/php-windows-builder/extension@v1
+              with:
+                php-version: ${{ matrix.php-version }}
+                arch: ${{ matrix.arch }}
+                ts: ${{ matrix.ts }}
+                args: --enable-debug
+
+                # Refer to your config.w32 file to find the libraries you need.
+                # Refer to the following directories to see if we support the libraries you need.
+                # https://downloads.php.net/~windows/pecl/deps
+                # https://downloads.php.net/~windows/php-sdk/deps
+                libs: cairo, libpng, libjpeg-turbo, fontconfig, freetype, glib
