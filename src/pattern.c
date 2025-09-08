@@ -1082,7 +1082,7 @@ PHP_METHOD(Cairo_Pattern_Mesh, getPath)
 
     path = cairo_mesh_pattern_get_path(pattern_object->pattern, patch_num);
 
-    object_init_ex(return_value, ce_cairo_path);
+    object_init_ex(return_value, php_cairo_get_path_ce());
 
     path_object = Z_CAIRO_PATH_P(return_value);
     if (!path_object) {
