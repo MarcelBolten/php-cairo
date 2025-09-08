@@ -93,7 +93,7 @@ PHP_METHOD(Cairo_Surface_Image, createForData)
     format = Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format_case)));
 
     if (width < 1 || height < 1) {
-        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions", 0);
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createForData(): invalid surface dimensions. Arguments #3 ($width) and #4 ($height) must be positive integers.", 0);
         RETURN_THROWS();
     }
 
@@ -102,8 +102,8 @@ PHP_METHOD(Cairo_Surface_Image, createForData)
     stride = cairo_format_stride_for_width(format, width);
 
     if (stride <= 0) {
-        zend_error(E_WARNING, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData().");
-        return;
+        zend_throw_exception(ce_cairo_exception, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData().Argument #3 ($width) might be too large.", 0);
+        RETURN_THROWS();
     }
 
     /* Create the object, stick in the buffer and surface, check our status */
