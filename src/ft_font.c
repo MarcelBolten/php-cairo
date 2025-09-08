@@ -219,7 +219,7 @@ PHP_METHOD(Cairo_FontFace_Ft, __construct)
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_ft_font)
 {
-    ce_cairo_ftfont = register_class_Cairo_FontFace_Ft(ce_cairo_fontface);
+    ce_cairo_ftfont = register_class_Cairo_FontFace_Ft(php_cairo_get_fontface_ce());
 
     return SUCCESS;
 }

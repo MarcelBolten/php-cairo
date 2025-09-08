@@ -156,7 +156,7 @@ PHP_METHOD(Cairo_FontFace_Toy, getWeight)
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_font)
 {
-    ce_cairo_toyfontface = register_class_Cairo_FontFace_Toy(ce_cairo_fontface);
+    ce_cairo_toyfontface = register_class_Cairo_FontFace_Toy(php_cairo_get_fontface_ce());
     ce_cairo_toyfontface->create_object = cairo_font_face_create_object;
 
     /* FontSlant */
