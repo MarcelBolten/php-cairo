@@ -2666,7 +2666,7 @@ PHP_METHOD(Cairo_Context, getScaledFont)
     CAIRO_RETURN_IF_REF(context_object->scaled_font);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_scaled_font);
+    object_init_ex(return_value, php_cairo_get_scaled_font_ce());
     scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);
     scaled_font_object->scaled_font = cairo_get_scaled_font(context_object->context);
     cairo_scaled_font_reference(scaled_font_object->scaled_font);
