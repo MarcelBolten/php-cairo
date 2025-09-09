@@ -50,6 +50,18 @@
 #include <fcntl.h>
 #if defined(_WIN32) || defined(_WIN64)
 #include <io.h>
+#ifndef S_IRUSR
+#define S_IRUSR 0400
+#endif
+#ifndef S_IWUSR
+#define S_IWUSR 0200
+#endif
+#ifndef S_IRGRP
+#define S_IRGRP 0040
+#endif
+#ifndef S_IROTH
+#define S_IROTH 0004
+#endif
 #else
 #include <unistd.h>
 #ifndef O_BINARY
