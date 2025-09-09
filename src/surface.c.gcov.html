@@ -31,13 +31,13 @@
             <td class="headerValue">PHP Cairo Extension Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">85.8&nbsp;%</td>
-            <td class="headerCovTableEntry">373</td>
+            <td class="headerCovTableEntryMed">86.0&nbsp;%</td>
+            <td class="headerCovTableEntry">372</td>
             <td class="headerCovTableEntry">320</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 06:40:03</td>
+            <td class="headerValue">2025-09-09 18:41:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,9 +93,9 @@
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span>              : static zend_object_handlers cairo_surface_object_handlers;</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         602 : cairo_surface_object *cairo_surface_fetch_object(zend_object *object)</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         604 : cairo_surface_object *cairo_surface_fetch_object(zend_object *object)</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : {</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         602 :     return (cairo_surface_object *) ((char*)(object) - XtOffsetOf(cairo_surface_object, std));</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         604 :     return (cairo_surface_object *) ((char*)(object) - XtOffsetOf(cairo_surface_object, std));</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : }</span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         186 : cairo_surface_object *cairo_surface_object_get(zval *zv)</span></span>
@@ -217,18 +217,18 @@
 <span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           4 :         Z_PARAM_DOUBLE(height)</span></span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_END();</span></span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L161"><span class="lineNum">     161</span>              :     }</span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC tlaBgGNC">           1 :     new_surface = cairo_surface_create_for_rectangle(surface_object-&gt;surface, x, y, width, height);</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           2 :     surface_zval = getThis();</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           1 :     surface_object = cairo_surface_object_get(surface_zval);</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L162"><span class="lineNum">     162</span>              :     }</span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           2 :     surface_zval = getThis();</span></span>
-<span id="L165"><span class="lineNum">     165</span>              :     Z_ADDREF_P(surface_zval);</span>
-<span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_subsurface_ce());</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           1 :     new_surface_object = Z_CAIRO_SURFACE_P(return_value);</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           1 :     new_surface_object-&gt;parent_zval = surface_zval;</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC tlaBgGNC">           1 :     new_surface = cairo_surface_create_for_rectangle(surface_object-&gt;surface, x, y, width, height);</span></span>
+<span id="L165"><span class="lineNum">     165</span>              : </span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_subsurface_ce());</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :     new_surface_object = Z_CAIRO_SURFACE_P(return_value);</span></span>
+<span id="L168"><span class="lineNum">     168</span>              :     // Store reference to the parent object</span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           1 :     ZVAL_COPY(&amp;new_surface_object-&gt;parent_zval, surface_zval);</span></span>
 <span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           1 :     new_surface_object-&gt;surface = new_surface;</span></span>
 <span id="L171"><span class="lineNum">     171</span>              : }</span>
 <span id="L172"><span class="lineNum">     172</span>              : /* }}} */</span>
@@ -367,7 +367,7 @@
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Surface, markDirtyRectangle)</span></span>
 <span id="L306"><span class="lineNum">     306</span>              : {</span>
 <span id="L307"><span class="lineNum">     307</span>              :     cairo_surface_object *surface_object;</span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          10 :     zend_long x = 0, y = 0, width = 0, height = 0;</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          10 :     long x = 0, y = 0, width = 0, height = 0;</span></span>
 <span id="L309"><span class="lineNum">     309</span>              : </span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(4, 4)</span></span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">          10 :         Z_PARAM_LONG(x)</span></span>
@@ -381,7 +381,7 @@
 <span id="L319"><span class="lineNum">     319</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L320"><span class="lineNum">     320</span>              :     }</span>
 <span id="L321"><span class="lineNum">     321</span>              : </span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_surface_mark_dirty_rectangle(surface_object-&gt;surface, (int) x, (int) y, (int) width, (int) height);</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_surface_mark_dirty_rectangle(surface_object-&gt;surface, x, y, width, height);</span></span>
 <span id="L323"><span class="lineNum">     323</span>              : }</span>
 <span id="L324"><span class="lineNum">     324</span>              : /* }}} */</span>
 <span id="L325"><span class="lineNum">     325</span>              : </span>
@@ -814,170 +814,168 @@
 <span id="L752"><span class="lineNum">     752</span> <span class="tlaGNC">           7 :         intern-&gt;closure = NULL;</span></span>
 <span id="L753"><span class="lineNum">     753</span>              :     }</span>
 <span id="L754"><span class="lineNum">     754</span>              : </span>
-<span id="L755"><span class="lineNum">     755</span> <span class="tlaGNC">         224 :     if (intern-&gt;parent_zval) {</span></span>
-<span id="L756"><span class="lineNum">     756</span> <span class="tlaGNC">           1 :         Z_DELREF_P(intern-&gt;parent_zval);</span></span>
-<span id="L757"><span class="lineNum">     757</span> <span class="tlaGNC">           1 :         intern-&gt;parent_zval = NULL;</span></span>
-<span id="L758"><span class="lineNum">     758</span>              :     }</span>
-<span id="L759"><span class="lineNum">     759</span>              : </span>
-<span id="L760"><span class="lineNum">     760</span> <span class="tlaGNC">         224 :     zend_object_std_dtor(&amp;intern-&gt;std);</span></span>
-<span id="L761"><span class="lineNum">     761</span>              : }</span>
-<span id="L762"><span class="lineNum">     762</span>              : /* }}} */</span>
-<span id="L763"><span class="lineNum">     763</span>              : </span>
-<span id="L764"><span class="lineNum">     764</span>              : /* {{{ */</span>
-<span id="L765"><span class="lineNum">     765</span> <span class="tlaGNC">         224 : static zend_object* cairo_surface_obj_ctor(zend_class_entry *ce, cairo_surface_object **intern)</span></span>
-<span id="L766"><span class="lineNum">     766</span>              : {</span>
-<span id="L767"><span class="lineNum">     767</span> <span class="tlaGNC">         224 :     cairo_surface_object *object = ecalloc(1, sizeof(cairo_surface_object) + zend_object_properties_size(ce));</span></span>
-<span id="L768"><span class="lineNum">     768</span>              : </span>
-<span id="L769"><span class="lineNum">     769</span> <span class="tlaGNC">         224 :     object-&gt;surface = NULL;</span></span>
-<span id="L770"><span class="lineNum">     770</span> <span class="tlaGNC">         224 :     object-&gt;buffer = NULL;</span></span>
-<span id="L771"><span class="lineNum">     771</span> <span class="tlaGNC">         224 :     object-&gt;closure = NULL;</span></span>
-<span id="L772"><span class="lineNum">     772</span>              : </span>
-<span id="L773"><span class="lineNum">     773</span> <span class="tlaGNC">         224 :     zend_object_std_init(&amp;object-&gt;std, ce);</span></span>
-<span id="L774"><span class="lineNum">     774</span> <span class="tlaGNC">         224 :     object-&gt;std.handlers = &amp;cairo_surface_object_handlers;</span></span>
-<span id="L775"><span class="lineNum">     775</span> <span class="tlaGNC">         224 :     *intern = object;</span></span>
-<span id="L776"><span class="lineNum">     776</span>              : </span>
-<span id="L777"><span class="lineNum">     777</span> <span class="tlaGNC">         224 :     return &amp;object-&gt;std;</span></span>
-<span id="L778"><span class="lineNum">     778</span>              : }</span>
-<span id="L779"><span class="lineNum">     779</span>              : /* }}} */</span>
-<span id="L780"><span class="lineNum">     780</span>              : </span>
-<span id="L781"><span class="lineNum">     781</span>              : /* {{{ */</span>
-<span id="L782"><span class="lineNum">     782</span> <span class="tlaGNC">         224 : zend_object* cairo_surface_create_object(zend_class_entry *ce)</span></span>
-<span id="L783"><span class="lineNum">     783</span>              : {</span>
-<span id="L784"><span class="lineNum">     784</span> <span class="tlaGNC">         224 :     cairo_surface_object *surface = NULL;</span></span>
-<span id="L785"><span class="lineNum">     785</span> <span class="tlaGNC">         224 :     zend_object *return_value = cairo_surface_obj_ctor(ce, &amp;surface);</span></span>
-<span id="L786"><span class="lineNum">     786</span>              : </span>
-<span id="L787"><span class="lineNum">     787</span> <span class="tlaGNC">         224 :     object_properties_init(&amp;surface-&gt;std, ce);</span></span>
-<span id="L788"><span class="lineNum">     788</span> <span class="tlaGNC">         224 :     return return_value;</span></span>
-<span id="L789"><span class="lineNum">     789</span>              : }</span>
-<span id="L790"><span class="lineNum">     790</span>              : /* }}} */</span>
-<span id="L791"><span class="lineNum">     791</span>              : </span>
-<span id="L792"><span class="lineNum">     792</span>              : </span>
-<span id="L793"><span class="lineNum">     793</span>              : /* ----------------------------------------------------------------</span>
-<span id="L794"><span class="lineNum">     794</span>              :     Cairo\Surface C API</span>
-<span id="L795"><span class="lineNum">     795</span>              : ------------------------------------------------------------------*/</span>
-<span id="L796"><span class="lineNum">     796</span>              : </span>
-<span id="L797"><span class="lineNum">     797</span>              : /* Helper methods for stream surface read/writes */</span>
-<span id="L798"><span class="lineNum">     798</span> <span class="tlaGNC">         260 : cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, unsigned int length)</span></span>
-<span id="L799"><span class="lineNum">     799</span>              : {</span>
-<span id="L800"><span class="lineNum">     800</span>              :     size_t written;</span>
-<span id="L801"><span class="lineNum">     801</span>              :     stream_closure *cast_closure;</span>
+<span id="L755"><span class="lineNum">     755</span> <span class="tlaGNC">         224 :     zval_ptr_dtor(&amp;intern-&gt;parent_zval);</span></span>
+<span id="L756"><span class="lineNum">     756</span>              : </span>
+<span id="L757"><span class="lineNum">     757</span> <span class="tlaGNC">         224 :     zend_object_std_dtor(&amp;intern-&gt;std);</span></span>
+<span id="L758"><span class="lineNum">     758</span>              : }</span>
+<span id="L759"><span class="lineNum">     759</span>              : /* }}} */</span>
+<span id="L760"><span class="lineNum">     760</span>              : </span>
+<span id="L761"><span class="lineNum">     761</span>              : /* {{{ */</span>
+<span id="L762"><span class="lineNum">     762</span> <span class="tlaGNC">         226 : static zend_object* cairo_surface_obj_ctor(zend_class_entry *ce, cairo_surface_object **intern)</span></span>
+<span id="L763"><span class="lineNum">     763</span>              : {</span>
+<span id="L764"><span class="lineNum">     764</span> <span class="tlaGNC">         226 :     cairo_surface_object *object = ecalloc(1, sizeof(cairo_surface_object) + zend_object_properties_size(ce));</span></span>
+<span id="L765"><span class="lineNum">     765</span>              : </span>
+<span id="L766"><span class="lineNum">     766</span> <span class="tlaGNC">         226 :     object-&gt;surface = NULL;</span></span>
+<span id="L767"><span class="lineNum">     767</span> <span class="tlaGNC">         226 :     object-&gt;buffer = NULL;</span></span>
+<span id="L768"><span class="lineNum">     768</span> <span class="tlaGNC">         226 :     object-&gt;closure = NULL;</span></span>
+<span id="L769"><span class="lineNum">     769</span> <span class="tlaGNC">         226 :     ZVAL_UNDEF(&amp;object-&gt;parent_zval);</span></span>
+<span id="L770"><span class="lineNum">     770</span>              : </span>
+<span id="L771"><span class="lineNum">     771</span> <span class="tlaGNC">         226 :     zend_object_std_init(&amp;object-&gt;std, ce);</span></span>
+<span id="L772"><span class="lineNum">     772</span> <span class="tlaGNC">         226 :     object-&gt;std.handlers = &amp;cairo_surface_object_handlers;</span></span>
+<span id="L773"><span class="lineNum">     773</span> <span class="tlaGNC">         226 :     *intern = object;</span></span>
+<span id="L774"><span class="lineNum">     774</span>              : </span>
+<span id="L775"><span class="lineNum">     775</span> <span class="tlaGNC">         226 :     return &amp;object-&gt;std;</span></span>
+<span id="L776"><span class="lineNum">     776</span>              : }</span>
+<span id="L777"><span class="lineNum">     777</span>              : /* }}} */</span>
+<span id="L778"><span class="lineNum">     778</span>              : </span>
+<span id="L779"><span class="lineNum">     779</span>              : /* {{{ */</span>
+<span id="L780"><span class="lineNum">     780</span> <span class="tlaGNC">         226 : zend_object* cairo_surface_create_object(zend_class_entry *ce)</span></span>
+<span id="L781"><span class="lineNum">     781</span>              : {</span>
+<span id="L782"><span class="lineNum">     782</span> <span class="tlaGNC">         226 :     cairo_surface_object *surface = NULL;</span></span>
+<span id="L783"><span class="lineNum">     783</span> <span class="tlaGNC">         226 :     zend_object *return_value = cairo_surface_obj_ctor(ce, &amp;surface);</span></span>
+<span id="L784"><span class="lineNum">     784</span>              : </span>
+<span id="L785"><span class="lineNum">     785</span> <span class="tlaGNC">         226 :     object_properties_init(&amp;surface-&gt;std, ce);</span></span>
+<span id="L786"><span class="lineNum">     786</span> <span class="tlaGNC">         226 :     return return_value;</span></span>
+<span id="L787"><span class="lineNum">     787</span>              : }</span>
+<span id="L788"><span class="lineNum">     788</span>              : /* }}} */</span>
+<span id="L789"><span class="lineNum">     789</span>              : </span>
+<span id="L790"><span class="lineNum">     790</span>              : </span>
+<span id="L791"><span class="lineNum">     791</span>              : /* ----------------------------------------------------------------</span>
+<span id="L792"><span class="lineNum">     792</span>              :     Cairo\Surface C API</span>
+<span id="L793"><span class="lineNum">     793</span>              : ------------------------------------------------------------------*/</span>
+<span id="L794"><span class="lineNum">     794</span>              : </span>
+<span id="L795"><span class="lineNum">     795</span>              : /* Helper methods for stream surface read/writes */</span>
+<span id="L796"><span class="lineNum">     796</span> <span class="tlaGNC">         260 : cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, unsigned int length)</span></span>
+<span id="L797"><span class="lineNum">     797</span>              : {</span>
+<span id="L798"><span class="lineNum">     798</span>              :     size_t written;</span>
+<span id="L799"><span class="lineNum">     799</span>              :     stream_closure *cast_closure;</span>
+<span id="L800"><span class="lineNum">     800</span>              : </span>
+<span id="L801"><span class="lineNum">     801</span> <span class="tlaGNC">         260 :     cast_closure = (stream_closure *)closure;</span></span>
 <span id="L802"><span class="lineNum">     802</span>              : </span>
-<span id="L803"><span class="lineNum">     803</span> <span class="tlaGNC">         260 :     cast_closure = (stream_closure *)closure;</span></span>
-<span id="L804"><span class="lineNum">     804</span>              : </span>
-<span id="L805"><span class="lineNum">     805</span> <span class="tlaGNC">         260 :     written = php_stream_write(cast_closure-&gt;stream, data, length);</span></span>
-<span id="L806"><span class="lineNum">     806</span> <span class="tlaGNC">         260 :     if (written == length) {</span></span>
-<span id="L807"><span class="lineNum">     807</span> <span class="tlaGNC">         260 :         return CAIRO_STATUS_SUCCESS;</span></span>
-<span id="L808"><span class="lineNum">     808</span>              :     } else {</span>
-<span id="L809"><span class="lineNum">     809</span> <span class="tlaUNC tlaBgUNC">           0 :         return CAIRO_STATUS_WRITE_ERROR;</span></span>
-<span id="L810"><span class="lineNum">     810</span>              :     }</span>
-<span id="L811"><span class="lineNum">     811</span>              : }</span>
-<span id="L812"><span class="lineNum">     812</span>              : </span>
-<span id="L813"><span class="lineNum">     813</span> <span class="tlaGNC tlaBgGNC">          15 : cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length)</span></span>
-<span id="L814"><span class="lineNum">     814</span>              : {</span>
-<span id="L815"><span class="lineNum">     815</span>              :     unsigned int read;</span>
-<span id="L816"><span class="lineNum">     816</span>              :     stream_closure *cast_closure;</span>
+<span id="L803"><span class="lineNum">     803</span> <span class="tlaGNC">         260 :     written = php_stream_write(cast_closure-&gt;stream, data, length);</span></span>
+<span id="L804"><span class="lineNum">     804</span> <span class="tlaGNC">         260 :     if (written == length) {</span></span>
+<span id="L805"><span class="lineNum">     805</span> <span class="tlaGNC">         260 :         return CAIRO_STATUS_SUCCESS;</span></span>
+<span id="L806"><span class="lineNum">     806</span>              :     } else {</span>
+<span id="L807"><span class="lineNum">     807</span> <span class="tlaUNC tlaBgUNC">           0 :         return CAIRO_STATUS_WRITE_ERROR;</span></span>
+<span id="L808"><span class="lineNum">     808</span>              :     }</span>
+<span id="L809"><span class="lineNum">     809</span>              : }</span>
+<span id="L810"><span class="lineNum">     810</span>              : </span>
+<span id="L811"><span class="lineNum">     811</span> <span class="tlaGNC tlaBgGNC">         650 : cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length)</span></span>
+<span id="L812"><span class="lineNum">     812</span>              : {</span>
+<span id="L813"><span class="lineNum">     813</span>              :     unsigned int read;</span>
+<span id="L814"><span class="lineNum">     814</span>              :     stream_closure *cast_closure;</span>
+<span id="L815"><span class="lineNum">     815</span>              : </span>
+<span id="L816"><span class="lineNum">     816</span> <span class="tlaGNC">         650 :     cast_closure = (stream_closure *)closure;</span></span>
 <span id="L817"><span class="lineNum">     817</span>              : </span>
-<span id="L818"><span class="lineNum">     818</span> <span class="tlaGNC">          15 :     cast_closure = (stream_closure *)closure;</span></span>
-<span id="L819"><span class="lineNum">     819</span>              : </span>
-<span id="L820"><span class="lineNum">     820</span> <span class="tlaGNC">          15 :     read = php_stream_read(cast_closure-&gt;stream, (char *)data, length);</span></span>
-<span id="L821"><span class="lineNum">     821</span> <span class="tlaGNC">          15 :     if (read == length) {</span></span>
-<span id="L822"><span class="lineNum">     822</span> <span class="tlaGNC">          15 :         return CAIRO_STATUS_SUCCESS;</span></span>
-<span id="L823"><span class="lineNum">     823</span>              :     } else {</span>
-<span id="L824"><span class="lineNum">     824</span> <span class="tlaUNC tlaBgUNC">           0 :         return CAIRO_STATUS_READ_ERROR;</span></span>
-<span id="L825"><span class="lineNum">     825</span>              :     }</span>
-<span id="L826"><span class="lineNum">     826</span>              : }</span>
-<span id="L827"><span class="lineNum">     827</span>              : </span>
-<span id="L828"><span class="lineNum">     828</span> <span class="tlaGNC tlaBgGNC">           3 : zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)</span></span>
-<span id="L829"><span class="lineNum">     829</span>              : {</span>
-<span id="L830"><span class="lineNum">     830</span>              :     zend_class_entry *type;</span>
-<span id="L831"><span class="lineNum">     831</span>              : </span>
-<span id="L832"><span class="lineNum">     832</span> <span class="tlaGNC">           3 :     if (surface == NULL) {</span></span>
-<span id="L833"><span class="lineNum">     833</span> <span class="tlaUNC tlaBgUNC">           0 :         return ce_cairo_surface;</span></span>
-<span id="L834"><span class="lineNum">     834</span>              :     }</span>
-<span id="L835"><span class="lineNum">     835</span>              : </span>
-<span id="L836"><span class="lineNum">     836</span> <span class="tlaGNC tlaBgGNC">           3 :     switch (cairo_surface_get_type(surface)) {</span></span>
-<span id="L837"><span class="lineNum">     837</span> <span class="tlaGNC">           3 :         case CAIRO_SURFACE_TYPE_IMAGE:</span></span>
-<span id="L838"><span class="lineNum">     838</span> <span class="tlaGNC">           3 :             type = ce_cairo_imagesurface;</span></span>
-<span id="L839"><span class="lineNum">     839</span> <span class="tlaGNC">           3 :             break;</span></span>
-<span id="L840"><span class="lineNum">     840</span>              : </span>
-<span id="L841"><span class="lineNum">     841</span>              : #ifdef CAIRO_HAS_PDF_SURFACE</span>
-<span id="L842"><span class="lineNum">     842</span> <span class="tlaUNC tlaBgUNC">           0 :         case CAIRO_SURFACE_TYPE_PDF:</span></span>
-<span id="L843"><span class="lineNum">     843</span> <span class="tlaUNC">           0 :             type = ce_cairo_pdfsurface;</span></span>
-<span id="L844"><span class="lineNum">     844</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L845"><span class="lineNum">     845</span>              : #endif</span>
-<span id="L846"><span class="lineNum">     846</span>              : #ifdef CAIRO_HAS_SVG_SURFACE</span>
-<span id="L847"><span class="lineNum">     847</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_SVG:</span></span>
-<span id="L848"><span class="lineNum">     848</span> <span class="tlaUNC">           0 :             type = ce_cairo_svgsurface;</span></span>
-<span id="L849"><span class="lineNum">     849</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L850"><span class="lineNum">     850</span>              : #endif</span>
-<span id="L851"><span class="lineNum">     851</span>              : </span>
-<span id="L852"><span class="lineNum">     852</span>              : #ifdef CAIRO_HAS_PS_SURFACE</span>
-<span id="L853"><span class="lineNum">     853</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_PS:</span></span>
-<span id="L854"><span class="lineNum">     854</span> <span class="tlaUNC">           0 :             type = ce_cairo_pssurface;</span></span>
-<span id="L855"><span class="lineNum">     855</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L856"><span class="lineNum">     856</span>              : #endif</span>
-<span id="L857"><span class="lineNum">     857</span>              : </span>
-<span id="L858"><span class="lineNum">     858</span>              : #ifdef CAIRO_HAS_RECORDING_SURFACE</span>
-<span id="L859"><span class="lineNum">     859</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_RECORDING:</span></span>
-<span id="L860"><span class="lineNum">     860</span> <span class="tlaUNC">           0 :             type = ce_cairo_recordingsurface;</span></span>
-<span id="L861"><span class="lineNum">     861</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L862"><span class="lineNum">     862</span>              : #endif</span>
-<span id="L863"><span class="lineNum">     863</span>              : /*</span>
-<span id="L864"><span class="lineNum">     864</span>              : #ifdef CAIRO_HAS_WIN32_SURFACE</span>
-<span id="L865"><span class="lineNum">     865</span>              :         case CAIRO_SURFACE_TYPE_WIN32:</span>
-<span id="L866"><span class="lineNum">     866</span>              :             type = get_CairoWin32Surface_ce_ptr();</span>
-<span id="L867"><span class="lineNum">     867</span>              :             break;</span>
-<span id="L868"><span class="lineNum">     868</span>              : #endif</span>
-<span id="L869"><span class="lineNum">     869</span>              : #ifdef CAIRO_HAS_XLIB_SURFACE</span>
-<span id="L870"><span class="lineNum">     870</span>              :         case CAIRO_SURFACE_TYPE_XLIB:</span>
-<span id="L871"><span class="lineNum">     871</span>              :             type = get_CairoXlibSurface_ce_ptr();</span>
-<span id="L872"><span class="lineNum">     872</span>              :             break;</span>
-<span id="L873"><span class="lineNum">     873</span>              : #endif</span>
-<span id="L874"><span class="lineNum">     874</span>              : #ifdef CAIRO_HAS_QUARTZ_SURFACE</span>
-<span id="L875"><span class="lineNum">     875</span>              :         case CAIRO_SURFACE_TYPE_QUARTZ:</span>
-<span id="L876"><span class="lineNum">     876</span>              :             type = get_CairoQuartzSurface_ce_ptr();</span>
-<span id="L877"><span class="lineNum">     877</span>              :             break;</span>
-<span id="L878"><span class="lineNum">     878</span>              : #endif */</span>
-<span id="L879"><span class="lineNum">     879</span>              : </span>
-<span id="L880"><span class="lineNum">     880</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_SUBSURFACE:</span></span>
-<span id="L881"><span class="lineNum">     881</span> <span class="tlaUNC">           0 :             type = ce_cairo_subsurface;</span></span>
-<span id="L882"><span class="lineNum">     882</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L883"><span class="lineNum">     883</span>              : </span>
-<span id="L884"><span class="lineNum">     884</span> <span class="tlaUNC">           0 :         default:</span></span>
-<span id="L885"><span class="lineNum">     885</span> <span class="tlaUNC">           0 :             php_error(E_WARNING, &quot;Unsupported Cairo Surface Type&quot;);</span></span>
-<span id="L886"><span class="lineNum">     886</span> <span class="tlaUNC">           0 :             return NULL;</span></span>
-<span id="L887"><span class="lineNum">     887</span>              :     }</span>
-<span id="L888"><span class="lineNum">     888</span> <span class="tlaGNC tlaBgGNC">           3 :     return type;</span></span>
-<span id="L889"><span class="lineNum">     889</span>              : }</span>
-<span id="L890"><span class="lineNum">     890</span>              : </span>
-<span id="L891"><span class="lineNum">     891</span>              : /* ----------------------------------------------------------------</span>
-<span id="L892"><span class="lineNum">     892</span>              :     Cairo\Surface Definition and registration</span>
-<span id="L893"><span class="lineNum">     893</span>              : ------------------------------------------------------------------*/</span>
-<span id="L894"><span class="lineNum">     894</span>              : </span>
-<span id="L895"><span class="lineNum">     895</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L896"><span class="lineNum">     896</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_surface)</span></span>
-<span id="L897"><span class="lineNum">     897</span>              : {</span>
-<span id="L898"><span class="lineNum">     898</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
-<span id="L899"><span class="lineNum">     899</span>              :         &amp;cairo_surface_object_handlers,</span>
-<span id="L900"><span class="lineNum">     900</span>              :         zend_get_std_object_handlers(),</span>
-<span id="L901"><span class="lineNum">     901</span>              :         sizeof(cairo_surface_object_handlers)</span>
-<span id="L902"><span class="lineNum">     902</span>              :     );</span>
-<span id="L903"><span class="lineNum">     903</span>              : </span>
-<span id="L904"><span class="lineNum">     904</span>              :     /* Surface */</span>
-<span id="L905"><span class="lineNum">     905</span> <span class="tlaGNC">         423 :     cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);</span></span>
-<span id="L906"><span class="lineNum">     906</span> <span class="tlaGNC">         423 :     cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;</span></span>
-<span id="L907"><span class="lineNum">     907</span>              : </span>
-<span id="L908"><span class="lineNum">     908</span> <span class="tlaGNC">         423 :     ce_cairo_surface = register_class_Cairo_Surface();</span></span>
-<span id="L909"><span class="lineNum">     909</span> <span class="tlaGNC">         423 :     ce_cairo_surface-&gt;create_object = cairo_surface_create_object;</span></span>
-<span id="L910"><span class="lineNum">     910</span>              : </span>
-<span id="L911"><span class="lineNum">     911</span>              :     /* CairoContent */</span>
-<span id="L912"><span class="lineNum">     912</span> <span class="tlaGNC">         423 :     ce_cairo_content = register_class_Cairo_Surface_Content();</span></span>
-<span id="L913"><span class="lineNum">     913</span>              : </span>
-<span id="L914"><span class="lineNum">     914</span>              :     /* SurfaceType */</span>
-<span id="L915"><span class="lineNum">     915</span> <span class="tlaGNC">         423 :     ce_cairo_surfacetype = register_class_Cairo_Surface_Type();</span></span>
-<span id="L916"><span class="lineNum">     916</span>              : </span>
-<span id="L917"><span class="lineNum">     917</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
-<span id="L918"><span class="lineNum">     918</span>              : }</span>
+<span id="L818"><span class="lineNum">     818</span> <span class="tlaGNC">         650 :     read = php_stream_read(cast_closure-&gt;stream, (char *)data, length);</span></span>
+<span id="L819"><span class="lineNum">     819</span> <span class="tlaGNC">         650 :     if (read == length) {</span></span>
+<span id="L820"><span class="lineNum">     820</span> <span class="tlaGNC">         649 :         return CAIRO_STATUS_SUCCESS;</span></span>
+<span id="L821"><span class="lineNum">     821</span>              :     } else {</span>
+<span id="L822"><span class="lineNum">     822</span> <span class="tlaGNC">           1 :         return CAIRO_STATUS_READ_ERROR;</span></span>
+<span id="L823"><span class="lineNum">     823</span>              :     }</span>
+<span id="L824"><span class="lineNum">     824</span>              : }</span>
+<span id="L825"><span class="lineNum">     825</span>              : </span>
+<span id="L826"><span class="lineNum">     826</span> <span class="tlaGNC">           3 : zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)</span></span>
+<span id="L827"><span class="lineNum">     827</span>              : {</span>
+<span id="L828"><span class="lineNum">     828</span>              :     zend_class_entry *type;</span>
+<span id="L829"><span class="lineNum">     829</span>              : </span>
+<span id="L830"><span class="lineNum">     830</span> <span class="tlaGNC">           3 :     if (surface == NULL) {</span></span>
+<span id="L831"><span class="lineNum">     831</span> <span class="tlaUNC tlaBgUNC">           0 :         return ce_cairo_surface;</span></span>
+<span id="L832"><span class="lineNum">     832</span>              :     }</span>
+<span id="L833"><span class="lineNum">     833</span>              : </span>
+<span id="L834"><span class="lineNum">     834</span> <span class="tlaGNC tlaBgGNC">           3 :     switch (cairo_surface_get_type(surface)) {</span></span>
+<span id="L835"><span class="lineNum">     835</span> <span class="tlaGNC">           3 :         case CAIRO_SURFACE_TYPE_IMAGE:</span></span>
+<span id="L836"><span class="lineNum">     836</span> <span class="tlaGNC">           3 :             type = ce_cairo_imagesurface;</span></span>
+<span id="L837"><span class="lineNum">     837</span> <span class="tlaGNC">           3 :             break;</span></span>
+<span id="L838"><span class="lineNum">     838</span>              : </span>
+<span id="L839"><span class="lineNum">     839</span>              : #ifdef CAIRO_HAS_PDF_SURFACE</span>
+<span id="L840"><span class="lineNum">     840</span> <span class="tlaUNC tlaBgUNC">           0 :         case CAIRO_SURFACE_TYPE_PDF:</span></span>
+<span id="L841"><span class="lineNum">     841</span> <span class="tlaUNC">           0 :             type = ce_cairo_pdfsurface;</span></span>
+<span id="L842"><span class="lineNum">     842</span> <span class="tlaUNC">           0 :             break;</span></span>
+<span id="L843"><span class="lineNum">     843</span>              : #endif</span>
+<span id="L844"><span class="lineNum">     844</span>              : #ifdef CAIRO_HAS_SVG_SURFACE</span>
+<span id="L845"><span class="lineNum">     845</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_SVG:</span></span>
+<span id="L846"><span class="lineNum">     846</span> <span class="tlaUNC">           0 :             type = ce_cairo_svgsurface;</span></span>
+<span id="L847"><span class="lineNum">     847</span> <span class="tlaUNC">           0 :             break;</span></span>
+<span id="L848"><span class="lineNum">     848</span>              : #endif</span>
+<span id="L849"><span class="lineNum">     849</span>              : </span>
+<span id="L850"><span class="lineNum">     850</span>              : #ifdef CAIRO_HAS_PS_SURFACE</span>
+<span id="L851"><span class="lineNum">     851</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_PS:</span></span>
+<span id="L852"><span class="lineNum">     852</span> <span class="tlaUNC">           0 :             type = ce_cairo_pssurface;</span></span>
+<span id="L853"><span class="lineNum">     853</span> <span class="tlaUNC">           0 :             break;</span></span>
+<span id="L854"><span class="lineNum">     854</span>              : #endif</span>
+<span id="L855"><span class="lineNum">     855</span>              : </span>
+<span id="L856"><span class="lineNum">     856</span>              : #ifdef CAIRO_HAS_RECORDING_SURFACE</span>
+<span id="L857"><span class="lineNum">     857</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_RECORDING:</span></span>
+<span id="L858"><span class="lineNum">     858</span> <span class="tlaUNC">           0 :             type = ce_cairo_recordingsurface;</span></span>
+<span id="L859"><span class="lineNum">     859</span> <span class="tlaUNC">           0 :             break;</span></span>
+<span id="L860"><span class="lineNum">     860</span>              : #endif</span>
+<span id="L861"><span class="lineNum">     861</span>              : /*</span>
+<span id="L862"><span class="lineNum">     862</span>              : #ifdef CAIRO_HAS_WIN32_SURFACE</span>
+<span id="L863"><span class="lineNum">     863</span>              :         case CAIRO_SURFACE_TYPE_WIN32:</span>
+<span id="L864"><span class="lineNum">     864</span>              :             type = get_CairoWin32Surface_ce_ptr();</span>
+<span id="L865"><span class="lineNum">     865</span>              :             break;</span>
+<span id="L866"><span class="lineNum">     866</span>              : #endif</span>
+<span id="L867"><span class="lineNum">     867</span>              : #ifdef CAIRO_HAS_XLIB_SURFACE</span>
+<span id="L868"><span class="lineNum">     868</span>              :         case CAIRO_SURFACE_TYPE_XLIB:</span>
+<span id="L869"><span class="lineNum">     869</span>              :             type = get_CairoXlibSurface_ce_ptr();</span>
+<span id="L870"><span class="lineNum">     870</span>              :             break;</span>
+<span id="L871"><span class="lineNum">     871</span>              : #endif</span>
+<span id="L872"><span class="lineNum">     872</span>              : #ifdef CAIRO_HAS_QUARTZ_SURFACE</span>
+<span id="L873"><span class="lineNum">     873</span>              :         case CAIRO_SURFACE_TYPE_QUARTZ:</span>
+<span id="L874"><span class="lineNum">     874</span>              :             type = get_CairoQuartzSurface_ce_ptr();</span>
+<span id="L875"><span class="lineNum">     875</span>              :             break;</span>
+<span id="L876"><span class="lineNum">     876</span>              : #endif */</span>
+<span id="L877"><span class="lineNum">     877</span>              : </span>
+<span id="L878"><span class="lineNum">     878</span> <span class="tlaUNC">           0 :         case CAIRO_SURFACE_TYPE_SUBSURFACE:</span></span>
+<span id="L879"><span class="lineNum">     879</span> <span class="tlaUNC">           0 :             type = ce_cairo_subsurface;</span></span>
+<span id="L880"><span class="lineNum">     880</span> <span class="tlaUNC">           0 :             break;</span></span>
+<span id="L881"><span class="lineNum">     881</span>              : </span>
+<span id="L882"><span class="lineNum">     882</span> <span class="tlaUNC">           0 :         default:</span></span>
+<span id="L883"><span class="lineNum">     883</span> <span class="tlaUNC">           0 :             php_error(E_WARNING, &quot;Unsupported Cairo Surface Type&quot;);</span></span>
+<span id="L884"><span class="lineNum">     884</span> <span class="tlaUNC">           0 :             return NULL;</span></span>
+<span id="L885"><span class="lineNum">     885</span>              :     }</span>
+<span id="L886"><span class="lineNum">     886</span> <span class="tlaGNC tlaBgGNC">           3 :     return type;</span></span>
+<span id="L887"><span class="lineNum">     887</span>              : }</span>
+<span id="L888"><span class="lineNum">     888</span>              : </span>
+<span id="L889"><span class="lineNum">     889</span>              : /* ----------------------------------------------------------------</span>
+<span id="L890"><span class="lineNum">     890</span>              :     Cairo\Surface Definition and registration</span>
+<span id="L891"><span class="lineNum">     891</span>              : ------------------------------------------------------------------*/</span>
+<span id="L892"><span class="lineNum">     892</span>              : </span>
+<span id="L893"><span class="lineNum">     893</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
+<span id="L894"><span class="lineNum">     894</span> <span class="tlaGNC">         424 : PHP_MINIT_FUNCTION(cairo_surface)</span></span>
+<span id="L895"><span class="lineNum">     895</span>              : {</span>
+<span id="L896"><span class="lineNum">     896</span> <span class="tlaGNC">         424 :     memcpy(</span></span>
+<span id="L897"><span class="lineNum">     897</span>              :         &amp;cairo_surface_object_handlers,</span>
+<span id="L898"><span class="lineNum">     898</span>              :         zend_get_std_object_handlers(),</span>
+<span id="L899"><span class="lineNum">     899</span>              :         sizeof(cairo_surface_object_handlers)</span>
+<span id="L900"><span class="lineNum">     900</span>              :     );</span>
+<span id="L901"><span class="lineNum">     901</span>              : </span>
+<span id="L902"><span class="lineNum">     902</span>              :     /* Surface */</span>
+<span id="L903"><span class="lineNum">     903</span> <span class="tlaGNC">         424 :     cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);</span></span>
+<span id="L904"><span class="lineNum">     904</span> <span class="tlaGNC">         424 :     cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;</span></span>
+<span id="L905"><span class="lineNum">     905</span>              : </span>
+<span id="L906"><span class="lineNum">     906</span> <span class="tlaGNC">         424 :     ce_cairo_surface = register_class_Cairo_Surface();</span></span>
+<span id="L907"><span class="lineNum">     907</span> <span class="tlaGNC">         424 :     ce_cairo_surface-&gt;create_object = cairo_surface_create_object;</span></span>
+<span id="L908"><span class="lineNum">     908</span>              : </span>
+<span id="L909"><span class="lineNum">     909</span>              :     /* CairoContent */</span>
+<span id="L910"><span class="lineNum">     910</span> <span class="tlaGNC">         424 :     ce_cairo_content = register_class_Cairo_Surface_Content();</span></span>
+<span id="L911"><span class="lineNum">     911</span>              : </span>
+<span id="L912"><span class="lineNum">     912</span>              :     /* SurfaceType */</span>
+<span id="L913"><span class="lineNum">     913</span> <span class="tlaGNC">         424 :     ce_cairo_surfacetype = register_class_Cairo_Surface_Type();</span></span>
+<span id="L914"><span class="lineNum">     914</span>              : </span>
+<span id="L915"><span class="lineNum">     915</span> <span class="tlaGNC">         424 :     return SUCCESS;</span></span>
+<span id="L916"><span class="lineNum">     916</span>              : }</span>
         </pre>
               </td>
             </tr>
