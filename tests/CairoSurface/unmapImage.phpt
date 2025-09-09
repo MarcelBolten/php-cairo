@@ -2,9 +2,7 @@
 Cairo\Surface->unmapImage() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 if (!method_exists('Cairo\Surface', 'unmapImage')) {
     die('skip - Cairo\Surface->unmapImage not available');
 }
@@ -45,6 +43,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Surface\Image)#%d (0) {
 }
-Cairo\Surface::unmapImage(): Argument #1 ($image_surface) must be of type Cairo\Surface, string given
+Cairo\Surface::unmapImage(): Argument #1 ($surface) must be of type Cairo\Surface\Image, string given
 Cairo\Surface::unmapImage() expects exactly 1 argument, 0 given
 Cairo\Surface::unmapImage() expects exactly 1 argument, 2 given

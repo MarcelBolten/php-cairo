@@ -2,9 +2,7 @@
 Cairo\Context->getTarget() should return custom classes derived from Cairo\Surface\Image
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 class TestSurface extends Cairo\Surface\Image {

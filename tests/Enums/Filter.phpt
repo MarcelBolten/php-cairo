@@ -12,15 +12,15 @@ var_dump($enum);
 --EXPECTF--
 array(6) {
   [0]=>
-  enum(Cairo\Filter::FAST)
+  enum(Cairo\Filter::Fast)
   [1]=>
-  enum(Cairo\Filter::GOOD)
+  enum(Cairo\Filter::Good)
   [2]=>
-  enum(Cairo\Filter::BEST)
+  enum(Cairo\Filter::Best)
   [3]=>
-  enum(Cairo\Filter::NEAREST)
+  enum(Cairo\Filter::Nearest)
   [4]=>
-  enum(Cairo\Filter::BILINEAR)
+  enum(Cairo\Filter::Bilinear)
   [5]=>
-  enum(Cairo\Filter::GAUSSIAN)
+  enum(Cairo\Filter::Gaussian)
 }

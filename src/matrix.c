@@ -23,6 +23,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "matrix_arginfo.h"
 
 zend_class_entry *ce_cairo_matrix;
 static zend_object_handlers cairo_matrix_object_handlers;
@@ -103,24 +104,20 @@ cairo_matrix_t *cairo_matrix_object_get_matrix(zval *zv)
 }
 /* }}} */
 
+zend_class_entry* php_cairo_get_matrix_ce()
+{
+    return ce_cairo_matrix;
+}
+
 /* ----------------------------------------------------------------
     Cairo\Matrix Class API
 ------------------------------------------------------------------*/
-
-ZEND_BEGIN_ARG_INFO_EX(CairoMatrix____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, xx, IS_DOUBLE, 0, "1.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, yx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, xy, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, yy, IS_DOUBLE, 0, "1.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x0, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y0, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct([float xx, float yx, float xy, float yy, float x0, float y0])
     CairoMatrix is used throughout cairo to convert between different coordinate
     spaces. A CairoMatrix holds an affine transformation, such as a scale, rotation,
     shear, or a combination of these */
-PHP_METHOD(CairoMatrix, __construct)
+PHP_METHOD(Cairo_Matrix, __construct)
 {
     cairo_matrix_object *matrix_object;
     zend_object *object = Z_OBJ_P(getThis());
@@ -149,12 +146,9 @@ PHP_METHOD(CairoMatrix, __construct)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_initIdentity_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto object \Cairo\Matrix::initIdentity()
        Create initialized matrix to be an identity transformation. */
-PHP_METHOD(CairoMatrix, initIdentity)
+PHP_METHOD(Cairo_Matrix, initIdentity)
 {
     cairo_matrix_object *matrix_object;
 
@@ -170,15 +164,10 @@ PHP_METHOD(CairoMatrix, initIdentity)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_initTranslate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, tx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, ty, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto object \Cairo\Matrix::initTranslate(float tx, float ty)
        Create initialized matrix to a transformation that translates by
        tx and ty in the X and Y dimensions, respectively. */
-PHP_METHOD(CairoMatrix, initTranslate)
+PHP_METHOD(Cairo_Matrix, initTranslate)
 {
     double tx = 0.0, ty = 0.0;
     cairo_matrix_object *matrix_object;
@@ -198,15 +187,10 @@ PHP_METHOD(CairoMatrix, initTranslate)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_initScale_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sy, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto object \Cairo\Matrix::initScale(float sx, float sy)
        Create initialized matrix to a transformation that scales
        by sx and sy in the X and Y dimensions, respectively. */
-PHP_METHOD(CairoMatrix, initScale)
+PHP_METHOD(Cairo_Matrix, initScale)
 {
     double sx = 0.0, sy = 0.0;
     cairo_matrix_object *matrix_object;
@@ -226,13 +210,9 @@ PHP_METHOD(CairoMatrix, initScale)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_initRotate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, radians, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto object \Cairo\Matrix::initRotate(float radians)
        Create initialized matrix to a transformation that rotates by radians. */
-PHP_METHOD(CairoMatrix, initRotate)
+PHP_METHOD(Cairo_Matrix, initRotate)
 {
     double radians = 0.0;
     cairo_matrix_object *matrix_object;
@@ -251,16 +231,11 @@ PHP_METHOD(CairoMatrix, initRotate)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_translate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, tx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, ty, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoMatrix->translate(float tx, float ty)
     Applies a translation to the transformation. The effect of the new transformation
     is to first translate the coordinates by tx and ty, then apply the original
     transformation to the coordinates. */
-PHP_METHOD(CairoMatrix, translate)
+PHP_METHOD(Cairo_Matrix, translate)
 {
     double tx = 0.0, ty = 0.0;
     cairo_matrix_object *matrix_object;
@@ -279,16 +254,11 @@ PHP_METHOD(CairoMatrix, translate)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_scale_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sy, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoMatrix->scale(float sx, float sy)
        Applies scaling by sx, sy to the transformation in matrix. The effect of
        the new transformation is to first scale the coordinates by sx and sy, then apply
        the original transformation to the coordinates. */
-PHP_METHOD(CairoMatrix, scale)
+PHP_METHOD(Cairo_Matrix, scale)
 {
     double sx = 0.0, sy = 0.0;
     cairo_matrix_object *matrix_object;
@@ -307,15 +277,11 @@ PHP_METHOD(CairoMatrix, scale)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_rotate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, radians, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoMatrix->rotate(float radians)
        Applies rotation by radians to the transformation in matrix. The effect of the new
        transformation is to first rotate the coordinates by radians, then
        apply the original transformation to the coordinates. */
-PHP_METHOD(CairoMatrix, rotate)
+PHP_METHOD(Cairo_Matrix, rotate)
 {
     double radians = 0.0;
     cairo_matrix_object *matrix_object;
@@ -333,14 +299,11 @@ PHP_METHOD(CairoMatrix, rotate)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_invert_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void CairoMatrix->invert()
        Changes matrix to be the inverse of it's original value. Not all transformation
        matrices have inverses; if the matrix collapses points together (it is degenerate),
        then it has no inverse and this function will fail. */
-PHP_METHOD(CairoMatrix, invert)
+PHP_METHOD(Cairo_Matrix, invert)
 {
     cairo_matrix_object *matrix_object;
 
@@ -357,14 +320,9 @@ PHP_METHOD(CairoMatrix, invert)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_multiply_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, matrix1, Cairo\\Matrix, 1)
-    ZEND_ARG_OBJ_INFO(0, matrix2, Cairo\\Matrix, 1)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto CairoMatrix \Cairo\Matrix::multiply(Cairo\Matrix matrix1, Cairo\Matrix matrix2)
        Multiplies the affine transformations in two matrices together and returns the result */
-PHP_METHOD(CairoMatrix, multiply)
+PHP_METHOD(Cairo_Matrix, multiply)
 {
     zval *matrix1 = NULL, *matrix2 = NULL;
     cairo_matrix_object *matrix_object, *matrix_object1, *matrix_object2;
@@ -388,15 +346,10 @@ PHP_METHOD(CairoMatrix, multiply)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoMatrix_transform_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, dx, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, dy, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto array CairoMatrix->transformDistance(float dx, float dy)
        Transforms the distance vector (dx, dy) by matrix. This is similar to transform point
        except that the translation components of the transformation are ignored */
-PHP_METHOD(CairoMatrix, transformDistance)
+PHP_METHOD(Cairo_Matrix, transformDistance)
 {
     double dx = 0.0, dy = 0.0;
     cairo_matrix_object *matrix_object;
@@ -421,7 +374,7 @@ PHP_METHOD(CairoMatrix, transformDistance)
 
 /* {{{ proto array CairoMatrix->transformPoint(float x, float y)
        Transforms the point (x, y) by matrix. */
-PHP_METHOD(CairoMatrix, transformPoint)
+PHP_METHOD(Cairo_Matrix, transformPoint)
 {
     double x = 0.0, y = 0.0;
     cairo_matrix_object *matrix_object;
@@ -617,29 +570,9 @@ static HashTable *cairo_matrix_object_get_properties(zend_object *object)
     Cairo\Matrix Definition and registration
 ------------------------------------------------------------------*/
 
-/* {{{ cairo_matrix_methods[] */
-const zend_function_entry cairo_matrix_methods[] = {
-    PHP_ME(CairoMatrix, __construct, CairoMatrix____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoMatrix, initIdentity, CairoMatrix_initIdentity_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoMatrix, initTranslate, CairoMatrix_initTranslate_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoMatrix, initScale, CairoMatrix_initScale_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoMatrix, initRotate, CairoMatrix_initRotate_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoMatrix, translate, CairoMatrix_translate_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoMatrix, scale, CairoMatrix_scale_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoMatrix, rotate, CairoMatrix_rotate_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoMatrix, invert, CairoMatrix_invert_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoMatrix, multiply, CairoMatrix_multiply_args, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoMatrix, transformDistance, CairoMatrix_transform_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoMatrix, transformPoint, CairoMatrix_transform_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_matrix)
 {
-    zend_class_entry ce;
-
     memcpy(
         &cairo_matrix_object_handlers,
         zend_get_std_object_handlers(),
@@ -654,16 +587,8 @@ PHP_MINIT_FUNCTION(cairo_matrix)
     cairo_matrix_object_handlers.get_property_ptr_ptr = NULL;
     cairo_matrix_object_handlers.get_properties = cairo_matrix_object_get_properties;
 
-    INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, "Matrix", cairo_matrix_methods);
-    ce.create_object = cairo_matrix_create_object;
-    ce_cairo_matrix = zend_register_internal_class(&ce);
-
-    zend_declare_property_double(ce_cairo_matrix, "xx", sizeof("xx")-1, 1, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_matrix, "yx", sizeof("yx")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_matrix, "xy", sizeof("xy")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_matrix, "yy", sizeof("yy")-1, 1, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_matrix, "x0", sizeof("x0")-1, 0, ZEND_ACC_PUBLIC);
-    zend_declare_property_double(ce_cairo_matrix, "y0", sizeof("y0")-1, 0, ZEND_ACC_PUBLIC);
+    ce_cairo_matrix = register_class_Cairo_Matrix();
+    ce_cairo_matrix->create_object = cairo_matrix_create_object;
 
     return SUCCESS;
 }

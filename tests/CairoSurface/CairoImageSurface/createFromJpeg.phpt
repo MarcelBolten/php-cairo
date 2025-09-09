@@ -2,8 +2,9 @@
 Cairo\Surface\Image::createFromJpeg() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('JPEG', Cairo::availableSurfaces())) die('skip - JPEG support not available');
+include __DIR__ . '/../../skipif.inc';
+if (!in_array('JPEG', Cairo\Cairo::availableSurfaces()))
+    die('skip - JPEG support not available');
 die('skip till fixed'); // There is a bug with the stream
 --FILE--
 <?php

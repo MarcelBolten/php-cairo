@@ -13,7 +13,7 @@ var_dump($pattern);
 
 $extend = $pattern->getExtend();
 var_dump($extend);
-var_dump($extend == Cairo\Extend::NONE);
+var_dump($extend == Cairo\Extend::None);
 
 /* Total number of args needed = 0 */
 try {
@@ -26,6 +26,6 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-enum(Cairo\Extend::NONE)
+enum(Cairo\Extend::None)
 bool(true)
 Cairo\Pattern::getExtend() expects exactly 0 arguments, 1 given

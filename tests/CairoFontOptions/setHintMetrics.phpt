@@ -2,20 +2,18 @@
 Cairo\FontOptions->setHintMetrics() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
 var_dump($options);
 
-$options->setHintMetrics(Cairo\HintMetrics::ON);
+$options->setHintMetrics(Cairo\HintMetrics::On);
 $options->setHintMetrics();
 
 /* Wrong number args 2 */
 try {
-    $options->setHintMetrics(Cairo\HintMetrics::ON, 1);
+    $options->setHintMetrics(Cairo\HintMetrics::On, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

@@ -2,8 +2,8 @@
 Cairo\Surface\Svg::getVersions() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('SVG', Cairo::availableSurfaces())) die('skip - SVG surface not available');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 var_dump(Cairo\Surface\Svg::getVersions());
@@ -17,8 +17,8 @@ try {
 --EXPECTF--
 array(2) {
   [0]=>
-  enum(Cairo\Surface\Svg\Version::VERSION_1_1)
+  enum(Cairo\Surface\Svg\Version::Version_1_1)
   [1]=>
-  enum(Cairo\Surface\Svg\Version::VERSION_1_2)
+  enum(Cairo\Surface\Svg\Version::Version_1_2)
 }
-Cairo\Surface\Svg::getVersions() expects exactly 0 %s, 1 given
+Cairo\Surface\Svg::getVersions() expects exactly 0 arguments, 1 given

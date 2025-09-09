@@ -2,7 +2,7 @@
 Cairo\FontOptions->getHintStyle() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
@@ -19,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\HintStyle::DEFAULT)
+enum(Cairo\HintStyle::Default)
 Cairo\FontOptions::getHintStyle() expects exactly 0 arguments, 1 given

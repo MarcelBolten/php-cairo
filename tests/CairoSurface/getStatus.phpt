@@ -2,9 +2,7 @@
 Cairo\Surface->getStatus() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -13,7 +11,7 @@ var_dump($surface);
 $status = $surface->getStatus();
 
 var_dump($status);
-var_dump($status == \Cairo\Status::SUCCESS);
+var_dump($status == \Cairo\Status::Success);
 
 /* Wrong number args */
 try {
@@ -24,6 +22,6 @@ try {
 --EXPECTF--
 object(Cairo\Surface\Image)#%d (0) {
 }
-enum(Cairo\Status::SUCCESS)
+enum(Cairo\Status::Success)
 bool(true)
 Cairo\Surface::getStatus() expects exactly 0 arguments, 1 given

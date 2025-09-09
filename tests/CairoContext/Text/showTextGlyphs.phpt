@@ -2,7 +2,7 @@
 Cairo\Context->showTextGlyphs() function
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -93,9 +93,9 @@ Cairo\Context::showTextGlyphs() expects exactly 4 arguments, 1 given
 Cairo\Context::showTextGlyphs() expects exactly 4 arguments, 2 given
 Cairo\Context::showTextGlyphs() expects exactly 4 arguments, 3 given
 Cairo\Context::showTextGlyphs() expects exactly 4 arguments, 5 given
-Cairo\Context::showTextGlyphs(): Argument #1 ($utf8Str) must be of type string, array given
+Cairo\Context::showTextGlyphs(): Argument #1 ($text) must be of type string, array given
 Cairo\Context::showTextGlyphs(): Argument #2 ($glyphs) must be of type array, int given
 Cairo\Context::showTextGlyphs(): Argument #3 ($clusters) must be of type array, int given
 Cairo\Context::showTextGlyphs(): Argument #4 ($cluster_flags) must be of type int, array given
-Cairo\Context::showTextGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\Glyph objects.
-Cairo\Context::showTextGlyphs(): Argument #2 ($clusters) must be an array of Cairo\TextCluster objects.
+Cairo\Context::showTextGlyphs(): Argument #2 ($glyphs) must be an array of Cairo\Glyph objects.
+Cairo\Context::showTextGlyphs(): Argument #3 ($clusters) must be an array of Cairo\TextCluster objects.

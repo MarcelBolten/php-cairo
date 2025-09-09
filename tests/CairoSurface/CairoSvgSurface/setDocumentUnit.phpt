@@ -2,15 +2,10 @@
 Cairo\Surface\Svg::setDocumentUnit() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('SVG', Cairo::availableSurfaces())) {
-    die('skip - SVG surface not available');
-}
-if (!method_exists('Cairo\Surface\Svg', 'getDocumentUnit')) {
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
+if (!method_exists('Cairo\Surface\Svg', 'getDocumentUnit'))
     die('skip - Cairo\Surface\Svg->setDocumentUnit not available');
-}
 --FILE--
 <?php
 $surface = new Cairo\Surface\Svg(NULL, 50, 50);

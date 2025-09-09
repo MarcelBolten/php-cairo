@@ -2,9 +2,7 @@
 Cairo\FontOptions->getSubpixelOrder() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
@@ -21,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\SubPixelOrder::DEFAULT)
+enum(Cairo\SubPixelOrder::Default)
 Cairo\FontOptions::getSubpixelOrder() expects exactly 0 arguments, 1 given

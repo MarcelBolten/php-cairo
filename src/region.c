@@ -22,9 +22,9 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "region_arginfo.h"
 
 zend_class_entry *ce_cairo_region;
-extern zend_class_entry *ce_cairo_rectangle;
 zend_class_entry *ce_cairo_region_overlap;
 
 static zend_object_handlers cairo_region_object_handlers;
@@ -121,13 +121,9 @@ static zend_object* cairo_region_clone_obj(zend_object *old_object)
     \Cairo\Region Class API
 ------------------------------------------------------------------ */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion___construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_INFO(0, rectangles)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void __contruct([void | Cairo\Rectangle $rect | array Cairo\Rectangle $rects)
+/* {{{ proto void __contruct([void | Cairo\Rectangle $rect | array Cairo\Rectangle $rects])
     Creates a new region - optionally with a single or union of multiple rectangles inside */
-PHP_METHOD(CairoRegion, __construct)
+PHP_METHOD(Cairo_Region, __construct)
 {
     cairo_region_object *region_object;
     zval *rectangles_zval = NULL;
@@ -185,7 +181,7 @@ PHP_METHOD(CairoRegion, __construct)
 
 /* {{{ proto \Cairo\Status \Cairo\Region::getStatus()
    Checks whether an error has previous occurred for this region object. Returns CAIRO_STATUS_SUCCESS or CAIRO_STATUS_NO_MEMORY */
-PHP_METHOD(CairoRegion, getStatus)
+PHP_METHOD(Cairo_Region, getStatus)
 {
     cairo_region_object *region_object;
     zval status_case;
@@ -210,7 +206,7 @@ PHP_METHOD(CairoRegion, getStatus)
 
 /* {{{ proto long \Cairo\Region::getExtents()
    Gets the bounding rectangle of a region. Returns a \Cairo\Rectangle. */
-PHP_METHOD(CairoRegion, getExtents)
+PHP_METHOD(Cairo_Region, getExtents)
 {
     cairo_region_object *region_object;
     cairo_rectangle_object *rectangle_object;
@@ -222,7 +218,7 @@ PHP_METHOD(CairoRegion, getExtents)
         RETURN_THROWS();
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
     cairo_region_get_extents(region_object->region, rectangle_object->rect);
 }
@@ -230,7 +226,7 @@ PHP_METHOD(CairoRegion, getExtents)
 
 /* {{{ proto long \Cairo\Region::getNumRectangles()
    Returns the number of rectangles contained in region. */
-PHP_METHOD(CairoRegion, getNumRectangles)
+PHP_METHOD(Cairo_Region, getNumRectangles)
 {
     cairo_region_object *region_object;
 
@@ -245,13 +241,9 @@ PHP_METHOD(CairoRegion, getNumRectangles)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_getRectangle_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, number)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto long \Cairo\Region::getRectangle(int number).
    Returns the nth rectangle in region or false if rectangle does not exist. */
-PHP_METHOD(CairoRegion, getRectangle)
+PHP_METHOD(Cairo_Region, getRectangle)
 {
     long rectId;
     cairo_region_object *region_object;
@@ -266,19 +258,19 @@ PHP_METHOD(CairoRegion, getRectangle)
         RETURN_THROWS();
     }
 
-    if (rectId > cairo_region_num_rectangles(region_object->region)) {
+    if (rectId > cairo_region_num_rectangles(region_object->region) - 1) {
         RETURN_FALSE;
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-    cairo_region_get_rectangle(region_object->region, --rectId, rectangle_object->rect);
+    cairo_region_get_rectangle(region_object->region, rectId, rectangle_object->rect);
 }
 /* }}} */
 
 /* {{{ proto bool \Cairo\Region::isEmpty()
    Checks whether region is empty. Returns TRUE if region is empty, FALSE if it isn't. */
-PHP_METHOD(CairoRegion, isEmpty)
+PHP_METHOD(Cairo_Region, isEmpty)
 {
     cairo_region_object *region_object;
 
@@ -293,14 +285,9 @@ PHP_METHOD(CairoRegion, isEmpty)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_containsPoint_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto long \Cairo\Region::containsPoint(long x, long y)
    Checks whether (x, y) is contained in region. Returns TRUE if (x, y) is contained in region, FALSE if it is not. */
-PHP_METHOD(CairoRegion, containsPoint)
+PHP_METHOD(Cairo_Region, containsPoint)
 {
     long x, y;
     cairo_region_object *region_object;
@@ -319,16 +306,12 @@ PHP_METHOD(CairoRegion, containsPoint)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion_containsRectangle_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Region\Overlap \Cairo\Region::containsRectangle(Cairo\Rectangle $rect)
    Checks whether rectangle is inside, outside or partially contained in region.
    Returns OVERLAP::IN if rectangle is entirely inside region,
    OVERLAP::OUT if rectangle is entirely outside region, or
    OVERLAP::PART if rectangle is partially inside and partially outside region. */
-PHP_METHOD(CairoRegion, containsRectangle)
+PHP_METHOD(Cairo_Region, containsRectangle)
 {
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
@@ -360,13 +343,9 @@ PHP_METHOD(CairoRegion, containsRectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_equal_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, region, Cairo\\Region, 1)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto long \Cairo\Region::equal(\Cairo\Region region)
    Compares whether region_a is equivalent to region_b. NULL as an argument is equal to itself, but not to any non-NULL region. */
-PHP_METHOD(CairoRegion, equal)
+PHP_METHOD(Cairo_Region, equal)
 {
     zval *other_region = NULL;
     cairo_region_object *region_obj, *other_region_obj;
@@ -389,21 +368,16 @@ PHP_METHOD(CairoRegion, equal)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_translate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, dx)
-    ZEND_ARG_INFO(0, dy)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto long \Cairo\Region::translate(long dx, long dy)
    Translates region by (dx, dy). */
-PHP_METHOD(CairoRegion, translate)
+PHP_METHOD(Cairo_Region, translate)
 {
-    double dx, dy;
+    long dx, dy;
     cairo_region_object *region_object;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_DOUBLE(dx)
-        Z_PARAM_DOUBLE(dy)
+        Z_PARAM_LONG(dx)
+        Z_PARAM_LONG(dy)
     ZEND_PARSE_PARAMETERS_END();
 
     region_object = cairo_region_object_get(getThis());
@@ -411,20 +385,16 @@ PHP_METHOD(CairoRegion, translate)
         RETURN_THROWS();
     }
 
-    cairo_region_translate(region_object->region, (int)dx, (int)dy);
+    cairo_region_translate(region_object->region, dx, dy);
     if (php_cairo_throw_exception(cairo_region_status(region_object->region))) {
         RETURN_THROWS();
     }
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_intersect_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, region, Cairo\\Region, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::intersect(\Cairo\Region other_region)
    Computes the intersection with other_region and stores the result. */
-PHP_METHOD(CairoRegion, intersect)
+PHP_METHOD(Cairo_Region, intersect)
 {
     cairo_region_object *region_obj, *other_region_obj;
     zval *other_region;
@@ -452,13 +422,9 @@ PHP_METHOD(CairoRegion, intersect)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion_intersectRectangle_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::intersectRectangle(Cairo\Rectangle $rect)
    Computes the intersection with rectangle and stores the result. */
-PHP_METHOD(CairoRegion, intersectRectangle)
+PHP_METHOD(Cairo_Region, intersectRectangle)
 {
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
@@ -490,13 +456,9 @@ PHP_METHOD(CairoRegion, intersectRectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_subtract_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, region, Cairo\\Region, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::subtract(\Cairo\Region other_region)
    Subtracts other_region and stores the result. */
-PHP_METHOD(CairoRegion, subtract)
+PHP_METHOD(Cairo_Region, subtract)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
@@ -524,13 +486,9 @@ PHP_METHOD(CairoRegion, subtract)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion_subtractRectangle_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::subtractRectangle(Cairo\Rectangle $rect)
    Subtracts rectangle from region and stores the result. */
-PHP_METHOD(CairoRegion, subtractRectangle)
+PHP_METHOD(Cairo_Region, subtractRectangle)
 {
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
@@ -562,13 +520,9 @@ PHP_METHOD(CairoRegion, subtractRectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_union_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, region, Cairo\\Region, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::union(\Cairo\Region other_region)
    Computes the union with other_region and stores the result. */
-PHP_METHOD(CairoRegion, union)
+PHP_METHOD(Cairo_Region, union)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
@@ -596,13 +550,9 @@ PHP_METHOD(CairoRegion, union)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion_unionRectangle_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::unionRectangle(Cairo\Rectangle $rect)
    Computes the union of region with rectangle and stores the result. */
-PHP_METHOD(CairoRegion, unionRectangle)
+PHP_METHOD(Cairo_Region, unionRectangle)
 {
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
@@ -634,14 +584,10 @@ PHP_METHOD(CairoRegion, unionRectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_xor_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, region, Cairo\\Region, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::xor(\Cairo\Region other_region)
    Computes the exclusive difference with other_region and stores the result.
    That is, region will be set to contain all areas that are either in region or in other_region, but not in both. */
-PHP_METHOD(CairoRegion, xor)
+PHP_METHOD(Cairo_Region, xor)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
@@ -669,14 +615,10 @@ PHP_METHOD(CairoRegion, xor)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRegion_xorRectangle_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_OBJ_INFO(0, rectangle, Cairo\\Rectangle, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\Status \Cairo\Region::xorRectangle(Cairo\Rectangle $rect)
    Computes the exclusive difference of region with rectangle and stores the result.
    That is, region will be set to contain all areas that are either in region or in rectangle, but not in both. */
-PHP_METHOD(CairoRegion, xorRectangle)
+PHP_METHOD(Cairo_Region, xorRectangle)
 {
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
@@ -709,44 +651,14 @@ PHP_METHOD(CairoRegion, xorRectangle)
 /* }}} */
 
 
-
-
 /* ----------------------------------------------------------------
     \Cairo\Region Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoRegion_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_region_methods[] */
-const zend_function_entry cairo_region_methods[] = {
-    PHP_ME(CairoRegion, __construct, CairoRegion___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoRegion, getStatus, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, getExtents, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, getNumRectangles, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, getRectangle, CairoRegion_getRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, isEmpty, CairoRegion_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, containsPoint, CairoRegion_containsPoint_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, containsRectangle, CairoRegion_containsRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, equal, CairoRegion_equal_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, translate, CairoRegion_translate_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, intersect, CairoRegion_intersect_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, intersectRectangle, CairoRegion_intersectRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, subtract, CairoRegion_subtract_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, subtractRectangle, CairoRegion_subtractRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, union, CairoRegion_union_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, unionRectangle, CairoRegion_unionRectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, xor, CairoRegion_xor_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRegion, xorRectangle, CairoRegion_xorRectangle_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_region)
 {
-    zend_class_entry region_ce;
-
     memcpy(
         &cairo_region_object_handlers,
         zend_get_std_object_handlers(),
@@ -757,20 +669,11 @@ PHP_MINIT_FUNCTION(cairo_region)
     cairo_region_object_handlers.free_obj = cairo_region_free_obj;
     cairo_region_object_handlers.clone_obj = cairo_region_clone_obj;
 
-    INIT_NS_CLASS_ENTRY(region_ce, CAIRO_NAMESPACE, "Region", cairo_region_methods);
-    region_ce.create_object = cairo_region_create_object;
-    ce_cairo_region = zend_register_internal_class(&region_ce);
-
+    ce_cairo_region = register_class_Cairo_Region();
+    ce_cairo_region->create_object = cairo_region_create_object;
 
     /* Region\Overlap */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Region", "Overlap"), ce_cairo_region_overlap);
-
-#define CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_region_overlap, CAIRO_REGION_OVERLAP)
-
-    CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(IN);
-    CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(OUT);
-    CAIRO_REGION_OVERLAP_DECLARE_ENUM_CASE(PART);
+    ce_cairo_region_overlap = register_class_Cairo_Region_Overlap();
 
     return SUCCESS;
 }

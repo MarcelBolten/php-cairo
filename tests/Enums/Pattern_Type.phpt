@@ -10,17 +10,15 @@ use Cairo\Pattern\Type;
 $enum = Type::cases();
 var_dump($enum);
 --EXPECTF--
-array(6) {
+array(5) {
   [0]=>
-  enum(Cairo\Pattern\Type::SOLID)
+  enum(Cairo\Pattern\Type::Solid)
   [1]=>
-  enum(Cairo\Pattern\Type::SURFACE)
+  enum(Cairo\Pattern\Type::Surface)
   [2]=>
-  enum(Cairo\Pattern\Type::LINEAR)
+  enum(Cairo\Pattern\Type::Linear)
   [3]=>
-  enum(Cairo\Pattern\Type::RADIAL)
+  enum(Cairo\Pattern\Type::Radial)
   [4]=>
-  enum(Cairo\Pattern\Type::MESH)
-  [5]=>
-  enum(Cairo\Pattern\Type::RASTER_SOURCE)
+  enum(Cairo\Pattern\Type::Mesh)
 }

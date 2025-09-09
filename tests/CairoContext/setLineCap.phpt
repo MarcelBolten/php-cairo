@@ -2,7 +2,7 @@
 Cairo\Context->setLineCap() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setLineCap(Cairo\LineCap::SQUARE);
+$context->setLineCap(Cairo\LineCap::Square);
 var_dump($context->getLineCap());
 
 /* Wrong number args - 1 */
@@ -39,7 +39,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\LineCap::SQUARE)
+enum(Cairo\LineCap::Square)
 Cairo\Context::setLineCap() expects exactly 1 argument, 0 given
 Cairo\Context::setLineCap() expects exactly 1 argument, 2 given
 Cairo\Context::setLineCap(): Argument #1 ($linecap) must be of type Cairo\LineCap, array given

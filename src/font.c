@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "font_arginfo.h"
 
 
 zend_class_entry *ce_cairo_fontslant;
@@ -29,19 +30,23 @@ zend_class_entry *ce_cairo_fontweight;
 zend_class_entry *ce_cairo_toyfontface;
 
 /* ----------------------------------------------------------------
-    \Cairo\FontFace\Toy Class API
+    Cairo\FontOptions C API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoToyFontFace___construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, slant, Cairo\\FontSlant, 0, "Cairo\\FontSlant::NORMAL")
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, weight, Cairo\\FontWeight, 0, "Cairo\\FontWeight::NORMAL")
-ZEND_END_ARG_INFO()
+zend_class_entry * php_cairo_get_toyfontface_ce()
+{
+    return ce_cairo_toyfontface;
+}
+
+
+/* ----------------------------------------------------------------
+    \Cairo\FontFace\Toy Class API
+------------------------------------------------------------------*/
 
 /* {{{ proto void __construct(string family, \Cairo\FontSlant slant, \Cairo\FontWeight weight)
        Creates a font face from a triplet of family, slant, and weight. These font
        faces are used in implementation of the the "toy" font API.*/
-PHP_METHOD(CairoToyFontFace, __construct)
+PHP_METHOD(Cairo_FontFace_Toy, __construct)
 {
     char *family;
     size_t family_len;
@@ -70,6 +75,7 @@ PHP_METHOD(CairoToyFontFace, __construct)
             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
             : CAIRO_FONT_WEIGHT_NORMAL
     );
+
     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
         RETURN_THROWS();
     }
@@ -77,7 +83,7 @@ PHP_METHOD(CairoToyFontFace, __construct)
 
 /* {{{ proto string \Cairo\FontFace\Toy::getFamily()
         Gets the family name of a toy font. */
-PHP_METHOD(CairoToyFontFace, getFamily)
+PHP_METHOD(Cairo_FontFace_Toy, getFamily)
 {
     cairo_font_face_object *font_face_object;
 
@@ -94,7 +100,7 @@ PHP_METHOD(CairoToyFontFace, getFamily)
 
 /* {{{ proto \Cairo\FontSlant \Cairo\FontFace\Toy::getSlant()
         Gets the slant of a toy font. */
-PHP_METHOD(CairoToyFontFace, getSlant)
+PHP_METHOD(Cairo_FontFace_Toy, getSlant)
 {
     cairo_font_face_object *font_face_object;
     zval slant_case;
@@ -119,7 +125,7 @@ PHP_METHOD(CairoToyFontFace, getSlant)
 
 /* {{{ proto long \Cairo\FontFace\Toy::getWeight()
         Gets the weight of a toy font. */
-PHP_METHOD(CairoToyFontFace, getWeight)
+PHP_METHOD(Cairo_FontFace_Toy, getWeight)
 {
     cairo_font_face_object *font_face_object;
     zval weight_case;
@@ -146,47 +152,19 @@ PHP_METHOD(CairoToyFontFace, getWeight)
     \Cairo\FontFace\Toy Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoToyFontFace_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_toy_font_face_methods */
-static const zend_function_entry cairo_toy_font_face_methods[] = {
-    PHP_ME(CairoToyFontFace, __construct, CairoToyFontFace___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoToyFontFace, getFamily, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoToyFontFace, getSlant, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoToyFontFace, getWeight, CairoToyFontFace_method_no_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_font)
 {
-    zend_class_entry toyfont_ce;
-
-    INIT_NS_CLASS_ENTRY(toyfont_ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Toy",
-        cairo_toy_font_face_methods);
-    ce_cairo_toyfontface = zend_register_internal_class_ex(&toyfont_ce, ce_cairo_fontface);
+    ce_cairo_toyfontface = register_class_Cairo_FontFace_Toy(php_cairo_get_fontface_ce());
     ce_cairo_toyfontface->create_object = cairo_font_face_create_object;
 
     /* FontSlant */
-    CAIRO_REGISTER_ENUM_LONG("FontSlant", ce_cairo_fontslant);
-
-#define CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontslant, CAIRO_FONT_SLANT)
-
-    CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(NORMAL);
-    CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(ITALIC);
-    CAIRO_FONT_SLANT_DECLARE_ENUM_CASE(OBLIQUE);
+    ce_cairo_fontslant = register_class_Cairo_FontSlant();
 
     /* FontWeight */
-    CAIRO_REGISTER_ENUM_LONG("FontWeight", ce_cairo_fontweight);
+    ce_cairo_fontweight = register_class_Cairo_FontWeight();
 
-#define CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fontweight, CAIRO_FONT_WEIGHT)
-
-    CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(NORMAL);
-    CAIRO_FONTWEIGHT_DECLARE_ENUM_CASE(BOLD);
+    return SUCCESS;
 }
 /* }}} */

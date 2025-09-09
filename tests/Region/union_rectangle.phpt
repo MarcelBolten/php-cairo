@@ -6,30 +6,30 @@ include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $region = new Cairo\Region();
-var_dump( $region );
-var_dump( $region->getNumRectangles() );
-var_dump( $region->getExtents() );
+var_dump($region);
+var_dump($region->getNumRectangles());
+var_dump($region->getExtents());
 
 $rectangle1 = new Cairo\Rectangle(10,10,10,10);
-var_dump( $region->unionRectangle($rectangle1) == \CAIRO\STATUS::SUCCESS );
-var_dump( $region->getNumRectangles() );
-var_dump( $region->getExtents() );
+var_dump($region->unionRectangle($rectangle1) == \CAIRO\STATUS::Success);
+var_dump($region->getNumRectangles());
+var_dump($region->getExtents());
 
 $rectangle2 = new Cairo\Rectangle(10,10,20,20);
-var_dump( $region->unionRectangle($rectangle2) == \CAIRO\STATUS::SUCCESS );
-var_dump( $region->getNumRectangles() );
-var_dump( $region->getExtents() );
+var_dump($region->unionRectangle($rectangle2) == \CAIRO\STATUS::Success);
+var_dump($region->getNumRectangles());
+var_dump($region->getExtents());
 
-/* Wrong number args */
 try {
     $region->unionRectangle(1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
+/* Wrong number args */
 try {
     $region->unionRectangle($rectangle1, 'foo');
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECTF--

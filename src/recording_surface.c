@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "recording_surface_arginfo.h"
 
 #ifdef CAIRO_HAS_RECORDING_SURFACE
 
@@ -31,8 +32,8 @@ static double php_cairo_get_double_from_array(zval *val, const char *name)
 {
     zval *tmp;
 
-    //zend_string *key = zend_string_init_fast(name, strlen(name));
-    //tmp = zend_hash_find(Z_ARR_P(val), key);
+    // zend_string *key = zend_string_init_fast(name, strlen(name));
+    // tmp = zend_hash_find(Z_ARR_P(val), key);
     tmp = zend_hash_str_find(Z_ARRVAL_P(val), name, strlen(name));
     if (tmp != NULL) {
         if (Z_TYPE_P(tmp) != IS_DOUBLE) {
@@ -40,9 +41,10 @@ static double php_cairo_get_double_from_array(zval *val, const char *name)
         }
 
         return Z_DVAL_P(tmp);
-    } else {
-        zend_error(E_WARNING, "Key '%s' does not exist", name);
     }
+
+    zend_error(E_WARNING, "Key '%s' does not exist", name);
+
     return 0;
 }
 
@@ -61,14 +63,9 @@ static cairo_rectangle_t *php_cairo_make_rectangle(zval *val)
     Cairo\Surface\Recording Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoRecordingSurface___construct_args, ZEND_SEND_BY_VAL, 0, 1)
-    ZEND_ARG_OBJ_INFO(0, content, \\Cairo\\Surface\\Content, 0)
-    ZEND_ARG_INFO(0, extents)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\RecordingSurface::__construct(\Cairo\Surface\Content content, array extents)
        Returns new CairoRecordingSurface */
-PHP_METHOD(CairoRecordingSurface, __construct)
+PHP_METHOD(Cairo_Surface_Recording, __construct)
 {
     zval *content;
     cairo_surface_object *surface_object;
@@ -105,16 +102,12 @@ PHP_METHOD(CairoRecordingSurface, __construct)
 }
 /* }}} */
 
-
-ZEND_BEGIN_ARG_INFO(CairoRecordingSurface_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\RecordingSurface::inkExtents()
        Measures the extents of the operations stored within the recording-surface.
        This is useful to compute the required size of an image surface (or equivalent)
        into which to replay the full sequence of drawing operations.
        Returns array(x, y, width, height) */
-PHP_METHOD(CairoRecordingSurface, inkExtents)
+PHP_METHOD(Cairo_Surface_Recording, inkExtents)
 {
     cairo_surface_object *surface_object;
     double x, y, width, height;
@@ -139,7 +132,7 @@ PHP_METHOD(CairoRecordingSurface, inkExtents)
 /* {{{ proto \Cairo\RecordingSurface::getExtents()
        Get the extents of the recording-surface.
        Returns \Cairo\Rectangle if the surface is bounded and not in an error state, otherwise FALSE */
-PHP_METHOD(CairoRecordingSurface, getExtents)
+PHP_METHOD(Cairo_Surface_Recording, getExtents)
 {
     cairo_surface_object *surface_object;
     cairo_rectangle_object *rectangle_object;
@@ -160,7 +153,7 @@ PHP_METHOD(CairoRecordingSurface, getExtents)
         RETURN_FALSE;
     }
 
-    object_init_ex(return_value, ce_cairo_rectangle);
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
     rectangle_object->rect->x = rectangle->x;
     rectangle_object->rect->y = rectangle->y;
@@ -175,23 +168,10 @@ PHP_METHOD(CairoRecordingSurface, getExtents)
     \Cairo\RecordingSurface Definition and registration
 ------------------------------------------------------------------*/
 
-const zend_function_entry cairo_recording_surface_methods[] = {
-    PHP_ME(CairoRecordingSurface, __construct, CairoRecordingSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoRecordingSurface, inkExtents, CairoRecordingSurface_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoRecordingSurface, getExtents, CairoRecordingSurface_method_no_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_recording_surface)
 {
-    zend_class_entry ce;
-
-    INIT_NS_CLASS_ENTRY(ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "Recording",
-        cairo_recording_surface_methods);
-    ce_cairo_recordingsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+    ce_cairo_recordingsurface = register_class_Cairo_Surface_Recording(ce_cairo_surface);
 
     return SUCCESS;
 }

@@ -9,7 +9,7 @@ use Cairo\Pattern\Solid;
 
 $pattern = new Solid(1, 1, 1);
 $status = $pattern->getStatus();
-var_dump($status == Cairo\Status::SUCCESS);
+var_dump($status == Cairo\Status::Success);
 var_dump($status->getMessage());
 
 try {

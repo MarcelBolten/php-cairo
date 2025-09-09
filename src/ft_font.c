@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "ft_font_arginfo.h"
 
 #if defined(CAIRO_HAS_FT_FONT) && defined(HAVE_FREETYPE)
 
@@ -34,7 +35,12 @@ php_cairo_ft_error php_cairo_ft_errors[] =
 zend_class_entry *ce_cairo_ftfont;
 
 /* Functions for stream handling */
-static unsigned long php_cairo_ft_read_func(FT_Stream stream, unsigned long offset, unsigned char* buffer, unsigned long count) {
+static unsigned long php_cairo_ft_read_func(
+    FT_Stream stream,
+    unsigned long offset,
+    unsigned char* buffer,
+    unsigned long count
+) {
     stream_closure *closure;
     closure = (stream_closure *)stream->descriptor.pointer;
     php_stream_seek(closure->stream, offset, SEEK_SET);
@@ -132,14 +138,9 @@ static bool php_cairo_create_ft_font_face(
     \Cairo\FontFace\Ft Class API
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO_EX(CairoFtFontFace_construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_INFO(0, stream)
-    ZEND_ARG_INFO(0, load_flags)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto \Cairo\FontFace\Ft::__construct(string fontFilename, long load_flags)
        Creates a new font face for the FreeType font backend from a pre-opened FreeType face. */
-PHP_METHOD(CairoFtFontFace, __construct)
+PHP_METHOD(Cairo_FontFace_Ft, __construct)
 {
     zend_long load_flags = 0;
     int error = 0;
@@ -163,7 +164,10 @@ PHP_METHOD(CairoFtFontFace, __construct)
     } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE)  {
         php_stream_from_zval(stream, stream_zval);
     } else {
-        zend_throw_exception(ce_cairo_exception, "Cairo\\FontFace\\Ft::__construct() expects parameter 1 to be a string or a stream resource", 0);
+        zend_throw_exception(ce_cairo_exception,
+            "Cairo\\FontFace\\Ft::__construct() expects parameter 1 to be a string or a stream resource",
+            0
+        );
         RETURN_THROWS();
     }
 
@@ -194,7 +198,10 @@ PHP_METHOD(CairoFtFontFace, __construct)
 
     if (error) {
         const char *err_string = php_cairo_get_ft_error(error);
-        zend_throw_exception_ex(ce_cairo_exception, error, "Cairo\\FontFace\\Ft::__construct(): An error occurred opening the file %s", err_string);
+        zend_throw_exception_ex(ce_cairo_exception, error,
+            "Cairo\\FontFace\\Ft::__construct(): An error occurred opening the file %s",
+            err_string
+        );
         pefree(ft_container, 1);
         RETURN_THROWS();
     }
@@ -209,22 +216,10 @@ PHP_METHOD(CairoFtFontFace, __construct)
     \Cairo\FontFace\Ft Definition and registration
 ------------------------------------------------------------------*/
 
-/* {{{ cairo_ft_font_methods */
-static const zend_function_entry cairo_ft_font_methods[] = {
-    PHP_ME(CairoFtFontFace, __construct, CairoFtFontFace_construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_ft_font)
 {
-    zend_class_entry ft_font_face_ce;
-
-    INIT_NS_CLASS_ENTRY(ft_font_face_ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Ft",
-        cairo_ft_font_methods);
-    ce_cairo_ftfont = zend_register_internal_class_ex(&ft_font_face_ce, ce_cairo_fontface);
+    ce_cairo_ftfont = register_class_Cairo_FontFace_Ft(php_cairo_get_fontface_ce());
 
     return SUCCESS;
 }

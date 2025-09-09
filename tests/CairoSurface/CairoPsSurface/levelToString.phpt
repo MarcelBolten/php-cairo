@@ -2,12 +2,13 @@
 Cairo\Surface\Ps::levelToString() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not available');
-if(!method_exists('Cairo\Surface\Ps', 'levelToString')) die('skip - Cairo\Surface\Ps::levelToString not available');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
+if (!method_exists('\Cairo\Surface\Ps', 'levelToString'))
+    die('skip - Cairo\Surface\Ps::levelToString not available');
 --FILE--
 <?php
-echo Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level::LEVEL_2), PHP_EOL;
+echo Cairo\Surface\Ps::levelToString(Cairo\Surface\Ps\Level::Level_2), PHP_EOL;
 
 /* Wrong number args */
 try {

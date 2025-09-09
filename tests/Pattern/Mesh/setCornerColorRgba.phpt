@@ -75,5 +75,5 @@ Cairo\Pattern\Mesh::setCornerColorRgba(): Argument #2 ($red) must be of type flo
 Cairo\Pattern\Mesh::setCornerColorRgba(): Argument #3 ($green) must be of type float, array given
 Cairo\Pattern\Mesh::setCornerColorRgba(): Argument #4 ($blue) must be of type float, array given
 Cairo\Pattern\Mesh::setCornerColorRgba(): Argument #5 ($alpha) must be of type float, array given
-Invalid corner number. Expected 0, 1, 2, or 3.
-Invalid corner number. Expected 0, 1, 2, or 3.
+Invalid $corner_num. Expected 0, 1, 2, or 3.
+Invalid $corner_num. Expected 0, 1, 2, or 3.

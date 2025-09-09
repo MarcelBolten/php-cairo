@@ -2,12 +2,12 @@
 Cairo\FontWeight class constants
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $constants = array(
-	'NORMAL',
-	'BOLD',
+	'Normal',
+	'Bold',
 	);
 
 $error = false;
@@ -21,7 +21,5 @@ foreach($constants as $name) {
 if (!$error) {
 	echo "No missing constants, checked " . sizeof($constants) . "!\n";
 }
-echo "Done\n";
 --EXPECT--
 No missing constants, checked 2!
-Done

@@ -10,9 +10,9 @@ $region = new Cairo\Region($rectangle1);
 var_dump( $region );
 
 $rectangle2 = new Cairo\Rectangle(25,10,40,40);
-var_dump( $region->intersectRectangle($rectangle2) == \Cairo\Status::SUCCESS );
-var_dump( $region->getNumRectangles() );
-var_dump( $region->getExtents() );
+var_dump($region->intersectRectangle($rectangle2) == \Cairo\Status::Success);
+var_dump($region->getNumRectangles());
+var_dump($region->getExtents());
 
 /* Wrong number args */
 try {

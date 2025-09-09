@@ -2,7 +2,7 @@
 Cairo\Context->getLineCap() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -24,5 +24,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\LineCap::BUTT)
+enum(Cairo\LineCap::Butt)
 Cairo\Context::getLineCap() expects exactly 0 arguments, 1 given

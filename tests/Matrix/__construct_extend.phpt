@@ -9,8 +9,8 @@ use Cairo\Matrix;
 use Cairo\Exception;
 
 class Bad extends Matrix {
-    public $xx = 0;
-    public $xy = 0;
+    public float $xx = 0;
+    public float $xy = 0;
 
     public function __construct() {
     }

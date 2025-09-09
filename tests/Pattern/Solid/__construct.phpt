@@ -125,4 +125,4 @@ Cairo\Pattern\Solid::__construct() expects at most 4 arguments, 5 given
 Cairo\Pattern\Solid::__construct(): Argument #1 ($red) must be of type float, array given
 Cairo\Pattern\Solid::__construct(): Argument #2 ($green) must be of type float, array given
 Cairo\Pattern\Solid::__construct(): Argument #3 ($blue) must be of type float, array given
-Cairo\Pattern\Solid::__construct(): Argument #4 ($alpha) must be of type float, array given
+Cairo\Pattern\Solid::__construct(): Argument #4 ($alpha) must be of type ?float, array given

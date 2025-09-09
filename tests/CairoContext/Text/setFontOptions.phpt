@@ -2,7 +2,7 @@
 Cairo\Context->setFontOptions() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -53,4 +53,4 @@ bool(true)
 bool(true)
 Cairo\Context::setFontOptions() expects exactly 1 argument, 0 given
 Cairo\Context::setFontOptions() expects exactly 1 argument, 2 given
-Cairo\Context::setFontOptions(): Argument #1 ($fontoptions) must be of type Cairo\FontOptions, int given
+Cairo\Context::setFontOptions(): Argument #1 ($options) must be of type Cairo\FontOptions, int given

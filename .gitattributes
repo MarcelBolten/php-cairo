@@ -1,0 +1,7 @@
+# Configure proper diff drivers to improve the context lines in the output
+# of git diff and to improve token splitting for --word-diff.
+*.phpt diff=php
+*.php diff=php
+
+# Collapse generated files within git and pull request diff.
+**/*_arginfo.h linguist-generated -diff

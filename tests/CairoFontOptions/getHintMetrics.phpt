@@ -2,7 +2,7 @@
 Cairo\FontOptions->getHintMetrics() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
@@ -19,5 +19,5 @@ try {
 --EXPECTF--
 object(Cairo\FontOptions)#%d (0) {
 }
-enum(Cairo\HintMetrics::DEFAULT)
+enum(Cairo\HintMetrics::Default)
 Cairo\FontOptions::getHintMetrics() expects exactly 0 arguments, 1 given

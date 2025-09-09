@@ -2,12 +2,8 @@
 Cairo\Surface\Pdf::getVersions() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PDF', Cairo::availableSurfaces())) {
-    die('skip - PDF surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 var_dump(Cairo\Surface\Pdf::getVersions());
@@ -21,12 +17,12 @@ try {
 --EXPECTF--
 array(4) {
   [0]=>
-  enum(Cairo\Surface\Pdf\Version::VERSION_1_4)
+  enum(Cairo\Surface\Pdf\Version::Version_1_4)
   [1]=>
-  enum(Cairo\Surface\Pdf\Version::VERSION_1_5)
+  enum(Cairo\Surface\Pdf\Version::Version_1_5)
   [2]=>
-  enum(Cairo\Surface\Pdf\Version::VERSION_1_6)
+  enum(Cairo\Surface\Pdf\Version::Version_1_6)
   [3]=>
-  enum(Cairo\Surface\Pdf\Version::VERSION_1_7)
+  enum(Cairo\Surface\Pdf\Version::Version_1_7)
 }
 Cairo\Surface\Pdf::getVersions() expects exactly 0 %s, 1 given

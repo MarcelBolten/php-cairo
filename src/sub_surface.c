@@ -22,16 +22,29 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "sub_surface_arginfo.h"
 
 
 zend_class_entry *ce_cairo_subsurface;
 
-ZEND_BEGIN_ARG_INFO(CairoSubSurface___construct_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
+
+/* ----------------------------------------------------------------
+    \Cairo\TextCluster C API
+------------------------------------------------------------------*/
+
+zend_class_entry* php_cairo_get_subsurface_ce()
+{
+    return ce_cairo_subsurface;
+}
+
+
+/* ----------------------------------------------------------------
+    \Cairo\TextCluster Class API
+------------------------------------------------------------------*/
 
 /* {{{ proto CairoSubSurface __construct(int content, array extents)
        Returns new CairoSubSurface */
-PHP_METHOD(CairoSubSurface, __construct)
+PHP_METHOD(Cairo_Surface_SubSurface, __construct)
 {
     zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\SubSurface cannot be constructed", 0);
 }
@@ -42,20 +55,10 @@ PHP_METHOD(CairoSubSurface, __construct)
     Cairo\Surface\Sub Definition and registration
 ------------------------------------------------------------------*/
 
-static const zend_function_entry cairo_sub_surface_methods[] = {
-    PHP_ME(CairoSubSurface, __construct, CairoSubSurface___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    ZEND_FE_END
-};
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_sub_surface)
 {
-    zend_class_entry ce;
-
-    INIT_NS_CLASS_ENTRY(ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "Surface"), "SubSurface",
-        cairo_sub_surface_methods);
-    ce_cairo_subsurface = zend_register_internal_class_ex(&ce, ce_cairo_surface);
+    ce_cairo_subsurface = register_class_Cairo_Surface_SubSurface(ce_cairo_surface);
 
     return SUCCESS;
 }

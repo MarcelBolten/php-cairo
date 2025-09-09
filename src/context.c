@@ -22,6 +22,7 @@
 
 #include "php_cairo.h"
 #include "php_cairo_internal.h"
+#include "context_arginfo.h"
 
 zend_class_entry *ce_cairo_context;
 zend_class_entry *ce_cairo_fillrule;
@@ -131,18 +132,16 @@ zend_object* cairo_context_create_object(zend_class_entry *ce)
 }
 /* }}} */
 
+
 /* ----------------------------------------------------------------
     Cairo\Context Class API
 ------------------------------------------------------------------*/
 
 /* Basic Context */
-ZEND_BEGIN_ARG_INFO(CairoContext___construct_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-ZEND_END_ARG_INFO()
 
 /* {{{ proto void __construct(object surface)
    Returns new CairoContext object on the requested surface */
-PHP_METHOD(CairoContext, __construct)
+PHP_METHOD(Cairo_Context, __construct)
 {
     zval *surface_zval;
     cairo_context_object *context_object;
@@ -173,7 +172,7 @@ PHP_METHOD(CairoContext, __construct)
 
 /* {{{ proto \Cairo\Status \Cairo\Context::getStatus()
    Returns the current integer status of the CairoContext */
-PHP_METHOD(CairoContext, getStatus)
+PHP_METHOD(Cairo_Context, getStatus)
 {
     cairo_context_object *context_object;
     zval status_case;
@@ -198,7 +197,7 @@ PHP_METHOD(CairoContext, getStatus)
 
 /* {{{ proto void \Cairo\Context::save()
    Makes a copy of the current state of the context and saves it on an internal stack of saved states */
-PHP_METHOD(CairoContext, save)
+PHP_METHOD(Cairo_Context, save)
 {
     cairo_context_object *context_object;
 
@@ -218,7 +217,7 @@ PHP_METHOD(CairoContext, save)
 
 /* {{{ proto void \Cairo\Context::restore()
    Restores the context to the state saved and removes that state from the stack of saved states */
-PHP_METHOD(CairoContext, restore)
+PHP_METHOD(Cairo_Context, restore)
 {
     cairo_context_object *context_object;
 
@@ -238,7 +237,7 @@ PHP_METHOD(CairoContext, restore)
 
 /* {{{ proto void \Cairo\Context::pushGroup()
    Temporarily redirects drawing to an intermediate surface known as a group. */
-PHP_METHOD(CairoContext, pushGroup)
+PHP_METHOD(Cairo_Context, pushGroup)
 {
     cairo_context_object *context_object;
 
@@ -256,13 +255,9 @@ PHP_METHOD(CairoContext, pushGroup)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_pushGroupWithContent_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::pushGroupWithContent(\Cairo\Surface\Content content)
    Temporarily redirects drawing to an intermediate surface known as a group. */
-PHP_METHOD(CairoContext, pushGroupWithContent)
+PHP_METHOD(Cairo_Context, pushGroupWithContent)
 {
     cairo_context_object *context_object;
     zval *content;
@@ -288,7 +283,7 @@ PHP_METHOD(CairoContext, pushGroupWithContent)
 
 /* {{{ proto Cairo\Pattern object \Cairo\Context::popGroup()
    Terminates the redirection and returns a new pattern containing the results of all drawing operations performed to the group. */
-PHP_METHOD(CairoContext, popGroup)
+PHP_METHOD(Cairo_Context, popGroup)
 {
     cairo_pattern_t *pattern;
     cairo_context_object *context_object;
@@ -315,7 +310,7 @@ PHP_METHOD(CairoContext, popGroup)
 
 /* {{{ proto void \Cairo\Context::popGroupToSource()
    Terminates the redirection and installs the resulting pattern as the source pattern in the given cairo context. */
-PHP_METHOD(CairoContext, popGroupToSource)
+PHP_METHOD(Cairo_Context, popGroupToSource)
 {
     cairo_context_object *context_object;
 
@@ -336,7 +331,7 @@ PHP_METHOD(CairoContext, popGroupToSource)
 /* {{{ proto Cairo\Surface object \Cairo\Context::getGroupSurface()
    previous method-name was getGroupTarget()
    Gets the current destination surface for the context. */
-PHP_METHOD(CairoContext, getGroupSurface)
+PHP_METHOD(Cairo_Context, getGroupSurface)
 {
     cairo_context_object *context_object;
     cairo_surface_object *surface_object;
@@ -362,58 +357,48 @@ PHP_METHOD(CairoContext, getGroupSurface)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setSourceRGB_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, red)
-    ZEND_ARG_INFO(0, green)
-    ZEND_ARG_INFO(0, blue)
-ZEND_END_ARG_INFO()
+// /* {{{ proto void \Cairo\Context::setSourceRGB(float red, float green, float blue)
+//    Sets the source pattern within context to an opaque color.
+//    This opaque color will then be used for any subsequent drawing operation
+//    until a new source pattern is set. */
+// PHP_METHOD(Cairo_Context, setSourceRGB)
+// {
+//     double red = 0.0, green = 0.0, blue = 0.0;
+//     cairo_context_object *context_object;
 
-/* {{{ proto void \Cairo\Context::setSourceRGB(float red, float green, float blue)
-   Sets the source pattern within context to an opaque color.
-   This opaque color will then be used for any subsequent drawing operation
-   until a new source pattern is set. */
-PHP_METHOD(CairoContext, setSourceRGB)
-{
-    double red = 0.0, green = 0.0, blue = 0.0;
-    cairo_context_object *context_object;
+//     ZEND_PARSE_PARAMETERS_START(3, 3)
+//         Z_PARAM_DOUBLE(red)
+//         Z_PARAM_DOUBLE(green)
+//         Z_PARAM_DOUBLE(blue)
+//     ZEND_PARSE_PARAMETERS_END();
 
-    ZEND_PARSE_PARAMETERS_START(3, 3)
-        Z_PARAM_DOUBLE(red)
-        Z_PARAM_DOUBLE(green)
-        Z_PARAM_DOUBLE(blue)
-    ZEND_PARSE_PARAMETERS_END();
+//     context_object = cairo_context_object_get(getThis());
+//     if (!context_object) {
+//         RETURN_THROWS();
+//     }
 
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
+//     cairo_set_source_rgb(context_object->context, red, green, blue);
+//     if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+//         RETURN_THROWS();
+//     }
+// }
+// /* }}} */
 
-    cairo_set_source_rgb(context_object->context, red, green, blue);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setSourceRGBA_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, red)
-    ZEND_ARG_INFO(0, green)
-    ZEND_ARG_INFO(0, blue)
-    ZEND_ARG_INFO(0, alpha)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setSourceRGBA(float red, float green, float blue, float alpha)
+/* {{{ proto void \Cairo\Context::setSourceRgba(float red, float green, float blue, float alpha)
    Sets the source pattern within context to an translucent  color. This opaque color will then be used for any subsequent drawing operation until a new source pattern is set. */
-PHP_METHOD(CairoContext, setSourceRGBA)
+PHP_METHOD(Cairo_Context, setSourceRgba)
 {
     double red = 0.0, green = 0.0, blue = 0.0, alpha = 1.0;
+    bool alpha_is_null = true;
+
     cairo_context_object *context_object;
 
-    ZEND_PARSE_PARAMETERS_START(4, 4)
+    ZEND_PARSE_PARAMETERS_START(3, 4)
         Z_PARAM_DOUBLE(red)
         Z_PARAM_DOUBLE(green)
         Z_PARAM_DOUBLE(blue)
-        Z_PARAM_DOUBLE(alpha)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_DOUBLE_OR_NULL(alpha, alpha_is_null)
     ZEND_PARSE_PARAMETERS_END();
 
     context_object = cairo_context_object_get(getThis());
@@ -421,23 +406,22 @@ PHP_METHOD(CairoContext, setSourceRGBA)
         RETURN_THROWS();
     }
 
-    cairo_set_source_rgba(context_object->context, red, green, blue, alpha);
+    if (alpha_is_null) {
+        cairo_set_source_rgb(context_object->context, red, green, blue);
+    } else {
+        cairo_set_source_rgba(context_object->context, red, green, blue, alpha);
+    }
+
     if (php_cairo_throw_exception(cairo_status(context_object->context))) {
         RETURN_THROWS();
     }
 }
 /* }}} */
-
-ZEND_BEGIN_ARG_INFO_EX(CairoContext_setSurface_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
 
 /* {{{ proto void \Cairo\Context::setSurface(object surface [, float x, float y])
        previous method-name was setSourceSurface()
        This is a convenience function for creating a pattern from surface and setting it as the source. */
-PHP_METHOD(CairoContext, setSurface)
+PHP_METHOD(Cairo_Context, setSurface)
 {
     zval *surface_zval;
     cairo_context_object *context_object;
@@ -464,8 +448,8 @@ PHP_METHOD(CairoContext, setSurface)
     if (context_object->context == NULL) {
         context_object->context = cairo_create(surface_object->surface);
         if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
+            RETURN_THROWS();
+        }
     }
 
     cairo_set_source_surface(context_object->context, surface_object->surface, x, y);
@@ -487,7 +471,7 @@ PHP_METHOD(CairoContext, setSurface)
 /* {{{ proto CairoSurface object \Cairo\Context::getSurface
    previous method-name was getTarget()
    Gets the target surface for the cairo context that was set on creation */
-PHP_METHOD(CairoContext, getSurface)
+PHP_METHOD(Cairo_Context, getSurface)
 {
     cairo_surface_t *surface;
     cairo_context_object *context_object;
@@ -516,15 +500,11 @@ PHP_METHOD(CairoContext, getSurface)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setPattern_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, pattern, Cairo\\Pattern, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setPattern(CairoPattern object)
    previous method-name was setSource()
    Sets the source pattern within context to source.
    This pattern will then be used for any subsequent drawing operation until a new source pattern is set. */
-PHP_METHOD(CairoContext, setPattern)
+PHP_METHOD(Cairo_Context, setPattern)
 {
     zval *pattern_zval = NULL;
     cairo_context_object *context_object;
@@ -556,7 +536,7 @@ PHP_METHOD(CairoContext, setPattern)
 /* {{{ proto CairoPattern object \Cairo\Context::getPattern()
    previous method-name was getSource()
    Gets the current source pattern for the context. */
-PHP_METHOD(CairoContext, getPattern)
+PHP_METHOD(Cairo_Context, getPattern)
 {
     cairo_pattern_t *pattern;
     cairo_context_object *context_object;
@@ -585,13 +565,9 @@ PHP_METHOD(CairoContext, getPattern)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setAntialias_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, antialias)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setAntialias(\Cairo\Antialias antialias)
    Set the antialiasing mode of the rasterizer used for drawing shapes. */
-PHP_METHOD(CairoContext, setAntialias)
+PHP_METHOD(Cairo_Context, setAntialias)
 {
     cairo_context_object *context_object;
     cairo_antialias_t antialias;
@@ -617,7 +593,7 @@ PHP_METHOD(CairoContext, setAntialias)
 
 /* {{{ proto int \Cairo\Context::getAntialias()
    Gets the current shape antialiasing mode */
-PHP_METHOD(CairoContext, getAntialias)
+PHP_METHOD(Cairo_Context, getAntialias)
 {
     cairo_context_object *context_object;
     cairo_antialias_t antialias;
@@ -640,14 +616,9 @@ PHP_METHOD(CairoContext, getAntialias)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoContext_setDash_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_INFO(0, dashes)
-    ZEND_ARG_INFO(0, offset)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setDash(array dashes [, float offset])
    Sets the dash pattern to be used by cairo_stroke() */
-PHP_METHOD(CairoContext, setDash)
+PHP_METHOD(Cairo_Context, setDash)
 {
     cairo_context_object *context_object;
     double offset = 0.0;
@@ -693,7 +664,7 @@ PHP_METHOD(CairoContext, setDash)
 
 /* {{{ proto int \Cairo\Context::getDashCount()
    This function returns the length of the dash array or 0 */
-PHP_METHOD(CairoContext, getDashCount)
+PHP_METHOD(Cairo_Context, getDashCount)
 {
     cairo_context_object *context_object;
 
@@ -710,7 +681,7 @@ PHP_METHOD(CairoContext, getDashCount)
 
 /* {{{ proto array \Cairo\Context::getDash()
    Gets the current dash array and offset */
-PHP_METHOD(CairoContext, getDash)
+PHP_METHOD(Cairo_Context, getDash)
 {
     zval sub_array;
     cairo_context_object *context_object;
@@ -745,14 +716,10 @@ PHP_METHOD(CairoContext, getDash)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setFillRule_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, fillrule)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setFillRule(int setting)
    Set the current fill rule within the cairo context. The fill rule is used
    to determine which regions are inside or outside a complex path */
-PHP_METHOD(CairoContext, setFillRule)
+PHP_METHOD(Cairo_Context, setFillRule)
 {
     cairo_context_object *context_object;
     cairo_fill_rule_t fillrule;
@@ -778,7 +745,7 @@ PHP_METHOD(CairoContext, setFillRule)
 
 /* {{{ proto int \Cairo\Context::getFillRule()
    Gets the current fill rule */
-PHP_METHOD(CairoContext, getFillRule)
+PHP_METHOD(Cairo_Context, getFillRule)
 {
     cairo_context_object *context_object;
     cairo_fill_rule_t fillrule;
@@ -801,13 +768,9 @@ PHP_METHOD(CairoContext, getFillRule)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setLineCap_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, linecap, Cairo\\LineCap, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setLineCap(\Cairo\LineCap::Butt)
    Sets the current line cap style within the cairo context. */
-PHP_METHOD(CairoContext, setLineCap)
+PHP_METHOD(Cairo_Context, setLineCap)
 {
     cairo_context_object *context_object;
     zval *linecap_case;
@@ -833,7 +796,7 @@ PHP_METHOD(CairoContext, setLineCap)
 
 /* {{{ proto int \Cairo\Context::getLineCap()
    Gets the current line cap style */
-PHP_METHOD(CairoContext, getLineCap)
+PHP_METHOD(Cairo_Context, getLineCap)
 {
     cairo_context_object *context_object;
     zval linecap_case;
@@ -856,13 +819,9 @@ PHP_METHOD(CairoContext, getLineCap)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setLineJoin_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, linejoin)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setLineJoin(\Cairo\LineJoin::Miter)
    Sets the current line join style within the cairo context. */
-PHP_METHOD(CairoContext, setLineJoin)
+PHP_METHOD(Cairo_Context, setLineJoin)
 {
     cairo_context_object *context_object;
     cairo_line_join_t linejoin;
@@ -888,7 +847,7 @@ PHP_METHOD(CairoContext, setLineJoin)
 
 /* {{{ proto int \Cairo\Context::getLineJoin()
    Gets the current line join style */
-PHP_METHOD(CairoContext, getLineJoin)
+PHP_METHOD(Cairo_Context, getLineJoin)
 {
     cairo_context_object *context_object;
     cairo_line_join_t linejoin;
@@ -911,14 +870,10 @@ PHP_METHOD(CairoContext, getLineJoin)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setLineWidth_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, width)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setLineWidth(float width)
    Sets the current line width within the cairo context. The line width value
    specifies the diameter of a pen that is circular in user space */
-PHP_METHOD(CairoContext, setLineWidth)
+PHP_METHOD(Cairo_Context, setLineWidth)
 {
     cairo_context_object *context_object;
     double width = 0.0;
@@ -941,7 +896,7 @@ PHP_METHOD(CairoContext, setLineWidth)
 
 /* {{{ proto double \Cairo\Context::getLineWidth()
    This function returns the current line width value exactly as set by cairo_set_line_width() */
-PHP_METHOD(CairoContext, getLineWidth)
+PHP_METHOD(Cairo_Context, getLineWidth)
 {
     cairo_context_object *context_object;
 
@@ -956,13 +911,9 @@ PHP_METHOD(CairoContext, getLineWidth)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setMiterLimit_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, limit)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setMiterLimit(float limit)
    Sets the current miter limit within the cairo context. */
-PHP_METHOD(CairoContext, setMiterLimit)
+PHP_METHOD(Cairo_Context, setMiterLimit)
 {
     cairo_context_object *context_object;
     double limit = 0.0;
@@ -985,7 +936,7 @@ PHP_METHOD(CairoContext, setMiterLimit)
 
 /* {{{ proto double \Cairo\Context::getMiterLimit()
    Gets the current miter limit */
-PHP_METHOD(CairoContext, getMiterLimit)
+PHP_METHOD(Cairo_Context, getMiterLimit)
 {
     cairo_context_object *context_object;
 
@@ -1000,13 +951,9 @@ PHP_METHOD(CairoContext, getMiterLimit)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setOperator_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, operator)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setOperator(\Cairo\Operator::Over)
    Sets the compositing operator to be used for all drawing operations. */
-PHP_METHOD(CairoContext, setOperator)
+PHP_METHOD(Cairo_Context, setOperator)
 {
     cairo_context_object *context_object;
     cairo_operator_t operator;
@@ -1032,7 +979,7 @@ PHP_METHOD(CairoContext, setOperator)
 
 /* {{{ proto int \Cairo\Context::getOperator()
    Gets the current compositing operator for a cairo context. */
-PHP_METHOD(CairoContext, getOperator)
+PHP_METHOD(Cairo_Context, getOperator)
 {
     cairo_context_object *context_object;
     cairo_operator_t operator;
@@ -1055,14 +1002,10 @@ PHP_METHOD(CairoContext, getOperator)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setTolerance_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, tolerance)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setTolerance(float tolerance)
    Sets the tolerance used when converting paths into trapezoids.
    The default value is 0.1. A larger value will give better performance, a smaller value, better appearance. */
-PHP_METHOD(CairoContext, setTolerance)
+PHP_METHOD(Cairo_Context, setTolerance)
 {
     cairo_context_object *context_object;
     double tolerance = 0.1;
@@ -1085,7 +1028,7 @@ PHP_METHOD(CairoContext, setTolerance)
 
 /* {{{ proto double \Cairo\Context::getTolerance()
    Gets the current tolerance value */
-PHP_METHOD(CairoContext, getTolerance)
+PHP_METHOD(Cairo_Context, getTolerance)
 {
     cairo_context_object *context_object;
 
@@ -1103,7 +1046,7 @@ PHP_METHOD(CairoContext, getTolerance)
 /* {{{ proto void \Cairo\Context::clip()
    Establishes a new clip region by intersecting the current clip region with the current path as it
    would be filled by cairo_fill() and according to the current fill rule */
-PHP_METHOD(CairoContext, clip)
+PHP_METHOD(Cairo_Context, clip)
 {
     cairo_context_object *context_object;
 
@@ -1125,7 +1068,7 @@ PHP_METHOD(CairoContext, clip)
    Tests whether the given point is inside the area that would be visible
    through the current clip
  */
-PHP_METHOD(CairoContext, inClip)
+PHP_METHOD(Cairo_Context, inClip)
 {
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
@@ -1148,7 +1091,7 @@ PHP_METHOD(CairoContext, inClip)
    Establishes a new clip region by intersecting the current clip region with the current path as it
    would be filled by cairo_fill() and according to the current fill rule
    Unlike cairo_clip(), cairo_clip_preserve() preserves the path within the cairo context. */
-PHP_METHOD(CairoContext, clipPreserve)
+PHP_METHOD(Cairo_Context, clipPreserve)
 {
     cairo_context_object *context_object;
 
@@ -1168,7 +1111,7 @@ PHP_METHOD(CairoContext, clipPreserve)
 
 /* {{{ proto void \Cairo\Context::resetClip()
    Reset the current clip region to its original, unrestricted state. */
-PHP_METHOD(CairoContext, resetClip)
+PHP_METHOD(Cairo_Context, resetClip)
 {
     cairo_context_object *context_object;
 
@@ -1189,7 +1132,7 @@ PHP_METHOD(CairoContext, resetClip)
 /* {{{ proto array \Cairo\Context::getClipExtents()
    previous method-name was clipExtents()
    Computes a bounding box in user coordinates covering the area inside the current clip. */
-PHP_METHOD(CairoContext, getClipExtents)
+PHP_METHOD(Cairo_Context, getClipExtents)
 {
     cairo_context_object *context_object;
     double x1, y1, x2, y2;
@@ -1215,7 +1158,7 @@ PHP_METHOD(CairoContext, getClipExtents)
 
 /* {{{ proto array \Cairo\Context::clipRectangleList()
    Gets the current stroke region as a list of rectangles in user coordinates. */
-PHP_METHOD(CairoContext, clipRectangleList)
+PHP_METHOD(Cairo_Context, getClipRectangleList)
 {
     cairo_context_object *context_object;
     cairo_rectangle_list_t *rectangles;
@@ -1256,7 +1199,7 @@ PHP_METHOD(CairoContext, clipRectangleList)
 /* {{{ proto void \Cairo\Context::fill()
    A drawing operator that fills the current path according to the current fill rule,
    (each sub-path is implicitly closed before being filled). */
-PHP_METHOD(CairoContext, fill)
+PHP_METHOD(Cairo_Context, fill)
 {
     cairo_context_object *context_object;
 
@@ -1278,7 +1221,7 @@ PHP_METHOD(CairoContext, fill)
    A drawing operator that fills the current path according to the current fill rule,
    (each sub-path is implicitly closed before being filled). Unlike cairo_fill(),
    cairo_fill_preserve() preserves the path within the cairo context. */
-PHP_METHOD(CairoContext, fillPreserve)
+PHP_METHOD(Cairo_Context, fillPreserve)
 {
     cairo_context_object *context_object;
 
@@ -1300,7 +1243,7 @@ PHP_METHOD(CairoContext, fillPreserve)
    previous method-name was fillExtents()
    Computes a bounding box in user coordinates covering the area that would be affected,
    (the "inked" area), by a cairo_fill() operation given the current path and fill parameters. */
-PHP_METHOD(CairoContext, getFillExtents)
+PHP_METHOD(Cairo_Context, getFillExtents)
 {
     cairo_context_object *context_object;
     double x1, y1, x2, y2;
@@ -1327,7 +1270,7 @@ PHP_METHOD(CairoContext, getFillExtents)
 /* {{{ proto bool \Cairo\Context::inFill(int x, int y)
    Tests whether the given point is inside the area that would be affected by a cairo_fill()
    operation given the current path and filling parameters. */
-PHP_METHOD(CairoContext, inFill)
+PHP_METHOD(Cairo_Context, inFill)
 {
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
@@ -1346,13 +1289,9 @@ PHP_METHOD(CairoContext, inFill)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_mask_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, pattern, Cairo\\Pattern, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::mask(CairoPattern object)
    A drawing operator that paints the current source using the alpha channel of pattern as a mask. */
-PHP_METHOD(CairoContext, mask)
+PHP_METHOD(Cairo_Context, mask)
 {
     zval *pattern_zval = NULL;
     cairo_context_object *context_object;
@@ -1375,16 +1314,10 @@ PHP_METHOD(CairoContext, mask)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO_EX(CairoContext_maskSurface_args, ZEND_SEND_BY_VAL, 0, 1)
-    ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, x, IS_DOUBLE, 0, "0.0")
-    ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, y, IS_DOUBLE, 0, "0.0")
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::maskSurface(object surface [, float x, float y])
        A drawing operator that paints the current source using the alpha channel of surface as a mask.
  */
-PHP_METHOD(CairoContext, maskSurface)
+PHP_METHOD(Cairo_Context, maskSurface)
 {
     zval *surface_zval = NULL;
     cairo_context_object *context_object;
@@ -1413,7 +1346,7 @@ PHP_METHOD(CairoContext, maskSurface)
 
 /* {{{ proto void \Cairo\Context::paint()
    A drawing operator that paints the current source everywhere within the current clip region. */
-PHP_METHOD(CairoContext, paint)
+PHP_METHOD(Cairo_Context, paint)
 {
     cairo_context_object *context_object;
 
@@ -1431,13 +1364,9 @@ PHP_METHOD(CairoContext, paint)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_paintWithAlpha_args, ZEND_SEND_BY_VAL)
-ZEND_ARG_INFO(0, alpha)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::paintWithAlpha(float alpha)
    A drawing operator that paints the current source everywhere within the current clip region using a mask of constant alpha value alpha. */
-PHP_METHOD(CairoContext, paintWithAlpha)
+PHP_METHOD(Cairo_Context, paintWithAlpha)
 {
     cairo_context_object *context_object;
     double alpha = 0.0;
@@ -1460,7 +1389,7 @@ PHP_METHOD(CairoContext, paintWithAlpha)
 
 /* {{{ proto void \Cairo\Context::stroke()
    A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings. */
-PHP_METHOD(CairoContext, stroke)
+PHP_METHOD(Cairo_Context, stroke)
 {
     cairo_context_object *context_object;
 
@@ -1481,7 +1410,7 @@ PHP_METHOD(CairoContext, stroke)
 /* {{{ proto void \Cairo\Context::strokePreserve()
    A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings.
    Unlike cairo_stroke(), cairo_stroke_preserve() preserves the path within the cairo context. */
-PHP_METHOD(CairoContext, strokePreserve)
+PHP_METHOD(Cairo_Context, strokePreserve)
 {
     cairo_context_object *context_object;
 
@@ -1502,7 +1431,7 @@ PHP_METHOD(CairoContext, strokePreserve)
 /* {{{ proto array \Cairo\Context::strokeExtents()
    Computes a bounding box in user coordinates covering the area that would be affected, (the "inked" area), by a cairo_stroke()
    operation operation given the current path and stroke parameters. */
-PHP_METHOD(CairoContext, strokeExtents)
+PHP_METHOD(Cairo_Context, getStrokeExtents)
 {
     cairo_context_object *context_object;
     double x1, y1, x2, y2;
@@ -1529,7 +1458,7 @@ PHP_METHOD(CairoContext, strokeExtents)
 /* {{{ proto bool \Cairo\Context::inStroke(int x, int y)
    Tests whether the given point is inside the area that would be affected by a cairo_stroke()
    operation given the current path and stroking parameters. */
-PHP_METHOD(CairoContext, inStroke)
+PHP_METHOD(Cairo_Context, inStroke)
 {
     cairo_context_object *context_object;
     double x = 0.0, y = 0.0;
@@ -1551,7 +1480,7 @@ PHP_METHOD(CairoContext, inStroke)
 /* {{{ proto void \Cairo\Context::copyPage()
    Emits the current page for backends that support multiple pages, but doesn't clear it,
    so, the contents of the current page will be retained for the next page too.*/
-PHP_METHOD(CairoContext, copyPage)
+PHP_METHOD(Cairo_Context, copyPage)
 {
     cairo_context_object *context_object;
 
@@ -1572,7 +1501,7 @@ PHP_METHOD(CairoContext, copyPage)
 /* {{{ proto void \Cairo\Context::showPage()
    Emits and clears the current page for backends that support multiple pages.
    Use cairo_copy_page() if you don't want to clear the page. */
-PHP_METHOD(CairoContext, showPage)
+PHP_METHOD(Cairo_Context, showPage)
 {
     cairo_context_object *context_object;
 
@@ -1590,15 +1519,56 @@ PHP_METHOD(CairoContext, showPage)
 }
 /* }}} */
 
-/* Transformations */
-ZEND_BEGIN_ARG_INFO(CairoContext_method_args_x_y, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-ZEND_END_ARG_INFO()
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)
+/* {{{ proto void \Cairo\Context::setHairline(bool hairline)
+   Sets whether to use hairline mode for stroking.
+   Hairline mode is disabled by default. */
+PHP_METHOD(Cairo_Context, setHairline)
+{
+    cairo_context_object *context_object;
+    bool hairline = false;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_BOOL(hairline)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_set_hairline(context_object->context, hairline);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto bool \Cairo\Context::getHairline()
+   Gets whether hairline mode is enabled for stroking. */
+PHP_METHOD(Cairo_Context, getHairline)
+{
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    RETURN_BOOL(cairo_get_hairline(context_object->context));
+}
+/* }}} */
+#endif
+
+/*
+ * Transformations
+ */
 
 /* {{{ proto void \Cairo\Context::translate(float x, float y)
    Modifies the current transformation matrix by translating the user-space origin by (x, y) */
-PHP_METHOD(CairoContext, translate)
+PHP_METHOD(Cairo_Context, translate)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1622,7 +1592,7 @@ PHP_METHOD(CairoContext, translate)
 
 /* {{{ proto void \Cairo\Context::scale(float x, float y)
    Modifies the current transformation matrix by scaling the X and Y user-space axes by x and y respectively */
-PHP_METHOD(CairoContext, scale)
+PHP_METHOD(Cairo_Context, scale)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1644,13 +1614,9 @@ PHP_METHOD(CairoContext, scale)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_rotate_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, angle)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::rotate(float angle)
    Modifies the current transformation matrix by rotating the user-space axes by angle radians */
-PHP_METHOD(CairoContext, rotate)
+PHP_METHOD(Cairo_Context, rotate)
 {
     double angle = 0.0;
     cairo_context_object *context_object;
@@ -1670,13 +1636,9 @@ PHP_METHOD(CairoContext, rotate)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_transform_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, matrix, Cairo\\Matrix, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::transform(\Cairo\Matrix matrix)
    Modifies the current transformation matrix by applying a matrix as an additional transformation */
-PHP_METHOD(CairoContext, transform)
+PHP_METHOD(Cairo_Context, transform)
 {
     zval *matrix_zval = NULL;
     cairo_context_object *context_object;
@@ -1699,13 +1661,9 @@ PHP_METHOD(CairoContext, transform)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_setMatrix_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, matrix, Cairo\\Matrix, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::setMatrix(\Cairo\Matrix matrix)
    Sets the current transformation matrix */
-PHP_METHOD(CairoContext, setMatrix)
+PHP_METHOD(Cairo_Context, setMatrix)
 {
     zval *matrix_zval = NULL;
     cairo_context_object *context_object;
@@ -1736,7 +1694,7 @@ PHP_METHOD(CairoContext, setMatrix)
 
 /* {{{ proto \Cairo\Matrix matrix \Cairo\Context::getMatrix()
    Returns the current transformation matrix */
-PHP_METHOD(CairoContext, getMatrix)
+PHP_METHOD(Cairo_Context, getMatrix)
 {
     cairo_context_object *context_object;
     cairo_matrix_object *matrix_object;
@@ -1752,7 +1710,7 @@ PHP_METHOD(CairoContext, getMatrix)
     CAIRO_RETURN_IF_REF(context_object->matrix);
 
     /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
     matrix_object = Z_CAIRO_MATRIX_P(return_value);
     cairo_get_matrix(context_object->context, matrix_object->matrix);
 }
@@ -1760,7 +1718,7 @@ PHP_METHOD(CairoContext, getMatrix)
 
 /* {{{ proto void \Cairo\Context::identityMatrix()
    Resets the current transformation matrix by setting it equal to the identity matrix */
-PHP_METHOD(CairoContext, identityMatrix)
+PHP_METHOD(Cairo_Context, identityMatrix)
 {
     cairo_context_object *context_object;
 
@@ -1781,7 +1739,7 @@ PHP_METHOD(CairoContext, identityMatrix)
 /* {{{ proto array cairo_user_to_device(CairoContext object, int x, int y)
    proto array \Cairo\Context::userToDevice(int x, int y)
    Transform a coordinate from user space to device space by multiplying the given point by the current transformation matrix */
-PHP_METHOD(CairoContext, userToDevice)
+PHP_METHOD(Cairo_Context, userToDevice)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1811,7 +1769,7 @@ PHP_METHOD(CairoContext, userToDevice)
    Transform a coordinate from user space to device space by multiplying the
    given point by the current transformation matrix except that the translation components
    are ignored */
-PHP_METHOD(CairoContext, userToDeviceDistance)
+PHP_METHOD(Cairo_Context, userToDeviceDistance)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1840,7 +1798,7 @@ PHP_METHOD(CairoContext, userToDeviceDistance)
 /* {{{ proto array \Cairo\Context::deviceToUser(int x, int y)
    Transform a coordinate from device space to user space by multiplying the given
    point by the inverse of the current transformation matrix */
-PHP_METHOD(CairoContext, deviceToUser)
+PHP_METHOD(Cairo_Context, deviceToUser)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1868,7 +1826,7 @@ PHP_METHOD(CairoContext, deviceToUser)
 
 /* {{{ proto void \Cairo\Context::deviceToUserDistance(int x, int y)
    Transform a distance vector from device space to user space. */
-PHP_METHOD(CairoContext, deviceToUserDistance)
+PHP_METHOD(Cairo_Context, deviceToUserDistance)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -1894,9 +1852,13 @@ PHP_METHOD(CairoContext, deviceToUserDistance)
 }
 /* }}} */
 
+/*
+ * Paths
+ */
+
 /* {{{ proto CairoPath object \Cairo\Context::copyPath()
    Creates a copy of the current path and returns it to the user as a CairoPath object */
-PHP_METHOD(CairoContext, copyPath)
+PHP_METHOD(Cairo_Context, copyPath)
 {
     cairo_path_object *path_object;
     cairo_context_object *context_object;
@@ -1920,7 +1882,7 @@ PHP_METHOD(CairoContext, copyPath)
 /* {{{ proto CairoPath object \Cairo\Context::copyPathFlat()
    Creates a copy of the current path and returns it to the user as a CairoPath object
    any curves in the path will be approximated with piecewise-linear approximations*/
-PHP_METHOD(CairoContext, copyPathFlat)
+PHP_METHOD(Cairo_Context, copyPathFlat)
 {
     cairo_path_object *path_object;
     cairo_context_object *context_object;
@@ -1941,13 +1903,9 @@ PHP_METHOD(CairoContext, copyPathFlat)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_appendPath_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, path, Cairo\\Path, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::appendPath(CairoPath object)
    Append the path onto the current path. */
-PHP_METHOD(CairoContext, appendPath)
+PHP_METHOD(Cairo_Context, appendPath)
 {
     zval *path_zval = NULL;
     const cairo_path_t *path;
@@ -1974,7 +1932,7 @@ PHP_METHOD(CairoContext, appendPath)
 
 /* {{{ proto bool \Cairo\Context::hasCurrentPoint()
    Returns whether a current point is defined on the current path. */
-PHP_METHOD(CairoContext, hasCurrentPoint)
+PHP_METHOD(Cairo_Context, hasCurrentPoint)
 {
     cairo_context_object *context_object;
 
@@ -1991,7 +1949,7 @@ PHP_METHOD(CairoContext, hasCurrentPoint)
 
 /* {{{ proto array \Cairo\Context::getCurrentPoint()
    Gets the current point of the current path, which is conceptually the final point reached by the path so far. */
-PHP_METHOD(CairoContext, getCurrentPoint)
+PHP_METHOD(Cairo_Context, getCurrentPoint)
 {
     double x, y;
     cairo_context_object *context_object;
@@ -2016,7 +1974,7 @@ PHP_METHOD(CairoContext, getCurrentPoint)
 
 /* {{{ proto void \Cairo\Context::newPath()
    Clears the current path. After this call there will be no path and no current point. */
-PHP_METHOD(CairoContext, newPath)
+PHP_METHOD(Cairo_Context, newPath)
 {
     cairo_context_object *context_object;
 
@@ -2036,7 +1994,7 @@ PHP_METHOD(CairoContext, newPath)
 
 /* {{{ proto void \Cairo\Context::newSubPath()
    Begin a new sub-path. Note that the existing path is not affected. After this call there will be no current point. */
-PHP_METHOD(CairoContext, newSubPath)
+PHP_METHOD(Cairo_Context, newSubPath)
 {
     cairo_context_object *context_object;
 
@@ -2057,7 +2015,7 @@ PHP_METHOD(CairoContext, newSubPath)
 /* {{{ proto void \Cairo\Context::closePath()
    Adds a line segment to the path from the current point to the beginning of the current sub-path,
    and closes this sub-path. After this call the current point will be at the joined endpoint of the sub-path. */
-PHP_METHOD(CairoContext, closePath)
+PHP_METHOD(Cairo_Context, closePath)
 {
     cairo_context_object *context_object;
 
@@ -2075,18 +2033,10 @@ PHP_METHOD(CairoContext, closePath)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_arc_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-    ZEND_ARG_INFO(0, radius)
-    ZEND_ARG_INFO(0, angle1)
-    ZEND_ARG_INFO(0, angle2)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::arc(float x, float y, float radius, float angle1, float angle2)
    Adds a circular arc of the given radius to the current path.
    The arc is centered at (x, y), begins at angle1 and proceeds in the direction of increasing angles to end at angle2*/
-PHP_METHOD(CairoContext, arc)
+PHP_METHOD(Cairo_Context, arc)
 {
     double x = 0.0, y = 0.0, radius = 0.0, angle1 = 0.0, angle2 = 0.0;
     cairo_context_object *context_object;
@@ -2114,7 +2064,7 @@ PHP_METHOD(CairoContext, arc)
 /* {{{ proto void \Cairo\Context::arcNegative(float x, float y, float radius, float angle1, float angle2)
    Adds a circular arc of the given radius to the current path.
    The arc is centered at (x, y), begins at angle1 and proceeds in the direction of decreasing angles to end at angle2.*/
-PHP_METHOD(CairoContext, arcNegative)
+PHP_METHOD(Cairo_Context, arcNegative)
 {
     double x = 0.0, y = 0.0, radius = 0.0, angle1 = 0.0, angle2 = 0.0;
     cairo_context_object *context_object;
@@ -2139,20 +2089,11 @@ PHP_METHOD(CairoContext, arcNegative)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_curveTo_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x1)
-    ZEND_ARG_INFO(0, y1)
-    ZEND_ARG_INFO(0, x2)
-    ZEND_ARG_INFO(0, y2)
-    ZEND_ARG_INFO(0, x3)
-    ZEND_ARG_INFO(0, y3)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void cairo_curve_to(CairoContext object, float x1, float y1, float x2, float y2, float x3, float y3)
    proto void \Cairo\Context::curveTo(float x1, float y1, float x2, float y2, float x3, float y3)
    Adds a cubic Bézier spline to the path from the current point to position (x3, y3) in user-space coordinates, using (x1, y1) and (x2, y2) as the control points.
    After this call the current point will be (x3, y3). */
-PHP_METHOD(CairoContext, curveTo)
+PHP_METHOD(Cairo_Context, curveTo)
 {
     double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0, x3 = 0.0, y3 = 0.0;
     cairo_context_object *context_object;
@@ -2181,7 +2122,7 @@ PHP_METHOD(CairoContext, curveTo)
 /* {{{ proto void cairo_line_to(CairoContext object, float x, float y)
    proto void \Cairo\Context::lineTo(float x, float y)
    Adds a line to the path from the current point to position (x, y) in user-space coordinates. After this call the current point will be (x, y). */
-PHP_METHOD(CairoContext, lineTo)
+PHP_METHOD(Cairo_Context, lineTo)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -2205,7 +2146,7 @@ PHP_METHOD(CairoContext, lineTo)
 /* {{{ proto void cairo_move_to(CairoContext object, float x, float y)
    proto void \Cairo\Context::moveTo(float x, float y)
    Begin a new sub-path. After this call the current point will be (x, y) */
-PHP_METHOD(CairoContext, moveTo)
+PHP_METHOD(Cairo_Context, moveTo)
 {
     double x = 0.0, y = 0.0;
     cairo_context_object *context_object;
@@ -2227,16 +2168,9 @@ PHP_METHOD(CairoContext, moveTo)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_rectangle_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, x)
-    ZEND_ARG_INFO(0, y)
-    ZEND_ARG_INFO(0, width)
-    ZEND_ARG_INFO(0, height)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::rectangle(float x, float y, float width, float height)
    Adds a closed sub-path rectangle of the given size to the current path at position (x, y) in user-space coordinates. */
-PHP_METHOD(CairoContext, rectangle)
+PHP_METHOD(Cairo_Context, rectangle)
 {
     double x = 0.0, y = 0.0, width = 0.0, height = 0.0;
     cairo_context_object *context_object;
@@ -2260,13 +2194,9 @@ PHP_METHOD(CairoContext, rectangle)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_glyphPath_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_ARRAY_INFO(0, glyphs, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::glyphPath(array glyphs)
    Adds closed paths for the glyphs to the current path. */
-PHP_METHOD(CairoContext, glyphPath)
+PHP_METHOD(Cairo_Context, glyphPath)
 {
     cairo_context_object *context_object;
     cairo_glyph_t *glyphs_array;
@@ -2308,15 +2238,470 @@ PHP_METHOD(CairoContext, glyphPath)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_showGlyphs_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_ARRAY_INFO(0, glyphs, 0)
-ZEND_END_ARG_INFO()
+/* {{{ proto void \Cairo\Context::textPath(string text)
+   Adds closed paths for text to the current path
+   NOTE: text must be UTF-8 charset or results will be unexpected */
+PHP_METHOD(Cairo_Context, textPath)
+{
+    char *text;
+    size_t text_len;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_STRING(text, text_len)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_text_path(context_object->context, (const char *)text);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::relCurveTo(float x1, float y1, float x2, float y2, float x3, float y3)
+   Adds a cubic Bézier spline to the path from the current point to a point offset from the current point by (x3, y3),
+   using points offset by (x1, y1) and (x2, y2) as the control points. */
+PHP_METHOD(Cairo_Context, relCurveTo)
+{
+    double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0, x3 = 0.0, y3 = 0.0;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(6, 6)
+        Z_PARAM_DOUBLE(x1)
+        Z_PARAM_DOUBLE(y1)
+        Z_PARAM_DOUBLE(x2)
+        Z_PARAM_DOUBLE(y2)
+        Z_PARAM_DOUBLE(x3)
+        Z_PARAM_DOUBLE(y3)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_rel_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::relLineTo(float x, float y)
+   Adds a line to the path from the current point to a point that is offset from the current point by (x, y) in user space */
+PHP_METHOD(Cairo_Context, relLineTo)
+{
+    double x = 0.0, y = 0.0;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_DOUBLE(x)
+        Z_PARAM_DOUBLE(y)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_rel_line_to(context_object->context, x, y);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::relMoveTo(float x, float y)
+   Begin a new sub-path. After this call the current point will offset by (x, y). */
+PHP_METHOD(Cairo_Context, relMoveTo)
+{
+    double x = 0.0, y = 0.0;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+        Z_PARAM_DOUBLE(x)
+        Z_PARAM_DOUBLE(y)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_rel_move_to(context_object->context, x, y);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+}
+/* }}} */
+
+/* {{{ proto array \Cairo\Context::getPathExtents()
+   previous name was pathExtents()
+   Computes a bounding box in user-space coordinates covering the points on the current path */
+PHP_METHOD(Cairo_Context, getPathExtents)
+{
+    double x1, y1, x2, y2;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    cairo_path_extents(context_object->context, &x1, &y1, &x2, &y2);
+    array_init(return_value);
+    add_assoc_double(return_value, "x1", x1);
+    add_assoc_double(return_value, "y1", y1);
+    add_assoc_double(return_value, "x2", x2);
+    add_assoc_double(return_value, "y2", y2);
+}
+/* }}} */
+
+/*
+ * Text items
+ */
+
+/* {{{ proto void \Cairo\Context::selectFontFace(string family, CairoFontSlant slant, CairoFontWeight weight)
+        Selects a family and style of font from a simplified description as a family name, slant and weight. */
+PHP_METHOD(Cairo_Context, selectFontFace)
+{
+    zval *slant = NULL;
+    zval *weight = NULL;
+    size_t family_len;
+    char *family, *cairo_family;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 3)
+        Z_PARAM_STRING(family, family_len)
+        Z_PARAM_OPTIONAL
+        Z_PARAM_OBJECT_OF_CLASS(slant, ce_cairo_fontslant)
+        Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_family = estrdup(family);
+    cairo_select_font_face(
+        context_object->context,
+        family,
+        slant
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))
+            : CAIRO_FONT_SLANT_NORMAL,
+        weight
+            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
+            : CAIRO_FONT_WEIGHT_NORMAL
+    );
+    efree(cairo_family);
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::setFontSize(double size)
+        Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously
+        set with cairo_set_font_size() or cairo_set_font_matrix() */
+PHP_METHOD(Cairo_Context, setFontSize)
+{
+    double size;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_DOUBLE(size)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_set_font_size(context_object->context, size);
+
+    /* If there's a font matrix stored, we've just reset it */
+    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::setFontMatrix(\Cairo\Matrix matrix)
+   Sets the current transformation matrix for fonts */
+PHP_METHOD(Cairo_Context, setFontMatrix)
+{
+    zval *matrix_zval = NULL;
+    cairo_context_object *context_object;
+    cairo_matrix_object *matrix_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(matrix_zval, ce_cairo_matrix)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
+    cairo_set_font_matrix(context_object->context, matrix_object->matrix);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    /* If there's already a matrix, then we deref and remove it */
+    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
+
+    /* we need to be able to get this zval out later, so ref and store */
+    ZVAL_COPY(&context_object->font_matrix, matrix_zval);
+}
+/* }}} */
+
+/* {{{ proto \Cairo\Matrix matrix \Cairo\Context::getFontMatrix()
+   Returns the current transformation matrix fot the font*/
+PHP_METHOD(Cairo_Context, getFontMatrix)
+{
+    cairo_context_object *context_object;
+    cairo_matrix_object *matrix_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    /* If we have a matrix object stored, grab that zval to use */
+    CAIRO_RETURN_IF_REF(context_object->font_matrix);
+
+    /* Otherwise we spawn a new object */
+    object_init_ex(return_value, php_cairo_get_matrix_ce());
+    matrix_object = Z_CAIRO_MATRIX_P(return_value);
+    cairo_get_font_matrix(context_object->context, matrix_object->matrix);
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::setFontOptions(CairoFontOptions object)
+       Sets the font options to be used with the context */
+PHP_METHOD(Cairo_Context, setFontOptions)
+{
+    zval *font_options_zval = NULL;
+    cairo_context_object *context_object;
+    cairo_font_options_object *font_options_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(font_options_zval, ce_cairo_fontoptions)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    font_options_object = Z_CAIRO_FONT_OPTIONS_P(font_options_zval);
+    cairo_set_font_options(context_object->context, font_options_object->font_options);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    /* If there's already a font options, then we deref and remove it */
+    CAIRO_UNREF_AND_UNDEF(context_object->font_options)
+
+    /* we need to be able to get this zval out later, so ref and store */
+    ZVAL_COPY(&context_object->font_options, font_options_zval);
+}
+/* }}} */
+
+/* {{{ proto CairoFontOptions object \Cairo\Context::getFontOptions()
+       Retrieves the font options selected by the context.
+       If no font options have been selected or set then the default options will be returned. */
+PHP_METHOD(Cairo_Context, getFontOptions)
+{
+    cairo_context_object *context_object;
+    cairo_font_options_object *font_options_object;
+    cairo_font_options_t *font_options = NULL;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    /* Grab the font options properly */
+    cairo_get_font_options(context_object->context, font_options);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    /* If we have a font face object stored, grab that zval to use */
+    CAIRO_RETURN_IF_REF(context_object->font_options);
+
+    /* Otherwise we spawn a new object */
+    object_init_ex(return_value, php_cairo_get_fontoptions_ce());
+    font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
+    font_options_object->font_options = font_options;
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::setFontFace(CairoFontFace object)
+       Sets the font face to be used with the context */
+PHP_METHOD(Cairo_Context, setFontFace)
+{
+    zval *font_face_zval = NULL;
+    cairo_context_object *context_object;
+    cairo_font_face_object *font_face_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(font_face_zval, ce_cairo_fontface)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    font_face_object = Z_CAIRO_FONT_FACE_P(font_face_zval);
+    cairo_set_font_face(context_object->context, font_face_object->font_face);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    /* If there's already a font face, then we deref and remove it */
+    CAIRO_UNREF_AND_UNDEF(context_object->font_face)
+
+    /* we need to be able to get this zval out later, so ref and store */
+    ZVAL_COPY(&context_object->font_face, font_face_zval);
+}
+/* }}} */
+
+/* {{{ proto CairoFontFace object \Cairo\Context::getFontFace()
+       Retrieves the font face selected by the context.  If no font face has been selected or set then the default face
+       will be returned. */
+PHP_METHOD(Cairo_Context, getFontFace)
+{
+    cairo_context_object *context_object;
+    cairo_font_face_object *font_face_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    /* If we have a font face object stored, grab that zval to use */
+    CAIRO_RETURN_IF_REF(context_object->font_face);
+
+    /* Otherwise we spawn a new object */
+    object_init_ex(return_value, php_cairo_get_toyfontface_ce());
+    font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
+    font_face_object->font_face = cairo_get_font_face(context_object->context);
+    cairo_font_face_reference(font_face_object->font_face);
+}
+/* }}} */
+
+/* {{{ proto void \Cairo\Context::setScaledFont(CairoScaledFont object)
+       Replaces the current font face, font matrix, and font options in the context with those of the scaled font. */
+PHP_METHOD(Cairo_Context, setScaledFont)
+{
+    zval *scaled_font_zval = NULL;
+    cairo_context_object *context_object;
+    cairo_scaled_font_object *scaled_font_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_OBJECT_OF_CLASS(scaled_font_zval, ce_cairo_scaled_font)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    scaled_font_object = Z_CAIRO_SCALED_FONT_P(scaled_font_zval);
+    cairo_set_scaled_font(context_object->context, scaled_font_object->scaled_font);
+    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
+        RETURN_THROWS();
+    }
+
+    /* If there's already a font face, font matrix, scaled font, and or font options stored, then we deref and remove them */
+    CAIRO_UNREF_AND_UNDEF(context_object->font_face)
+    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
+    CAIRO_UNREF_AND_UNDEF(context_object->font_options)
+    CAIRO_UNREF_AND_UNDEF(context_object->scaled_font)
+
+    /* if the scaled font has a font_face, matrix, or option zvals stored, move them to context as well and ref again */
+    CAIRO_ZVAL_COPY(context_object->font_face, scaled_font_object->font_face);
+    CAIRO_ZVAL_COPY(context_object->font_matrix, scaled_font_object->matrix);
+    CAIRO_ZVAL_COPY(context_object->font_options, scaled_font_object->font_options);
+
+    /* we need to be able to get this zval out later, so ref and store */
+    ZVAL_COPY(&context_object->scaled_font, scaled_font_zval);
+}
+/* }}} */
+
+/* {{{ proto CairoScaledFont object \Cairo\Context::getScaledFont()
+       Retrieves the scaled font face selected by the context.
+       If no scaled font has been selected or set then the default face will be returned. */
+PHP_METHOD(Cairo_Context, getScaledFont)
+{
+    cairo_context_object *context_object;
+    cairo_scaled_font_object *scaled_font_object;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    /* If we have a scaled font object stored, grab that zval to use */
+    CAIRO_RETURN_IF_REF(context_object->scaled_font);
+
+    /* Otherwise we spawn a new object */
+    object_init_ex(return_value, php_cairo_get_scaled_font_ce());
+    scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);
+    scaled_font_object->scaled_font = cairo_get_scaled_font(context_object->context);
+    cairo_scaled_font_reference(scaled_font_object->scaled_font);
+}
+/* }}} */
+
+/* {{{ proto array \Cairo\Context::showText(string text)
+   A drawing operator that generates the shape from a string of UTF-8 characters,
+   rendered according to the current font_face, font_size (font_matrix), and font_options. */
+PHP_METHOD(Cairo_Context, showText)
+{
+    char *text, *cairo_text;
+    size_t text_len;
+    cairo_context_object *context_object;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_STRING(text, text_len)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    cairo_text = estrdup(text);
+    cairo_show_text(context_object->context, text);
+    efree(cairo_text);
+}
+/* }}} */
 
 /* {{{ proto void \Cairo\Context::showGlyphs(array glyphs)
    A drawing operator that generates the shape from an array of glyphs,
    rendered according to the current font face, font size (font matrix),
    and font options. */
-PHP_METHOD(CairoContext, showGlyphs)
+PHP_METHOD(Cairo_Context, showGlyphs)
 {
     cairo_context_object *context_object;
     cairo_glyph_t *glyphs_array;
@@ -2358,20 +2743,13 @@ PHP_METHOD(CairoContext, showGlyphs)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_showTextGlyphs_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, utf8Str)
-    ZEND_ARG_ARRAY_INFO(0, glyphs, 0)
-    ZEND_ARG_ARRAY_INFO(0, clusters, 0)
-    ZEND_ARG_TYPE_INFO(0, cluster_flags, IS_LONG, 0)
-ZEND_END_ARG_INFO()
-
 /* {{{ proto void \Cairo\Context::showTextGlyphs(string text, array glyphs, array clusters)
    This operation has rendering effects similar to cairo_show_glyphs() but, if
    the target surface supports it, uses the provided text and cluster mapping to
    embed the text for the glyphs shown in the output. If the target does not
    support the extended attributes, this function acts like the basic
    cairo_show_glyphs() as if it had been passed glyphs and num_glyphs. */
-PHP_METHOD(CairoContext, showTextGlyphs)
+PHP_METHOD(Cairo_Context, showTextGlyphs)
 {
     cairo_context_object *context_object;
     char *utf8Str;
@@ -2407,7 +2785,7 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
     ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
-            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
             efree(glyphs_array);
             RETURN_THROWS();
         }
@@ -2424,7 +2802,7 @@ PHP_METHOD(CairoContext, showTextGlyphs)
     /* iterate over the array, each value inside MUST be an instance of Cairo\\TextCluster */
     ZEND_HASH_FOREACH_VAL(clusters_hash, pzval) {
         if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_text_cluster) {
-            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #2 ($clusters) must be an array of Cairo\\TextCluster objects.", 0);
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::showTextGlyphs(): Argument #3 ($clusters) must be an array of Cairo\\TextCluster objects.", 0);
             efree(glyphs_array);
             efree(clusters_array);
             RETURN_THROWS();
@@ -2443,501 +2821,10 @@ PHP_METHOD(CairoContext, showTextGlyphs)
 }
 /* }}} */
 
-ZEND_BEGIN_ARG_INFO(CairoContext_textPath_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, string)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::textPath(string text)
-   Adds closed paths for text to the current path
-   NOTE: text must be UTF-8 charset or results will be unexpected */
-PHP_METHOD(CairoContext, textPath)
-{
-    char *string;
-    size_t str_len;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_STRING(string, str_len)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_text_path(context_object->context, (const char *)string);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-}
-/* }}} */
-
-/* {{{ proto void \Cairo\Context::relCurveTo(float x1, float y1, float x2, float y2, float x3, float y3)
-   Adds a cubic Bézier spline to the path from the current point to a point offset from the current point by (x3, y3),
-   using points offset by (x1, y1) and (x2, y2) as the control points. */
-PHP_METHOD(CairoContext, relCurveTo)
-{
-    double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0, x3 = 0.0, y3 = 0.0;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(6, 6)
-        Z_PARAM_DOUBLE(x1)
-        Z_PARAM_DOUBLE(y1)
-        Z_PARAM_DOUBLE(x2)
-        Z_PARAM_DOUBLE(y2)
-        Z_PARAM_DOUBLE(x3)
-        Z_PARAM_DOUBLE(y3)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_rel_curve_to(context_object->context, x1, y1, x2, y2, x3, y3);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-}
-/* }}} */
-
-/* {{{ proto void \Cairo\Context::relLineTo(float x, float y)
-   Adds a line to the path from the current point to a point that is offset from the current point by (x, y) in user space */
-PHP_METHOD(CairoContext, relLineTo)
-{
-    double x = 0.0, y = 0.0;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_DOUBLE(x)
-        Z_PARAM_DOUBLE(y)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_rel_line_to(context_object->context, x, y);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-}
-/* }}} */
-
-/* {{{ proto void \Cairo\Context::relMoveTo(float x, float y)
-   Begin a new sub-path. After this call the current point will offset by (x, y). */
-PHP_METHOD(CairoContext, relMoveTo)
-{
-    double x = 0.0, y = 0.0;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(2, 2)
-        Z_PARAM_DOUBLE(x)
-        Z_PARAM_DOUBLE(y)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_rel_move_to(context_object->context, x, y);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-}
-/* }}} */
-
-/* {{{ proto array \Cairo\Context::getPathExtents()
-   previous name was pathExtents()
-   Computes a bounding box in user-space coordinates covering the points on the current path */
-PHP_METHOD(CairoContext, getPathExtents)
-{
-    double x1, y1, x2, y2;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_NONE();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    cairo_path_extents(context_object->context, &x1, &y1, &x2, &y2);
-    array_init(return_value);
-    add_assoc_double(return_value, "x1", x1);
-    add_assoc_double(return_value, "y1", y1);
-    add_assoc_double(return_value, "x2", x2);
-    add_assoc_double(return_value, "y2", y2);
-}
-/* }}} */
-
-/* Text items */
-
-ZEND_BEGIN_ARG_INFO_EX(CairoContext_selectFontFace_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
-    ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, slant, Cairo\\FontSlant, 0, "Cairo\\FontSlant::NORMAL")
-    ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, weight, Cairo\\FontWeight, 0, "Cairo\\FontWeight::NORMAL")
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::selectFontFace(string family, CairoFontSlant slant, CairoFontWeight weight)
-        Selects a family and style of font from a simplified description as a family name, slant and weight. */
-PHP_METHOD(CairoContext, selectFontFace)
-{
-    zval *slant = NULL;
-    zval *weight = NULL;
-    size_t family_len;
-    char *family, *cairo_family;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 3)
-        Z_PARAM_STRING(family, family_len)
-        Z_PARAM_OPTIONAL
-        Z_PARAM_OBJECT_OF_CLASS(slant, ce_cairo_fontslant)
-        Z_PARAM_OBJECT_OF_CLASS(weight, ce_cairo_fontweight)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_family = estrdup(family);
-    cairo_select_font_face(
-        context_object->context,
-        family,
-        slant
-            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(slant)))
-            : CAIRO_FONT_SLANT_NORMAL,
-        weight
-            ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(weight)))
-            : CAIRO_FONT_WEIGHT_NORMAL
-    );
-    efree(cairo_family);
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setFontSize_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_TYPE_INFO(0, size, IS_DOUBLE, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setFontSize(double size)
-        Sets the current font matrix to a scale by a factor of size, replacing any font matrix previously
-        set with cairo_set_font_size() or cairo_set_font_matrix() */
-PHP_METHOD(CairoContext, setFontSize)
-{
-    double size;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_DOUBLE(size)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_set_font_size(context_object->context, size);
-
-    /* If there's a font matrix stored, we've just reset it */
-    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setFontMatrix_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, matrix, Cairo\\Matrix, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setFontMatrix(\Cairo\Matrix matrix)
-   Sets the current transformation matrix for fonts */
-PHP_METHOD(CairoContext, setFontMatrix)
-{
-    zval *matrix_zval = NULL;
-    cairo_context_object *context_object;
-    cairo_matrix_object *matrix_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(matrix_zval, ce_cairo_matrix)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    matrix_object = Z_CAIRO_MATRIX_P(matrix_zval);
-    cairo_set_font_matrix(context_object->context, matrix_object->matrix);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    /* If there's already a matrix, then we deref and remove it */
-    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
-
-    /* we need to be able to get this zval out later, so ref and store */
-    ZVAL_COPY(&context_object->font_matrix, matrix_zval);
-}
-/* }}} */
-
-/* {{{ proto \Cairo\Matrix matrix \Cairo\Context::getFontMatrix()
-   Returns the current transformation matrix fot the font*/
-PHP_METHOD(CairoContext, getFontMatrix)
-{
-    cairo_context_object *context_object;
-    cairo_matrix_object *matrix_object;
-
-    ZEND_PARSE_PARAMETERS_NONE();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    /* If we have a matrix object stored, grab that zval to use */
-    CAIRO_RETURN_IF_REF(context_object->font_matrix);
-
-    /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_matrix);
-    matrix_object = Z_CAIRO_MATRIX_P(return_value);
-    cairo_get_font_matrix(context_object->context, matrix_object->matrix);
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setFontOptions_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, fontoptions, Cairo\\FontOptions, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setFontOptions(CairoFontOptions object)
-       Sets the font options to be used with the context */
-PHP_METHOD(CairoContext, setFontOptions)
-{
-    zval *font_options_zval = NULL;
-    cairo_context_object *context_object;
-    cairo_font_options_object *font_options_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(font_options_zval, ce_cairo_fontoptions)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    font_options_object = Z_CAIRO_FONT_OPTIONS_P(font_options_zval);
-    cairo_set_font_options(context_object->context, font_options_object->font_options);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    /* If there's already a font options, then we deref and remove it */
-    CAIRO_UNREF_AND_UNDEF(context_object->font_options)
-
-    /* we need to be able to get this zval out later, so ref and store */
-    ZVAL_COPY(&context_object->font_options, font_options_zval);
-}
-/* }}} */
-
-/* {{{ proto CairoFontOptions object \Cairo\Context::getFontOptions()
-       Retrieves the font options selected by the context.
-       If no font options have been selected or set then the default options will be returned. */
-PHP_METHOD(CairoContext, getFontOptions)
-{
-    cairo_context_object *context_object;
-    cairo_font_options_object *font_options_object;
-    cairo_font_options_t *font_options = NULL;
-
-    ZEND_PARSE_PARAMETERS_NONE();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    /* Grab the font options properly */
-    cairo_get_font_options(context_object->context, font_options);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    /* If we have a font face object stored, grab that zval to use */
-    CAIRO_RETURN_IF_REF(context_object->font_options);
-
-    /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_fontoptions);
-    font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);
-    font_options_object->font_options = font_options;
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setFontFace_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, fontface, Cairo\\FontFace, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setFontFace(CairoFontFace object)
-       Sets the font face to be used with the context */
-PHP_METHOD(CairoContext, setFontFace)
-{
-    zval *font_face_zval = NULL;
-    cairo_context_object *context_object;
-    cairo_font_face_object *font_face_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(font_face_zval, ce_cairo_fontface)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    font_face_object = Z_CAIRO_FONT_FACE_P(font_face_zval);
-    cairo_set_font_face(context_object->context, font_face_object->font_face);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    /* If there's already a font face, then we deref and remove it */
-    CAIRO_UNREF_AND_UNDEF(context_object->font_face)
-
-    /* we need to be able to get this zval out later, so ref and store */
-    ZVAL_COPY(&context_object->font_face, font_face_zval);
-}
-/* }}} */
-
-/* {{{ proto CairoFontFace object \Cairo\Context::getFontFace()
-       Retrieves the font face selected by the context.  If no font face has been selected or set then the default face
-       will be returned. */
-PHP_METHOD(CairoContext, getFontFace)
-{
-    cairo_context_object *context_object;
-    cairo_font_face_object *font_face_object;
-
-    ZEND_PARSE_PARAMETERS_NONE();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    /* If we have a font face object stored, grab that zval to use */
-    CAIRO_RETURN_IF_REF(context_object->font_face);
-
-    /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_toyfontface);
-    font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
-    font_face_object->font_face = cairo_get_font_face(context_object->context);
-    cairo_font_face_reference(font_face_object->font_face);
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_setScaledFont_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_OBJ_INFO(0, scaledfont, Cairo\\ScaledFont, 0)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto void \Cairo\Context::setScaledFont(CairoScaledFont object)
-       Replaces the current font face, font matrix, and font options in the context with those of the scaled font. */
-PHP_METHOD(CairoContext, setScaledFont)
-{
-    zval *scaled_font_zval = NULL;
-    cairo_context_object *context_object;
-    cairo_scaled_font_object *scaled_font_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_OBJECT_OF_CLASS(scaled_font_zval, ce_cairo_scaled_font)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(scaled_font_zval);
-    cairo_set_scaled_font(context_object->context, scaled_font_object->scaled_font);
-    if (php_cairo_throw_exception(cairo_status(context_object->context))) {
-        RETURN_THROWS();
-    }
-
-    /* If there's already a font face, font matrix, scaled font, and or font options stored, then we deref and remove them */
-    CAIRO_UNREF_AND_UNDEF(context_object->font_face)
-    CAIRO_UNREF_AND_UNDEF(context_object->font_matrix)
-    CAIRO_UNREF_AND_UNDEF(context_object->font_options)
-    CAIRO_UNREF_AND_UNDEF(context_object->scaled_font)
-
-    /* if the scaled font has a font_face, matrix, or option zvals stored, move them to context as well and ref again */
-    CAIRO_ZVAL_COPY(context_object->font_face, scaled_font_object->font_face);
-    CAIRO_ZVAL_COPY(context_object->font_matrix, scaled_font_object->matrix);
-    CAIRO_ZVAL_COPY(context_object->font_options, scaled_font_object->font_options);
-
-    /* we need to be able to get this zval out later, so ref and store */
-    ZVAL_COPY(&context_object->scaled_font, scaled_font_zval);
-}
-/* }}} */
-
-/* {{{ proto CairoScaledFont object \Cairo\Context::getScaledFont()
-       Retrieves the scaled font face selected by the context.
-       If no scaled font has been selected or set then the default face will be returned. */
-PHP_METHOD(CairoContext, getScaledFont)
-{
-    cairo_context_object *context_object;
-    cairo_scaled_font_object *scaled_font_object;
-
-    ZEND_PARSE_PARAMETERS_NONE();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    /* If we have a scaled font object stored, grab that zval to use */
-    CAIRO_RETURN_IF_REF(context_object->scaled_font);
-
-    /* Otherwise we spawn a new object */
-    object_init_ex(return_value, ce_cairo_scaled_font);
-    scaled_font_object = Z_CAIRO_SCALED_FONT_P(return_value);
-    scaled_font_object->scaled_font = cairo_get_scaled_font(context_object->context);
-    cairo_scaled_font_reference(scaled_font_object->scaled_font);
-}
-/* }}} */
-
-ZEND_BEGIN_ARG_INFO(CairoContext_text_args, ZEND_SEND_BY_VAL)
-    ZEND_ARG_INFO(0, text)
-ZEND_END_ARG_INFO()
-
-/* {{{ proto array \Cairo\Context::showText(string text)
-   A drawing operator that generates the shape from a string of UTF-8 characters,
-   rendered according to the current font_face, font_size (font_matrix), and font_options. */
-PHP_METHOD(CairoContext, showText)
-{
-    char *text, *cairo_text;
-    size_t text_len;
-    cairo_context_object *context_object;
-
-    ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_STRING(text, text_len)
-    ZEND_PARSE_PARAMETERS_END();
-
-    context_object = cairo_context_object_get(getThis());
-    if (!context_object) {
-        RETURN_THROWS();
-    }
-
-    cairo_text = estrdup(text);
-    cairo_show_text(context_object->context, text);
-    efree(cairo_text);
-}
-/* }}} */
-
 /* {{{ proto array \Cairo\Context::getFontExtents()
        previous name was fontExtents
        Gets the metrics for a font in an assoc array. */
-PHP_METHOD(CairoContext, getFontExtents)
+PHP_METHOD(Cairo_Context, getFontExtents)
 {
     cairo_context_object *context_object;
     cairo_font_extents_t extents;
@@ -2963,7 +2850,7 @@ PHP_METHOD(CairoContext, getFontExtents)
 /* {{{ proto array \Cairo\Context::getTextExtents(string text)
        previous name was textExtents
        Gets the extents for a string of text. */
-PHP_METHOD(CairoContext, getTextExtents)
+PHP_METHOD(Cairo_Context, getTextExtents)
 {
     char *text, *cairo_text;
     size_t text_len;
@@ -2993,129 +2880,65 @@ PHP_METHOD(CairoContext, getTextExtents)
 }
 /* }}} */
 
+/* {{{ proto array \Cairo\Context::getGlyphExtents(array glyphs)
+       previous name was glyphExtents
+       Gets the extents for an array of glyphs. */
+PHP_METHOD(Cairo_Context, getGlyphExtents)
+{
+    cairo_context_object *context_object;
+    cairo_glyph_t *glyphs_array;
+    int num_glyphs = 0;
+    zval *php_glyphs = NULL, *pzval;
+    HashTable *glyphs_hash = NULL;
+    int i = 0;
+    cairo_text_extents_t extents;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_ARRAY(php_glyphs)
+    ZEND_PARSE_PARAMETERS_END();
+
+    context_object = cairo_context_object_get(getThis());
+    if (!context_object) {
+        RETURN_THROWS();
+    }
+
+    /* Grab the zend hash */
+    glyphs_hash = Z_ARRVAL_P(php_glyphs);
+    num_glyphs = zend_hash_num_elements(glyphs_hash);
+    glyphs_array = ecalloc(num_glyphs, sizeof(cairo_glyph_t));
+
+    /* iterate over the array, each value inside MUST be an instance of CairoGlyph */
+    ZEND_HASH_FOREACH_VAL(glyphs_hash, pzval) {
+        if (Z_TYPE_P(pzval) != IS_OBJECT || Z_OBJCE_P(pzval) != ce_cairo_glyph) {
+            zend_throw_exception(zend_ce_type_error, "Cairo\\Context::getGlyphExtents(): Argument #1 ($glyphs) must be an array of Cairo\\Glyph objects.", 0);
+            efree(glyphs_array);
+            RETURN_THROWS();
+        }
+        glyphs_array[i++] = *(cairo_glyph_object_get_glyph(pzval));
+    }
+    ZEND_HASH_FOREACH_END();
+
+    cairo_glyph_extents(context_object->context, glyphs_array, num_glyphs, &extents);
+    efree(glyphs_array);
+
+    array_init(return_value);
+    add_assoc_double(return_value, "x_bearing", extents.x_bearing);
+    add_assoc_double(return_value, "y_bearing", extents.y_bearing);
+    add_assoc_double(return_value, "width", extents.width);
+    add_assoc_double(return_value, "height", extents.height);
+    add_assoc_double(return_value, "x_advance", extents.x_advance);
+    add_assoc_double(return_value, "y_advance", extents.y_advance);
+}
+/* }}} */
+
 
 /* ----------------------------------------------------------------
     Cairo\Context Definition and registration
 ------------------------------------------------------------------*/
 
-ZEND_BEGIN_ARG_INFO(CairoContext_method_no_args, ZEND_SEND_BY_VAL)
-ZEND_END_ARG_INFO()
-
-/* {{{ cairo_context_methods[] */
-static const zend_function_entry cairo_context_methods[] =
-{
-    PHP_ME(CairoContext, __construct, CairoContext___construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
-    PHP_ME(CairoContext, getStatus, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, save, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, restore, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, pushGroup, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, pushGroupWithContent, CairoContext_pushGroupWithContent_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, popGroup, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, popGroupToSource, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setSourceRGB, CairoContext_setSourceRGB_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setSourceRGBA, CairoContext_setSourceRGBA_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setSurface, CairoContext_setSurface_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getSurface, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getGroupSurface, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setPattern, CairoContext_setPattern_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getPattern, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setAntialias, CairoContext_setAntialias_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getAntialias, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setDash, CairoContext_setDash_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getDashCount, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getDash, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setFillRule, CairoContext_setFillRule_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFillRule, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setLineCap, CairoContext_setLineCap_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getLineCap, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setLineJoin, CairoContext_setLineJoin_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getLineJoin, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setLineWidth, CairoContext_setLineWidth_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getLineWidth, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setMiterLimit, CairoContext_setMiterLimit_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getMiterLimit, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setOperator, CairoContext_setOperator_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getOperator, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setTolerance, CairoContext_setTolerance_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getTolerance, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, clip, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, inClip, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, clipPreserve, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, resetClip, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getClipExtents, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, clipRectangleList, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, fill, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, fillPreserve, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFillExtents, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, inFill, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, mask, CairoContext_mask_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, maskSurface, CairoContext_maskSurface_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, paint, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, paintWithAlpha, CairoContext_paintWithAlpha_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, stroke, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, strokePreserve, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, strokeExtents, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, inStroke, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, copyPage, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, showPage, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    /* Transformations */
-    PHP_ME(CairoContext, translate, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, scale, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, rotate, CairoContext_rotate_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, transform, CairoContext_transform_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setMatrix, CairoContext_setMatrix_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getMatrix, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, identityMatrix, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, userToDevice, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, userToDeviceDistance, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, deviceToUser, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, deviceToUserDistance, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    /* Paths */
-    PHP_ME(CairoContext, copyPath, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, copyPathFlat, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, appendPath, CairoContext_appendPath_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, hasCurrentPoint, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getCurrentPoint, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, newPath, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, newSubPath, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, closePath, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, arc, CairoContext_arc_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, arcNegative, CairoContext_arc_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, curveTo, CairoContext_curveTo_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, lineTo, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, moveTo, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, rectangle, CairoContext_rectangle_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, glyphPath, CairoContext_glyphPath_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, showGlyphs, CairoContext_showGlyphs_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, showTextGlyphs, CairoContext_showTextGlyphs_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, textPath, CairoContext_textPath_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, relCurveTo, CairoContext_curveTo_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, relLineTo, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, relMoveTo, CairoContext_method_args_x_y, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getPathExtents, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    /* Text */
-    PHP_ME(CairoContext, selectFontFace, CairoContext_selectFontFace_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setFontSize, CairoContext_setFontSize_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setFontMatrix, CairoContext_setFontMatrix_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFontMatrix, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setFontOptions, CairoContext_setFontOptions_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFontOptions, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setFontFace, CairoContext_setFontFace_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFontFace, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, setScaledFont, CairoContext_setScaledFont_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getScaledFont, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, showText, CairoContext_text_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getFontExtents, CairoContext_method_no_args, ZEND_ACC_PUBLIC)
-    PHP_ME(CairoContext, getTextExtents, CairoContext_text_args, ZEND_ACC_PUBLIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_context)
 {
-    zend_class_entry context_ce;
-
     memcpy(
         &cairo_context_object_handlers,
         zend_get_std_object_handlers(),
@@ -3126,74 +2949,20 @@ PHP_MINIT_FUNCTION(cairo_context)
     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);
     cairo_context_object_handlers.free_obj = cairo_context_free_obj;
 
-    INIT_NS_CLASS_ENTRY(context_ce, CAIRO_NAMESPACE, "Context", cairo_context_methods);
-    ce_cairo_context = zend_register_internal_class(&context_ce);
+    ce_cairo_context = register_class_Cairo_Context();
     ce_cairo_context->create_object = cairo_context_create_object;
 
     /* FillRule */
-    CAIRO_REGISTER_ENUM_LONG("FillRule", ce_cairo_fillrule);
-
-#define CAIRO_FILLRULE_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_fillrule, CAIRO_FILL_RULE)
-
-    CAIRO_FILLRULE_DECLARE_ENUM_CASE(WINDING);
-    CAIRO_FILLRULE_DECLARE_ENUM_CASE(EVEN_ODD);
+    ce_cairo_fillrule = register_class_Cairo_FillRule();
 
     /* LineCap */
-    CAIRO_REGISTER_ENUM_LONG("LineCap", ce_cairo_linecap);
-
-#define CAIRO_LINECAP_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linecap, CAIRO_LINE_CAP)
-
-    CAIRO_LINECAP_DECLARE_ENUM_CASE(BUTT);
-    CAIRO_LINECAP_DECLARE_ENUM_CASE(ROUND);
-    CAIRO_LINECAP_DECLARE_ENUM_CASE(SQUARE);
+    ce_cairo_linecap = register_class_Cairo_LineCap();
 
     /* LineJoin */
-    CAIRO_REGISTER_ENUM_LONG("LineJoin", ce_cairo_linejoin);
-
-#define CAIRO_LINEJOIN_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_linejoin, CAIRO_LINE_JOIN)
-
-    CAIRO_LINEJOIN_DECLARE_ENUM_CASE(MITER);
-    CAIRO_LINEJOIN_DECLARE_ENUM_CASE(ROUND);
-    CAIRO_LINEJOIN_DECLARE_ENUM_CASE(BEVEL);
+    ce_cairo_linejoin = register_class_Cairo_LineJoin();
 
     /* Operator */
-    CAIRO_REGISTER_ENUM_LONG("Operator", ce_cairo_operator);
-
-#define CAIRO_OPERATOR_DECLARE_ENUM_CASE(name) \
-    CAIRO_GENERIC_LONG_ENUM_CASE(name, ce_cairo_operator, CAIRO_OPERATOR)
-
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(CLEAR);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOURCE);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVER);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(IN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(OUT);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(ATOP);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OVER);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_IN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_OUT);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DEST_ATOP);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(XOR);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(ADD);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(SATURATE);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(MULTIPLY);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(SCREEN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(OVERLAY);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DARKEN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(LIGHTEN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_DODGE);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(COLOR_BURN);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(HARD_LIGHT);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(SOFT_LIGHT);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(DIFFERENCE);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(EXCLUSION);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_HUE);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_SATURATION);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_COLOR);
-    CAIRO_OPERATOR_DECLARE_ENUM_CASE(HSL_LUMINOSITY);
+    ce_cairo_operator = register_class_Cairo_Operator();
 
     return SUCCESS;
 }

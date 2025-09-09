@@ -2,7 +2,7 @@
 Cairo\Context->setFontFace() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -57,4 +57,4 @@ object(Cairo\FontFace\Toy)#%d (0) {
 bool(true)
 Cairo\Context::setFontFace() expects exactly 1 argument, 0 given
 Cairo\Context::setFontFace() expects exactly 1 argument, 2 given
-Cairo\Context::setFontFace(): Argument #1 ($fontface) must be of type Cairo\FontFace, int given
+Cairo\Context::setFontFace(): Argument #1 ($font_face) must be of type Cairo\FontFace, int given

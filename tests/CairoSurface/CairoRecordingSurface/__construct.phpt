@@ -2,19 +2,15 @@
 new Cairo\Surface\Recording [__construct() method ]
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('RECORDING', Cairo::availableSurfaces())) {
-    die('skip - RECORDING surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
-$surface = new Cairo\Surface\Recording(\Cairo\Surface\Content::COLOR_ALPHA);
+$surface = new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha);
 var_dump($surface);
 
 $extents = ['x' => 0, 'y' => 0, 'width' => 400, 'height' => 400];
-$surface2 = new Cairo\Surface\Recording(\Cairo\Surface\Content::COLOR_ALPHA, $extents);
+$surface2 = new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha, $extents);
 var_dump($surface2);
 
 /* Wrong number args - 1 */
@@ -40,7 +36,7 @@ try {
 
 /* Wrong arg type 2 */
 try {
-    new Cairo\Surface\Recording(\Cairo\Surface\Content::COLOR_ALPHA, 1);
+    new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

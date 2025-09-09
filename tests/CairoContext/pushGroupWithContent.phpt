@@ -2,7 +2,7 @@
 Cairo\Context->pushGroupWithContent() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->pushGroupWithContent(Cairo\Surface\Content::COLOR);
+$context->pushGroupWithContent(Cairo\Surface\Content::Color);
 
 /* Wrong number args - needs 1 */
 try {

@@ -2,15 +2,13 @@
 Cairo\Surface\Content class constants
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $constants = [
-    'COLOR',
-    'ALPHA',
-    'COLOR_ALPHA',
+    'Color',
+    'Alpha',
+    'ColorAlpha',
 ];
 
 $error = false;

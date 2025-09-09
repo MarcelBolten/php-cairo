@@ -2,7 +2,7 @@
 Cairo\Context->setScaledFont() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -85,4 +85,4 @@ bool(true)
 bool(true)
 Cairo\Context::setScaledFont() expects exactly 1 argument, 0 given
 Cairo\Context::setScaledFont() expects exactly 1 argument, 2 given
-Cairo\Context::setScaledFont(): Argument #1 ($scaledfont) must be of type Cairo\ScaledFont, int given
+Cairo\Context::setScaledFont(): Argument #1 ($scaled_font) must be of type Cairo\ScaledFont, int given

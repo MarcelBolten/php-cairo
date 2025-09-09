@@ -3,9 +3,8 @@ Cairo\Matrix read_property handler - Dynamic Properties (PHP < 8.2)
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
-if (version_compare(PHP_VERSION, '8.2.0', '>=')) {
+if (version_compare(PHP_VERSION, '8.2.0', '>='))
     die('skip Test requires PHP < 8.2 for dynamic properties support');
-}
 --FILE--
 <?php
 use Cairo\Matrix;

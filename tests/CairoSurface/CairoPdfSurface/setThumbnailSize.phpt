@@ -2,12 +2,8 @@
 Cairo\Surface\Pdf->setThumbnailSize() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PDF', Cairo::availableSurfaces())) {
-    die('skip - PDF surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Pdf(NULL, 50, 50);
@@ -56,5 +52,5 @@ object(Cairo\Surface\Pdf)#%d (0) {
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 0 given
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 1 given
 Cairo\Surface\Pdf::setThumbnailSize() expects exactly 2 %s, 3 given
-Cairo\Surface\Pdf::setThumbnailSize(): Argument #1 ($width) must be of type float, array given
-Cairo\Surface\Pdf::setThumbnailSize(): Argument #2 ($height) must be of type float, array given
+Cairo\Surface\Pdf::setThumbnailSize(): Argument #1 ($width) must be of type int, array given
+Cairo\Surface\Pdf::setThumbnailSize(): Argument #2 ($height) must be of type int, array given

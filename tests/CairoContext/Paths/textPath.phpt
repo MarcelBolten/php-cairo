@@ -2,9 +2,7 @@
 Cairo\Context->textPath() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
+include __DIR__ . '/../../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -42,4 +40,4 @@ object(Cairo\Context)#%d (0) {
 }
 Cairo\Context::textPath() expects exactly 1 argument, 0 given
 Cairo\Context::textPath() expects exactly 1 argument, 2 given
-Cairo\Context::textPath(): Argument #1 ($string) must be of type string, array given
+Cairo\Context::textPath(): Argument #1 ($text) must be of type string, array given

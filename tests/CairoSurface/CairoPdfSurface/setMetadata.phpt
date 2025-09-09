@@ -1,21 +1,17 @@
 --TEST--
-Cairo\Surface\Pdf->setPageLabel() method
+Cairo\Surface\Pdf->setMetadata() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PDF', Cairo::availableSurfaces())) {
-    die('skip - PDF surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Pdf(NULL, 50, 50);
 var_dump($surface);
 
-$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::TITLE, "blubber");
-$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::CREATE_DATE, date("Y-m-d\TH:i:s"));
-$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::AUTHOR);
+$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::Title, "blubber");
+$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::CreateDate, date("Y-m-d\TH:i:s"));
+$surface->setMetadata(\Cairo\Surface\Pdf\Metadata::Author);
 
 /* Wrong number args 0 */
 try {
@@ -26,7 +22,7 @@ try {
 
 /* Wrong number args 3 */
 try {
-    $surface->setMetadata(\Cairo\Surface\Pdf\Metadata::TITLE, "bla", "bla");
+    $surface->setMetadata(\Cairo\Surface\Pdf\Metadata::Title, "bla", "bla");
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -40,7 +36,7 @@ try {
 
 /* Wrong arg type 2 */
 try {
-    $surface->setMetadata(\Cairo\Surface\Pdf\Metadata::TITLE, []);
+    $surface->setMetadata(\Cairo\Surface\Pdf\Metadata::Title, []);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -49,5 +45,5 @@ object(Cairo\Surface\Pdf)#%d (0) {
 }
 Cairo\Surface\Pdf::setMetadata() expects at least 1 argument, 0 given
 Cairo\Surface\Pdf::setMetadata() expects at most 2 arguments, 3 given
-Cairo\Surface\Pdf::setMetadata(): Argument #1 ($metadata_constant) must be of type Cairo\Surface\Pdf\Metadata, array given
-Cairo\Surface\Pdf::setMetadata(): Argument #2 ($metadata) must be of type string, array given
+Cairo\Surface\Pdf::setMetadata(): Argument #1 ($field) must be of type Cairo\Surface\Pdf\Metadata, array given
+Cairo\Surface\Pdf::setMetadata(): Argument #2 ($value) must be of type string, array given

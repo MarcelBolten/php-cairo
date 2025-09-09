@@ -2,7 +2,7 @@
 Cairo\Context->setFillRule() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setFillRule(Cairo\FillRule::EVEN_ODD);
+$context->setFillRule(Cairo\FillRule::EvenOdd);
 var_dump($context->getFillRule());
 
 /* Wrong number args - 1 */
@@ -39,7 +39,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\FillRule::EVEN_ODD)
+enum(Cairo\FillRule::EvenOdd)
 Cairo\Context::setFillRule() expects exactly 1 argument, 0 given
 Cairo\Context::setFillRule() expects exactly 1 argument, 2 given
 Cairo\Context::setFillRule(): Argument #1 ($fillrule) must be of type Cairo\FillRule, array given

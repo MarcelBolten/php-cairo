@@ -2,8 +2,9 @@
 CairoFtFontFace::__construct()
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!class_exists('\\Cairo\FontFace\\Ft')) die('skip - \\Cairo\FontFace\\ not available');
+include __DIR__ . '/../../skipif.inc';
+if (!class_exists('\Cairo\FontFace\Ft'))
+    die('skip - Cairo\FontFace\Ft not available');
 --FILE--
 <?php
 $fontFile = dirname(__FILE__) . "/Vera.ttf";

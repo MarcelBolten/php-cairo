@@ -2,13 +2,13 @@
 Cairo\FontOptions->setAntialias() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $options = new Cairo\FontOptions();
 var_dump($options);
 
-$options->setAntialias(\Cairo\Antialias::SUBPIXEL);
+$options->setAntialias(\Cairo\Antialias::Subpixel);
 
 /* Wrong number args 0 */
 try {
@@ -19,7 +19,7 @@ try {
 
 /* Wrong number args 2 */
 try {
-    $options->setAntialias(\Cairo\Antialias::SUBPIXEL, 1);
+    $options->setAntialias(\Cairo\Antialias::Subpixel, 1);
 } catch (TypeError $e) {
     echo $e->getMessage(), PHP_EOL;
 }

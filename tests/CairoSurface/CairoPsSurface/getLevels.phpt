@@ -2,9 +2,10 @@
 Cairo\Surface\Ps::getLevels() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not available');
-if(!method_exists('Cairo\Surface\Ps', 'getLevels')) die('skip - Cairo\Surface\Ps::getLevels not available');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
+if (!method_exists('\Cairo\Surface\Ps', 'getLevels'))
+    die('skip - Cairo\Surface\Ps::getLevels not available');
 --FILE--
 <?php
 var_dump(Cairo\Surface\Ps::getLevels());
@@ -18,8 +19,8 @@ try {
 --EXPECTF--
 array(2) {
   [0]=>
-  enum(Cairo\Surface\Ps\Level::LEVEL_2)
+  enum(Cairo\Surface\Ps\Level::Level_2)
   [1]=>
-  enum(Cairo\Surface\Ps\Level::LEVEL_3)
+  enum(Cairo\Surface\Ps\Level::Level_3)
 }
 Cairo\Surface\Ps::getLevels() expects exactly 0 arguments, 1 given

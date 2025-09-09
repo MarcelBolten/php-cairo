@@ -2,15 +2,11 @@
 Cairo\Surface\Pdf::versionToString() method
 --SKIPIF--
 <?php
-if (!extension_loaded('cairo')) {
-    die('skip - Cairo extension not available');
-}
-if (!in_array('PDF', Cairo::availableSurfaces())) {
-    die('skip - PDF surface not available');
-}
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
-echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::VERSION_1_5), PHP_EOL;
+echo Cairo\Surface\Pdf::versionToString(Cairo\Surface\Pdf\Version::Version_1_5), PHP_EOL;
 
 /* Wrong number args */
 try {

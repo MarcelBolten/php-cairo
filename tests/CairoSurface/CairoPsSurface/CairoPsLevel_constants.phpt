@@ -2,13 +2,13 @@
 Cairo\Surface\Ps\Level class constants
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
-if(!in_array('PS', Cairo::availableSurfaces())) die('skip - PS surface not available');
+include __DIR__ . '/../../skipif.inc';
+include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
 $constants = array(
-	'LEVEL_2',
-	'LEVEL_3',
+	'Level_2',
+	'Level_3',
 );
 
 $error = false;

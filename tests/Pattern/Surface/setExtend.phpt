@@ -14,10 +14,10 @@ var_dump($surface);
 $pattern = new Surface($surface);
 var_dump($pattern);
 
-$pattern->setExtend(Cairo\Extend::PAD);
+$pattern->setExtend(Cairo\Extend::Pad);
 $extend = $pattern->getExtend();
 var_dump($extend);
-var_dump($extend == Cairo\Extend::PAD);
+var_dump($extend == Cairo\Extend::Pad);
 
 /* Total number of args needed = 1 */
 try {
@@ -48,7 +48,7 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Pattern\Surface)#%d (0) {
 }
-enum(Cairo\Extend::PAD)
+enum(Cairo\Extend::Pad)
 bool(true)
 Cairo\Pattern::setExtend() expects exactly 1 argument, 0 given
 Cairo\Pattern::setExtend() expects exactly 1 argument, 2 given

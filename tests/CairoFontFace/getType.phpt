@@ -2,7 +2,7 @@
 Cairo\FontFace->getType() method
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 include(dirname(__FILE__) . '/create_toyfont.inc');
@@ -18,5 +18,5 @@ try {
 --EXPECTF--
 object(Cairo\FontFace\Toy)#%d (0) {
 }
-enum(Cairo\FontType::TOY)
+enum(Cairo\FontType::Toy)
 Cairo\FontFace::getType() expects exactly 0 arguments, 1 given

@@ -2,7 +2,7 @@
 Cairo\Context->getOperator() function
 --SKIPIF--
 <?php
-if(!extension_loaded('cairo')) die('skip - Cairo extension not available');
+include __DIR__ . '/../skipif.inc';
 --FILE--
 <?php
 $surface = new Cairo\Surface\Image(Cairo\Surface\ImageFormat::ARGB32, 50, 50);
@@ -11,7 +11,7 @@ var_dump($surface);
 $context = new Cairo\Context($surface);
 var_dump($context);
 
-$context->setOperator(\Cairo\Operator::CLEAR);
+$context->setOperator(\Cairo\Operator::Clear);
 var_dump($context->getOperator());
 
 try {
@@ -25,5 +25,5 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 object(Cairo\Context)#%d (0) {
 }
-enum(Cairo\Operator::CLEAR)
+enum(Cairo\Operator::Clear)
 Cairo\Context::getOperator() expects exactly 0 arguments, 1 given
