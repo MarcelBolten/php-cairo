@@ -359,7 +359,7 @@ PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
         requirements of the accelerated image-rendering code within cairo. */
 PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)
 {
-    long width;
+    zend_long width;
     zval *format;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
@@ -369,7 +369,7 @@ PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)
 
     RETURN_LONG(cairo_format_stride_for_width(
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),
-        width
+        (int) width
     ));
 }
 /* }}} */

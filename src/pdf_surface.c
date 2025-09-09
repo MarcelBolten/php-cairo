@@ -283,7 +283,7 @@ PHP_METHOD(Cairo_Surface_Pdf, setPageLabel)
        Setting a width or height of 0 disables thumbnails for the current and subsequent pages. */
 PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)
 {
-    long width = 0, height = 0;
+    zend_long width = 0, height = 0;
     cairo_surface_object *surface_object;
 
     ZEND_PARSE_PARAMETERS_START(2, 2)
@@ -296,7 +296,7 @@ PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)
         RETURN_THROWS();
     }
 
-    cairo_pdf_surface_set_thumbnail_size(surface_object->surface, width, height);
+    cairo_pdf_surface_set_thumbnail_size(surface_object->surface, (int) width, (int) height);
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
         RETURN_THROWS();
     }

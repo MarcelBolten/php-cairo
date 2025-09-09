@@ -95,7 +95,7 @@ PHP_METHOD(Cairo_Glyph, __construct)
     cairo_glyph_object *glyph_object;
 
     /* read defaults from object */
-    unsigned long index; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "index");
+    zend_long index; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "index");
     double x = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "x");
     double y = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), "y");
 
@@ -109,7 +109,7 @@ PHP_METHOD(Cairo_Glyph, __construct)
 
     glyph_object = Z_CAIRO_GLYPH_P(getThis());
 
-    glyph_object->glyph->index = index;
+    glyph_object->glyph->index = (unsigned long) index;
     glyph_object->glyph->x = x;
     glyph_object->glyph->y = y;
 }

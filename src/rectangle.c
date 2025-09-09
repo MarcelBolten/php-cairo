@@ -112,10 +112,10 @@ PHP_METHOD(Cairo_Rectangle, __construct)
     zend_object *object = Z_OBJ_P(getThis());
 
     /* read defaults from object */
-    long x = cairo_rectangle_get_property_value(object, "x");
-    long y = cairo_rectangle_get_property_value(object, "y");
-    long width = cairo_rectangle_get_property_value(object, "width");
-    long height = cairo_rectangle_get_property_value(object, "height");
+    zend_long x = cairo_rectangle_get_property_value(object, "x");
+    zend_long y = cairo_rectangle_get_property_value(object, "y");
+    zend_long width = cairo_rectangle_get_property_value(object, "width");
+    zend_long height = cairo_rectangle_get_property_value(object, "height");
 
     /* Now allow constructor to overwrite them if desired */
     ZEND_PARSE_PARAMETERS_START(0, 4)
@@ -128,10 +128,10 @@ PHP_METHOD(Cairo_Rectangle, __construct)
 
     rectangle_object = cairo_rectangle_fetch_object(object);
 
-    rectangle_object->rect->x = x;
-    rectangle_object->rect->y = y;
-    rectangle_object->rect->width = width;
-    rectangle_object->rect->height = height;
+    rectangle_object->rect->x = (int) x;
+    rectangle_object->rect->y = (int) y;
+    rectangle_object->rect->width = (int) width;
+    rectangle_object->rect->height = (int) height;
 }
 /* }}} */
 
