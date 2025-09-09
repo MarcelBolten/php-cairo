@@ -63,15 +63,19 @@ jobs:
                 if ($arch -eq "x86") { $arch = "x86" } else { $arch = "x64" }
                 $triplet = "$arch-windows-static"
 
-                # Install all required packages including JPEG support
+                # Install all required packages
                 .\vcpkg install cairo:$triplet
                 .\vcpkg install libpng:$triplet
                 .\vcpkg install freetype:$triplet
                 .\vcpkg install fontconfig:$triplet
                 .\vcpkg install libjpeg-turbo:$triplet
-                # Optional: Also install other useful image libraries
-                # .\vcpkg install zlib:$triplet
-                # .\vcpkg install pixman:$triplet
+                .\vcpkg install zlib:$triplet
+                .\vcpkg install pixman:$triplet
+                # use either libxml2 or expat, not both
+                .\vcpkg install libxml2:$triplet
+                #.\vcpkg install expat:$triplet
+                .\vcpkg install bzip2:$triplet
+                .\vcpkg install brotli:$triplet
 
                 # Create the directory structure your config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
@@ -92,28 +96,38 @@ jobs:
                 if (Test-Path "$installPath\lib\turbojpeg.lib") {
                     Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\libjpeg-turbo.lib" -Force
                 }
-
-                # Copy other potentially useful libraries
                 if (Test-Path "$installPath\lib\zlib.lib") {
                     Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
                 }
                 if (Test-Path "$installPath\lib\pixman-1.lib") {
                     Copy-Item -Path "$installPath\lib\pixman-1.lib" -Destination "C:\cairo-deps\lib\pixman.lib" -Force
                 }
+                if (Test-Path "$installPath\lib\libxml2.lib") {
+                    Copy-Item -Path "$installPath\lib\libxml2.lib" -Destination "C:\cairo-deps\lib\libxml2.lib" -Force
+                }
+                if (Test-Path "$installPath\lib\expat.lib") {
+                    Copy-Item -Path "$installPath\lib\expat.lib" -Destination "C:\cairo-deps\lib\expat.lib" -Force
+                }
+                if (Test-Path "$installPath\lib\bz2.lib") {
+                    Copy-Item -Path "$installPath\lib\bz2.lib" -Destination "C:\cairo-deps\lib\bz2.lib" -Force
+                }
+                if (Test-Path "$installPath\lib\brotlidec-static.lib") {
+                    Copy-Item -Path "$installPath\lib\brotlidec-static.lib" -Destination "C:\cairo-deps\lib\brotlidec.lib" -Force
+                }
 
                 # Copy all headers
                 Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
 
                 # Debug: List what we have
-                Write-Host "Libraries installed:"
-                Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
-                Write-Host "Key header directories:"
-                Get-ChildItem "C:\cairo-deps\include\" | ForEach-Object { Write-Host $_.Name }
-                if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
-                if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
-                if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
-                if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
-                if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
+                # Write-Host "Libraries installed:"
+                # Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
+                # Write-Host "Key header directories:"
+                # Get-ChildItem "C:\cairo-deps\include\" | ForEach-Object { Write-Host $_.Name }
+                # if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
+                # if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
+                # if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
+                # if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
+                # if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
 
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
@@ -130,9 +144,3 @@ jobs:
                 arch: ${{ matrix.arch }}
                 ts: ${{ matrix.ts }}
                 args: --enable-debug --with-cairo=C:\cairo-deps
-
-                # Refer to your config.w32 file to find the libraries you need.
-                # Refer to the following directories to see if we support the libraries you need.
-                # https://downloads.php.net/~windows/pecl/deps
-                # https://downloads.php.net/~windows/php-sdk/deps
-                # libs: cairo, libpng, libjpeg-turbo, fontconfig, freetype, glib
