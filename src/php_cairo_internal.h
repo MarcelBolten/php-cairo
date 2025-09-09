@@ -147,7 +147,7 @@ typedef struct _cairo_surface_object {
     cairo_surface_t *surface;
     char * buffer;
     stream_closure *closure;
-    zval *parent_zval;
+    zval parent_zval;
     zend_object std;
 } cairo_surface_object;
 extern cairo_surface_object *cairo_surface_fetch_object(zend_object *object);
