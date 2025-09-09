@@ -98,11 +98,11 @@ jobs:
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
                 Write-Host "Key header directories:"
-                if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "✓ Cairo headers found" }
-                if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "✓ FreeType headers found" }
-                if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "✓ PNG headers found" }
-                if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "✓ JPEG headers found" }
-                if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "✓ FontConfig headers found" }
+                if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
+                if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
+                if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
+                if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
+                if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
