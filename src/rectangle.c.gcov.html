@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 05:16:35</td>
+            <td class="headerValue">2025-09-09 06:13:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -174,10 +174,10 @@
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         102 :     zend_object *object = Z_OBJ_P(getThis());</span></span>
 <span id="L113"><span class="lineNum">     113</span>              : </span>
 <span id="L114"><span class="lineNum">     114</span>              :     /* read defaults from object */</span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          51 :     long x = cairo_rectangle_get_property_value(object, &quot;x&quot;);</span></span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          51 :     long y = cairo_rectangle_get_property_value(object, &quot;y&quot;);</span></span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          51 :     long width = cairo_rectangle_get_property_value(object, &quot;width&quot;);</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          51 :     long height = cairo_rectangle_get_property_value(object, &quot;height&quot;);</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          51 :     zend_long x = cairo_rectangle_get_property_value(object, &quot;x&quot;);</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          51 :     zend_long y = cairo_rectangle_get_property_value(object, &quot;y&quot;);</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          51 :     zend_long width = cairo_rectangle_get_property_value(object, &quot;width&quot;);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          51 :     zend_long height = cairo_rectangle_get_property_value(object, &quot;height&quot;);</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
 <span id="L120"><span class="lineNum">     120</span>              :     /* Now allow constructor to overwrite them if desired */</span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          51 :     ZEND_PARSE_PARAMETERS_START(0, 4)</span></span>
@@ -190,10 +190,10 @@
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          46 :     rectangle_object = cairo_rectangle_fetch_object(object);</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;x = x;</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;y = y;</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;width = width;</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;height = height;</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;x = (int) x;</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;y = (int) y;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;width = (int) width;</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          46 :     rectangle_object-&gt;rect-&gt;height = (int) height;</span></span>
 <span id="L135"><span class="lineNum">     135</span>              : }</span>
 <span id="L136"><span class="lineNum">     136</span>              : /* }}} */</span>
 <span id="L137"><span class="lineNum">     137</span>              : </span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 05:16:35</td>
+            <td class="headerValue">2025-09-09 06:13:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -421,7 +421,7 @@
 <span id="L359"><span class="lineNum">     359</span>              :         requirements of the accelerated image-rendering code within cairo. */</span>
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC tlaBgGNC">           6 : PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)</span></span>
 <span id="L361"><span class="lineNum">     361</span>              : {</span>
-<span id="L362"><span class="lineNum">     362</span>              :     long width;</span>
+<span id="L362"><span class="lineNum">     362</span>              :     zend_long width;</span>
 <span id="L363"><span class="lineNum">     363</span>              :     zval *format;</span>
 <span id="L364"><span class="lineNum">     364</span>              : </span>
 <span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">           6 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
@@ -431,7 +431,7 @@
 <span id="L369"><span class="lineNum">     369</span>              : </span>
 <span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">           2 :     RETURN_LONG(cairo_format_stride_for_width(</span></span>
 <span id="L371"><span class="lineNum">     371</span>              :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),</span>
-<span id="L372"><span class="lineNum">     372</span>              :         width</span>
+<span id="L372"><span class="lineNum">     372</span>              :         (int) width</span>
 <span id="L373"><span class="lineNum">     373</span>              :     ));</span>
 <span id="L374"><span class="lineNum">     374</span>              : }</span>
 <span id="L375"><span class="lineNum">     375</span>              : /* }}} */</span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 05:16:35</td>
+            <td class="headerValue">2025-09-09 06:13:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -367,7 +367,7 @@
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Surface, markDirtyRectangle)</span></span>
 <span id="L306"><span class="lineNum">     306</span>              : {</span>
 <span id="L307"><span class="lineNum">     307</span>              :     cairo_surface_object *surface_object;</span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          10 :     long x = 0, y = 0, width = 0, height = 0;</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          10 :     zend_long x = 0, y = 0, width = 0, height = 0;</span></span>
 <span id="L309"><span class="lineNum">     309</span>              : </span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(4, 4)</span></span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">          10 :         Z_PARAM_LONG(x)</span></span>
@@ -381,7 +381,7 @@
 <span id="L319"><span class="lineNum">     319</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L320"><span class="lineNum">     320</span>              :     }</span>
 <span id="L321"><span class="lineNum">     321</span>              : </span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_surface_mark_dirty_rectangle(surface_object-&gt;surface, x, y, width, height);</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_surface_mark_dirty_rectangle(surface_object-&gt;surface, (int) x, (int) y, (int) width, (int) height);</span></span>
 <span id="L323"><span class="lineNum">     323</span>              : }</span>
 <span id="L324"><span class="lineNum">     324</span>              : /* }}} */</span>
 <span id="L325"><span class="lineNum">     325</span>              : </span>
