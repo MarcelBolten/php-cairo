@@ -5,13 +5,11 @@ Cairo\Surface\Image::createFromJpeg() method
 include __DIR__ . '/../../skipif.inc';
 if (!in_array('JPEG', Cairo\Cairo::availableSurfaces()))
     die('skip - JPEG support not available');
-die('skip till fixed'); // There is a bug with the stream
 --FILE--
 <?php
 $surface = Cairo\Surface\Image::createFromJpeg(dirname(__FILE__) . '/red.jpg');
 var_dump($surface);
 
-// There is a bug with the stream
 echo dirname(__FILE__) . '/red.jpg' . PHP_EOL;
 $resource = fopen(dirname(__FILE__) . '/red.jpg', 'rb');
 $surface = Cairo\Surface\Image::createFromJpeg($resource);
@@ -21,14 +19,14 @@ fclose($resource);
 /* Wrong number args - 1 */
 try {
     Cairo\Surface\Image::createFromJpeg();
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 2 */
 try {
     Cairo\Surface\Image::createFromJpeg('', 1);
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
