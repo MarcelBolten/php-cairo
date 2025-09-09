@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - PHP Cairo Extension Coverage - src/cairo_arginfo.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - cairo_arginfo.h<span style="font-size: 80%;"> (source / <a href="cairo_arginfo.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">PHP Cairo Extension Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2025-09-09 05:11:44</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit the .stub.php file instead.</span>
+<span id="L2"><span class="lineNum">       2</span>              :  * Stub hash: 9159abebed4ae5a59101c2e885a0ac0fdfb77e0d */</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span>              : ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_Cairo_version, 0, 0, IS_LONG, 0)</span>
+<span id="L5"><span class="lineNum">       5</span>              : ZEND_END_ARG_INFO()</span>
+<span id="L6"><span class="lineNum">       6</span>              : </span>
+<span id="L7"><span class="lineNum">       7</span>              : ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_Cairo_version_string, 0, 0, IS_STRING, 0)</span>
+<span id="L8"><span class="lineNum">       8</span>              : ZEND_END_ARG_INFO()</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span>              : #define arginfo_class_Cairo_Cairo_version arginfo_Cairo_version</span>
+<span id="L11"><span class="lineNum">      11</span>              : </span>
+<span id="L12"><span class="lineNum">      12</span>              : #define arginfo_class_Cairo_Cairo_versionString arginfo_Cairo_version_string</span>
+<span id="L13"><span class="lineNum">      13</span>              : </span>
+<span id="L14"><span class="lineNum">      14</span>              : ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Cairo_availableSurfaces, 0, 0, IS_ARRAY, 0)</span>
+<span id="L15"><span class="lineNum">      15</span>              : ZEND_END_ARG_INFO()</span>
+<span id="L16"><span class="lineNum">      16</span>              : </span>
+<span id="L17"><span class="lineNum">      17</span>              : #define arginfo_class_Cairo_Cairo_availableFonts arginfo_class_Cairo_Cairo_availableSurfaces</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span>              : ZEND_FUNCTION(Cairo_version);</span>
+<span id="L20"><span class="lineNum">      20</span>              : ZEND_FUNCTION(Cairo_version_string);</span>
+<span id="L21"><span class="lineNum">      21</span>              : ZEND_METHOD(Cairo_Cairo, version);</span>
+<span id="L22"><span class="lineNum">      22</span>              : ZEND_METHOD(Cairo_Cairo, versionString);</span>
+<span id="L23"><span class="lineNum">      23</span>              : ZEND_METHOD(Cairo_Cairo, availableSurfaces);</span>
+<span id="L24"><span class="lineNum">      24</span>              : ZEND_METHOD(Cairo_Cairo, availableFonts);</span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span>              : static const zend_function_entry ext_functions[] = {</span>
+<span id="L27"><span class="lineNum">      27</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
+<span id="L28"><span class="lineNum">      28</span>              :     ZEND_RAW_FENTRY(ZEND_NS_NAME(&quot;Cairo&quot;, &quot;version&quot;), zif_Cairo_version, arginfo_Cairo_version, 0, NULL, NULL)</span>
+<span id="L29"><span class="lineNum">      29</span>              : #else</span>
+<span id="L30"><span class="lineNum">      30</span>              :     ZEND_RAW_FENTRY(ZEND_NS_NAME(&quot;Cairo&quot;, &quot;version&quot;), zif_Cairo_version, arginfo_Cairo_version, 0)</span>
+<span id="L31"><span class="lineNum">      31</span>              : #endif</span>
+<span id="L32"><span class="lineNum">      32</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
+<span id="L33"><span class="lineNum">      33</span>              :     ZEND_RAW_FENTRY(ZEND_NS_NAME(&quot;Cairo&quot;, &quot;version_string&quot;), zif_Cairo_version_string, arginfo_Cairo_version_string, 0, NULL, NULL)</span>
+<span id="L34"><span class="lineNum">      34</span>              : #else</span>
+<span id="L35"><span class="lineNum">      35</span>              :     ZEND_RAW_FENTRY(ZEND_NS_NAME(&quot;Cairo&quot;, &quot;version_string&quot;), zif_Cairo_version_string, arginfo_Cairo_version_string, 0)</span>
+<span id="L36"><span class="lineNum">      36</span>              : #endif</span>
+<span id="L37"><span class="lineNum">      37</span>              :     ZEND_FE_END</span>
+<span id="L38"><span class="lineNum">      38</span>              : };</span>
+<span id="L39"><span class="lineNum">      39</span>              : </span>
+<span id="L40"><span class="lineNum">      40</span>              : static const zend_function_entry class_Cairo_Cairo_methods[] = {</span>
+<span id="L41"><span class="lineNum">      41</span>              :     ZEND_ME(Cairo_Cairo, version, arginfo_class_Cairo_Cairo_version, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)</span>
+<span id="L42"><span class="lineNum">      42</span>              :     ZEND_ME(Cairo_Cairo, versionString, arginfo_class_Cairo_Cairo_versionString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)</span>
+<span id="L43"><span class="lineNum">      43</span>              :     ZEND_ME(Cairo_Cairo, availableSurfaces, arginfo_class_Cairo_Cairo_availableSurfaces, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)</span>
+<span id="L44"><span class="lineNum">      44</span>              :     ZEND_ME(Cairo_Cairo, availableFonts, arginfo_class_Cairo_Cairo_availableFonts, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)</span>
+<span id="L45"><span class="lineNum">      45</span>              :     ZEND_FE_END</span>
+<span id="L46"><span class="lineNum">      46</span>              : };</span>
+<span id="L47"><span class="lineNum">      47</span>              : </span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC tlaBgGNC">         423 : static void register_cairo_symbols(int module_number)</span></span>
+<span id="L49"><span class="lineNum">      49</span>              : {</span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         423 :     REGISTER_LONG_CONSTANT(&quot;Cairo\\VERSION&quot;, CAIRO_VERSION, CONST_PERSISTENT);</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         423 :     REGISTER_STRING_CONSTANT(&quot;Cairo\\VERSION_STRING&quot;, CAIRO_VERSION_STRING, CONST_PERSISTENT);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         423 : }</span></span>
+<span id="L53"><span class="lineNum">      53</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         423 : static zend_class_entry *register_class_Cairo_Cairo(void)</span></span>
+<span id="L55"><span class="lineNum">      55</span>              : {</span>
+<span id="L56"><span class="lineNum">      56</span>              :     zend_class_entry ce, *class_entry;</span>
+<span id="L57"><span class="lineNum">      57</span>              : </span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         423 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo&quot;, &quot;Cairo&quot;, class_Cairo_Cairo_methods);</span></span>
+<span id="L59"><span class="lineNum">      59</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         423 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, NULL, ZEND_ACC_ABSTRACT);</span></span>
+<span id="L61"><span class="lineNum">      61</span>              : #else</span>
+<span id="L62"><span class="lineNum">      62</span>              :     class_entry = zend_register_internal_class_ex(&amp;ce, NULL);</span>
+<span id="L63"><span class="lineNum">      63</span>              :     class_entry-&gt;ce_flags |= ZEND_ACC_ABSTRACT;</span>
+<span id="L64"><span class="lineNum">      64</span>              : #endif</span>
+<span id="L65"><span class="lineNum">      65</span>              : </span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">         423 :     return class_entry;</span></span>
+<span id="L67"><span class="lineNum">      67</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

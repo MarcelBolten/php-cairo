@@ -31,18 +31,18 @@
             <td class="headerValue">PHP Cairo Extension Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">93.8&nbsp;%</td>
-            <td class="headerCovTableEntry">97</td>
-            <td class="headerCovTableEntry">91</td>
+            <td class="headerCovTableEntryHi">95.7&nbsp;%</td>
+            <td class="headerCovTableEntry">94</td>
+            <td class="headerCovTableEntry">90</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 05:09:57</td>
+            <td class="headerValue">2025-09-09 05:11:44</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">11</td>
-            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">12</td>
           </tr>
                   <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -83,97 +83,97 @@
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              : #include &quot;php_cairo.h&quot;</span>
 <span id="L23"><span class="lineNum">      23</span>              : #include &quot;php_cairo_internal.h&quot;</span>
-<span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span>              : zend_class_entry *ce_cairo_glyph;</span>
-<span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span>              : static zend_object_handlers cairo_glyph_object_handlers;</span>
-<span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC tlaBgGNC">         122 : cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)</span></span>
-<span id="L30"><span class="lineNum">      30</span>              : {</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         122 :     return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));</span></span>
-<span id="L32"><span class="lineNum">      32</span>              : }</span>
-<span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span>              : /*static inline double cairo_glyph_get_property_value(zend_object *object, char *name) {</span>
-<span id="L35"><span class="lineNum">      35</span>              :     zval *prop, rv;</span>
-<span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span>              :     prop = zend_read_property(object-&gt;ce, object, name, strlen(name), 1, &amp;rv);</span>
-<span id="L38"><span class="lineNum">      38</span>              :     return zval_get_double(prop);</span>
-<span id="L39"><span class="lineNum">      39</span>              : }*/</span>
-<span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              : #define CAIRO_ALLOC_GLYPH(glyph_value) if (!glyph_value) \</span>
-<span id="L42"><span class="lineNum">      42</span>              :     { glyph_value = ecalloc(1, sizeof(cairo_glyph_t)); }</span>
-<span id="L43"><span class="lineNum">      43</span>              : </span>
-<span id="L44"><span class="lineNum">      44</span>              : #define CAIRO_VALUE_FROM_STRUCT(n) \</span>
-<span id="L45"><span class="lineNum">      45</span>              :     if (strcmp(member-&gt;val, #n) == 0) { \</span>
-<span id="L46"><span class="lineNum">      46</span>              :         value = glyph_object-&gt;glyph-&gt;n; \</span>
-<span id="L47"><span class="lineNum">      47</span>              :         break; \</span>
-<span id="L48"><span class="lineNum">      48</span>              :     }</span>
-<span id="L49"><span class="lineNum">      49</span>              : </span>
-<span id="L50"><span class="lineNum">      50</span>              : #define CAIRO_VALUE_TO_STRUCT(n) \</span>
-<span id="L51"><span class="lineNum">      51</span>              :     if (strcmp(member-&gt;val, #n) == 0) { \</span>
-<span id="L52"><span class="lineNum">      52</span>              :         if (Z_TYPE_P(value) == IS_LONG) { \</span>
-<span id="L53"><span class="lineNum">      53</span>              :             glyph_object-&gt;glyph-&gt;n = zval_get_long(value); \</span>
-<span id="L54"><span class="lineNum">      54</span>              :         } else { \</span>
-<span id="L55"><span class="lineNum">      55</span>              :             glyph_object-&gt;glyph-&gt;n = zval_get_double(value); \</span>
-<span id="L56"><span class="lineNum">      56</span>              :         } \</span>
-<span id="L57"><span class="lineNum">      57</span>              :         break; \</span>
-<span id="L58"><span class="lineNum">      58</span>              :     }</span>
-<span id="L59"><span class="lineNum">      59</span>              : </span>
-<span id="L60"><span class="lineNum">      60</span>              : #define CAIRO_ADD_STRUCT_VALUE(n) \</span>
-<span id="L61"><span class="lineNum">      61</span>              :     if (strcmp(#n, &quot;index&quot;) == 0) { \</span>
-<span id="L62"><span class="lineNum">      62</span>              :         ZVAL_LONG(&amp;tmp, glyph_object-&gt;glyph-&gt;n); \</span>
-<span id="L63"><span class="lineNum">      63</span>              :     } else { \</span>
-<span id="L64"><span class="lineNum">      64</span>              :         ZVAL_DOUBLE(&amp;tmp, glyph_object-&gt;glyph-&gt;n); \</span>
-<span id="L65"><span class="lineNum">      65</span>              :     } \</span>
-<span id="L66"><span class="lineNum">      66</span>              :     zend_hash_str_update(props, #n, sizeof(#n)-1, &amp;tmp);</span>
-<span id="L67"><span class="lineNum">      67</span>              : </span>
-<span id="L68"><span class="lineNum">      68</span>              : /* ----------------------------------------------------------------</span>
-<span id="L69"><span class="lineNum">      69</span>              :     \Cairo\Glyph C API</span>
-<span id="L70"><span class="lineNum">      70</span>              : ------------------------------------------------------------------*/</span>
-<span id="L71"><span class="lineNum">      71</span>              : </span>
-<span id="L72"><span class="lineNum">      72</span>              : /* {{{ */</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          20 : cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)</span></span>
-<span id="L74"><span class="lineNum">      74</span>              : {</span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          20 :     cairo_glyph_object *glyph_object = Z_CAIRO_GLYPH_P(zv);</span></span>
-<span id="L76"><span class="lineNum">      76</span>              : </span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          20 :     return glyph_object-&gt;glyph;</span></span>
-<span id="L78"><span class="lineNum">      78</span>              : }</span>
-<span id="L79"><span class="lineNum">      79</span>              : /* }}} */</span>
-<span id="L80"><span class="lineNum">      80</span>              : </span>
-<span id="L81"><span class="lineNum">      81</span>              : /* ----------------------------------------------------------------</span>
-<span id="L82"><span class="lineNum">      82</span>              :     \Cairo\Glyph Class API</span>
-<span id="L83"><span class="lineNum">      83</span>              : ------------------------------------------------------------------*/</span>
-<span id="L84"><span class="lineNum">      84</span>              : </span>
-<span id="L85"><span class="lineNum">      85</span>              : ZEND_BEGIN_ARG_INFO_EX(CairoGlyph____construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)</span>
-<span id="L86"><span class="lineNum">      86</span>              :     ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)</span>
-<span id="L87"><span class="lineNum">      87</span>              :     ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 1)</span>
-<span id="L88"><span class="lineNum">      88</span>              :     ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 1)</span>
-<span id="L89"><span class="lineNum">      89</span>              : ZEND_END_ARG_INFO()</span>
+<span id="L24"><span class="lineNum">      24</span>              : #include &quot;glyph_arginfo.h&quot;</span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span>              : zend_class_entry *ce_cairo_glyph;</span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span>              : static zend_object_handlers cairo_glyph_object_handlers;</span>
+<span id="L29"><span class="lineNum">      29</span>              : </span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">         144 : cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)</span></span>
+<span id="L31"><span class="lineNum">      31</span>              : {</span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         144 :     return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));</span></span>
+<span id="L33"><span class="lineNum">      33</span>              : }</span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              : /*static inline double cairo_glyph_get_property_value(zend_object *object, char *name) {</span>
+<span id="L36"><span class="lineNum">      36</span>              :     zval *prop, rv;</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :     prop = zend_read_property(object-&gt;ce, object, name, strlen(name), 1, &amp;rv);</span>
+<span id="L39"><span class="lineNum">      39</span>              :     return zval_get_double(prop);</span>
+<span id="L40"><span class="lineNum">      40</span>              : }*/</span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span>              : #define CAIRO_ALLOC_GLYPH(glyph_value) if (!glyph_value) \</span>
+<span id="L43"><span class="lineNum">      43</span>              :     { glyph_value = ecalloc(1, sizeof(cairo_glyph_t)); }</span>
+<span id="L44"><span class="lineNum">      44</span>              : </span>
+<span id="L45"><span class="lineNum">      45</span>              : #define CAIRO_VALUE_FROM_STRUCT(n) \</span>
+<span id="L46"><span class="lineNum">      46</span>              :     if (strcmp(member-&gt;val, #n) == 0) { \</span>
+<span id="L47"><span class="lineNum">      47</span>              :         value = glyph_object-&gt;glyph-&gt;n; \</span>
+<span id="L48"><span class="lineNum">      48</span>              :         break; \</span>
+<span id="L49"><span class="lineNum">      49</span>              :     }</span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span>              : #define CAIRO_VALUE_TO_STRUCT(n) \</span>
+<span id="L52"><span class="lineNum">      52</span>              :     if (strcmp(member-&gt;val, #n) == 0) { \</span>
+<span id="L53"><span class="lineNum">      53</span>              :         if (Z_TYPE_P(value) == IS_LONG) { \</span>
+<span id="L54"><span class="lineNum">      54</span>              :             glyph_object-&gt;glyph-&gt;n = zval_get_long(value); \</span>
+<span id="L55"><span class="lineNum">      55</span>              :         } else { \</span>
+<span id="L56"><span class="lineNum">      56</span>              :             glyph_object-&gt;glyph-&gt;n = zval_get_double(value); \</span>
+<span id="L57"><span class="lineNum">      57</span>              :         } \</span>
+<span id="L58"><span class="lineNum">      58</span>              :         break; \</span>
+<span id="L59"><span class="lineNum">      59</span>              :     }</span>
+<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L61"><span class="lineNum">      61</span>              : #define CAIRO_ADD_STRUCT_VALUE(n) \</span>
+<span id="L62"><span class="lineNum">      62</span>              :     if (strcmp(#n, &quot;index&quot;) == 0) { \</span>
+<span id="L63"><span class="lineNum">      63</span>              :         ZVAL_LONG(&amp;tmp, glyph_object-&gt;glyph-&gt;n); \</span>
+<span id="L64"><span class="lineNum">      64</span>              :     } else { \</span>
+<span id="L65"><span class="lineNum">      65</span>              :         ZVAL_DOUBLE(&amp;tmp, glyph_object-&gt;glyph-&gt;n); \</span>
+<span id="L66"><span class="lineNum">      66</span>              :     } \</span>
+<span id="L67"><span class="lineNum">      67</span>              :     zend_hash_str_update(props, #n, sizeof(#n)-1, &amp;tmp);</span>
+<span id="L68"><span class="lineNum">      68</span>              : </span>
+<span id="L69"><span class="lineNum">      69</span>              : /* ----------------------------------------------------------------</span>
+<span id="L70"><span class="lineNum">      70</span>              :     \Cairo\Glyph C API</span>
+<span id="L71"><span class="lineNum">      71</span>              : ------------------------------------------------------------------*/</span>
+<span id="L72"><span class="lineNum">      72</span>              : </span>
+<span id="L73"><span class="lineNum">      73</span>              : /* {{{ */</span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          26 : cairo_glyph_t *cairo_glyph_object_get_glyph(zval *zv)</span></span>
+<span id="L75"><span class="lineNum">      75</span>              : {</span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          26 :     cairo_glyph_object *glyph_object = Z_CAIRO_GLYPH_P(zv);</span></span>
+<span id="L77"><span class="lineNum">      77</span>              : </span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          26 :     return glyph_object-&gt;glyph;</span></span>
+<span id="L79"><span class="lineNum">      79</span>              : }</span>
+<span id="L80"><span class="lineNum">      80</span>              : /* }}} */</span>
+<span id="L81"><span class="lineNum">      81</span>              : </span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">          42 : zend_class_entry* php_cairo_get_glyph_ce()</span></span>
+<span id="L83"><span class="lineNum">      83</span>              : {</span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          42 :     return ce_cairo_glyph;</span></span>
+<span id="L85"><span class="lineNum">      85</span>              : }</span>
+<span id="L86"><span class="lineNum">      86</span>              : </span>
+<span id="L87"><span class="lineNum">      87</span>              : /* ----------------------------------------------------------------</span>
+<span id="L88"><span class="lineNum">      88</span>              :     \Cairo\Glyph Class API</span>
+<span id="L89"><span class="lineNum">      89</span>              : ------------------------------------------------------------------*/</span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
 <span id="L91"><span class="lineNum">      91</span>              : /* {{{ proto void __construct(int index [, float x, float y])</span>
 <span id="L92"><span class="lineNum">      92</span>              :     Creates a new glyph with the properties populated */</span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           9 : PHP_METHOD(CairoGlyph, __construct)</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Glyph, __construct)</span></span>
 <span id="L94"><span class="lineNum">      94</span>              : {</span>
 <span id="L95"><span class="lineNum">      95</span>              :     cairo_glyph_object *glyph_object;</span>
 <span id="L96"><span class="lineNum">      96</span>              : </span>
 <span id="L97"><span class="lineNum">      97</span>              :     /* read defaults from object */</span>
 <span id="L98"><span class="lineNum">      98</span>              :     unsigned long index; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), &quot;index&quot;);</span>
-<span id="L99"><span class="lineNum">      99</span> <span class="tlaGNC">           9 :     double x = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), &quot;x&quot;);</span></span>
-<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           9 :     double y = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), &quot;y&quot;);</span></span>
+<span id="L99"><span class="lineNum">      99</span> <span class="tlaGNC">          10 :     double x = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), &quot;x&quot;);</span></span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">          10 :     double y = 0.0; //cairo_glyph_get_property_value(Z_OBJ_P(getThis()), &quot;y&quot;);</span></span>
 <span id="L101"><span class="lineNum">     101</span>              : </span>
 <span id="L102"><span class="lineNum">     102</span>              :     /* Now allow constructor to overwrite them if desired */</span>
-<span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">           9 :     ZEND_PARSE_PARAMETERS_START(1, 3)</span></span>
-<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">          14 :         Z_PARAM_LONG(index)</span></span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           6 :         Z_PARAM_OPTIONAL</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">          12 :         Z_PARAM_DOUBLE(x)</span></span>
-<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          10 :         Z_PARAM_DOUBLE(y)</span></span>
-<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">           9 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(1, 3)</span></span>
+<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">          16 :         Z_PARAM_LONG(index)</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           7 :         Z_PARAM_OPTIONAL</span></span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">          14 :         Z_PARAM_DOUBLE(x)</span></span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          12 :         Z_PARAM_DOUBLE(y)</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_END();</span></span>
 <span id="L109"><span class="lineNum">     109</span>              : </span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">           8 :     glyph_object = Z_CAIRO_GLYPH_P(getThis());</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">          10 :     glyph_object = Z_CAIRO_GLYPH_P(getThis());</span></span>
 <span id="L111"><span class="lineNum">     111</span>              : </span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">           4 :     glyph_object-&gt;glyph-&gt;index = index;</span></span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           4 :     glyph_object-&gt;glyph-&gt;x = x;</span></span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           4 :     glyph_object-&gt;glyph-&gt;y = y;</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">           5 :     glyph_object-&gt;glyph-&gt;index = index;</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           5 :     glyph_object-&gt;glyph-&gt;x = x;</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           5 :     glyph_object-&gt;glyph-&gt;y = y;</span></span>
 <span id="L115"><span class="lineNum">     115</span>              : }</span>
 <span id="L116"><span class="lineNum">     116</span>              : /* }}} */</span>
 <span id="L117"><span class="lineNum">     117</span>              : </span>
@@ -182,46 +182,46 @@
 <span id="L120"><span class="lineNum">     120</span>              : ------------------------------------------------------------------*/</span>
 <span id="L121"><span class="lineNum">     121</span>              : </span>
 <span id="L122"><span class="lineNum">     122</span>              : /* {{{ */</span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          46 : static void cairo_glyph_free_obj(zend_object *zobj)</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          53 : static void cairo_glyph_free_obj(zend_object *zobj)</span></span>
 <span id="L124"><span class="lineNum">     124</span>              : {</span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          46 :     cairo_glyph_object *intern = cairo_glyph_fetch_object(zobj);</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          53 :     cairo_glyph_object *intern = cairo_glyph_fetch_object(zobj);</span></span>
 <span id="L126"><span class="lineNum">     126</span>              : </span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          46 :     if (!intern) {</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          53 :     if (!intern) {</span></span>
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
 <span id="L129"><span class="lineNum">     129</span>              :     }</span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC tlaBgGNC">          46 :     if (intern-&gt;glyph) {</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          46 :         efree(intern-&gt;glyph);</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          46 :         intern-&gt;glyph = NULL;</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC tlaBgGNC">          53 :     if (intern-&gt;glyph) {</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          53 :         efree(intern-&gt;glyph);</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          53 :         intern-&gt;glyph = NULL;</span></span>
 <span id="L134"><span class="lineNum">     134</span>              :     }</span>
 <span id="L135"><span class="lineNum">     135</span>              : </span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          46 :     zend_object_std_dtor(&amp;intern-&gt;std);</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          53 :     zend_object_std_dtor(&amp;intern-&gt;std);</span></span>
 <span id="L137"><span class="lineNum">     137</span>              : }</span>
 <span id="L138"><span class="lineNum">     138</span>              : /* }}} */</span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
 <span id="L140"><span class="lineNum">     140</span>              : /* {{{ */</span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          46 : static zend_object* cairo_glyph_obj_ctor(zend_class_entry *ce, cairo_glyph_object **intern)</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          53 : static zend_object* cairo_glyph_obj_ctor(zend_class_entry *ce, cairo_glyph_object **intern)</span></span>
 <span id="L142"><span class="lineNum">     142</span>              : {</span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          46 :     cairo_glyph_object *object = ecalloc(1, sizeof(cairo_glyph_object) + zend_object_properties_size(ce));</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          46 :     CAIRO_ALLOC_GLYPH(object-&gt;glyph);</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          53 :     cairo_glyph_object *object = ecalloc(1, sizeof(cairo_glyph_object) + zend_object_properties_size(ce));</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          53 :     CAIRO_ALLOC_GLYPH(object-&gt;glyph);</span></span>
 <span id="L145"><span class="lineNum">     145</span>              : </span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          46 :     zend_object_std_init(&amp;object-&gt;std, ce);</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          53 :     zend_object_std_init(&amp;object-&gt;std, ce);</span></span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          46 :     object-&gt;std.handlers = &amp;cairo_glyph_object_handlers;</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          46 :     *intern = object;</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          53 :     object-&gt;std.handlers = &amp;cairo_glyph_object_handlers;</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          53 :     *intern = object;</span></span>
 <span id="L150"><span class="lineNum">     150</span>              : </span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          46 :     return &amp;object-&gt;std;</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          53 :     return &amp;object-&gt;std;</span></span>
 <span id="L152"><span class="lineNum">     152</span>              : }</span>
 <span id="L153"><span class="lineNum">     153</span>              : /* }}} */</span>
 <span id="L154"><span class="lineNum">     154</span>              : </span>
 <span id="L155"><span class="lineNum">     155</span>              : /* {{{ */</span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          45 : static zend_object* cairo_glyph_create_object(zend_class_entry *ce)</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          52 : static zend_object* cairo_glyph_create_object(zend_class_entry *ce)</span></span>
 <span id="L157"><span class="lineNum">     157</span>              : {</span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">          45 :     cairo_glyph_object *intern = NULL;</span></span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">          45 :     zend_object *return_value = cairo_glyph_obj_ctor(ce, &amp;intern);</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">          52 :     cairo_glyph_object *intern = NULL;</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">          52 :     zend_object *return_value = cairo_glyph_obj_ctor(ce, &amp;intern);</span></span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          45 :     object_properties_init(&amp;intern-&gt;std, ce);</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          45 :     return return_value;</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          52 :     object_properties_init(&amp;intern-&gt;std, ce);</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          52 :     return return_value;</span></span>
 <span id="L163"><span class="lineNum">     163</span>              : }</span>
 <span id="L164"><span class="lineNum">     164</span>              : /* }}} */</span>
 <span id="L165"><span class="lineNum">     165</span>              : </span>
@@ -244,29 +244,29 @@
 <span id="L182"><span class="lineNum">     182</span>              : /* }}} */</span>
 <span id="L183"><span class="lineNum">     183</span>              : </span>
 <span id="L184"><span class="lineNum">     184</span>              : /* {{{ */</span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           6 : static zval *cairo_glyph_object_read_property(zend_object *zobj, zend_string *member, int type, void **cache_slot, zval *rv)</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           7 : static zval *cairo_glyph_object_read_property(zend_object *zobj, zend_string *member, int type, void **cache_slot, zval *rv)</span></span>
 <span id="L186"><span class="lineNum">     186</span>              : {</span>
 <span id="L187"><span class="lineNum">     187</span>              :     zval *retval;</span>
 <span id="L188"><span class="lineNum">     188</span>              :     double value;</span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           6 :     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           7 :     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           6 :     if (!glyph_object) {</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           7 :     if (!glyph_object) {</span></span>
 <span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC tlaBgUNC">           0 :         return rv;</span></span>
 <span id="L193"><span class="lineNum">     193</span>              :     }</span>
 <span id="L194"><span class="lineNum">     194</span>              : </span>
 <span id="L195"><span class="lineNum">     195</span>              :     do {</span>
 <span id="L196"><span class="lineNum">     196</span>              :         // break if struct member</span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC tlaBgGNC">           6 :         CAIRO_VALUE_FROM_STRUCT(index);</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           4 :         CAIRO_VALUE_FROM_STRUCT(x);</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           2 :         CAIRO_VALUE_FROM_STRUCT(y);</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC tlaBgGNC">           7 :         CAIRO_VALUE_FROM_STRUCT(index);</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           5 :         CAIRO_VALUE_FROM_STRUCT(x);</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           3 :         CAIRO_VALUE_FROM_STRUCT(y);</span></span>
 <span id="L200"><span class="lineNum">     200</span>              : </span>
 <span id="L201"><span class="lineNum">     201</span>              :         // not a struct member</span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaUNC tlaBgUNC">           0 :         retval = (zend_get_std_object_handlers())-&gt;read_property(zobj, member, type, cache_slot, rv);</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           1 :         retval = (zend_get_std_object_handlers())-&gt;read_property(zobj, member, type, cache_slot, rv);</span></span>
 <span id="L203"><span class="lineNum">     203</span>              : </span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaUNC">           0 :         return retval;</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">           1 :         return retval;</span></span>
 <span id="L205"><span class="lineNum">     205</span>              :     } while(0);</span>
 <span id="L206"><span class="lineNum">     206</span>              : </span>
-<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC tlaBgGNC">           6 :     retval = rv;</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">           6 :     retval = rv;</span></span>
 <span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">           6 :     if (strcmp(member-&gt;val, &quot;index&quot;) == 0) {</span></span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           2 :         ZVAL_LONG(retval, value);</span></span>
 <span id="L210"><span class="lineNum">     210</span>              :     } else {</span>
@@ -278,25 +278,25 @@
 <span id="L216"><span class="lineNum">     216</span>              : /* }}} */</span>
 <span id="L217"><span class="lineNum">     217</span>              : </span>
 <span id="L218"><span class="lineNum">     218</span>              : /* {{{ */</span>
-<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           4 : static zval *cairo_glyph_object_write_property(zend_object *zobj, zend_string *member, zval *value, void **cache_slot)</span></span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           5 : static zval *cairo_glyph_object_write_property(zend_object *zobj, zend_string *member, zval *value, void **cache_slot)</span></span>
 <span id="L220"><span class="lineNum">     220</span>              : {</span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           4 :     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           4 :     zval *retval = NULL;</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           5 :     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           5 :     zval *retval = NULL;</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           4 :     if (!glyph_object) {</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           5 :     if (!glyph_object) {</span></span>
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC tlaBgUNC">           0 :         return retval;</span></span>
 <span id="L226"><span class="lineNum">     226</span>              :     }</span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     do {</span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC tlaBgGNC">           8 :         CAIRO_VALUE_TO_STRUCT(index);</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           4 :         CAIRO_VALUE_TO_STRUCT(x);</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           3 :         CAIRO_VALUE_TO_STRUCT(y);</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC tlaBgGNC">           9 :         CAIRO_VALUE_TO_STRUCT(index);</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           5 :         CAIRO_VALUE_TO_STRUCT(x);</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           4 :         CAIRO_VALUE_TO_STRUCT(y);</span></span>
 <span id="L232"><span class="lineNum">     232</span>              :     } while(0);</span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
 <span id="L234"><span class="lineNum">     234</span>              :     // not a struct member</span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">           4 :     retval = (zend_get_std_object_handlers())-&gt;write_property(zobj, member, value, cache_slot);</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">           5 :     retval = (zend_get_std_object_handlers())-&gt;write_property(zobj, member, value, cache_slot);</span></span>
 <span id="L236"><span class="lineNum">     236</span>              : </span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">           4 :     return retval;</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">           5 :     return retval;</span></span>
 <span id="L238"><span class="lineNum">     238</span>              : }</span>
 <span id="L239"><span class="lineNum">     239</span>              : /* }}} */</span>
 <span id="L240"><span class="lineNum">     240</span>              : </span>
@@ -326,44 +326,29 @@
 <span id="L264"><span class="lineNum">     264</span>              :     \Cairo\Glyph Definition and registration</span>
 <span id="L265"><span class="lineNum">     265</span>              : ------------------------------------------------------------------*/</span>
 <span id="L266"><span class="lineNum">     266</span>              : </span>
-<span id="L267"><span class="lineNum">     267</span>              : /* {{{ cairo_glyph_methods[] */</span>
-<span id="L268"><span class="lineNum">     268</span>              : const zend_function_entry cairo_glyph_methods[] = {</span>
-<span id="L269"><span class="lineNum">     269</span>              :     PHP_ME(CairoGlyph, __construct, CairoGlyph____construct_args, ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)</span>
-<span id="L270"><span class="lineNum">     270</span>              :     ZEND_FE_END</span>
-<span id="L271"><span class="lineNum">     271</span>              : };</span>
-<span id="L272"><span class="lineNum">     272</span>              : /* }}} */</span>
-<span id="L273"><span class="lineNum">     273</span>              : </span>
-<span id="L274"><span class="lineNum">     274</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         422 : PHP_MINIT_FUNCTION(cairo_glyph)</span></span>
-<span id="L276"><span class="lineNum">     276</span>              : {</span>
-<span id="L277"><span class="lineNum">     277</span>              :     zend_class_entry ce;</span>
-<span id="L278"><span class="lineNum">     278</span>              : </span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         422 :     memcpy(</span></span>
-<span id="L280"><span class="lineNum">     280</span>              :         &amp;cairo_glyph_object_handlers,</span>
-<span id="L281"><span class="lineNum">     281</span>              :         zend_get_std_object_handlers(),</span>
-<span id="L282"><span class="lineNum">     282</span>              :         sizeof(zend_object_handlers)</span>
-<span id="L283"><span class="lineNum">     283</span>              :     );</span>
-<span id="L284"><span class="lineNum">     284</span>              : </span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;</span></span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;</span></span>
-<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;</span></span>
-<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;</span></span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">         422 :     cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;</span></span>
-<span id="L292"><span class="lineNum">     292</span>              : </span>
-<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">         422 :     INIT_NS_CLASS_ENTRY(ce, CAIRO_NAMESPACE, &quot;Glyph&quot;, cairo_glyph_methods);</span></span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">         422 :     ce.create_object = cairo_glyph_create_object;</span></span>
-<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">         422 :     ce_cairo_glyph = zend_register_internal_class(&amp;ce);</span></span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">         422 :     ce_cairo_glyph-&gt;ce_flags |= ZEND_ACC_FINAL;</span></span>
-<span id="L297"><span class="lineNum">     297</span>              : </span>
-<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">         422 :     zend_declare_property_long(ce_cairo_glyph, &quot;index&quot;, sizeof(&quot;index&quot;)-1, 0, ZEND_ACC_PUBLIC);</span></span>
-<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">         422 :     zend_declare_property_double(ce_cairo_glyph, &quot;x&quot;, sizeof(&quot;x&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
-<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">         422 :     zend_declare_property_double(ce_cairo_glyph, &quot;y&quot;, sizeof(&quot;y&quot;)-1, 0.0, ZEND_ACC_PUBLIC);</span></span>
-<span id="L301"><span class="lineNum">     301</span>              : </span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">         422 :     return SUCCESS;</span></span>
-<span id="L303"><span class="lineNum">     303</span>              : }</span>
-<span id="L304"><span class="lineNum">     304</span>              : /* }}} */</span>
+<span id="L267"><span class="lineNum">     267</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">         423 : PHP_MINIT_FUNCTION(cairo_glyph)</span></span>
+<span id="L269"><span class="lineNum">     269</span>              : {</span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         423 :     memcpy(</span></span>
+<span id="L271"><span class="lineNum">     271</span>              :         &amp;cairo_glyph_object_handlers,</span>
+<span id="L272"><span class="lineNum">     272</span>              :         zend_get_std_object_handlers(),</span>
+<span id="L273"><span class="lineNum">     273</span>              :         sizeof(zend_object_handlers)</span>
+<span id="L274"><span class="lineNum">     274</span>              :     );</span>
+<span id="L275"><span class="lineNum">     275</span>              : </span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);</span></span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.write_property = cairo_glyph_object_write_property;</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.get_property_ptr_ptr = NULL;</span></span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">         423 :     cairo_glyph_object_handlers.get_properties = cairo_glyph_object_get_properties;</span></span>
+<span id="L283"><span class="lineNum">     283</span>              : </span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">         423 :     ce_cairo_glyph = register_class_Cairo_Glyph();</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">         423 :     ce_cairo_glyph-&gt;create_object = cairo_glyph_create_object;</span></span>
+<span id="L286"><span class="lineNum">     286</span>              : </span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         423 :     return SUCCESS;</span></span>
+<span id="L288"><span class="lineNum">     288</span>              : }</span>
+<span id="L289"><span class="lineNum">     289</span>              : /* }}} */</span>
         </pre>
               </td>
             </tr>
