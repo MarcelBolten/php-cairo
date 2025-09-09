@@ -108,6 +108,7 @@ jobs:
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
                 Write-Host "Key header directories:"
+                Get-ChildItem "C:\cairo-deps\include\" | ForEach-Object { Write-Host $_.Name }
                 if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
                 if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
                 if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
