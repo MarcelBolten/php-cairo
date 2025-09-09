@@ -34,8 +34,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v5
 
-            - name: Setup vcpkg cache
-              uses: actions/cache@v3
+            - name: Restore vcpkg cache
+              uses: actions/cache@v4
               with:
                 path: |
                   C:\vcpkg\installed
@@ -114,6 +114,14 @@ jobs:
                 if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
                 if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
                 if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
+
+            - name: Save vcpkg cache
+              uses: actions/cache/save@v4
+              with:
+                path: |
+                  C:\vcpkg\installed
+                  C:\vcpkg\buildtrees
+                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
