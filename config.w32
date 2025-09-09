@@ -11,11 +11,11 @@ if (PHP_CAIRO != "no") {
 		PHP_CAIRO_SOURCES = PHP_CAIRO_SOURCES + " " + basename;
 	}
 	if (CHECK_HEADER_ADD_INCLUDE("cairo/cairo.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true) &&
-		CHECK_HEADER_ADD_INCLUDE("ft2build.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\freetype")) {
+		CHECK_HEADER_ADD_INCLUDE("ft2build.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\freetype")) {
 		/* Check for static lib first, because that will need an extra define */
 		if (CHECK_LIB("cairo_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
 			if (CHECK_LIB("libpng_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
-				CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
+				CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
 			}
 			if (CHECK_LIB("freetype_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
 				CHECK_HEADER_ADD_INCLUDE("freetype/freetype.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true);
@@ -38,7 +38,7 @@ if (PHP_CAIRO != "no") {
             PHP_INSTALL_HEADERS("ext/cairo", "src/php_cairo_internal.h");
         } else if (CHECK_LIB("cairo.lib", "cairo", PHP_CAIRO + "\\lib")) {
             if (CHECK_LIB("libpng_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
-                CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
+                CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
             }
             if (CHECK_LIB("freetype_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 CHECK_HEADER_ADD_INCLUDE("freetype/freetype.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true);
