@@ -34,6 +34,16 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v5
 
+            - name: Setup vcpkg cache
+              uses: actions/cache@v3
+              with:
+                path: |
+                  C:\vcpkg\installed
+                  C:\vcpkg\buildtrees
+                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
+                restore-keys: |
+                  vcpkg-${{ matrix.arch }}-
+
             - name: Setup vcpkg and install dependencies
               shell: powershell
               run: |
