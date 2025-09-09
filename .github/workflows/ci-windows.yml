@@ -1,0 +1,138 @@
+name: Build on Windows
+
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    get-extension-matrix:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.extension-matrix.outputs.matrix }}
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v5
+        - name: Get the extension matrix
+          id: extension-matrix
+          uses: php/php-windows-builder/extension-matrix@v1
+          with:
+            extension-url: https://github.com/MarcelBolten/php-cairo
+            # php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5, master'
+            # arch-list: 'x64, x86'
+            # ts-list: 'nts, ts'
+            php-version-list: '8.4'
+            arch-list: 'x64'
+            ts-list: 'nts'
+
+    build:
+        needs: get-extension-matrix
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix: ${{fromJson(needs.get-extension-matrix.outputs.matrix)}}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+
+            - name: Restore vcpkg cache
+              uses: actions/cache/restore@v4
+              with:
+                path: |
+                  C:\vcpkg\installed
+                  C:\vcpkg\buildtrees
+                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
+                restore-keys: |
+                  vcpkg-${{ matrix.arch }}-
+
+            - name: Setup vcpkg and install dependencies
+              shell: powershell
+              run: |
+                # Clone vcpkg if not cached
+                if (!(Test-Path "C:\vcpkg")) {
+                    git clone https://github.com/Microsoft/vcpkg.git C:\vcpkg
+                }
+                cd C:\vcpkg
+
+                # Bootstrap if needed
+                if (!(Test-Path ".\vcpkg.exe")) {
+                    .\bootstrap-vcpkg.bat
+                }
+
+                # Set architecture
+                $arch = "${{ matrix.arch }}"
+                if ($arch -eq "x86") { $arch = "x86" } else { $arch = "x64" }
+                $triplet = "$arch-windows-static"
+
+                # Install all required packages including JPEG support
+                .\vcpkg install cairo:$triplet
+                .\vcpkg install libpng:$triplet
+                .\vcpkg install freetype:$triplet
+                .\vcpkg install fontconfig:$triplet
+                .\vcpkg install libjpeg-turbo:$triplet
+                # Optional: Also install other useful image libraries
+                # .\vcpkg install zlib:$triplet
+                # .\vcpkg install pixman:$triplet
+
+                # Create the directory structure your config.w32 expects
+                New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
+                New-Item -ItemType Directory -Path "C:\cairo-deps\include" -Force
+
+                $installPath = ".\installed\$triplet"
+
+                # Copy libraries with the names your config.w32 expects
+                Copy-Item -Path "$installPath\lib\cairo.lib" -Destination "C:\cairo-deps\lib\cairo_a.lib" -Force
+                Copy-Item -Path "$installPath\lib\libpng16.lib" -Destination "C:\cairo-deps\lib\libpng_a.lib" -Force
+                Copy-Item -Path "$installPath\lib\freetype.lib" -Destination "C:\cairo-deps\lib\freetype_a.lib" -Force
+                Copy-Item -Path "$installPath\lib\fontconfig.lib" -Destination "C:\cairo-deps\lib\fontconfig.lib" -Force
+
+                # Add JPEG libraries
+                if (Test-Path "$installPath\lib\jpeg.lib") {
+                    Copy-Item -Path "$installPath\lib\jpeg.lib" -Destination "C:\cairo-deps\lib\libjpeg.lib" -Force
+                }
+                if (Test-Path "$installPath\lib\turbojpeg.lib") {
+                    Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\libjpeg-turbo.lib" -Force
+                }
+
+                # Copy other potentially useful libraries
+                if (Test-Path "$installPath\lib\zlib.lib") {
+                    Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
+                }
+                if (Test-Path "$installPath\lib\pixman-1.lib") {
+                    Copy-Item -Path "$installPath\lib\pixman-1.lib" -Destination "C:\cairo-deps\lib\pixman.lib" -Force
+                }
+
+                # Copy all headers
+                Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
+
+                # Debug: List what we have
+                Write-Host "Libraries installed:"
+                Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
+                Write-Host "Key header directories:"
+                Get-ChildItem "C:\cairo-deps\include\" | ForEach-Object { Write-Host $_.Name }
+                if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
+                if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
+                if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
+                if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
+                if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
+
+            - name: Save vcpkg cache
+              uses: actions/cache/save@v4
+              with:
+                path: |
+                  C:\vcpkg\installed
+                  C:\vcpkg\buildtrees
+                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
+
+            - name: Build the extension
+              uses: php/php-windows-builder/extension@v1
+              with:
+                php-version: ${{ matrix.php-version }}
+                arch: ${{ matrix.arch }}
+                ts: ${{ matrix.ts }}
+                args: --enable-debug --with-cairo=C:\cairo-deps
+
+                # Refer to your config.w32 file to find the libraries you need.
+                # Refer to the following directories to see if we support the libraries you need.
+                # https://downloads.php.net/~windows/pecl/deps
+                # https://downloads.php.net/~windows/php-sdk/deps
+                # libs: cairo, libpng, libjpeg-turbo, fontconfig, freetype, glib
