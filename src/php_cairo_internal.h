@@ -242,12 +242,12 @@ extern cairo_context_object *cairo_context_fetch_object(zend_object *object);
 
 /* Rectangle */
 typedef struct _cairo_rectangle_object {
-    cairo_rectangle_int_t *rect;
+    cairo_rectangle_t *rect;
     zend_object std;
 } cairo_rectangle_object;
 extern cairo_rectangle_object *cairo_rectangle_fetch_object(zend_object *object);
 #define Z_CAIRO_RECTANGLE_P(zv) cairo_rectangle_fetch_object(Z_OBJ_P(zv))
-extern cairo_rectangle_int_t *cairo_rectangle_object_get_rect(zval *zv);
+extern cairo_rectangle_t *cairo_rectangle_object_get_rect(zval *zv);
 
 /* Glyph */
 typedef struct _cairo_glyph_object {
