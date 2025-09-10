@@ -132,7 +132,7 @@ class Context
     public function getClipExtents(): array {}
 
     /**
-     * @return array<array{x: float, y: float, width: float, height: float}>
+     * @return Rectangle[]
      */
     public function getClipRectangleList(): array {}
 

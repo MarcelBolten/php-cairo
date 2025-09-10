@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 89ffe2d5d50c03d379e01a437b041ad059187aee */
+ * Stub hash: 732060a29a00b42f8d33359df4b0d8cec81cdc0e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Context___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, surface, Cairo\\Surface, 0)

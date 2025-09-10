@@ -25,7 +25,7 @@ object(Cairo\Context)#%d (0) {
 }
 array(1) {
   [0]=>
-  array(4) {
+  object(Cairo\Rectangle)#%d (4) {
     ["x"]=>
     float(0)
     ["y"]=>
