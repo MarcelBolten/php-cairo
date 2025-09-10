@@ -10,20 +10,22 @@ $surface = new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha);
 var_dump($surface);
 var_dump($surface->inkExtents());
 
-$extents = ['x' => 0, 'y' => 0, 'width' => 400, 'height' => 400];
-$surface2 = new Cairo\Surface\Recording(\Cairo\Surface\Content::ColorAlpha, $extents);
+$surface2 = new Cairo\Surface\Recording(
+  \Cairo\Surface\Content::ColorAlpha,
+  new Cairo\Rectangle(0, 0, 400, 400)
+);
 var_dump($surface2->inkExtents());
 
 /* Wrong number args - 1 */
 try {
     $surface2->inkExtents(1);
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 --EXPECTF--
 object(Cairo\Surface\Recording)#%d (0) {
 }
-array(4) {
+object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
   float(0)
   ["y"]=>
@@ -33,7 +35,7 @@ array(4) {
   ["height"]=>
   float(0)
 }
-array(4) {
+object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
   float(0)
   ["y"]=>

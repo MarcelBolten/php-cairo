@@ -69,32 +69,28 @@ PHP_METHOD(Cairo_Surface_Recording, __construct)
 {
     zval *content;
     cairo_surface_object *surface_object;
-    cairo_rectangle_t *rectangle = NULL;
+    cairo_rectangle_object *rectangle = NULL;
     zval *extents = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 2)
         Z_PARAM_OBJECT_OF_CLASS(content, ce_cairo_content)
         Z_PARAM_OPTIONAL
-        Z_PARAM_ARRAY(extents)
+        Z_PARAM_OBJECT_OF_CLASS_OR_NULL(extents, php_cairo_get_rectangle_ce())
     ZEND_PARSE_PARAMETERS_END();
-
-    if (extents != NULL) {
-        rectangle = php_cairo_make_rectangle(extents);
-    }
 
     surface_object = Z_CAIRO_SURFACE_P(getThis());
     if (!surface_object) {
         RETURN_NULL();
     }
 
+    if (extents != NULL && Z_TYPE_P(extents) == IS_OBJECT) {
+        rectangle = Z_CAIRO_RECTANGLE_P(extents);
+    }
+
     surface_object->surface = cairo_recording_surface_create(
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(content))),
-        rectangle
+        rectangle ? rectangle->rect : NULL
     );
-
-    if (rectangle != NULL) {
-        efree(rectangle);
-    }
 
     if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
         RETURN_THROWS();
@@ -110,6 +106,7 @@ PHP_METHOD(Cairo_Surface_Recording, __construct)
 PHP_METHOD(Cairo_Surface_Recording, inkExtents)
 {
     cairo_surface_object *surface_object;
+    cairo_rectangle_object *rectangle_object;
     double x, y, width, height;
 
     ZEND_PARSE_PARAMETERS_NONE();
@@ -120,11 +117,13 @@ PHP_METHOD(Cairo_Surface_Recording, inkExtents)
     }
 
     cairo_recording_surface_ink_extents(surface_object->surface, &x, &y, &width, &height);
-    array_init(return_value);
-    add_assoc_double(return_value, "x", x);
-    add_assoc_double(return_value, "y", y);
-    add_assoc_double(return_value, "width", width);
-    add_assoc_double(return_value, "height", height);
+    // TODO: convert to Rectangle object
+    object_init_ex(return_value, php_cairo_get_rectangle_ce());
+    rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
+    rectangle_object->rect->x = x;
+    rectangle_object->rect->y = y;
+    rectangle_object->rect->width = width;
+    rectangle_object->rect->height = height;
 }
 /* }}} */
 
@@ -149,16 +148,12 @@ PHP_METHOD(Cairo_Surface_Recording, getExtents)
 
     if (cairo_recording_surface_get_extents(surface_object->surface, rectangle) == IS_FALSE) {
         efree(rectangle);
-        //php_cairo_throw_exception(cairo_surface_status(surface_object->surface));
         RETURN_FALSE;
     }
 
     object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-    rectangle_object->rect->x = rectangle->x;
-    rectangle_object->rect->y = rectangle->y;
-    rectangle_object->rect->width = rectangle->width;
-    rectangle_object->rect->height = rectangle->height;
+    *rectangle_object->rect = *rectangle;
     efree(rectangle);
 }
 /* }}} */
