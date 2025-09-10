@@ -28,37 +28,6 @@
 
 zend_class_entry *ce_cairo_recordingsurface;
 
-static double php_cairo_get_double_from_array(zval *val, const char *name)
-{
-    zval *tmp;
-
-    // zend_string *key = zend_string_init_fast(name, strlen(name));
-    // tmp = zend_hash_find(Z_ARR_P(val), key);
-    tmp = zend_hash_str_find(Z_ARRVAL_P(val), name, strlen(name));
-    if (tmp != NULL) {
-        if (Z_TYPE_P(tmp) != IS_DOUBLE) {
-            convert_to_double(tmp);
-        }
-
-        return Z_DVAL_P(tmp);
-    }
-
-    zend_error(E_WARNING, "Key '%s' does not exist", name);
-
-    return 0;
-}
-
-static cairo_rectangle_t *php_cairo_make_rectangle(zval *val)
-{
-    cairo_rectangle_t *rectangle = ecalloc(1, sizeof(cairo_rectangle_t));
-
-    rectangle->x = php_cairo_get_double_from_array(val, "x");
-    rectangle->y = php_cairo_get_double_from_array(val, "y");
-    rectangle->width = php_cairo_get_double_from_array(val, "width");
-    rectangle->height = php_cairo_get_double_from_array(val, "height");
-    return rectangle;
-}
-
 /* ----------------------------------------------------------------
     Cairo\Surface\Recording Class API
 ------------------------------------------------------------------*/
