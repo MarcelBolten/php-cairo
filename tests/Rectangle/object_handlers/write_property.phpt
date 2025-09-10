@@ -19,8 +19,8 @@ var_dump($rect->y);
 var_dump($rect->width);
 var_dump($rect->height);
 --EXPECT--
-int(1)
-int(2)
-int(3)
-int(4)
+float(1)
+float(2)
+float(3)
+float(4)
 

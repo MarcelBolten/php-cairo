@@ -47,16 +47,16 @@ try {
 --EXPECTF--
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 Cairo\Rectangle::__construct() expects at most 4 arguments, 5 given
-Cairo\Rectangle::__construct(): Argument #1 ($x) must be of type int, array given
-Cairo\Rectangle::__construct(): Argument #2 ($y) must be of type int, array given
-Cairo\Rectangle::__construct(): Argument #3 ($width) must be of type int, array given
-Cairo\Rectangle::__construct(): Argument #4 ($height) must be of type int, array given
+Cairo\Rectangle::__construct(): Argument #1 ($x) must be of type float, array given
+Cairo\Rectangle::__construct(): Argument #2 ($y) must be of type float, array given
+Cairo\Rectangle::__construct(): Argument #3 ($width) must be of type float, array given
+Cairo\Rectangle::__construct(): Argument #4 ($height) must be of type float, array given

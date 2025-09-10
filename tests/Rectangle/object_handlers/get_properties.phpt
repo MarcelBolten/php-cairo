@@ -13,13 +13,13 @@ print_r($rect);
 --EXPECTF--
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(6)
+  float(6)
   ["y"]=>
-  int(5)
+  float(5)
   ["width"]=>
-  int(4)
+  float(4)
   ["height"]=>
-  int(3)
+  float(3)
 }
 Cairo\Rectangle Object
 (
