@@ -803,9 +803,9 @@ cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, un
     written = php_stream_write(cast_closure->stream, data, length);
     if (written == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else {
-        return CAIRO_STATUS_WRITE_ERROR;
     }
+
+    return CAIRO_STATUS_WRITE_ERROR;
 }
 
 cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length)
@@ -818,9 +818,9 @@ cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, uns
     read = php_stream_read(cast_closure->stream, (char *)data, length);
     if (read == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else {
-        return CAIRO_STATUS_READ_ERROR;
     }
+
+    return CAIRO_STATUS_READ_ERROR;
 }
 
 zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)

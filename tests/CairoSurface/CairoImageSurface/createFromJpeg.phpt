@@ -10,7 +10,6 @@ if (!in_array('JPEG', Cairo\Cairo::availableSurfaces()))
 $surface = Cairo\Surface\Image::createFromJpeg(dirname(__FILE__) . '/red.jpg');
 var_dump($surface);
 
-echo dirname(__FILE__) . '/red.jpg' . PHP_EOL;
 $resource = fopen(dirname(__FILE__) . '/red.jpg', 'rb');
 $surface = Cairo\Surface\Image::createFromJpeg($resource);
 var_dump($surface);
