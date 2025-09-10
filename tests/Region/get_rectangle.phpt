@@ -34,36 +34,36 @@ object(Cairo\Region)#%d (0) {
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(100)
+  float(100)
   ["height"]=>
-  int(100)
+  float(100)
 }
 object(Cairo\Region)#%d (0) {
 }
 int(3)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(100)
+  float(100)
   ["y"]=>
-  int(100)
+  float(100)
   ["width"]=>
-  int(100)
+  float(100)
   ["height"]=>
-  int(100)
+  float(100)
 }
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(200)
+  float(200)
   ["y"]=>
-  int(200)
+  float(200)
   ["width"]=>
-  int(200)
+  float(200)
   ["height"]=>
-  int(100)
+  float(100)
 }
 bool(false)
 Cairo\Region::getRectangle(): Argument #1 ($rectId) must be of type int, string given
