@@ -31,13 +31,13 @@
             <td class="headerValue">PHP Cairo Extension Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">66.3&nbsp;%</td>
-            <td class="headerCovTableEntry">104</td>
-            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntryLo">68.6&nbsp;%</td>
+            <td class="headerCovTableEntry">105</td>
+            <td class="headerCovTableEntry">72</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-09 18:41:33</td>
+            <td class="headerValue">2025-09-10 05:33:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">71.4&nbsp;%</td>
@@ -423,7 +423,7 @@
 <span id="L361"><span class="lineNum">     361</span>              : </span>
 <span id="L362"><span class="lineNum">     362</span>              : #ifdef LIBJPEG_TURBO_VERSION</span>
 <span id="L363"><span class="lineNum">     363</span>              : #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__</span>
-<span id="L364"><span class="lineNum">     364</span> <span class="tlaGNC">           1 :    cinfo.out_color_space = JCS_EXT_BGRA;</span></span>
+<span id="L364"><span class="lineNum">     364</span> <span class="tlaGNC">           2 :    cinfo.out_color_space = JCS_EXT_BGRA;</span></span>
 <span id="L365"><span class="lineNum">     365</span>              : #else</span>
 <span id="L366"><span class="lineNum">     366</span>              :    cinfo.out_color_space = JCS_EXT_ARGB;</span>
 <span id="L367"><span class="lineNum">     367</span>              : #endif</span>
@@ -432,39 +432,39 @@
 <span id="L370"><span class="lineNum">     370</span>              : #endif</span>
 <span id="L371"><span class="lineNum">     371</span>              : </span>
 <span id="L372"><span class="lineNum">     372</span>              :    // start decompressor</span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           1 :    (void) jpeg_start_decompress(&amp;cinfo);</span></span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           2 :    (void) jpeg_start_decompress(&amp;cinfo);</span></span>
 <span id="L374"><span class="lineNum">     374</span>              : </span>
 <span id="L375"><span class="lineNum">     375</span>              :    // create Cairo image surface</span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           1 :    sfc = cairo_image_surface_create(CAIRO_FORMAT_RGB24, cinfo.output_width, cinfo.output_height);</span></span>
-<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           1 :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS)</span></span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           2 :    sfc = cairo_image_surface_create(CAIRO_FORMAT_RGB24, cinfo.output_width, cinfo.output_height);</span></span>
+<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           2 :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS)</span></span>
 <span id="L378"><span class="lineNum">     378</span>              :    {</span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaUNC tlaBgUNC">           0 :       jpeg_destroy_decompress(&amp;cinfo);</span></span>
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaUNC">           0 :       return sfc;</span></span>
 <span id="L381"><span class="lineNum">     381</span>              :    }</span>
 <span id="L382"><span class="lineNum">     382</span>              : </span>
 <span id="L383"><span class="lineNum">     383</span>              :    // loop over all scanlines and fill Cairo image surface</span>
-<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC tlaBgGNC">          11 :    while (cinfo.output_scanline &lt; cinfo.output_height)</span></span>
+<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC tlaBgGNC">          22 :    while (cinfo.output_scanline &lt; cinfo.output_height)</span></span>
 <span id="L385"><span class="lineNum">     385</span>              :    {</span>
-<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          10 :       unsigned char *row_address = cairo_image_surface_get_data(sfc) +</span></span>
-<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">          10 :          (cinfo.output_scanline * cairo_image_surface_get_stride(sfc));</span></span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">          10 :       row_pointer[0] = row_address;</span></span>
-<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">          10 :       (void) jpeg_read_scanlines(&amp;cinfo, row_pointer, 1);</span></span>
+<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          20 :       unsigned char *row_address = cairo_image_surface_get_data(sfc) +</span></span>
+<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">          20 :          (cinfo.output_scanline * cairo_image_surface_get_stride(sfc));</span></span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">          20 :       row_pointer[0] = row_address;</span></span>
+<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">          20 :       (void) jpeg_read_scanlines(&amp;cinfo, row_pointer, 1);</span></span>
 <span id="L390"><span class="lineNum">     390</span>              : #ifndef LIBJPEG_TURBO_VERSION</span>
 <span id="L391"><span class="lineNum">     391</span>              :       pix_conv(row_address, 4, row_address, 3, cinfo.output_width);</span>
 <span id="L392"><span class="lineNum">     392</span>              : #endif</span>
 <span id="L393"><span class="lineNum">     393</span>              :    }</span>
 <span id="L394"><span class="lineNum">     394</span>              : </span>
 <span id="L395"><span class="lineNum">     395</span>              :    // finish and close everything</span>
-<span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC">           1 :    cairo_surface_mark_dirty(sfc);</span></span>
-<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           1 :    (void) jpeg_finish_decompress(&amp;cinfo);</span></span>
-<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">           1 :    jpeg_destroy_decompress(&amp;cinfo);</span></span>
+<span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC">           2 :    cairo_surface_mark_dirty(sfc);</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           2 :    (void) jpeg_finish_decompress(&amp;cinfo);</span></span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">           2 :    jpeg_destroy_decompress(&amp;cinfo);</span></span>
 <span id="L399"><span class="lineNum">     399</span>              : </span>
 <span id="L400"><span class="lineNum">     400</span>              :    // set jpeg mime data</span>
 <span id="L401"><span class="lineNum">     401</span>              :    // cairo_surface_set_mime_data(sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, data);</span>
 <span id="L402"><span class="lineNum">     402</span>              :    // don't free data</span>
-<span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">           1 :    cairo_surface_set_mime_data(sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, NULL);</span></span>
+<span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">           2 :    cairo_surface_set_mime_data(sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, NULL);</span></span>
 <span id="L404"><span class="lineNum">     404</span>              : </span>
-<span id="L405"><span class="lineNum">     405</span> <span class="tlaGNC">           1 :    return sfc;</span></span>
+<span id="L405"><span class="lineNum">     405</span> <span class="tlaGNC">           2 :    return sfc;</span></span>
 <span id="L406"><span class="lineNum">     406</span>              : }</span>
 <span id="L407"><span class="lineNum">     407</span>              : </span>
 <span id="L408"><span class="lineNum">     408</span>              : </span>
@@ -512,205 +512,209 @@
 <span id="L450"><span class="lineNum">     450</span>              :       // check for error</span>
 <span id="L451"><span class="lineNum">     451</span> <span class="tlaGNC">         635 :       if (rlen == CAIRO_STATUS_READ_ERROR)</span></span>
 <span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">           1 :          eof++;</span></span>
-<span id="L453"><span class="lineNum">     453</span>              : #endif</span>
-<span id="L454"><span class="lineNum">     454</span>              :    }</span>
-<span id="L455"><span class="lineNum">     455</span>              : </span>
-<span id="L456"><span class="lineNum">     456</span>              :    // check for error in read loop</span>
-<span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC">           1 :    if (!eof)</span></span>
-<span id="L458"><span class="lineNum">     458</span>              :    {</span>
-<span id="L459"><span class="lineNum">     459</span> <span class="tlaUNC tlaBgUNC">           0 :       free(data);</span></span>
-<span id="L460"><span class="lineNum">     460</span> <span class="tlaUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
-<span id="L461"><span class="lineNum">     461</span>              :    }</span>
-<span id="L462"><span class="lineNum">     462</span>              : </span>
-<span id="L463"><span class="lineNum">     463</span>              :    // call jpeg decompression and return surface</span>
-<span id="L464"><span class="lineNum">     464</span> <span class="tlaGNC tlaBgGNC">           1 :    sfc = cairo_image_surface_create_from_jpeg_mem(data, len);</span></span>
-<span id="L465"><span class="lineNum">     465</span> <span class="tlaUNC tlaBgUNC">           0 :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS) {</span></span>
-<span id="L466"><span class="lineNum">     466</span> <span class="tlaUNC">           0 :       free(data);</span></span>
-<span id="L467"><span class="lineNum">     467</span>              :     }</span>
-<span id="L468"><span class="lineNum">     468</span>              : </span>
-<span id="L469"><span class="lineNum">     469</span> <span class="tlaUNC">           0 :    return sfc;</span></span>
-<span id="L470"><span class="lineNum">     470</span>              : }</span>
-<span id="L471"><span class="lineNum">     471</span>              : </span>
+<span id="L453"><span class="lineNum">     453</span>              : </span>
+<span id="L454"><span class="lineNum">     454</span>              :       // manually increase read length because cairo_read_func_t</span>
+<span id="L455"><span class="lineNum">     455</span>              :       // does not return the actual number of bytes read</span>
+<span id="L456"><span class="lineNum">     456</span> <span class="tlaGNC">         635 :       rlen = CAIRO_JPEG_IO_BLOCK_SIZE;</span></span>
+<span id="L457"><span class="lineNum">     457</span>              : #endif</span>
+<span id="L458"><span class="lineNum">     458</span>              :    }</span>
+<span id="L459"><span class="lineNum">     459</span>              : </span>
+<span id="L460"><span class="lineNum">     460</span>              :    // check for error in read loop</span>
+<span id="L461"><span class="lineNum">     461</span> <span class="tlaGNC">           1 :    if (!eof)</span></span>
+<span id="L462"><span class="lineNum">     462</span>              :    {</span>
+<span id="L463"><span class="lineNum">     463</span> <span class="tlaUNC tlaBgUNC">           0 :       free(data);</span></span>
+<span id="L464"><span class="lineNum">     464</span> <span class="tlaUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
+<span id="L465"><span class="lineNum">     465</span>              :    }</span>
+<span id="L466"><span class="lineNum">     466</span>              : </span>
+<span id="L467"><span class="lineNum">     467</span>              :    // call jpeg decompression and return surface</span>
+<span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC tlaBgGNC">           1 :    sfc = cairo_image_surface_create_from_jpeg_mem(data, len);</span></span>
+<span id="L469"><span class="lineNum">     469</span> <span class="tlaGNC">           1 :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS) {</span></span>
+<span id="L470"><span class="lineNum">     470</span> <span class="tlaUNC tlaBgUNC">           0 :       free(data);</span></span>
+<span id="L471"><span class="lineNum">     471</span>              :     }</span>
 <span id="L472"><span class="lineNum">     472</span>              : </span>
-<span id="L473"><span class="lineNum">     473</span>              : #ifdef CAIRO_JPEG_USE_FSTAT</span>
-<span id="L474"><span class="lineNum">     474</span>              : /*! This function reads an JPEG image from a file an creates a Cairo image</span>
-<span id="L475"><span class="lineNum">     475</span>              :  * surface. Internally the filesize is determined with fstat(2) and then the</span>
-<span id="L476"><span class="lineNum">     476</span>              :  * whole data is read at once.</span>
-<span id="L477"><span class="lineNum">     477</span>              :  * @param filename Pointer to filename of JPEG file.</span>
-<span id="L478"><span class="lineNum">     478</span>              :  * @return Returns a pointer to a cairo_surface_t structure. It should be</span>
-<span id="L479"><span class="lineNum">     479</span>              :  * checked with cairo_surface_status() for errors.</span>
-<span id="L480"><span class="lineNum">     480</span>              :  * @note If the returned surface is invalid you can use errno to determine</span>
-<span id="L481"><span class="lineNum">     481</span>              :  * further reasons. Errno is set according to fopen(3) and malloc(3). If you</span>
-<span id="L482"><span class="lineNum">     482</span>              :  * intend to check errno you shall set it to 0 before calling this function</span>
-<span id="L483"><span class="lineNum">     483</span>              :  * because it does not modify errno itself.</span>
-<span id="L484"><span class="lineNum">     484</span>              :  */</span>
-<span id="L485"><span class="lineNum">     485</span> <span class="tlaGNC tlaBgGNC">           1 : cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename)</span></span>
-<span id="L486"><span class="lineNum">     486</span>              : {</span>
-<span id="L487"><span class="lineNum">     487</span>              :    void *data;</span>
-<span id="L488"><span class="lineNum">     488</span>              :    int infile;</span>
-<span id="L489"><span class="lineNum">     489</span>              :    struct stat stat;</span>
-<span id="L490"><span class="lineNum">     490</span>              : </span>
-<span id="L491"><span class="lineNum">     491</span>              :    // open input file</span>
-<span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">           1 :    if ((infile = open(filename, O_BINARY | O_RDONLY)) == -1)</span></span>
-<span id="L493"><span class="lineNum">     493</span> <span class="tlaUNC tlaBgUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
+<span id="L473"><span class="lineNum">     473</span> <span class="tlaGNC tlaBgGNC">           1 :    return sfc;</span></span>
+<span id="L474"><span class="lineNum">     474</span>              : }</span>
+<span id="L475"><span class="lineNum">     475</span>              : </span>
+<span id="L476"><span class="lineNum">     476</span>              : </span>
+<span id="L477"><span class="lineNum">     477</span>              : #ifdef CAIRO_JPEG_USE_FSTAT</span>
+<span id="L478"><span class="lineNum">     478</span>              : /*! This function reads an JPEG image from a file an creates a Cairo image</span>
+<span id="L479"><span class="lineNum">     479</span>              :  * surface. Internally the filesize is determined with fstat(2) and then the</span>
+<span id="L480"><span class="lineNum">     480</span>              :  * whole data is read at once.</span>
+<span id="L481"><span class="lineNum">     481</span>              :  * @param filename Pointer to filename of JPEG file.</span>
+<span id="L482"><span class="lineNum">     482</span>              :  * @return Returns a pointer to a cairo_surface_t structure. It should be</span>
+<span id="L483"><span class="lineNum">     483</span>              :  * checked with cairo_surface_status() for errors.</span>
+<span id="L484"><span class="lineNum">     484</span>              :  * @note If the returned surface is invalid you can use errno to determine</span>
+<span id="L485"><span class="lineNum">     485</span>              :  * further reasons. Errno is set according to fopen(3) and malloc(3). If you</span>
+<span id="L486"><span class="lineNum">     486</span>              :  * intend to check errno you shall set it to 0 before calling this function</span>
+<span id="L487"><span class="lineNum">     487</span>              :  * because it does not modify errno itself.</span>
+<span id="L488"><span class="lineNum">     488</span>              :  */</span>
+<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">           1 : cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename)</span></span>
+<span id="L490"><span class="lineNum">     490</span>              : {</span>
+<span id="L491"><span class="lineNum">     491</span>              :    void *data;</span>
+<span id="L492"><span class="lineNum">     492</span>              :    int infile;</span>
+<span id="L493"><span class="lineNum">     493</span>              :    struct stat stat;</span>
 <span id="L494"><span class="lineNum">     494</span>              : </span>
-<span id="L495"><span class="lineNum">     495</span>              :    // get stat structure for file size</span>
-<span id="L496"><span class="lineNum">     496</span> <span class="tlaGNC tlaBgGNC">           1 :    if (fstat(infile, &amp;stat) == -1)</span></span>
+<span id="L495"><span class="lineNum">     495</span>              :    // open input file</span>
+<span id="L496"><span class="lineNum">     496</span> <span class="tlaGNC">           1 :    if ((infile = open(filename, O_BINARY | O_RDONLY)) == -1)</span></span>
 <span id="L497"><span class="lineNum">     497</span> <span class="tlaUNC tlaBgUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
 <span id="L498"><span class="lineNum">     498</span>              : </span>
-<span id="L499"><span class="lineNum">     499</span>              :    // allocate memory</span>
-<span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC tlaBgGNC">           1 :    if ((data = malloc(stat.st_size)) == NULL)</span></span>
+<span id="L499"><span class="lineNum">     499</span>              :    // get stat structure for file size</span>
+<span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC tlaBgGNC">           1 :    if (fstat(infile, &amp;stat) == -1)</span></span>
 <span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC tlaBgUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
 <span id="L502"><span class="lineNum">     502</span>              : </span>
-<span id="L503"><span class="lineNum">     503</span>              :    // read data</span>
-<span id="L504"><span class="lineNum">     504</span> <span class="tlaGNC tlaBgGNC">           1 :    if (read(infile, data, stat.st_size) &lt; stat.st_size)</span></span>
+<span id="L503"><span class="lineNum">     503</span>              :    // allocate memory</span>
+<span id="L504"><span class="lineNum">     504</span> <span class="tlaGNC tlaBgGNC">           1 :    if ((data = malloc(stat.st_size)) == NULL)</span></span>
 <span id="L505"><span class="lineNum">     505</span> <span class="tlaUNC tlaBgUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
 <span id="L506"><span class="lineNum">     506</span>              : </span>
-<span id="L507"><span class="lineNum">     507</span> <span class="tlaGNC tlaBgGNC">           1 :    close(infile);</span></span>
-<span id="L508"><span class="lineNum">     508</span>              : </span>
-<span id="L509"><span class="lineNum">     509</span> <span class="tlaGNC">           1 :    return cairo_image_surface_create_from_jpeg_mem(data, stat.st_size);</span></span>
-<span id="L510"><span class="lineNum">     510</span>              : }</span>
-<span id="L511"><span class="lineNum">     511</span>              : </span>
-<span id="L512"><span class="lineNum">     512</span>              : #else</span>
-<span id="L513"><span class="lineNum">     513</span>              : </span>
-<span id="L514"><span class="lineNum">     514</span>              : </span>
-<span id="L515"><span class="lineNum">     515</span>              : /*! This is the read function which is called by</span>
-<span id="L516"><span class="lineNum">     516</span>              :  * cairo_image_surface_create_from_jpeg_stream() (non-fstat-version below). It</span>
-<span id="L517"><span class="lineNum">     517</span>              :  * is not exported.</span>
-<span id="L518"><span class="lineNum">     518</span>              :  */</span>
-<span id="L519"><span class="lineNum">     519</span>              : #ifdef USE_CAIRO_READ_FUNC_LEN_T</span>
-<span id="L520"><span class="lineNum">     520</span>              : static ssize_t cj_read(void *closure, unsigned char *data, unsigned int length)</span>
-<span id="L521"><span class="lineNum">     521</span>              : {</span>
-<span id="L522"><span class="lineNum">     522</span>              :    return read((intptr_t) closure, data, length);</span>
-<span id="L523"><span class="lineNum">     523</span>              : }</span>
-<span id="L524"><span class="lineNum">     524</span>              : #else</span>
-<span id="L525"><span class="lineNum">     525</span>              : static cairo_status_t cj_read(void *closure, unsigned char *data, unsigned int length)</span>
-<span id="L526"><span class="lineNum">     526</span>              : {</span>
-<span id="L527"><span class="lineNum">     527</span>              :    return read((intptr_t) closure, data, length) &lt; length ? CAIRO_STATUS_READ_ERROR : CAIRO_STATUS_SUCCESS;</span>
-<span id="L528"><span class="lineNum">     528</span>              : }</span>
-<span id="L529"><span class="lineNum">     529</span>              : #endif</span>
-<span id="L530"><span class="lineNum">     530</span>              : </span>
-<span id="L531"><span class="lineNum">     531</span>              : </span>
-<span id="L532"><span class="lineNum">     532</span>              : /*! This function reads an JPEG image from a file an creates a Cairo image</span>
-<span id="L533"><span class="lineNum">     533</span>              :  * surface. Internally the function calls</span>
-<span id="L534"><span class="lineNum">     534</span>              :  * cairo_image_surface_create_from_jpeg_stream() to actually read the data.</span>
-<span id="L535"><span class="lineNum">     535</span>              :  * @param filename Pointer to filename of JPEG file.</span>
-<span id="L536"><span class="lineNum">     536</span>              :  * @return Returns a pointer to a cairo_surface_t structure. It should be</span>
-<span id="L537"><span class="lineNum">     537</span>              :  * checked with cairo_surface_status() for errors.</span>
-<span id="L538"><span class="lineNum">     538</span>              :  * @note If the returned surface is invalid you can use errno to determine</span>
-<span id="L539"><span class="lineNum">     539</span>              :  * further reasons. Errno is set according to fopen(3) and malloc(3). If you</span>
-<span id="L540"><span class="lineNum">     540</span>              :  * intend to check errno you shall set it to 0 before calling this function</span>
-<span id="L541"><span class="lineNum">     541</span>              :  * because it does not modify errno itself.</span>
-<span id="L542"><span class="lineNum">     542</span>              :  */</span>
-<span id="L543"><span class="lineNum">     543</span>              : cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename)</span>
-<span id="L544"><span class="lineNum">     544</span>              : {</span>
-<span id="L545"><span class="lineNum">     545</span>              :    cairo_surface_t *sfc;</span>
-<span id="L546"><span class="lineNum">     546</span>              :    int infile;</span>
-<span id="L547"><span class="lineNum">     547</span>              : </span>
-<span id="L548"><span class="lineNum">     548</span>              :    // open input file</span>
-<span id="L549"><span class="lineNum">     549</span>              :    if ((infile = open(filename, O_RDONLY)) == -1)</span>
-<span id="L550"><span class="lineNum">     550</span>              :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span>
+<span id="L507"><span class="lineNum">     507</span>              :    // read data</span>
+<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC tlaBgGNC">           1 :    if (read(infile, data, stat.st_size) &lt; stat.st_size)</span></span>
+<span id="L509"><span class="lineNum">     509</span> <span class="tlaUNC tlaBgUNC">           0 :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span></span>
+<span id="L510"><span class="lineNum">     510</span>              : </span>
+<span id="L511"><span class="lineNum">     511</span> <span class="tlaGNC tlaBgGNC">           1 :    close(infile);</span></span>
+<span id="L512"><span class="lineNum">     512</span>              : </span>
+<span id="L513"><span class="lineNum">     513</span> <span class="tlaGNC">           1 :    return cairo_image_surface_create_from_jpeg_mem(data, stat.st_size);</span></span>
+<span id="L514"><span class="lineNum">     514</span>              : }</span>
+<span id="L515"><span class="lineNum">     515</span>              : </span>
+<span id="L516"><span class="lineNum">     516</span>              : #else</span>
+<span id="L517"><span class="lineNum">     517</span>              : </span>
+<span id="L518"><span class="lineNum">     518</span>              : </span>
+<span id="L519"><span class="lineNum">     519</span>              : /*! This is the read function which is called by</span>
+<span id="L520"><span class="lineNum">     520</span>              :  * cairo_image_surface_create_from_jpeg_stream() (non-fstat-version below). It</span>
+<span id="L521"><span class="lineNum">     521</span>              :  * is not exported.</span>
+<span id="L522"><span class="lineNum">     522</span>              :  */</span>
+<span id="L523"><span class="lineNum">     523</span>              : #ifdef USE_CAIRO_READ_FUNC_LEN_T</span>
+<span id="L524"><span class="lineNum">     524</span>              : static ssize_t cj_read(void *closure, unsigned char *data, unsigned int length)</span>
+<span id="L525"><span class="lineNum">     525</span>              : {</span>
+<span id="L526"><span class="lineNum">     526</span>              :    return read((intptr_t) closure, data, length);</span>
+<span id="L527"><span class="lineNum">     527</span>              : }</span>
+<span id="L528"><span class="lineNum">     528</span>              : #else</span>
+<span id="L529"><span class="lineNum">     529</span>              : static cairo_status_t cj_read(void *closure, unsigned char *data, unsigned int length)</span>
+<span id="L530"><span class="lineNum">     530</span>              : {</span>
+<span id="L531"><span class="lineNum">     531</span>              :    return read((intptr_t) closure, data, length) &lt; length ? CAIRO_STATUS_READ_ERROR : CAIRO_STATUS_SUCCESS;</span>
+<span id="L532"><span class="lineNum">     532</span>              : }</span>
+<span id="L533"><span class="lineNum">     533</span>              : #endif</span>
+<span id="L534"><span class="lineNum">     534</span>              : </span>
+<span id="L535"><span class="lineNum">     535</span>              : </span>
+<span id="L536"><span class="lineNum">     536</span>              : /*! This function reads an JPEG image from a file an creates a Cairo image</span>
+<span id="L537"><span class="lineNum">     537</span>              :  * surface. Internally the function calls</span>
+<span id="L538"><span class="lineNum">     538</span>              :  * cairo_image_surface_create_from_jpeg_stream() to actually read the data.</span>
+<span id="L539"><span class="lineNum">     539</span>              :  * @param filename Pointer to filename of JPEG file.</span>
+<span id="L540"><span class="lineNum">     540</span>              :  * @return Returns a pointer to a cairo_surface_t structure. It should be</span>
+<span id="L541"><span class="lineNum">     541</span>              :  * checked with cairo_surface_status() for errors.</span>
+<span id="L542"><span class="lineNum">     542</span>              :  * @note If the returned surface is invalid you can use errno to determine</span>
+<span id="L543"><span class="lineNum">     543</span>              :  * further reasons. Errno is set according to fopen(3) and malloc(3). If you</span>
+<span id="L544"><span class="lineNum">     544</span>              :  * intend to check errno you shall set it to 0 before calling this function</span>
+<span id="L545"><span class="lineNum">     545</span>              :  * because it does not modify errno itself.</span>
+<span id="L546"><span class="lineNum">     546</span>              :  */</span>
+<span id="L547"><span class="lineNum">     547</span>              : cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename)</span>
+<span id="L548"><span class="lineNum">     548</span>              : {</span>
+<span id="L549"><span class="lineNum">     549</span>              :    cairo_surface_t *sfc;</span>
+<span id="L550"><span class="lineNum">     550</span>              :    int infile;</span>
 <span id="L551"><span class="lineNum">     551</span>              : </span>
-<span id="L552"><span class="lineNum">     552</span>              :    // call stream loading function</span>
-<span id="L553"><span class="lineNum">     553</span>              :    sfc = cairo_image_surface_create_from_jpeg_stream(cj_read, (void*)(intptr_t) infile);</span>
-<span id="L554"><span class="lineNum">     554</span>              :    close(infile);</span>
+<span id="L552"><span class="lineNum">     552</span>              :    // open input file</span>
+<span id="L553"><span class="lineNum">     553</span>              :    if ((infile = open(filename, O_RDONLY)) == -1)</span>
+<span id="L554"><span class="lineNum">     554</span>              :       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);</span>
 <span id="L555"><span class="lineNum">     555</span>              : </span>
-<span id="L556"><span class="lineNum">     556</span>              :    return sfc;</span>
-<span id="L557"><span class="lineNum">     557</span>              : }</span>
-<span id="L558"><span class="lineNum">     558</span>              : </span>
-<span id="L559"><span class="lineNum">     559</span>              : #endif</span>
-<span id="L560"><span class="lineNum">     560</span>              : </span>
-<span id="L561"><span class="lineNum">     561</span>              : </span>
-<span id="L562"><span class="lineNum">     562</span>              : #ifdef CAIRO_JPEG_MAIN</span>
-<span id="L563"><span class="lineNum">     563</span>              : #include &lt;string.h&gt;</span>
-<span id="L564"><span class="lineNum">     564</span>              : #include &lt;strings.h&gt;</span>
+<span id="L556"><span class="lineNum">     556</span>              :    // call stream loading function</span>
+<span id="L557"><span class="lineNum">     557</span>              :    sfc = cairo_image_surface_create_from_jpeg_stream(cj_read, (void*)(intptr_t) infile);</span>
+<span id="L558"><span class="lineNum">     558</span>              :    close(infile);</span>
+<span id="L559"><span class="lineNum">     559</span>              : </span>
+<span id="L560"><span class="lineNum">     560</span>              :    return sfc;</span>
+<span id="L561"><span class="lineNum">     561</span>              : }</span>
+<span id="L562"><span class="lineNum">     562</span>              : </span>
+<span id="L563"><span class="lineNum">     563</span>              : #endif</span>
+<span id="L564"><span class="lineNum">     564</span>              : </span>
 <span id="L565"><span class="lineNum">     565</span>              : </span>
-<span id="L566"><span class="lineNum">     566</span>              : int strrcasecmp(const char *s1, const char *s2)</span>
-<span id="L567"><span class="lineNum">     567</span>              : {</span>
-<span id="L568"><span class="lineNum">     568</span>              :    int off = (int) strlen(s1) - (int) strlen(s2); // typecast size_t to int because size_t typically is unsigned</span>
-<span id="L569"><span class="lineNum">     569</span>              :    return strcasecmp(s1 + (off &lt; 0 ? 0 : off), s2);</span>
-<span id="L570"><span class="lineNum">     570</span>              : }</span>
-<span id="L571"><span class="lineNum">     571</span>              : </span>
-<span id="L572"><span class="lineNum">     572</span>              : /*! Main routine, only for testing. #undef CAIRO_JPEG_MAIN or simply delete</span>
-<span id="L573"><span class="lineNum">     573</span>              :  * this part if you link this file to your own program.</span>
-<span id="L574"><span class="lineNum">     574</span>              :  */</span>
-<span id="L575"><span class="lineNum">     575</span>              : int main(int argc, char **argv)</span>
-<span id="L576"><span class="lineNum">     576</span>              : {</span>
-<span id="L577"><span class="lineNum">     577</span>              :    cairo_surface_t *sfc;</span>
-<span id="L578"><span class="lineNum">     578</span>              : </span>
-<span id="L579"><span class="lineNum">     579</span>              : #ifndef CAIRO_JPEG_TEST_SIMILAR</span>
-<span id="L580"><span class="lineNum">     580</span>              :    if (argc &lt; 3)</span>
-<span id="L581"><span class="lineNum">     581</span>              :    {</span>
-<span id="L582"><span class="lineNum">     582</span>              :       fprintf(stderr, &quot;usage: %s &lt;infile&gt; &lt;outfile&gt;\n&quot;, argv[0]);</span>
-<span id="L583"><span class="lineNum">     583</span>              :       return 1;</span>
-<span id="L584"><span class="lineNum">     584</span>              :    }</span>
-<span id="L585"><span class="lineNum">     585</span>              : </span>
-<span id="L586"><span class="lineNum">     586</span>              :    // test input file type and read file</span>
-<span id="L587"><span class="lineNum">     587</span>              :    if (!strrcasecmp(argv[1], &quot;.png&quot;))</span>
-<span id="L588"><span class="lineNum">     588</span>              :    {</span>
-<span id="L589"><span class="lineNum">     589</span>              :       // read PNG file</span>
-<span id="L590"><span class="lineNum">     590</span>              :       sfc = cairo_image_surface_create_from_png(argv[1]);</span>
-<span id="L591"><span class="lineNum">     591</span>              :    }</span>
-<span id="L592"><span class="lineNum">     592</span>              :    else if (!strrcasecmp(argv[1], &quot;.jpg&quot;))</span>
-<span id="L593"><span class="lineNum">     593</span>              :    {</span>
-<span id="L594"><span class="lineNum">     594</span>              :       // read JPEG file</span>
-<span id="L595"><span class="lineNum">     595</span>              :       sfc = cairo_image_surface_create_from_jpeg(argv[1]);</span>
-<span id="L596"><span class="lineNum">     596</span>              :    }</span>
-<span id="L597"><span class="lineNum">     597</span>              :    else</span>
-<span id="L598"><span class="lineNum">     598</span>              :    {</span>
-<span id="L599"><span class="lineNum">     599</span>              :       fprintf(stderr, &quot;source file is neither JPG nor PNG\n&quot;);</span>
-<span id="L600"><span class="lineNum">     600</span>              :       return 1;</span>
-<span id="L601"><span class="lineNum">     601</span>              :    }</span>
-<span id="L602"><span class="lineNum">     602</span>              : </span>
-<span id="L603"><span class="lineNum">     603</span>              :    // check surface status</span>
-<span id="L604"><span class="lineNum">     604</span>              :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS)</span>
-<span id="L605"><span class="lineNum">     605</span>              :    {</span>
-<span id="L606"><span class="lineNum">     606</span>              :       fprintf(stderr, &quot;error loading image: %s&quot;, cairo_status_to_string(cairo_surface_status(sfc)));</span>
-<span id="L607"><span class="lineNum">     607</span>              :       return 2;</span>
-<span id="L608"><span class="lineNum">     608</span>              :    }</span>
-<span id="L609"><span class="lineNum">     609</span>              : </span>
-<span id="L610"><span class="lineNum">     610</span>              :    // test output file type and write file</span>
-<span id="L611"><span class="lineNum">     611</span>              :    if (!strrcasecmp(argv[2], &quot;.png&quot;))</span>
-<span id="L612"><span class="lineNum">     612</span>              :    {</span>
-<span id="L613"><span class="lineNum">     613</span>              :        // write PNG file</span>
-<span id="L614"><span class="lineNum">     614</span>              :       cairo_surface_write_to_png(sfc, argv[2]);</span>
-<span id="L615"><span class="lineNum">     615</span>              :    }</span>
-<span id="L616"><span class="lineNum">     616</span>              :    else if (!strrcasecmp(argv[2], &quot;.jpg&quot;))</span>
-<span id="L617"><span class="lineNum">     617</span>              :    {</span>
-<span id="L618"><span class="lineNum">     618</span>              :       // write JPEG file</span>
-<span id="L619"><span class="lineNum">     619</span>              :       cairo_image_surface_write_to_jpeg(sfc, argv[2], 90);</span>
-<span id="L620"><span class="lineNum">     620</span>              :    }</span>
-<span id="L621"><span class="lineNum">     621</span>              :    else</span>
-<span id="L622"><span class="lineNum">     622</span>              :    {</span>
-<span id="L623"><span class="lineNum">     623</span>              :       fprintf(stderr, &quot;destination file is neither JPG nor PNG\n&quot;);</span>
-<span id="L624"><span class="lineNum">     624</span>              :       return 1;</span>
-<span id="L625"><span class="lineNum">     625</span>              :    }</span>
-<span id="L626"><span class="lineNum">     626</span>              : </span>
-<span id="L627"><span class="lineNum">     627</span>              :    cairo_surface_destroy(sfc);</span>
-<span id="L628"><span class="lineNum">     628</span>              : </span>
-<span id="L629"><span class="lineNum">     629</span>              : #else</span>
-<span id="L630"><span class="lineNum">     630</span>              :    sfc = cairo_pdf_surface_create(&quot;xyz.pdf&quot;, 595.276, 841.890);</span>
-<span id="L631"><span class="lineNum">     631</span>              : </span>
-<span id="L632"><span class="lineNum">     632</span>              :    cairo_t *ctx = cairo_create(sfc);</span>
-<span id="L633"><span class="lineNum">     633</span>              :    cairo_set_source_rgb(ctx, 1, 1, 1);</span>
-<span id="L634"><span class="lineNum">     634</span>              :    cairo_paint(ctx);</span>
-<span id="L635"><span class="lineNum">     635</span>              :    cairo_move_to(ctx, 100, 100);</span>
-<span id="L636"><span class="lineNum">     636</span>              :    cairo_set_source_rgb(ctx, 1, 0, 0);</span>
-<span id="L637"><span class="lineNum">     637</span>              :    cairo_set_line_width(ctx, 3);</span>
-<span id="L638"><span class="lineNum">     638</span>              :    cairo_line_to(ctx, 400, 400);</span>
-<span id="L639"><span class="lineNum">     639</span>              :    cairo_stroke(ctx);</span>
-<span id="L640"><span class="lineNum">     640</span>              :    cairo_destroy(ctx);</span>
-<span id="L641"><span class="lineNum">     641</span>              : </span>
-<span id="L642"><span class="lineNum">     642</span>              :    cairo_image_surface_write_to_jpeg(sfc, &quot;xyz.jpg&quot;, 90);</span>
-<span id="L643"><span class="lineNum">     643</span>              :    cairo_surface_destroy(sfc);</span>
-<span id="L644"><span class="lineNum">     644</span>              : #endif</span>
+<span id="L566"><span class="lineNum">     566</span>              : #ifdef CAIRO_JPEG_MAIN</span>
+<span id="L567"><span class="lineNum">     567</span>              : #include &lt;string.h&gt;</span>
+<span id="L568"><span class="lineNum">     568</span>              : #include &lt;strings.h&gt;</span>
+<span id="L569"><span class="lineNum">     569</span>              : </span>
+<span id="L570"><span class="lineNum">     570</span>              : int strrcasecmp(const char *s1, const char *s2)</span>
+<span id="L571"><span class="lineNum">     571</span>              : {</span>
+<span id="L572"><span class="lineNum">     572</span>              :    int off = (int) strlen(s1) - (int) strlen(s2); // typecast size_t to int because size_t typically is unsigned</span>
+<span id="L573"><span class="lineNum">     573</span>              :    return strcasecmp(s1 + (off &lt; 0 ? 0 : off), s2);</span>
+<span id="L574"><span class="lineNum">     574</span>              : }</span>
+<span id="L575"><span class="lineNum">     575</span>              : </span>
+<span id="L576"><span class="lineNum">     576</span>              : /*! Main routine, only for testing. #undef CAIRO_JPEG_MAIN or simply delete</span>
+<span id="L577"><span class="lineNum">     577</span>              :  * this part if you link this file to your own program.</span>
+<span id="L578"><span class="lineNum">     578</span>              :  */</span>
+<span id="L579"><span class="lineNum">     579</span>              : int main(int argc, char **argv)</span>
+<span id="L580"><span class="lineNum">     580</span>              : {</span>
+<span id="L581"><span class="lineNum">     581</span>              :    cairo_surface_t *sfc;</span>
+<span id="L582"><span class="lineNum">     582</span>              : </span>
+<span id="L583"><span class="lineNum">     583</span>              : #ifndef CAIRO_JPEG_TEST_SIMILAR</span>
+<span id="L584"><span class="lineNum">     584</span>              :    if (argc &lt; 3)</span>
+<span id="L585"><span class="lineNum">     585</span>              :    {</span>
+<span id="L586"><span class="lineNum">     586</span>              :       fprintf(stderr, &quot;usage: %s &lt;infile&gt; &lt;outfile&gt;\n&quot;, argv[0]);</span>
+<span id="L587"><span class="lineNum">     587</span>              :       return 1;</span>
+<span id="L588"><span class="lineNum">     588</span>              :    }</span>
+<span id="L589"><span class="lineNum">     589</span>              : </span>
+<span id="L590"><span class="lineNum">     590</span>              :    // test input file type and read file</span>
+<span id="L591"><span class="lineNum">     591</span>              :    if (!strrcasecmp(argv[1], &quot;.png&quot;))</span>
+<span id="L592"><span class="lineNum">     592</span>              :    {</span>
+<span id="L593"><span class="lineNum">     593</span>              :       // read PNG file</span>
+<span id="L594"><span class="lineNum">     594</span>              :       sfc = cairo_image_surface_create_from_png(argv[1]);</span>
+<span id="L595"><span class="lineNum">     595</span>              :    }</span>
+<span id="L596"><span class="lineNum">     596</span>              :    else if (!strrcasecmp(argv[1], &quot;.jpg&quot;))</span>
+<span id="L597"><span class="lineNum">     597</span>              :    {</span>
+<span id="L598"><span class="lineNum">     598</span>              :       // read JPEG file</span>
+<span id="L599"><span class="lineNum">     599</span>              :       sfc = cairo_image_surface_create_from_jpeg(argv[1]);</span>
+<span id="L600"><span class="lineNum">     600</span>              :    }</span>
+<span id="L601"><span class="lineNum">     601</span>              :    else</span>
+<span id="L602"><span class="lineNum">     602</span>              :    {</span>
+<span id="L603"><span class="lineNum">     603</span>              :       fprintf(stderr, &quot;source file is neither JPG nor PNG\n&quot;);</span>
+<span id="L604"><span class="lineNum">     604</span>              :       return 1;</span>
+<span id="L605"><span class="lineNum">     605</span>              :    }</span>
+<span id="L606"><span class="lineNum">     606</span>              : </span>
+<span id="L607"><span class="lineNum">     607</span>              :    // check surface status</span>
+<span id="L608"><span class="lineNum">     608</span>              :    if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS)</span>
+<span id="L609"><span class="lineNum">     609</span>              :    {</span>
+<span id="L610"><span class="lineNum">     610</span>              :       fprintf(stderr, &quot;error loading image: %s&quot;, cairo_status_to_string(cairo_surface_status(sfc)));</span>
+<span id="L611"><span class="lineNum">     611</span>              :       return 2;</span>
+<span id="L612"><span class="lineNum">     612</span>              :    }</span>
+<span id="L613"><span class="lineNum">     613</span>              : </span>
+<span id="L614"><span class="lineNum">     614</span>              :    // test output file type and write file</span>
+<span id="L615"><span class="lineNum">     615</span>              :    if (!strrcasecmp(argv[2], &quot;.png&quot;))</span>
+<span id="L616"><span class="lineNum">     616</span>              :    {</span>
+<span id="L617"><span class="lineNum">     617</span>              :        // write PNG file</span>
+<span id="L618"><span class="lineNum">     618</span>              :       cairo_surface_write_to_png(sfc, argv[2]);</span>
+<span id="L619"><span class="lineNum">     619</span>              :    }</span>
+<span id="L620"><span class="lineNum">     620</span>              :    else if (!strrcasecmp(argv[2], &quot;.jpg&quot;))</span>
+<span id="L621"><span class="lineNum">     621</span>              :    {</span>
+<span id="L622"><span class="lineNum">     622</span>              :       // write JPEG file</span>
+<span id="L623"><span class="lineNum">     623</span>              :       cairo_image_surface_write_to_jpeg(sfc, argv[2], 90);</span>
+<span id="L624"><span class="lineNum">     624</span>              :    }</span>
+<span id="L625"><span class="lineNum">     625</span>              :    else</span>
+<span id="L626"><span class="lineNum">     626</span>              :    {</span>
+<span id="L627"><span class="lineNum">     627</span>              :       fprintf(stderr, &quot;destination file is neither JPG nor PNG\n&quot;);</span>
+<span id="L628"><span class="lineNum">     628</span>              :       return 1;</span>
+<span id="L629"><span class="lineNum">     629</span>              :    }</span>
+<span id="L630"><span class="lineNum">     630</span>              : </span>
+<span id="L631"><span class="lineNum">     631</span>              :    cairo_surface_destroy(sfc);</span>
+<span id="L632"><span class="lineNum">     632</span>              : </span>
+<span id="L633"><span class="lineNum">     633</span>              : #else</span>
+<span id="L634"><span class="lineNum">     634</span>              :    sfc = cairo_pdf_surface_create(&quot;xyz.pdf&quot;, 595.276, 841.890);</span>
+<span id="L635"><span class="lineNum">     635</span>              : </span>
+<span id="L636"><span class="lineNum">     636</span>              :    cairo_t *ctx = cairo_create(sfc);</span>
+<span id="L637"><span class="lineNum">     637</span>              :    cairo_set_source_rgb(ctx, 1, 1, 1);</span>
+<span id="L638"><span class="lineNum">     638</span>              :    cairo_paint(ctx);</span>
+<span id="L639"><span class="lineNum">     639</span>              :    cairo_move_to(ctx, 100, 100);</span>
+<span id="L640"><span class="lineNum">     640</span>              :    cairo_set_source_rgb(ctx, 1, 0, 0);</span>
+<span id="L641"><span class="lineNum">     641</span>              :    cairo_set_line_width(ctx, 3);</span>
+<span id="L642"><span class="lineNum">     642</span>              :    cairo_line_to(ctx, 400, 400);</span>
+<span id="L643"><span class="lineNum">     643</span>              :    cairo_stroke(ctx);</span>
+<span id="L644"><span class="lineNum">     644</span>              :    cairo_destroy(ctx);</span>
 <span id="L645"><span class="lineNum">     645</span>              : </span>
-<span id="L646"><span class="lineNum">     646</span>              :    return 0;</span>
-<span id="L647"><span class="lineNum">     647</span>              : }</span>
-<span id="L648"><span class="lineNum">     648</span>              : </span>
-<span id="L649"><span class="lineNum">     649</span>              : #endif</span>
-<span id="L650"><span class="lineNum">     650</span>              : </span>
-<span id="L651"><span class="lineNum">     651</span>              : #endif</span>
+<span id="L646"><span class="lineNum">     646</span>              :    cairo_image_surface_write_to_jpeg(sfc, &quot;xyz.jpg&quot;, 90);</span>
+<span id="L647"><span class="lineNum">     647</span>              :    cairo_surface_destroy(sfc);</span>
+<span id="L648"><span class="lineNum">     648</span>              : #endif</span>
+<span id="L649"><span class="lineNum">     649</span>              : </span>
+<span id="L650"><span class="lineNum">     650</span>              :    return 0;</span>
+<span id="L651"><span class="lineNum">     651</span>              : }</span>
+<span id="L652"><span class="lineNum">     652</span>              : </span>
+<span id="L653"><span class="lineNum">     653</span>              : #endif</span>
+<span id="L654"><span class="lineNum">     654</span>              : </span>
+<span id="L655"><span class="lineNum">     655</span>              : #endif</span>
         </pre>
               </td>
             </tr>
