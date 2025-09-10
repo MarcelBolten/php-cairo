@@ -803,45 +803,24 @@ cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, un
     written = php_stream_write(cast_closure->stream, data, length);
     if (written == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else {
-        return CAIRO_STATUS_WRITE_ERROR;
     }
+
+    return CAIRO_STATUS_WRITE_ERROR;
 }
 
-cairo_status_t php_cairo_read_func(void *closure, unsigned char *data, unsigned int length)
+cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length)
 {
     unsigned int read;
     stream_closure *cast_closure;
 
     cast_closure = (stream_closure *)closure;
 
-    fprintf(stderr, "DEBUG: Attempting to read %u bytes\n", length);
-
-    if (php_stream_eof(cast_closure->stream)) {
-        fprintf(stderr, "DEBUG: Stream is at EOF before read\n");
-        return CAIRO_STATUS_READ_ERROR;
-    }
-
     read = php_stream_read(cast_closure->stream, (char *)data, length);
-
-    fprintf(stderr, "DEBUG: Read %u bytes (requested %u)\n", read, length);
-    if (read > 0 && read <= length) {
-        fprintf(stderr, "DEBUG: First few bytes read: ");
-        for (int i = 0; i < (read < 8 ? read : 8); i++) {
-            fprintf(stderr, "0x%02x ", data[i]);
-        }
-        fprintf(stderr, "\n");
-    }
-
     if (read == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else if (read == 0 && php_stream_eof(cast_closure->stream)) {
-        // At EOF - this is normal, not an error
-        return CAIRO_STATUS_SUCCESS;  // or maybe return a special EOF status if Cairo has one
-    } else {
-        fprintf(stderr, "DEBUG: Read error - got %u bytes, expected %u\n", read, length);
-        return CAIRO_STATUS_READ_ERROR;
     }
+
+    return CAIRO_STATUS_READ_ERROR;
 }
 
 zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)
