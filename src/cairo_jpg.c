@@ -450,6 +450,10 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg_stream(cairo_read_func_t r
       // check for error
       if (rlen == CAIRO_STATUS_READ_ERROR)
          eof++;
+
+      // manually increase read length because cairo_read_func_t
+      // does not return the actual number of bytes read
+      rlen = CAIRO_JPEG_IO_BLOCK_SIZE;
 #endif
    }
 
