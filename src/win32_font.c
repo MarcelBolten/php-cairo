@@ -51,10 +51,10 @@
         lfont. ## name = defaultval;
 
 /** Same as before but casts return to BYTE */
-#define LFONT_FIND_LONGB(name, defaultval) \
+#define LFONT_FIND_LONG_TO_BYTE(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_LONG) \
-            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type long"); \
+            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type int"); \
         else \
             lfont. ## name = (BYTE)Z_LVAL_P(tmp); \
     } \
@@ -104,16 +104,17 @@ PHP_METHOD(Cairo_FontFace_Win32, __construct)
         /** Find values in font_options array and set them. Otherwise set defaults */
         LFONT_FIND_LONG(lfHeight, 0);
         LFONT_FIND_LONG(lfWidth, 0);
-        LFONT_FIND_LONG(lfWeight, FW_DONTCARE);
+        LFONT_FIND_LONG(lfEscapement, 0);
         LFONT_FIND_LONG(lfOrientation, 0);
+        LFONT_FIND_LONG(lfWeight, FW_DONTCARE);
         LFONT_FIND_BOOL(lfItalic, FALSE);
         LFONT_FIND_BOOL(lfUnderline, FALSE);
         LFONT_FIND_BOOL(lfStrikeOut, FALSE);
-        LFONT_FIND_LONGB(lfCharSet, DEFAULT_CHARSET);
-        LFONT_FIND_LONGB(lfOutPrecision, OUT_DEFAULT_PRECIS);
-        LFONT_FIND_LONGB(lfClipPrecision, CLIP_DEFAULT_PRECIS);
-        LFONT_FIND_LONGB(lfQuality, DEFAULT_QUALITY);
-        LFONT_FIND_LONGB(lfPitchAndFamily, FIXED_PITCH | FF_DONTCARE);
+        LFONT_FIND_LONG_TO_BYTE(lfCharSet, DEFAULT_CHARSET);
+        LFONT_FIND_LONG_TO_BYTE(lfOutPrecision, OUT_DEFAULT_PRECIS);
+        LFONT_FIND_LONG_TO_BYTE(lfClipPrecision, CLIP_DEFAULT_PRECIS);
+        LFONT_FIND_LONG_TO_BYTE(lfQuality, DEFAULT_QUALITY);
+        LFONT_FIND_LONG_TO_BYTE(lfPitchAndFamily, FIXED_PITCH | FF_DONTCARE);
 
         if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), "lfFaceName", sizeof("lfFaceName")-1)) != NULL) {
             if (Z_TYPE_P(tmp) != IS_STRING) {
@@ -124,13 +125,12 @@ PHP_METHOD(Cairo_FontFace_Win32, __construct)
         } else {
             lstrcpy(lfont.lfFaceName, "");
         }
-
     } else {
         /** Arbitrary defaults */
         lfont.lfHeight = 0;
         lfont.lfWidth = 0;
-        lfont.lfOrientation = 0;
         lfont.lfEscapement = 0;
+        lfont.lfOrientation = 0;
         lfont.lfWeight = FW_DONTCARE;
         lfont.lfItalic = FALSE;
         lfont.lfUnderline = FALSE;
