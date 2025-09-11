@@ -12,6 +12,7 @@ jobs:
             matrix:
                 php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
                 os: [ubuntu-latest]
+                phpts: [ts, nts]
 
         runs-on: ${{ matrix.os }}
 
@@ -31,6 +32,7 @@ jobs:
                   ini-values: extension=cairo.so
               env:
                 debug: true
+                phpts: ${{ matrix.phpts }}
 
             - name: "Checkout"
               uses: actions/checkout@v5
