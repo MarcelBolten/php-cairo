@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-11 00:16:55</td>
+            <td class="headerValue">2025-09-11 01:30:29</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -276,7 +276,7 @@
 <span id="L214"><span class="lineNum">     214</span>              : {</span>
 <span id="L215"><span class="lineNum">     215</span>              :     cairo_region_object *region_object;</span>
 <span id="L216"><span class="lineNum">     216</span>              :     cairo_rectangle_object *rectangle_object;</span>
-<span id="L217"><span class="lineNum">     217</span>              :     cairo_rectangle_int_t *int_rect;</span>
+<span id="L217"><span class="lineNum">     217</span>              :     cairo_rectangle_int_t int_rect;</span>
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">          27 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
 <span id="L220"><span class="lineNum">     220</span>              : </span>
@@ -285,11 +285,11 @@
 <span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L224"><span class="lineNum">     224</span>              :     }</span>
 <span id="L225"><span class="lineNum">     225</span>              : </span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC tlaBgGNC">          26 :     cairo_region_get_extents(region_object-&gt;region, int_rect);</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC tlaBgGNC">          26 :     cairo_region_get_extents(region_object-&gt;region, &amp;int_rect);</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          26 :     object_init_ex(return_value, php_cairo_get_rectangle_ce());</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">          26 :     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          26 :     cairo_rectangle_int_to_double(int_rect, rectangle_object-&gt;rect);</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          26 :     cairo_rectangle_int_to_double(&amp;int_rect, rectangle_object-&gt;rect);</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : }</span>
 <span id="L232"><span class="lineNum">     232</span>              : /* }}} */</span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
