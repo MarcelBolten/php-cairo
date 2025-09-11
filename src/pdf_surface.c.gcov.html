@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-11 02:46:48</td>
+            <td class="headerValue">2025-09-11 03:04:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -345,7 +345,7 @@
 <span id="L283"><span class="lineNum">     283</span>              :        Setting a width or height of 0 disables thumbnails for the current and subsequent pages. */</span>
 <span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC tlaBgGNC">          12 : PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)</span></span>
 <span id="L285"><span class="lineNum">     285</span>              : {</span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          12 :     long width = 0, height = 0;</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          12 :     zend_long width = 0, height = 0;</span></span>
 <span id="L287"><span class="lineNum">     287</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L288"><span class="lineNum">     288</span>              : </span>
 <span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
@@ -358,7 +358,7 @@
 <span id="L296"><span class="lineNum">     296</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L297"><span class="lineNum">     297</span>              :     }</span>
 <span id="L298"><span class="lineNum">     298</span>              : </span>
-<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_pdf_surface_set_thumbnail_size(surface_object-&gt;surface, width, height);</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_pdf_surface_set_thumbnail_size(surface_object-&gt;surface, (int) width, (int) height);</span></span>
 <span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           2 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L302"><span class="lineNum">     302</span>              :     }</span>

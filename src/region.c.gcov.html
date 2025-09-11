@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-11 02:46:48</td>
+            <td class="headerValue">2025-09-11 03:04:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -314,7 +314,7 @@
 <span id="L252"><span class="lineNum">     252</span>              :    Returns the nth rectangle in region or false if rectangle does not exist. */</span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Region, getRectangle)</span></span>
 <span id="L254"><span class="lineNum">     254</span>              : {</span>
-<span id="L255"><span class="lineNum">     255</span>              :     long rectId;</span>
+<span id="L255"><span class="lineNum">     255</span>              :     zend_long rectId;</span>
 <span id="L256"><span class="lineNum">     256</span>              :     cairo_region_object *region_object;</span>
 <span id="L257"><span class="lineNum">     257</span>              :     cairo_rectangle_object *rectangle_object;</span>
 <span id="L258"><span class="lineNum">     258</span>              :     cairo_rectangle_int_t int_rect;</span>
@@ -328,11 +328,11 @@
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L267"><span class="lineNum">     267</span>              :     }</span>
 <span id="L268"><span class="lineNum">     268</span>              : </span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC tlaBgGNC">           8 :     if (rectId &gt; cairo_region_num_rectangles(region_object-&gt;region) - 1) {</span></span>
+<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC tlaBgGNC">           8 :     if ((int) rectId &gt; cairo_region_num_rectangles(region_object-&gt;region) - 1) {</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           2 :         RETURN_FALSE;</span></span>
 <span id="L271"><span class="lineNum">     271</span>              :     }</span>
 <span id="L272"><span class="lineNum">     272</span>              : </span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           6 :     cairo_region_get_rectangle(region_object-&gt;region, rectId, &amp;int_rect);</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           6 :     cairo_region_get_rectangle(region_object-&gt;region, (int) rectId, &amp;int_rect);</span></span>
 <span id="L274"><span class="lineNum">     274</span>              : </span>
 <span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           6 :     object_init_ex(return_value, php_cairo_get_rectangle_ce());</span></span>
 <span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">           6 :     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);</span></span>
@@ -361,7 +361,7 @@
 <span id="L299"><span class="lineNum">     299</span>              :    Checks whether (x, y) is contained in region. Returns TRUE if (x, y) is contained in region, FALSE if it is not. */</span>
 <span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">          22 : PHP_METHOD(Cairo_Region, containsPoint)</span></span>
 <span id="L301"><span class="lineNum">     301</span>              : {</span>
-<span id="L302"><span class="lineNum">     302</span>              :     long x, y;</span>
+<span id="L302"><span class="lineNum">     302</span>              :     zend_long x, y;</span>
 <span id="L303"><span class="lineNum">     303</span>              :     cairo_region_object *region_object;</span>
 <span id="L304"><span class="lineNum">     304</span>              : </span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">          22 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
@@ -374,7 +374,7 @@
 <span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L313"><span class="lineNum">     313</span>              :     }</span>
 <span id="L314"><span class="lineNum">     314</span>              : </span>
-<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC tlaBgGNC">          18 :     RETVAL_BOOL(cairo_region_contains_point(region_object-&gt;region, x, y));</span></span>
+<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC tlaBgGNC">          18 :     RETVAL_BOOL(cairo_region_contains_point(region_object-&gt;region, (int) x, (int) y));</span></span>
 <span id="L316"><span class="lineNum">     316</span>              : }</span>
 <span id="L317"><span class="lineNum">     317</span>              : /* }}} */</span>
 <span id="L318"><span class="lineNum">     318</span>              : </span>
@@ -447,7 +447,7 @@
 <span id="L385"><span class="lineNum">     385</span>              :    Translates region by (dx, dy). */</span>
 <span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Region, translate)</span></span>
 <span id="L387"><span class="lineNum">     387</span>              : {</span>
-<span id="L388"><span class="lineNum">     388</span>              :     long dx, dy;</span>
+<span id="L388"><span class="lineNum">     388</span>              :     zend_long dx, dy;</span>
 <span id="L389"><span class="lineNum">     389</span>              :     cairo_region_object *region_object;</span>
 <span id="L390"><span class="lineNum">     390</span>              : </span>
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
@@ -460,7 +460,7 @@
 <span id="L398"><span class="lineNum">     398</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L399"><span class="lineNum">     399</span>              :     }</span>
 <span id="L400"><span class="lineNum">     400</span>              : </span>
-<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC tlaBgGNC">           4 :     cairo_region_translate(region_object-&gt;region, dx, dy);</span></span>
+<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC tlaBgGNC">           4 :     cairo_region_translate(region_object-&gt;region, (int) dx, (int) dy);</span></span>
 <span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">           4 :     if (php_cairo_throw_exception(cairo_region_status(region_object-&gt;region))) {</span></span>
 <span id="L403"><span class="lineNum">     403</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L404"><span class="lineNum">     404</span>              :     }</span>
