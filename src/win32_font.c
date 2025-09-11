@@ -42,33 +42,33 @@
 #define LFONT_FIND_LONG(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_LONG) \
-            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '"#name"' to be of type long"); \
+            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type long"); \
         else \
-            lfont.##name = Z_LVAL_P(tmp); \
+            lfont. ## name = Z_LVAL_P(tmp); \
     } \
     else \
-        lfont.##name = defaultval;
+        lfont. ## name = defaultval;
 
 /** Same as before but casts return to BYTE */
 #define LFONT_FIND_LONGB(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_LONG) \
-            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '"#name"' to be of type long"); \
+            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type long"); \
         else \
-            lfont.##name = (BYTE)Z_LVAL_P(tmp); \
+            lfont. ## name = (BYTE)Z_LVAL_P(tmp); \
     } \
     else \
-        lfont.##name = (BYTE)defaultval;
+        lfont. ## name = (BYTE)defaultval;
 
 #define LFONT_FIND_BOOL(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_TRUE && Z_TYPE_P(tmp) != IS_FALSE) \
-            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '"#name"' to be of type bool"); \
+            zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type bool"); \
         else \
-            lfont.##name = Z_TYPE_P(tmp) == IS_TRUE ? 1 : 0; \
+            lfont. ## name = Z_TYPE_P(tmp) == IS_TRUE ? 1 : 0; \
     } \
     else \
-        lfont.##name = defaultval;
+        lfont. ## name = defaultval;
 
 zend_class_entry *ce_cairo_win32font;
 /** These classes are containers for constants defined in WinGdi.h, etc. */
@@ -87,7 +87,7 @@ static zend_object_handlers cairo_win32_font_face_object_handlers;
  * CairoWin32FontFace::__construct takes 1 optional argument
  */
 ZEND_BEGIN_ARG_INFO_EX(CairoWin32FontFace_construct_args, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 0)
-    ZEND_ARG_INFO(0, font_options)
+    ZEND_ARG_TYPE_INFO(0, font_options, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
 /* {{{ proto CairoWin32FontFace::__construct([array font_options])
@@ -99,9 +99,9 @@ PHP_METHOD(CairoWin32FontFace, __construct)
     HFONT       hfont;
     zval        *font_options = NULL;
     zval        *tmp;
-    //char        *font_name = NULL;
+    // char        *font_name = NULL;
 
-    ZEND_PARSE_PARAMETERS_START(1, 1)
+    ZEND_PARSE_PARAMETERS_START(0, 1)
         Z_PARAM_OPTIONAL
         Z_PARAM_ARRAY(font_options)
     ZEND_PARSE_PARAMETERS_END();

@@ -2759,7 +2759,7 @@ PHP_METHOD(Cairo_Context, showTextGlyphs)
     int num_clusters = 0;
     zval *php_glyphs = NULL, *pzval;
     zval *php_clusters = NULL;
-    long cluster_flags;
+    zend_long cluster_flags;
     HashTable *glyphs_hash = NULL;
     HashTable *clusters_hash = NULL;
     int i = 0;

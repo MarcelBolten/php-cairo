@@ -40,7 +40,7 @@ jobs:
             - name: "Build Cairo"
               run: |
                 phpize
-                ./configure --enable-debug --with-php-config=$(which php-config)
+                ./configure --with-php-config=$(which php-config)
                 make -j$(nproc)
                 sudo make -j$(nproc) install
               env:

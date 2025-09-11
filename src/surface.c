@@ -305,7 +305,7 @@ PHP_METHOD(Cairo_Surface, markDirty)
 PHP_METHOD(Cairo_Surface, markDirtyRectangle)
 {
     cairo_surface_object *surface_object;
-    long x = 0, y = 0, width = 0, height = 0;
+    zend_long x = 0, y = 0, width = 0, height = 0;
 
     ZEND_PARSE_PARAMETERS_START(4, 4)
         Z_PARAM_LONG(x)
@@ -319,7 +319,7 @@ PHP_METHOD(Cairo_Surface, markDirtyRectangle)
         RETURN_THROWS();
     }
 
-    cairo_surface_mark_dirty_rectangle(surface_object->surface, x, y, width, height);
+    cairo_surface_mark_dirty_rectangle(surface_object->surface, (int) x, (int) y, (int) width, (int) height);
 }
 /* }}} */
 

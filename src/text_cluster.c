@@ -96,8 +96,7 @@ PHP_METHOD(Cairo_TextCluster, __construct)
     cairo_text_cluster_object *text_cluster_object;
 
     /* read defaults from object */
-    long num_bytes;
-    long num_glyphs;
+    zend_long num_bytes, num_glyphs;
 
     /* Now allow constructor to overwrite them if desired */
     ZEND_PARSE_PARAMETERS_START(2, 2)
@@ -107,8 +106,8 @@ PHP_METHOD(Cairo_TextCluster, __construct)
 
     text_cluster_object = Z_CAIRO_TEXT_CLUSTER_P(getThis());
 
-    text_cluster_object->text_cluster->num_bytes = num_bytes;
-    text_cluster_object->text_cluster->num_glyphs = num_glyphs;
+    text_cluster_object->text_cluster->num_bytes = (int) num_bytes;
+    text_cluster_object->text_cluster->num_glyphs = (int) num_glyphs;
 }
 /* }}} */
 

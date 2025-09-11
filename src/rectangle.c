@@ -165,10 +165,10 @@ PHP_METHOD(Cairo_Rectangle, __construct)
 
     rectangle_object = cairo_rectangle_fetch_object(object);
 
-    rectangle_object->rect->x = x;
-    rectangle_object->rect->y = y;
-    rectangle_object->rect->width = width;
-    rectangle_object->rect->height = height;
+    rectangle_object->rect->x = (int) x;
+    rectangle_object->rect->y = (int) y;
+    rectangle_object->rect->width = (int) width;
+    rectangle_object->rect->height = (int) height;
 }
 /* }}} */
 
