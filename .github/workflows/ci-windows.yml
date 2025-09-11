@@ -68,7 +68,7 @@ jobs:
                 .\vcpkg install libjpeg-turbo:$triplet
                 .\vcpkg install zlib:$triplet
                 .\vcpkg install pixman:$triplet
-                .\vcpkg install libxml2:$triplet
+                .\vcpkg install expat:$triplet  # Use expat instead of libxml2
                 .\vcpkg install bzip2:$triplet
                 .\vcpkg install brotli:$triplet
 
@@ -111,9 +111,9 @@ jobs:
                     Copy-Item -Path "$installPath\lib\brotlicommon-static.lib" -Destination "C:\cairo-deps\lib\brotlicommon.lib" -Force
                 }
 
-                # Add XML library (CRITICAL - this was missing)
-                if (Test-Path "$installPath\lib\libxml2.lib") {
-                    Copy-Item -Path "$installPath\lib\libxml2.lib" -Destination "C:\cairo-deps\lib\libxml2.lib" -Force
+                # Use expat instead of libxml2 for FontConfig
+                if (Test-Path "$installPath\lib\expat.lib") {
+                    Copy-Item -Path "$installPath\lib\expat.lib" -Destination "C:\cairo-deps\lib\expat.lib" -Force
                 }
 
                 # Copy all headers
