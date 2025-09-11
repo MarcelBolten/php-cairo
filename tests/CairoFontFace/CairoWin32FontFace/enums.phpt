@@ -1,0 +1,165 @@
+--TEST--
+CairoWin32Fontface::__construct() function
+--SKIPIF--
+<?php
+include __DIR__ . '/../../skipif.inc';
+if (!class_exists('\Cairo\FontFace\Win32'))
+	die('skip - Cairo\FontFace\Win32 class not available');
+--FILE--
+<?php
+var_dump(Cairo\FontFace\Win32\FontWeight::cases());
+var_dump(Cairo\FontFace\Win32\FontCharSet::cases());
+var_dump(Cairo\FontFace\Win32\FontOutputPrecision::cases());
+var_dump(Cairo\FontFace\Win32\FontClipPrecision::cases());
+var_dump(Cairo\FontFace\Win32\FontQuality::cases());
+var_dump(Cairo\FontFace\Win32\FontPitch::cases());
+var_dump(Cairo\FontFace\Win32\FontFamily::cases());
+--EXPECTF--
+array(15) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Dontcare)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Thin)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Extralight)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Ultralight)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Light)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Normal)
+  [6]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Regular)
+  [7]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Medium)
+  [8]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Semibold)
+  [9]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Demibold)
+  [10]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Bold)
+  [11]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Extrabold)
+  [12]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Ultrabold)
+  [13]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Heavy)
+  [14]=>
+  enum(Cairo\FontFace\Win32\FontWeight::Black)
+}
+array(19) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Ansi)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Baltic)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontCharset::ChineseBig5)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Default)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Easteurope)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontCharset::GB2312)
+  [6]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Greek)
+  [7]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Hangul)
+  [8]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Mac)
+  [9]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Oem)
+  [10]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Russian)
+  [11]=>
+  enum(Cairo\FontFace\Win32\FontCharset::ShiftJIS)
+  [12]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Symbol)
+  [13]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Turkish)
+  [14]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Vietnamese)
+  [15]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Johab)
+  [16]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Arabic)
+  [17]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Hebrew)
+  [18]=>
+  enum(Cairo\FontFace\Win32\FontCharset::Thai)
+}
+array(10) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Character)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Default)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Device)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Outline)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::PsOnly)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Raster)
+  [6]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::String)
+  [7]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Stroke)
+  [8]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::TtOnly)
+  [9]=>
+  enum(Cairo\FontFace\Win32\FontOutputPrecision::Tt)
+}
+array(8) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::Character)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::Default)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::DfaDisable)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::Embedded)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::LhAngles)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::Mask)
+  [6]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::Stroke)
+  [7]=>
+  enum(Cairo\FontFace\Win32\FontClipPrecision::TtAlways)
+}
+array(6) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontQuality::Antialiased)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontQuality::Cleartype)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontQuality::Default)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontQuality::Draft)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontQuality::NonAntialiased)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontQuality::Proof)
+}
+array(3) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontPitch::Default)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontPitch::Fixed)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontPitch::Variable)
+}
+array(6) {
+  [0]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Decorative)
+  [1]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Dontcare)
+  [2]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Modern)
+  [3]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Roman)
+  [4]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Script)
+  [5]=>
+  enum(Cairo\FontFace\Win32\FontFamily::Swiss)
+}
