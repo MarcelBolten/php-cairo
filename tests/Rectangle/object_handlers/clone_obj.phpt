@@ -21,7 +21,7 @@ $copy = clone $testing;
 var_dump(get_class($copy));
 var_dump($copy->x);
 --EXPECT--
-int(5)
-int(9)
+float(5)
+float(9)
 string(7) "testing"
-int(6)
+float(6)

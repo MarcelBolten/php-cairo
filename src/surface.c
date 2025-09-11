@@ -546,6 +546,7 @@ PHP_METHOD(Cairo_Surface, mapToImage)
     cairo_surface_t *new_surface;
     zval *rectangle_zval = NULL;
     cairo_rectangle_object *rectangle_object;
+    cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(0, 1)
         Z_PARAM_OPTIONAL
@@ -559,7 +560,8 @@ PHP_METHOD(Cairo_Surface, mapToImage)
 
     if (rectangle_zval != NULL && Z_TYPE_P(rectangle_zval) == IS_OBJECT) {
         rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
-        new_surface = cairo_surface_map_to_image(surface_object->surface, rectangle_object->rect);
+        cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
+        new_surface = cairo_surface_map_to_image(surface_object->surface, &int_rect);
         cairo_surface_reference(new_surface);
     } else {
         new_surface = cairo_surface_map_to_image(surface_object->surface, NULL);

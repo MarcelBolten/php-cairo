@@ -40,45 +40,45 @@ object(Cairo\Region)#%d (0) {
 }
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(1)
+  float(1)
   ["y"]=>
-  int(1)
+  float(1)
   ["width"]=>
-  int(100)
+  float(100)
   ["height"]=>
-  int(100)
+  float(100)
 }
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(20)
+  float(20)
   ["y"]=>
-  int(20)
+  float(20)
   ["width"]=>
-  int(81)
+  float(81)
   ["height"]=>
-  int(81)
+  float(81)
 }
 int(1)
 Cairo\Region::intersect(): Argument #1 ($region) must be of type Cairo\Region, int given

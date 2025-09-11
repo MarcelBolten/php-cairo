@@ -27,22 +27,22 @@ object(Cairo\Region)#%d (0) {
 }
 object(Cairo\Rectangle)#2 (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 object(Cairo\Rectangle)#5 (4) {
   ["x"]=>
-  int(1)
+  float(1)
   ["y"]=>
-  int(1)
+  float(1)
   ["width"]=>
-  int(201)
+  float(201)
   ["height"]=>
-  int(201)
+  float(201)
 }
 Cairo\Region::getExtents() expects exactly 0 arguments, 1 given

@@ -11,18 +11,18 @@ namespace Cairo;
 // Todo: Make class final
 class Rectangle
 {
-    public int $x = 0;
+    public float $x = 0;
 
-    public int $y = 0;
+    public float $y = 0;
 
-    public int $width = 0;
+    public float $width = 0;
 
-    public int $height = 0;
+    public float $height = 0;
 
     public function __construct(
-        int $x = 0,
-        int $y = 0,
-        int $width = 0,
-        int $height = 0,
+        float $x = 0,
+        float $y = 0,
+        float $width = 0,
+        float $height = 0,
     ) {}
 }

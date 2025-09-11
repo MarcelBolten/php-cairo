@@ -40,47 +40,47 @@ object(Cairo\Region)#%d (0) {
 }
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 int(1)
 bool(true)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(10)
+  float(10)
   ["y"]=>
-  int(10)
+  float(10)
   ["width"]=>
-  int(100)
+  float(100)
   ["height"]=>
-  int(100)
+  float(100)
 }
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(10)
+  float(10)
   ["y"]=>
-  int(10)
+  float(10)
   ["width"]=>
-  int(100)
+  float(100)
   ["height"]=>
-  int(100)
+  float(100)
 }
 bool(true)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(10)
+  float(10)
   ["y"]=>
-  int(10)
+  float(10)
   ["width"]=>
-  int(110)
+  float(110)
   ["height"]=>
-  int(110)
+  float(110)
 }
 int(3)
 Cairo\Region::xor(): Argument #1 ($region) must be of type Cairo\Region, int given
