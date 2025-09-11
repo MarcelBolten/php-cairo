@@ -40,10 +40,8 @@ if (PHP_CAIRO != "no") {
                 if (CHECK_LIB("fontconfig.lib", "cairo", PHP_CAIRO + "\\lib") &&
                     CHECK_HEADER_ADD_INCLUDE("fontconfig/fontconfig.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)) {
                     AC_DEFINE("CAIRO_HAS_FT_FONT", 1);
-                    // FontConfig dependencies - CRITICAL: Need XML library
-                    if (CHECK_LIB("libxml2.lib", "cairo", PHP_CAIRO + "\\lib")) {
-                        // libxml2 for XML parsing in FontConfig
-                    }
+                    // Use expat instead of libxml2 for FontConfig
+                    CHECK_LIB("expat.lib", "cairo", PHP_CAIRO + "\\lib");
                 }
             }
 
@@ -90,10 +88,8 @@ if (PHP_CAIRO != "no") {
                 if (CHECK_LIB("fontconfig.lib", "cairo", PHP_CAIRO + "\\lib") &&
                     CHECK_HEADER_ADD_INCLUDE("fontconfig/fontconfig.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)) {
                     AC_DEFINE("CAIRO_HAS_FT_FONT", 1);
-                    // CRITICAL: FontConfig needs XML library - try both options
-                    if (!CHECK_LIB("libxml2.lib", "cairo", PHP_CAIRO + "\\lib")) {
-                        CHECK_LIB("expat.lib", "cairo", PHP_CAIRO + "\\lib");
-                    }
+                    // Use expat instead of libxml2 for FontConfig
+                    CHECK_LIB("expat.lib", "cairo", PHP_CAIRO + "\\lib");
                 }
             }
 
