@@ -68,7 +68,8 @@ jobs:
                 .\vcpkg install libjpeg-turbo:$triplet
                 .\vcpkg install zlib:$triplet
                 .\vcpkg install pixman:$triplet
-                .\vcpkg install expat:$triplet  # Use expat instead of libxml2
+                .\vcpkg install libxml2:$triplet
+                .\vcpkg install expat:$triplet
                 .\vcpkg install bzip2:$triplet
                 .\vcpkg install brotli:$triplet
 
@@ -77,6 +78,12 @@ jobs:
                 New-Item -ItemType Directory -Path "C:\cairo-deps\include" -Force
 
                 $installPath = ".\installed\$triplet"
+                # Debug: List what we have
+                Write-Host "Libraries installed:"
+                Get-ChildItem "$installPath\lib" | ForEach-Object { Write-Host $_.Name }
+                Write-Host "Headers installed:"
+                Get-ChildItem "$installPath\include" | ForEach-Object { Write-Host $_.Name }
+
 
                 # Copy libraries with the names your config.w32 expects
                 Copy-Item -Path "$installPath\lib\cairo.lib" -Destination "C:\cairo-deps\lib\cairo_a.lib" -Force
@@ -111,9 +118,9 @@ jobs:
                     Copy-Item -Path "$installPath\lib\brotlicommon-static.lib" -Destination "C:\cairo-deps\lib\brotlicommon.lib" -Force
                 }
 
-                # Use expat instead of libxml2 for FontConfig
-                if (Test-Path "$installPath\lib\expat.lib") {
-                    Copy-Item -Path "$installPath\lib\expat.lib" -Destination "C:\cairo-deps\lib\expat.lib" -Force
+                # Add XML library (CRITICAL - this was missing)
+                if (Test-Path "$installPath\lib\libxml2.lib") {
+                    Copy-Item -Path "$installPath\lib\libxml2.lib" -Destination "C:\cairo-deps\lib\libxml2.lib" -Force
                 }
 
                 # Copy all headers
