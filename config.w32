@@ -14,7 +14,8 @@ if (PHP_CAIRO != "no") {
 		CHECK_HEADER_ADD_INCLUDE("ft2build.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\freetype")) {
 		/* Check for static lib first, because that will need an extra define */
 		if (CHECK_LIB("cairo_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
-            if (CHECK_LIB("pixman-1.lib", "cairo", PHP_CAIRO + "\\lib")) {
+            // CRITICAL: Pixman is required by Cairo and must be linked first
+            if (CHECK_LIB("pixman.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 // Pixman is required by Cairo
             }
 
@@ -39,15 +40,14 @@ if (PHP_CAIRO != "no") {
                 if (CHECK_LIB("fontconfig.lib", "cairo", PHP_CAIRO + "\\lib") &&
                     CHECK_HEADER_ADD_INCLUDE("fontconfig/fontconfig.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)) {
                     AC_DEFINE("CAIRO_HAS_FT_FONT", 1);
-                    // FontConfig dependencies
-
-                    if (CHECK_LIB("expat.lib", "cairo", PHP_CAIRO + "\\lib")) {
-                        // Expat for XML parsing in FontConfig
+                    // FontConfig dependencies - CRITICAL: Need XML library
+                    if (CHECK_LIB("libxml2.lib", "cairo", PHP_CAIRO + "\\lib")) {
+                        // libxml2 for XML parsing in FontConfig
                     }
                 }
             }
 
-            // JPEG support
+            // CRITICAL: JPEG support - these libraries were missing from link command
             if (CHECK_LIB("jpeg.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 // JPEG library for your cairo_jpg.c
             }
@@ -71,8 +71,8 @@ if (PHP_CAIRO != "no") {
             AC_DEFINE("HAVE_CAIRO", 1);
             PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
         } else if (CHECK_LIB("cairo.lib", "cairo", PHP_CAIRO + "\\lib")) {
-            // Link required dependencies
-            CHECK_LIB("pixman-1.lib", "cairo", PHP_CAIRO + "\\lib");
+            // CRITICAL: Link required dependencies - pixman must be first
+            CHECK_LIB("pixman.lib", "cairo", PHP_CAIRO + "\\lib");
 
             if (CHECK_LIB("libpng_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
@@ -90,12 +90,12 @@ if (PHP_CAIRO != "no") {
                 if (CHECK_LIB("fontconfig.lib", "cairo", PHP_CAIRO + "\\lib") &&
                     CHECK_HEADER_ADD_INCLUDE("fontconfig/fontconfig.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)) {
                     AC_DEFINE("CAIRO_HAS_FT_FONT", 1);
-
-                    CHECK_LIB("expat.lib", "cairo", PHP_CAIRO + "\\lib");
+                    // CRITICAL: FontConfig needs XML library
+                    CHECK_LIB("libxml2.lib", "cairo", PHP_CAIRO + "\\lib");
                 }
             }
 
-            // JPEG and other dependencies
+            // CRITICAL: JPEG and other dependencies - these must be included
             CHECK_LIB("jpeg.lib", "cairo", PHP_CAIRO + "\\lib");
             CHECK_LIB("turbojpeg.lib", "cairo", PHP_CAIRO + "\\lib");
             CHECK_LIB("zlib.lib", "cairo", PHP_CAIRO + "\\lib");

@@ -18,9 +18,6 @@ jobs:
           uses: php/php-windows-builder/extension-matrix@v1
           with:
             extension-url: https://github.com/MarcelBolten/php-cairo
-            # php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5, master'
-            # arch-list: 'x64, x86'
-            # ts-list: 'nts, ts'
             php-version-list: '8.4'
             arch-list: 'x64'
             ts-list: 'nts'
@@ -71,9 +68,7 @@ jobs:
                 .\vcpkg install libjpeg-turbo:$triplet
                 .\vcpkg install zlib:$triplet
                 .\vcpkg install pixman:$triplet
-                # use either libxml2 or expat, not both
                 .\vcpkg install libxml2:$triplet
-                #.\vcpkg install expat:$triplet
                 .\vcpkg install bzip2:$triplet
                 .\vcpkg install brotli:$triplet
 
@@ -89,24 +84,22 @@ jobs:
                 Copy-Item -Path "$installPath\lib\freetype.lib" -Destination "C:\cairo-deps\lib\freetype_a.lib" -Force
                 Copy-Item -Path "$installPath\lib\fontconfig.lib" -Destination "C:\cairo-deps\lib\fontconfig.lib" -Force
 
-                # Add JPEG libraries
-                if (Test-Path "$installPath\lib\jpeg.lib") {
-                    Copy-Item -Path "$installPath\lib\jpeg.lib" -Destination "C:\cairo-deps\lib\libjpeg.lib" -Force
-                }
-                if (Test-Path "$installPath\lib\turbojpeg.lib") {
-                    Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\libjpeg-turbo.lib" -Force
-                }
-                if (Test-Path "$installPath\lib\zlib.lib") {
-                    Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
-                }
+                # Copy pixman library (CRITICAL - this was missing)
                 if (Test-Path "$installPath\lib\pixman-1.lib") {
                     Copy-Item -Path "$installPath\lib\pixman-1.lib" -Destination "C:\cairo-deps\lib\pixman.lib" -Force
                 }
-                if (Test-Path "$installPath\lib\libxml2.lib") {
-                    Copy-Item -Path "$installPath\lib\libxml2.lib" -Destination "C:\cairo-deps\lib\libxml2.lib" -Force
+
+                # Add JPEG libraries (CRITICAL - these were missing)
+                if (Test-Path "$installPath\lib\jpeg.lib") {
+                    Copy-Item -Path "$installPath\lib\jpeg.lib" -Destination "C:\cairo-deps\lib\jpeg.lib" -Force
                 }
-                if (Test-Path "$installPath\lib\expat.lib") {
-                    Copy-Item -Path "$installPath\lib\expat.lib" -Destination "C:\cairo-deps\lib\expat.lib" -Force
+                if (Test-Path "$installPath\lib\turbojpeg.lib") {
+                    Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\turbojpeg.lib" -Force
+                }
+
+                # Add compression libraries
+                if (Test-Path "$installPath\lib\zlib.lib") {
+                    Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
                 }
                 if (Test-Path "$installPath\lib\bz2.lib") {
                     Copy-Item -Path "$installPath\lib\bz2.lib" -Destination "C:\cairo-deps\lib\bz2.lib" -Force
@@ -114,20 +107,21 @@ jobs:
                 if (Test-Path "$installPath\lib\brotlidec-static.lib") {
                     Copy-Item -Path "$installPath\lib\brotlidec-static.lib" -Destination "C:\cairo-deps\lib\brotlidec.lib" -Force
                 }
+                if (Test-Path "$installPath\lib\brotlicommon-static.lib") {
+                    Copy-Item -Path "$installPath\lib\brotlicommon-static.lib" -Destination "C:\cairo-deps\lib\brotlicommon.lib" -Force
+                }
+
+                # Add XML library (CRITICAL - this was missing)
+                if (Test-Path "$installPath\lib\libxml2.lib") {
+                    Copy-Item -Path "$installPath\lib\libxml2.lib" -Destination "C:\cairo-deps\lib\libxml2.lib" -Force
+                }
 
                 # Copy all headers
                 Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
 
                 # Debug: List what we have
-                # Write-Host "Libraries installed:"
-                # Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
-                # Write-Host "Key header directories:"
-                # Get-ChildItem "C:\cairo-deps\include\" | ForEach-Object { Write-Host $_.Name }
-                # if (Test-Path "C:\cairo-deps\include\cairo") { Write-Host "Cairo headers found" }
-                # if (Test-Path "C:\cairo-deps\include\ft2build.h") { Write-Host "FreeType headers found" }
-                # if (Test-Path "C:\cairo-deps\include\png.h") { Write-Host "PNG headers found" }
-                # if (Test-Path "C:\cairo-deps\include\jpeglib.h") { Write-Host "JPEG headers found" }
-                # if (Test-Path "C:\cairo-deps\include\fontconfig") { Write-Host "FontConfig headers found" }
+                Write-Host "Libraries installed:"
+                Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
 
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
