@@ -119,3 +119,4 @@ jobs:
                 arch: ${{ matrix.arch }}
                 ts: ${{ matrix.ts }}
                 args: --enable-debug --with-cairo=C:\cairo-deps
+                test-runner-args: --show--out
