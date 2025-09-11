@@ -38,37 +38,37 @@ object(Cairo\Region)#%d (0) {
 int(0)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(0)
+  float(0)
   ["y"]=>
-  int(0)
+  float(0)
   ["width"]=>
-  int(0)
+  float(0)
   ["height"]=>
-  int(0)
+  float(0)
 }
 bool(true)
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(10)
+  float(10)
   ["y"]=>
-  int(10)
+  float(10)
   ["width"]=>
-  int(10)
+  float(10)
   ["height"]=>
-  int(10)
+  float(10)
 }
 bool(true)
 int(4)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(5)
+  float(5)
   ["y"]=>
-  int(5)
+  float(5)
   ["width"]=>
-  int(20)
+  float(20)
   ["height"]=>
-  int(20)
+  float(20)
 }
 Cairo\Region::xorRectangle(): Argument #1 ($rectangle) must be of type Cairo\Rectangle, int given
 Cairo\Region::xorRectangle() expects exactly 1 argument, 2 given

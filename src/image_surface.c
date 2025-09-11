@@ -102,7 +102,7 @@ PHP_METHOD(Cairo_Surface_Image, createForData)
     stride = cairo_format_stride_for_width(format, width);
 
     if (stride <= 0) {
-        zend_throw_exception(ce_cairo_exception, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData().Argument #3 ($width) might be too large.", 0);
+        zend_throw_exception(ce_cairo_exception, "Could not calculate stride for surface in Cairo\\Surface\\Image::createForData(). Argument #3 ($width) might be too large.", 0);
         RETURN_THROWS();
     }
 
@@ -343,7 +343,7 @@ PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
             (void *)closure
         );
     } else {
-        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromJpeg() expects parameter 1 to be a string or a stream resource", 0);
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromJpeg() Argument #1 ($file) must be of type string or a stream resource", 0);
         RETURN_THROWS();
     }
 

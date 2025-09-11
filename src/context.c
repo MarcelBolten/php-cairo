@@ -1162,7 +1162,9 @@ PHP_METHOD(Cairo_Context, getClipRectangleList)
 {
     cairo_context_object *context_object;
     cairo_rectangle_list_t *rectangles;
-    zval new_array;
+    cairo_rectangle_t rectangle;
+    zval rectangle_zv;
+    cairo_rectangle_object *rectangle_object;
     int i;
 
     ZEND_PARSE_PARAMETERS_NONE();
@@ -1177,21 +1179,18 @@ PHP_METHOD(Cairo_Context, getClipRectangleList)
         RETURN_THROWS();
     }
 
-    /* walk our rectangles, create array, push it onto return */
     array_init(return_value);
 
     for (i = 0; i < rectangles->num_rectangles; i++) {
-        cairo_rectangle_t rectangle = rectangles->rectangles[i];
+        rectangle = rectangles->rectangles[i];
 
-        array_init(&new_array);
-        add_assoc_double(&new_array, "x", rectangle.x);
-        add_assoc_double(&new_array, "y", rectangle.y);
-        add_assoc_double(&new_array, "width", rectangle.width);
-        add_assoc_double(&new_array, "height", rectangle.height);
-        add_next_index_zval(return_value, &new_array);
+        object_init_ex(&rectangle_zv, php_cairo_get_rectangle_ce());
+        rectangle_object = Z_CAIRO_RECTANGLE_P(&rectangle_zv);
+        *rectangle_object->rect = rectangle;
+
+        add_next_index_zval(return_value, &rectangle_zv);
     }
 
-    /* don't forget to clean up */
     cairo_rectangle_list_destroy(rectangles);
 }
 /* }}} */

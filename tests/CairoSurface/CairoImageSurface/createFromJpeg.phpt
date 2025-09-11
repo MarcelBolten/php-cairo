@@ -5,14 +5,11 @@ Cairo\Surface\Image::createFromJpeg() method
 include __DIR__ . '/../../skipif.inc';
 if (!in_array('JPEG', Cairo\Cairo::availableSurfaces()))
     die('skip - JPEG support not available');
-die('skip till fixed'); // There is a bug with the stream
 --FILE--
 <?php
 $surface = Cairo\Surface\Image::createFromJpeg(dirname(__FILE__) . '/red.jpg');
 var_dump($surface);
 
-// There is a bug with the stream
-echo dirname(__FILE__) . '/red.jpg' . PHP_EOL;
 $resource = fopen(dirname(__FILE__) . '/red.jpg', 'rb');
 $surface = Cairo\Surface\Image::createFromJpeg($resource);
 var_dump($surface);
@@ -21,14 +18,14 @@ fclose($resource);
 /* Wrong number args - 1 */
 try {
     Cairo\Surface\Image::createFromJpeg();
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
 /* Wrong number args - 2 */
 try {
     Cairo\Surface\Image::createFromJpeg('', 1);
-} catch (TypeError $e) {
+} catch (ArgumentCountError $e) {
     echo $e->getMessage(), PHP_EOL;
 }
 
@@ -45,4 +42,4 @@ object(Cairo\Surface\Image)#%d (0) {
 }
 Cairo\Surface\Image::createFromJpeg() expects exactly 1 argument, 0 given
 Cairo\Surface\Image::createFromJpeg() expects exactly 1 argument, 2 given
-Cairo\Surface\Image::createFromJpeg() expects parameter 1 to be a string or a stream resource
+Cairo\Surface\Image::createFromJpeg() Argument #1 ($file) must be of type string or a stream resource

@@ -1,12 +1,12 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 33221dc75e06d64e9caa302e83c12665bebf9cb2 */
+ * Stub hash: 183583230876da13f92f7de792d3e0439b01837b */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Recording___construct, 0, 0, 1)
 	ZEND_ARG_OBJ_INFO(0, content, Cairo\\Surface\\Content, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, extents, IS_ARRAY, 1, "null")
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, extents, Cairo\\Rectangle, 1, "null")
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Surface_Recording_inkExtents, 0, 0, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_Surface_Recording_inkExtents, 0, 0, Cairo\\Rectangle, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_Cairo_Surface_Recording_getExtents, 0, 0, Cairo\\Rectangle, MAY_BE_FALSE)

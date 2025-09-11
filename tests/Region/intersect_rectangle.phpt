@@ -33,13 +33,13 @@ bool(true)
 int(1)
 object(Cairo\Rectangle)#%d (4) {
   ["x"]=>
-  int(25)
+  float(25)
   ["y"]=>
-  int(10)
+  float(10)
   ["width"]=>
-  int(25)
+  float(25)
   ["height"]=>
-  int(40)
+  float(40)
 }
 Cairo\Region::intersectRectangle(): Argument #1 ($rectangle) must be of type Cairo\Rectangle, int given
 Cairo\Region::intersectRectangle() expects exactly 1 argument, 2 given

@@ -33,16 +33,16 @@ cairo_rectangle_object *cairo_rectangle_fetch_object(zend_object *object)
     return (cairo_rectangle_object *) ((char*)(object) - XtOffsetOf(cairo_rectangle_object, std));
 }
 
-static inline long cairo_rectangle_get_property_default(zend_class_entry *ce, char * name) {
+static inline double cairo_rectangle_get_property_default(zend_class_entry *ce, char * name) {
     zend_property_info *property_info;
-    long value = 0;
+    double value = 0;
     zend_string *key = zend_string_init(name, strlen(name), 0);
 
     property_info = zend_get_property_info(ce, key, 1);
     if (property_info) {
         zval *val = (zval*)((char*)ce->default_properties_table + property_info->offset - OBJ_PROP_TO_OFFSET(0));
         if (val) {
-            value = zval_get_long(val);
+            value = zval_get_double(val);
         }
     }
     zend_string_release(key);
@@ -53,11 +53,11 @@ static inline long cairo_rectangle_get_property_value(zend_object *object, char 
     zval *prop, rv;
 
     prop = zend_read_property(object->ce, object, name, strlen(name), 1, &rv);
-    return zval_get_long(prop);
+    return zval_get_double(prop);
 }
 
 #define CAIRO_ALLOC_RECT(rect_value) if (!rect_value) \
-    { rect_value = ecalloc(1, sizeof(cairo_rectangle_int_t)); }
+    { rect_value = ecalloc(1, sizeof(cairo_rectangle_t)); }
 
 #define CAIRO_VALUE_FROM_STRUCT(n) \
     if (strcmp(member->val, #n) == 0) { \
@@ -67,12 +67,12 @@ static inline long cairo_rectangle_get_property_value(zend_object *object, char 
 
 #define CAIRO_VALUE_TO_STRUCT(n) \
     if (strcmp(member->val, #n) == 0) { \
-        rectangle_object->rect->n = zval_get_long(value); \
+        rectangle_object->rect->n = zval_get_double(value); \
         break; \
     }
 
 #define CAIRO_ADD_STRUCT_VALUE(n) \
-    ZVAL_LONG(&tmp, rectangle_object->rect->n); \
+    ZVAL_DOUBLE(&tmp, rectangle_object->rect->n); \
     zend_hash_str_update(props, #n, sizeof(#n)-1, &tmp);
 
 /* ----------------------------------------------------------------
@@ -80,7 +80,7 @@ static inline long cairo_rectangle_get_property_value(zend_object *object, char 
 ------------------------------------------------------------------*/
 
 /* {{{ */
-cairo_rectangle_int_t *cairo_rectangle_object_get_rect(zval *zv)
+cairo_rectangle_t *cairo_rectangle_object_get_rect(zval *zv)
 {
     cairo_rectangle_object *rect_object = Z_CAIRO_RECTANGLE_P(zv);
 
@@ -100,6 +100,43 @@ zend_class_entry* php_cairo_get_rectangle_ce()
     return ce_cairo_rectangle;
 }
 
+void cairo_expand_to_rectangle_int(cairo_rectangle_t *rect_double, cairo_rectangle_int_t *rect_int) {
+    if (rect_double == NULL) {
+        rect_int = NULL;
+        return;
+    }
+
+    // Expand rectangle to contain all fractional parts
+    double x0 = rect_double->x;
+    double y0 = rect_double->y;
+    double x1 = rect_double->x + rect_double->width;
+    double y1 = rect_double->y + rect_double->height;
+
+    // expand outward
+    rect_int->x = (int) floor(x0);
+    rect_int->y = (int) floor(y0);
+
+    // Ceiling for right/bottom, then calculate width/height
+    int new_x1 = (int) ceil(x1);
+    int new_y1 = (int) ceil(y1);
+
+    rect_int->width = new_x1 - rect_int->x;
+    rect_int->height = new_y1 - rect_int->y;
+}
+
+void cairo_rectangle_int_to_double(cairo_rectangle_int_t *rect_int, cairo_rectangle_t *rect_double) {
+    if (rect_int == NULL) {
+        rect_double = NULL;
+        return;
+    }
+
+    rect_double->x = (double) rect_int->x;
+    rect_double->y = (double) rect_int->y;
+    rect_double->width = (double) rect_int->width;
+    rect_double->height = (double) rect_int->height;
+}
+
+
 /* ----------------------------------------------------------------
     \Cairo\Rectangle Class API
 ------------------------------------------------------------------*/
@@ -112,18 +149,18 @@ PHP_METHOD(Cairo_Rectangle, __construct)
     zend_object *object = Z_OBJ_P(getThis());
 
     /* read defaults from object */
-    zend_long x = cairo_rectangle_get_property_value(object, "x");
-    zend_long y = cairo_rectangle_get_property_value(object, "y");
-    zend_long width = cairo_rectangle_get_property_value(object, "width");
-    zend_long height = cairo_rectangle_get_property_value(object, "height");
+    double x = cairo_rectangle_get_property_value(object, "x");
+    double y = cairo_rectangle_get_property_value(object, "y");
+    double width = cairo_rectangle_get_property_value(object, "width");
+    double height = cairo_rectangle_get_property_value(object, "height");
 
     /* Now allow constructor to overwrite them if desired */
     ZEND_PARSE_PARAMETERS_START(0, 4)
         Z_PARAM_OPTIONAL
-        Z_PARAM_LONG(x)
-        Z_PARAM_LONG(y)
-        Z_PARAM_LONG(width)
-        Z_PARAM_LONG(height)
+        Z_PARAM_DOUBLE(x)
+        Z_PARAM_DOUBLE(y)
+        Z_PARAM_DOUBLE(width)
+        Z_PARAM_DOUBLE(height)
     ZEND_PARSE_PARAMETERS_END();
 
     rectangle_object = cairo_rectangle_fetch_object(object);
@@ -199,10 +236,7 @@ static zend_object* cairo_rectangle_clone_obj(zend_object *zobj)
     zend_object *return_value = cairo_rectangle_obj_ctor(zobj->ce, &new_rectangle);
     CAIRO_ALLOC_RECT(new_rectangle->rect);
 
-    new_rectangle->rect->x = old_rectangle->rect->x;
-    new_rectangle->rect->y = old_rectangle->rect->y;
-    new_rectangle->rect->width = old_rectangle->rect->width;
-    new_rectangle->rect->height = old_rectangle->rect->height;
+    *new_rectangle->rect = *old_rectangle->rect;
 
     zend_objects_clone_members(&new_rectangle->std, &old_rectangle->std);
 
@@ -234,7 +268,7 @@ static zval *cairo_rectangle_object_read_property(zend_object *object, zend_stri
     } while(0);
 
     retval = rv;
-    ZVAL_LONG(retval, value);
+    ZVAL_DOUBLE(retval, value);
 
     return retval;
 }

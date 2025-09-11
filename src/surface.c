@@ -155,18 +155,18 @@ PHP_METHOD(Cairo_Surface, createForRectangle)
         Z_PARAM_DOUBLE(height)
     ZEND_PARSE_PARAMETERS_END();
 
-    surface_object = cairo_surface_object_get(getThis());
+    surface_zval = getThis();
+    surface_object = cairo_surface_object_get(surface_zval);
     if (!surface_object) {
         RETURN_THROWS();
     }
-    new_surface = cairo_surface_create_for_rectangle(surface_object->surface, x, y, width, height);
 
-    surface_zval = getThis();
-    Z_ADDREF_P(surface_zval);
+    new_surface = cairo_surface_create_for_rectangle(surface_object->surface, x, y, width, height);
 
     object_init_ex(return_value, php_cairo_get_subsurface_ce());
     new_surface_object = Z_CAIRO_SURFACE_P(return_value);
-    new_surface_object->parent_zval = surface_zval;
+    // Store reference to the parent object
+    ZVAL_COPY(&new_surface_object->parent_zval, surface_zval);
     new_surface_object->surface = new_surface;
 }
 /* }}} */
@@ -546,6 +546,7 @@ PHP_METHOD(Cairo_Surface, mapToImage)
     cairo_surface_t *new_surface;
     zval *rectangle_zval = NULL;
     cairo_rectangle_object *rectangle_object;
+    cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(0, 1)
         Z_PARAM_OPTIONAL
@@ -559,7 +560,8 @@ PHP_METHOD(Cairo_Surface, mapToImage)
 
     if (rectangle_zval != NULL && Z_TYPE_P(rectangle_zval) == IS_OBJECT) {
         rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
-        new_surface = cairo_surface_map_to_image(surface_object->surface, rectangle_object->rect);
+        cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
+        new_surface = cairo_surface_map_to_image(surface_object->surface, &int_rect);
         cairo_surface_reference(new_surface);
     } else {
         new_surface = cairo_surface_map_to_image(surface_object->surface, NULL);
@@ -752,10 +754,7 @@ static void cairo_surface_free_obj(zend_object *object)
         intern->closure = NULL;
     }
 
-    if (intern->parent_zval) {
-        Z_DELREF_P(intern->parent_zval);
-        intern->parent_zval = NULL;
-    }
+    zval_ptr_dtor(&intern->parent_zval);
 
     zend_object_std_dtor(&intern->std);
 }
@@ -769,6 +768,7 @@ static zend_object* cairo_surface_obj_ctor(zend_class_entry *ce, cairo_surface_o
     object->surface = NULL;
     object->buffer = NULL;
     object->closure = NULL;
+    ZVAL_UNDEF(&object->parent_zval);
 
     zend_object_std_init(&object->std, ce);
     object->std.handlers = &cairo_surface_object_handlers;
@@ -805,9 +805,9 @@ cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, un
     written = php_stream_write(cast_closure->stream, data, length);
     if (written == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else {
-        return CAIRO_STATUS_WRITE_ERROR;
     }
+
+    return CAIRO_STATUS_WRITE_ERROR;
 }
 
 cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, unsigned int length)
@@ -820,9 +820,9 @@ cairo_status_t php_cairo_read_func(void *closure, const unsigned char *data, uns
     read = php_stream_read(cast_closure->stream, (char *)data, length);
     if (read == length) {
         return CAIRO_STATUS_SUCCESS;
-    } else {
-        return CAIRO_STATUS_READ_ERROR;
     }
+
+    return CAIRO_STATUS_READ_ERROR;
 }
 
 zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface)
