@@ -100,7 +100,7 @@ PHP_METHOD(Cairo_FontFace_Win32, __construct)
         Z_PARAM_ARRAY_OR_NULL(font_options)
     ZEND_PARSE_PARAMETERS_END();
 
-    if (font_options) {
+    if (font_options && Z_TYPE_P(font_options) == IS_ARRAY) {
         /** Find values in font_options array and set them. Otherwise set defaults */
         LFONT_FIND_LONG(lfHeight, 0);
         LFONT_FIND_LONG(lfWidth, 0);
