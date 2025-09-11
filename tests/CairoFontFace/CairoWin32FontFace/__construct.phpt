@@ -8,7 +8,7 @@ if (!class_exists('\Cairo\FontFace\Win32'))
 --FILE--
 <?php
 $f_opts = array (
-    'lfWeight' => Cairo\FontFace\Win32\FontWeight::BOLD,
+    'lfWeight' => Cairo\FontFace\Win32\FontWeight::BOLD->value,
     'lfFaceName' => 'Impact'
 );
 
