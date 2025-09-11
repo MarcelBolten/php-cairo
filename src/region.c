@@ -149,7 +149,7 @@ PHP_METHOD(Cairo_Region, __construct)
         region_object->region = cairo_region_create();
     } else if (Z_TYPE_P(rectangles_zval) == IS_OBJECT) {
         rectangle = cairo_rectangle_object_get_rect(rectangles_zval);
-        int_rect = cairo_expand_to_rectangle_int(rectangle);
+        cairo_expand_to_rectangle_int(rectangle, &int_rect);
         region_object->region = cairo_region_create_rectangle(&int_rect);
     } else if (Z_TYPE_P(rectangles_zval) == IS_ARRAY) {
 
@@ -165,7 +165,8 @@ PHP_METHOD(Cairo_Region, __construct)
                 efree(rectangles_array);
                 RETURN_THROWS();
             }
-            rectangles_array[i++] = cairo_expand_to_rectangle_int(cairo_rectangle_object_get_rect(pzval));
+            cairo_expand_to_rectangle_int(cairo_rectangle_object_get_rect(pzval), &int_rect);
+            rectangles_array[i++] = int_rect;
         } ZEND_HASH_FOREACH_END();
 
         region_object->region = cairo_region_create_rectangles(rectangles_array, i);
@@ -342,7 +343,7 @@ PHP_METHOD(Cairo_Region, containsRectangle)
         RETURN_NULL();
     }
 
-    int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+    cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
     region_overlap_case = php_enum_from_cairo_c_enum(
         ce_cairo_region_overlap,
@@ -458,7 +459,7 @@ PHP_METHOD(Cairo_Region, intersectRectangle)
         RETURN_NULL();
     }
 
-    int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+    cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
     status_case = php_enum_from_cairo_c_enum(
         ce_cairo_status,
@@ -525,7 +526,7 @@ PHP_METHOD(Cairo_Region, subtractRectangle)
         RETURN_NULL();
     }
 
-    int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+    cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
     status_case = php_enum_from_cairo_c_enum(
         ce_cairo_status,
@@ -592,7 +593,7 @@ PHP_METHOD(Cairo_Region, unionRectangle)
         RETURN_NULL();
     }
 
-    int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+    cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
     status_case = php_enum_from_cairo_c_enum(
         ce_cairo_status,
@@ -661,7 +662,7 @@ PHP_METHOD(Cairo_Region, xorRectangle)
         RETURN_NULL();
     }
 
-    int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+    cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
     status_case = php_enum_from_cairo_c_enum(
         ce_cairo_status,

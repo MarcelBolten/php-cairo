@@ -100,27 +100,28 @@ zend_class_entry* php_cairo_get_rectangle_ce()
     return ce_cairo_rectangle;
 }
 
-cairo_rectangle_int_t cairo_expand_to_rectangle_int(cairo_rectangle_t *rect) {
-    cairo_rectangle_int_t result;
+void cairo_expand_to_rectangle_int(cairo_rectangle_t *rect_double, cairo_rectangle_int_t *rect_int) {
+    if (rect_double == NULL) {
+        rect_int = NULL;
+        return;
+    }
 
     // Expand rectangle to contain all fractional parts
-    double x0 = rect->x;
-    double y0 = rect->y;
-    double x1 = rect->x + rect->width;
-    double y1 = rect->y + rect->height;
+    double x0 = rect_double->x;
+    double y0 = rect_double->y;
+    double x1 = rect_double->x + rect_double->width;
+    double y1 = rect_double->y + rect_double->height;
 
     // expand outward
-    result.x = (int) floor(x0);
-    result.y = (int) floor(y0);
+    rect_int->x = (int) floor(x0);
+    rect_int->y = (int) floor(y0);
 
     // Ceiling for right/bottom, then calculate width/height
     int new_x1 = (int) ceil(x1);
     int new_y1 = (int) ceil(y1);
 
-    result.width = new_x1 - result.x;
-    result.height = new_y1 - result.y;
-
-    return result;
+    rect_int->width = new_x1 - rect_int->x;
+    rect_int->height = new_y1 - rect_int->y;
 }
 
 void cairo_rectangle_int_to_double(cairo_rectangle_int_t *rect_int, cairo_rectangle_t *rect_double) {

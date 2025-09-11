@@ -560,7 +560,7 @@ PHP_METHOD(Cairo_Surface, mapToImage)
 
     if (rectangle_zval != NULL && Z_TYPE_P(rectangle_zval) == IS_OBJECT) {
         rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);
-        int_rect = cairo_expand_to_rectangle_int(rectangle_object->rect);
+        cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
         new_surface = cairo_surface_map_to_image(surface_object->surface, &int_rect);
         cairo_surface_reference(new_surface);
     } else {
