@@ -52,5 +52,5 @@ object(Cairo\FontFace\Win32)#%d (0) {
 }
 object(Cairo\FontFace\Win32)#%d (0) {
 }
-Cairo\FontFace\Win32::__construct(): Argument #1 ($font_options) must be of type array, string given
+Cairo\FontFace\Win32::__construct(): Argument #1 ($font_options) must be of type ?array, string given
 Cairo\FontFace\Win32::__construct() expects at most 1 argument, 2 given
