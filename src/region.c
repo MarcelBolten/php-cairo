@@ -214,7 +214,7 @@ PHP_METHOD(Cairo_Region, getExtents)
 {
     cairo_region_object *region_object;
     cairo_rectangle_object *rectangle_object;
-    cairo_rectangle_int_t *int_rect;
+    cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -223,11 +223,11 @@ PHP_METHOD(Cairo_Region, getExtents)
         RETURN_THROWS();
     }
 
-    cairo_region_get_extents(region_object->region, int_rect);
+    cairo_region_get_extents(region_object->region, &int_rect);
 
     object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
-    cairo_rectangle_int_to_double(int_rect, rectangle_object->rect);
+    cairo_rectangle_int_to_double(&int_rect, rectangle_object->rect);
 }
 /* }}} */
 

@@ -125,6 +125,11 @@ void cairo_expand_to_rectangle_int(cairo_rectangle_t *rect_double, cairo_rectang
 }
 
 void cairo_rectangle_int_to_double(cairo_rectangle_int_t *rect_int, cairo_rectangle_t *rect_double) {
+    if (rect_int == NULL) {
+        rect_double = NULL;
+        return;
+    }
+
     rect_double->x = (double) rect_int->x;
     rect_double->y = (double) rect_int->y;
     rect_double->width = (double) rect_int->width;
