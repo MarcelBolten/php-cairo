@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-11 17:24:02</td>
+            <td class="headerValue">2025-09-11 17:42:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
@@ -2998,34 +2998,34 @@
 <span id="L2936"><span class="lineNum">    2936</span>              : ------------------------------------------------------------------*/</span>
 <span id="L2937"><span class="lineNum">    2937</span>              : </span>
 <span id="L2938"><span class="lineNum">    2938</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L2939"><span class="lineNum">    2939</span> <span class="tlaGNC">         852 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
+<span id="L2939"><span class="lineNum">    2939</span> <span class="tlaGNC">         854 : PHP_MINIT_FUNCTION(cairo_context)</span></span>
 <span id="L2940"><span class="lineNum">    2940</span>              : {</span>
-<span id="L2941"><span class="lineNum">    2941</span> <span class="tlaGNC">         852 :     memcpy(</span></span>
+<span id="L2941"><span class="lineNum">    2941</span> <span class="tlaGNC">         854 :     memcpy(</span></span>
 <span id="L2942"><span class="lineNum">    2942</span>              :         &amp;cairo_context_object_handlers,</span>
 <span id="L2943"><span class="lineNum">    2943</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L2944"><span class="lineNum">    2944</span>              :         sizeof(cairo_context_object_handlers)</span>
 <span id="L2945"><span class="lineNum">    2945</span>              :     );</span>
 <span id="L2946"><span class="lineNum">    2946</span>              : </span>
 <span id="L2947"><span class="lineNum">    2947</span>              :     /* Context */</span>
-<span id="L2948"><span class="lineNum">    2948</span> <span class="tlaGNC">         852 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
-<span id="L2949"><span class="lineNum">    2949</span> <span class="tlaGNC">         852 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
+<span id="L2948"><span class="lineNum">    2948</span> <span class="tlaGNC">         854 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
+<span id="L2949"><span class="lineNum">    2949</span> <span class="tlaGNC">         854 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
 <span id="L2950"><span class="lineNum">    2950</span>              : </span>
-<span id="L2951"><span class="lineNum">    2951</span> <span class="tlaGNC">         852 :     ce_cairo_context = register_class_Cairo_Context();</span></span>
-<span id="L2952"><span class="lineNum">    2952</span> <span class="tlaGNC">         852 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
+<span id="L2951"><span class="lineNum">    2951</span> <span class="tlaGNC">         854 :     ce_cairo_context = register_class_Cairo_Context();</span></span>
+<span id="L2952"><span class="lineNum">    2952</span> <span class="tlaGNC">         854 :     ce_cairo_context-&gt;create_object = cairo_context_create_object;</span></span>
 <span id="L2953"><span class="lineNum">    2953</span>              : </span>
 <span id="L2954"><span class="lineNum">    2954</span>              :     /* FillRule */</span>
-<span id="L2955"><span class="lineNum">    2955</span> <span class="tlaGNC">         852 :     ce_cairo_fillrule = register_class_Cairo_FillRule();</span></span>
+<span id="L2955"><span class="lineNum">    2955</span> <span class="tlaGNC">         854 :     ce_cairo_fillrule = register_class_Cairo_FillRule();</span></span>
 <span id="L2956"><span class="lineNum">    2956</span>              : </span>
 <span id="L2957"><span class="lineNum">    2957</span>              :     /* LineCap */</span>
-<span id="L2958"><span class="lineNum">    2958</span> <span class="tlaGNC">         852 :     ce_cairo_linecap = register_class_Cairo_LineCap();</span></span>
+<span id="L2958"><span class="lineNum">    2958</span> <span class="tlaGNC">         854 :     ce_cairo_linecap = register_class_Cairo_LineCap();</span></span>
 <span id="L2959"><span class="lineNum">    2959</span>              : </span>
 <span id="L2960"><span class="lineNum">    2960</span>              :     /* LineJoin */</span>
-<span id="L2961"><span class="lineNum">    2961</span> <span class="tlaGNC">         852 :     ce_cairo_linejoin = register_class_Cairo_LineJoin();</span></span>
+<span id="L2961"><span class="lineNum">    2961</span> <span class="tlaGNC">         854 :     ce_cairo_linejoin = register_class_Cairo_LineJoin();</span></span>
 <span id="L2962"><span class="lineNum">    2962</span>              : </span>
 <span id="L2963"><span class="lineNum">    2963</span>              :     /* Operator */</span>
-<span id="L2964"><span class="lineNum">    2964</span> <span class="tlaGNC">         852 :     ce_cairo_operator = register_class_Cairo_Operator();</span></span>
+<span id="L2964"><span class="lineNum">    2964</span> <span class="tlaGNC">         854 :     ce_cairo_operator = register_class_Cairo_Operator();</span></span>
 <span id="L2965"><span class="lineNum">    2965</span>              : </span>
-<span id="L2966"><span class="lineNum">    2966</span> <span class="tlaGNC">         852 :     return SUCCESS;</span></span>
+<span id="L2966"><span class="lineNum">    2966</span> <span class="tlaGNC">         854 :     return SUCCESS;</span></span>
 <span id="L2967"><span class="lineNum">    2967</span>              : }</span>
 <span id="L2968"><span class="lineNum">    2968</span>              : /* }}} */</span>
         </pre>
