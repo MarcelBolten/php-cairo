@@ -18,15 +18,15 @@ jobs:
           uses: php/php-windows-builder/extension-matrix@v1
           with:
             extension-url: https://github.com/MarcelBolten/php-cairo
-            php-version-list: '8.4'
-            arch-list: 'x64'
-            ts-list: 'nts'
+            php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5'
+            arch-list: 'x64, x86'
+            ts-list: 'nts, ts'
 
     build:
         needs: get-extension-matrix
         runs-on: ${{ matrix.os }}
         strategy:
-            matrix: ${{fromJson(needs.get-extension-matrix.outputs.matrix)}}
+            matrix: ${{ fromJson(needs.get-extension-matrix.outputs.matrix) }}
         steps:
             - name: Checkout
               uses: actions/checkout@v5
@@ -72,18 +72,13 @@ jobs:
                 .\vcpkg install brotli:$triplet
                 .\vcpkg install expat:$triplet
 
-                # Create the directory structure your config.w32 expects
+                # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
                 New-Item -ItemType Directory -Path "C:\cairo-deps\include" -Force
 
                 $installPath = ".\installed\$triplet"
-                # Debug: List what we have
-                Write-Host "Libraries installed:"
-                Get-ChildItem "$installPath\lib" | ForEach-Object { Write-Host $_.Name }
-                Write-Host "Headers installed:"
-                Get-ChildItem "$installPath\include" | ForEach-Object { Write-Host $_.Name }
 
-                # Copy libraries with the names your config.w32 expects
+                # Copy libraries
                 Copy-Item -Path "$installPath\lib\cairo.lib" -Destination "C:\cairo-deps\lib\cairo_a.lib" -Force
                 Copy-Item -Path "$installPath\lib\libpng16.lib" -Destination "C:\cairo-deps\lib\libpng_a.lib" -Force
                 Copy-Item -Path "$installPath\lib\freetype.lib" -Destination "C:\cairo-deps\lib\freetype_a.lib" -Force
@@ -100,7 +95,6 @@ jobs:
                 # Copy all headers
                 Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
 
-                # Debug: List what we have
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
 
@@ -119,4 +113,10 @@ jobs:
                 arch: ${{ matrix.arch }}
                 ts: ${{ matrix.ts }}
                 args: --enable-debug --with-cairo=C:\cairo-deps
-                test-runner-args: --show--out
+
+            - name: "Upload test outputs"
+              if: ${{ always() }}
+              uses: actions/upload-artifact@v4
+              with:
+                name: cairo-test-${{ matrix.php-version }}-${{ matrix.arch }}-${{ matrix.ts }}
+                path: tests/**/*.log
