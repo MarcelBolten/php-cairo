@@ -125,8 +125,20 @@ jobs:
                 key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
 
             - name: Add vcpkg bin to PATH
-              run: echo "C:\vcpkg\installed\x86-windows\bin" >> $GITHUB_PATH
+              run: echo "$env:VCPKG_ROOT\installed\x86-windows\bin" >> $GITHUB_PATH
               shell: bash
+
+            - name: Verify DLL accessibility
+              run: |
+                # Write-Output "Extension location:"
+                # Get-ChildItem "build\*\Release\php_cairo.dll" -Recurse
+
+                Write-Output "Available DLLs in vcpkg bin:"
+                Get-ChildItem "$env:VCPKG_ROOT\installed\x86-windows\bin\*.dll" | Select-Object Name
+
+                Write-Output "PATH entries containing vcpkg:"
+                $env:PATH -split ';' | Where-Object { $_ -like "*vcpkg*" }
+              shell: pwsh
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
