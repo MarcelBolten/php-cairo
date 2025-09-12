@@ -44,7 +44,6 @@ jobs:
                 restore-keys: |
                   vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
                   vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-
-                  vcpkg-${{ matrix.arch }}-
 
             - name: Setup vcpkg and install dependencies
               shell: powershell
