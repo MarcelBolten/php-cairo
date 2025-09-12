@@ -40,9 +40,10 @@ jobs:
                 path: |
                   C:\vcpkg\installed
                   C:\vcpkg\buildtrees
-                key: vcpkg-${{ matrix.arch }}-${{ github.ref_name }}
+                key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
                 restore-keys: |
-                  vcpkg-${{ matrix.arch }}-${{ github.ref_name }}
+                  vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
+                  vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-
                   vcpkg-${{ matrix.arch }}-
 
             - name: Setup vcpkg and install dependencies
@@ -113,7 +114,7 @@ jobs:
                 path: |
                   C:\vcpkg\installed
                   C:\vcpkg\buildtrees
-                key: vcpkg-${{ matrix.arch }}-${{ github.ref_name }}
+                key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
