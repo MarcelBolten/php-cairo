@@ -89,18 +89,29 @@ jobs:
                 $installPath = ".\installed\$triplet"
 
                 # Copy libraries
-                Copy-Item -Path "$installPath\lib\cairo.lib" -Destination "C:\cairo-deps\lib\cairo_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\libpng16.lib" -Destination "C:\cairo-deps\lib\libpng_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\freetype.lib" -Destination "C:\cairo-deps\lib\freetype_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\fontconfig.lib" -Destination "C:\cairo-deps\lib\fontconfig.lib" -Force
-                Copy-Item -Path "$installPath\lib\pixman-1.lib" -Destination "C:\cairo-deps\lib\pixman-1.lib" -Force
-                Copy-Item -Path "$installPath\lib\jpeg.lib" -Destination "C:\cairo-deps\lib\jpeg.lib" -Force
-                Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\turbojpeg.lib" -Force
-                Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
-                Copy-Item -Path "$installPath\lib\bz2.lib" -Destination "C:\cairo-deps\lib\bz2.lib" -Force
-                Copy-Item -Path "$installPath\lib\brotlidec.lib" -Destination "C:\cairo-deps\lib\brotlidec.lib" -Force
-                Copy-Item -Path "$installPath\lib\brotlicommon.lib" -Destination "C:\cairo-deps\lib\brotlicommon.lib" -Force
-                Copy-Item -Path "$installPath\lib\libexpatMT.lib" -Destination "C:\cairo-deps\lib\libexpatMT.lib" -Force
+                $libs = @(
+                  'cairo.lib',
+                  'libpng16.lib',
+                  'freetype.lib',
+                  'fontconfig.lib',
+                  'pixman-1.lib',
+                  'jpeg.lib',
+                  'turbojpeg.lib',
+                  'zlib.lib',
+                  'bz2.lib',
+                  'brotlidec.lib',
+                  'brotlicommon.lib',
+                  'libexpatMT.lib'
+                )
+                foreach ($libName in $libs) {
+                  $srcPath = Join-Path $installPath "lib\$libName"
+                  $dstPath = Join-Path 'C:\cairo-deps\lib' $libName
+                  if (Test-Path $srcPath) {
+                      Copy-Item -Path $srcPath -Destination $dstPath -Force
+                  } else {
+                      Write-Host "Warning: $srcPath not found, skipping."
+                  }
+                }
 
                 # Copy all headers
                 Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force

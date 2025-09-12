@@ -80,11 +80,11 @@ if (PHP_CAIRO != "no") {
             // Dynamic lib version - link required dependencies
             CHECK_LIB("pixman-1.lib", "cairo", PHP_CAIRO + "\\lib");
 
-            if (CHECK_LIB("libpng_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
+            if (CHECK_LIB("libpng16.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 CHECK_HEADER_ADD_INCLUDE("png.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\png");
             }
 
-            if (CHECK_LIB("freetype_a.lib", "cairo", PHP_CAIRO + "\\lib")) {
+            if (CHECK_LIB("freetype.lib", "cairo", PHP_CAIRO + "\\lib")) {
                 CHECK_HEADER_ADD_INCLUDE("freetype/freetype.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true);
                 AC_DEFINE("HAVE_FREETYPE", 1);
                 ADD_FLAG("CFLAGS_CAIRO", "/D HAVE_FREETYPE");
