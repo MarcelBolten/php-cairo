@@ -89,7 +89,9 @@ jobs:
                     "brotli:$triplet",
                     "expat:$triplet"
                 )
-                & .\vcpkg install @packages
+                $env:VCPKG_C_FLAGS = "/MD /D_CRT_SECURE_NO_WARNINGS"
+                $env:VCPKG_CXX_FLAGS = "/MD /D_CRT_SECURE_NO_WARNINGS"
+                & .\vcpkg install @packages --triplet $triplet
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
