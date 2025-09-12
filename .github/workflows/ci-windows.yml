@@ -54,15 +54,14 @@ jobs:
                 }
                 cd C:\vcpkg
 
+                # Setup MSVC environment explicitly for PHP <= 8.3 on x86
+                if ([version]"${{ matrix.php-version }}" -le [version]"8.3" && "${{ matrix.arch }}" -eq "x86") {
+                    C:\Program Files\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat x86
+                }
+
                 # Bootstrap if needed
                 if (!(Test-Path ".\vcpkg.exe")) {
                     .\bootstrap-vcpkg.bat
-                }
-
-                # set Visual Studio Version depending on PHP version
-                if ([version]"${{ matrix.php-version }}" -le [version]"8.3") {
-                    Write-Host "Using v142 toolset for PHP ${{ matrix.php-version }}"
-                    $env:CMAKE_GENERATOR_TOOLSET = "v142"
                 }
 
                 # Set architecture
