@@ -20,7 +20,7 @@
 #include <float.h>
 
 // Convert double to unsigned long (legacy version)
-static inline unsigned long __dtoul3_legacy(double d) {
+unsigned long __dtoul3_legacy(double d) {
     if (d < 0.0) {
         return 0UL;
     }
@@ -31,12 +31,12 @@ static inline unsigned long __dtoul3_legacy(double d) {
 }
 
 // Convert long to float (legacy version)
-static inline float __ltof3(long l) {
+float __ltof3(long l) {
     return (float)l;
 }
 
 // Convert unsigned long to float (legacy version)
-static inline float __ultof3(unsigned long ul) {
+float __ultof3(unsigned long ul) {
     return (float)ul;
 }
 
