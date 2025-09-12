@@ -60,9 +60,7 @@ jobs:
                 }
 
                 # Set architecture
-                $arch = "${{ matrix.arch }}"
-                if ($arch -eq "x86") { $arch = "x86" } else { $arch = "x64" }
-                $triplet = "$arch-windows-static"
+                $triplet = "${{ matrix.arch }}-windows-static"
 
                 # Install all required packages
                 .\vcpkg install cairo:$triplet
