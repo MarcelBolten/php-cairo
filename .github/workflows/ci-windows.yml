@@ -62,7 +62,7 @@ jobs:
                 }
 
                 # Set architecture
-                $triplet = "${{ matrix.arch }}-windows-static"
+                $triplet = "${{ matrix.arch }}-windows"
 
                 # Install all required packages
                 $packages = @(
