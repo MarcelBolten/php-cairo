@@ -68,16 +68,19 @@ jobs:
                 $triplet = "${{ matrix.arch }}-windows-static"
 
                 # Install all required packages
-                .\vcpkg install cairo:$triplet
-                .\vcpkg install libpng:$triplet
-                .\vcpkg install freetype:$triplet
-                .\vcpkg install fontconfig:$triplet
-                .\vcpkg install pixman:$triplet
-                .\vcpkg install libjpeg-turbo:$triplet
-                .\vcpkg install zlib:$triplet
-                .\vcpkg install bzip2:$triplet
-                .\vcpkg install brotli:$triplet
-                .\vcpkg install expat:$triplet
+                $packages = @(
+                    "cairo:$triplet",
+                    "libpng:$triplet",
+                    "freetype:$triplet",
+                    "fontconfig:$triplet",
+                    "pixman:$triplet",
+                    "libjpeg-turbo:$triplet",
+                    "zlib:$triplet",
+                    "bzip2:$triplet",
+                    "brotli:$triplet",
+                    "expat:$triplet"
+                )
+                & .\vcpkg install @packages
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
