@@ -60,24 +60,25 @@ jobs:
                 }
 
                 # set Visual Studio Version depending on PHP version
+                $toolset = "v143"
                 if ([version]"${{ matrix.php-version }}" -le [version]"8.3") {
-                    $env:VCPKG_CMAKE_CONFIGURE_OPTIONS = "-Tv142"
+                    $toolset = "v142"
                 }
 
                 # Set architecture
                 $triplet = "${{ matrix.arch }}-windows-static"
 
                 # Install all required packages
-                .\vcpkg install cairo:$triplet
-                .\vcpkg install libpng:$triplet
-                .\vcpkg install freetype:$triplet
-                .\vcpkg install fontconfig:$triplet
-                .\vcpkg install pixman:$triplet
-                .\vcpkg install libjpeg-turbo:$triplet
-                .\vcpkg install zlib:$triplet
-                .\vcpkg install bzip2:$triplet
-                .\vcpkg install brotli:$triplet
-                .\vcpkg install expat:$triplet
+                .\vcpkg install cairo:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install libpng:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install freetype:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install fontconfig:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install pixman:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install libjpeg-turbo:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install zlib:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install bzip2:$triplet --x-`cmake-configure-extra=-T$toolset
+                .\vcpkg install brotli:$triplet --x-cmake-configure-extra=-T$toolset
+                .\vcpkg install expat:$triplet --x-cmake-configure-extra=-T$toolset
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
