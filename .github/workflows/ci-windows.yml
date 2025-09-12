@@ -59,6 +59,13 @@ jobs:
                     .\bootstrap-vcpkg.bat
                 }
 
+                # set Visual Studio Version depending on PHP version
+                if ([version]"${{ matrix.php-version }}" -le [version]"8.3") {
+                    $env:VCPKG_PLATFORM_TOOLSET = "v142"
+                } elseif ([version]"${{ matrix.php-version }}" -ge [version]"8.4") {
+                    $env:VCPKG_PLATFORM_TOOLSET = "v143"
+                }
+
                 # Set architecture
                 $triplet = "${{ matrix.arch }}-windows-static"
 
