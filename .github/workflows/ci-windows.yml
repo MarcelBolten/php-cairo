@@ -45,6 +45,13 @@ jobs:
                   vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
                   vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-
 
+            - name: Setup MSVC Environment
+              if: ${{ matrix.php-version <= '8.3' }}
+              uses: ilammy/msvc-dev-cmd@v1
+              with:
+                arch: ${{ matrix.arch }} # might need to use amd64_x86 for x86 builds on x64 runners
+                toolset: 14.29  # This is VS2019 toolset
+
             - name: Setup vcpkg and install dependencies
               shell: powershell
               run: |
@@ -57,9 +64,9 @@ jobs:
                 vswhere
 
                 # Setup MSVC environment explicitly for PHP <= 8.3 on x86
-                if ([version]"${{ matrix.php-version }}" -le [version]"8.3" -and "${{ matrix.arch }}" -eq "x86") {
-                    & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver=14.29
-                }
+                # if ([version]"${{ matrix.php-version }}" -le [version]"8.3" -and "${{ matrix.arch }}" -eq "x86") {
+                #    & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 -vcvars_ver="14.29"
+                # }
 
                 # Bootstrap if needed
                 if (!(Test-Path ".\vcpkg.exe")) {
