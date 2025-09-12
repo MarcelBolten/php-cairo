@@ -45,10 +45,10 @@
         if (Z_TYPE_P(tmp) != IS_LONG) \
             zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type long"); \
         else \
-            lfont. ## name = Z_LVAL_P(tmp); \
+            lfont.name = Z_LVAL_P(tmp); \
     } \
     else \
-        lfont. ## name = defaultval;
+        lfont.name = defaultval;
 
 /** Same as before but casts return to BYTE */
 #define LFONT_FIND_LONG_TO_BYTE(name, defaultval) \
@@ -56,20 +56,20 @@
         if (Z_TYPE_P(tmp) != IS_LONG) \
             zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type int"); \
         else \
-            lfont. ## name = (BYTE)Z_LVAL_P(tmp); \
+            lfont.name = (BYTE)Z_LVAL_P(tmp); \
     } \
     else \
-        lfont. ## name = (BYTE)defaultval;
+        lfont.name = (BYTE)defaultval;
 
 #define LFONT_FIND_BOOL(name, defaultval) \
     if ((tmp = zend_hash_str_find(Z_ARRVAL_P(font_options), #name, sizeof(#name)-1)) != NULL) { \
         if (Z_TYPE_P(tmp) != IS_TRUE && Z_TYPE_P(tmp) != IS_FALSE) \
             zend_error(E_WARNING, "cairo_win32_font_face_create() expects key '" #name "' to be of type bool"); \
         else \
-            lfont. ## name = Z_TYPE_P(tmp) == IS_TRUE ? 1 : 0; \
+            lfont.name = Z_TYPE_P(tmp) == IS_TRUE ? 1 : 0; \
     } \
     else \
-        lfont. ## name = defaultval;
+        lfont.name = defaultval;
 
 zend_class_entry *ce_cairo_win32font;
 /** These classes are containers for constants defined in WinGdi.h, etc. */
