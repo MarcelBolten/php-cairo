@@ -148,6 +148,11 @@ jobs:
                 ts: ${{ matrix.ts }}
                 args: --enable-debug --with-cairo=C:\cairo-deps
 
+            - name: List build output
+              run: |
+                Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\" -Recurse | Format-Table -Property Mode, Length, LastWriteTime, Name
+              shell: powershell
+
             - name: "Upload test outputs"
               if: ${{ always() }}
               uses: actions/upload-artifact@v4
