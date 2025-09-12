@@ -11,10 +11,10 @@
 #ifndef LEGACY_MATH_H
 #define LEGACY_MATH_H
 
-#if defined(_WIN32) \
-    && (defined(_M_IX86) || defined(__i386__) || defined(_X86_) || defined(__X86__)) \
-    && PHP_VERSION_ID >= 80100 \
-    && PHP_VERSION_ID < 80400
+// #if defined(_WIN32) \
+//     && (defined(_M_IX86) || defined(__i386__) || defined(_X86_) || defined(__X86__)) \
+//     && PHP_VERSION_ID >= 80100 \
+//     && PHP_VERSION_ID < 80400
 
 #include <math.h>
 #include <float.h>
@@ -42,4 +42,4 @@ float __ultof3(unsigned long ul) {
 
 #endif // _WIN32
 
-#endif // LEGACY_MATH_H
+// #endif // LEGACY_MATH_H
