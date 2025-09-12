@@ -18,6 +18,9 @@
 #include <php.h>
 #include <zend_exceptions.h>
 #include <ext/standard/info.h>
+
+#include "legacy_math_win_x86.h"
+
 #include <cairo.h>
 
 #include "php_cairo.h"
