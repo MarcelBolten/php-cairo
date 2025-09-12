@@ -24,9 +24,11 @@ jobs:
 
     build:
         needs: get-extension-matrix
-        runs-on: ${{ matrix.os }}
         strategy:
             matrix: ${{ fromJson(needs.get-extension-matrix.outputs.matrix) }}
+
+        runs-on: ${{ matrix.os }}
+
         steps:
             - name: Checkout
               uses: actions/checkout@v5
