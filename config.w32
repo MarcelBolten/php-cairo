@@ -66,6 +66,13 @@ if (PHP_CAIRO != "no") {
             EXTENSION("cairo", PHP_CAIRO_SOURCES);
             ADD_FLAG("CFLAGS_CAIRO", "/D CAIRO_WIN32_STATIC_BUILD=1 /I" + configure_module_dirname);
 
+            // Fix runtime library conflicts and missing floating-point functions
+            if (VCVERS >= 1900 && (X64 == "0" || typeof X64 == "undefined")) { // VS2015+ and x86
+                ADD_FLAG("LDFLAGS_CAIRO", "/NODEFAULTLIB:LIBCMT");
+                ADD_FLAG("LDFLAGS_CAIRO", "/DEFAULTLIB:legacy_stdio_definitions.lib");
+                ADD_FLAG("LDFLAGS_CAIRO", "/DEFAULTLIB:msvcrt.lib");
+            }
+
             AC_DEFINE("HAVE_CAIRO", 1);
             PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
 
@@ -107,6 +114,13 @@ if (PHP_CAIRO != "no") {
 
             EXTENSION("cairo", PHP_CAIRO_SOURCES);
             ADD_FLAG("CFLAGS_CAIRO", "/I" + configure_module_dirname);
+
+            // Fix runtime library conflicts and missing floating-point functions
+            if (VCVERS >= 1900 && (X64 == "0" || typeof X64 == "undefined")) { // VS2015+ and x86
+                ADD_FLAG("LDFLAGS_CAIRO", "/NODEFAULTLIB:LIBCMT");
+                ADD_FLAG("LDFLAGS_CAIRO", "/DEFAULTLIB:legacy_stdio_definitions.lib");
+                ADD_FLAG("LDFLAGS_CAIRO", "/DEFAULTLIB:msvcrt.lib");
+            }
 
             AC_DEFINE("HAVE_CAIRO", 1);
             PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
