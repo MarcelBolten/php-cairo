@@ -54,8 +54,6 @@ jobs:
                 }
                 cd C:\vcpkg
 
-                vswhere
-
                 # Bootstrap if needed
                 if (!(Test-Path ".\vcpkg.exe")) {
                     .\bootstrap-vcpkg.bat
@@ -78,6 +76,8 @@ jobs:
                     "expat:$triplet"
                 )
                 & .\vcpkg install @packages
+
+                Get-ChildItem ".\installed\$triplet\bin" | ForEach-Object { Write-Host $_.Name }
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
@@ -123,6 +123,10 @@ jobs:
                   C:\vcpkg\installed
                   C:\vcpkg\buildtrees
                 key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
+
+            - name: Add vcpkg bin to PATH
+              run: echo "C:\vcpkg\installed\x86-windows\bin" >> $GITHUB_PATH
+              shell: bash
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
