@@ -103,7 +103,7 @@ jobs:
                 foreach ($libName in $libs) {
                   $srcPath = Join-Path $installPath "lib\$libName"
                   $dstPath = Join-Path 'C:\cairo-deps\lib' $libName
-                  if (Test-Path $srcPath) {
+                  if (Test-Path -Path $srcPath) {
                       Copy-Item -Path $srcPath -Destination $dstPath -Force
                   } else {
                       Write-Host "Warning: $srcPath not found, skipping."
@@ -115,6 +115,27 @@ jobs:
 
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
+
+            - name: Create simplified filename copies
+              run: |
+                $folder = "C:\vcpkg\installed\x86-windows\bin"
+                $renames = @{
+                  "cairo-2.dll" = "cairo.dll"
+                  "pixman-1-0.dll" = "pixman-1.dll"
+                  "fontconfig-1.dll" = "fontconfig.dll"
+                }
+
+                foreach ($original in $renames.Keys) {
+                  $src = Join-Path $folder $original
+                  $dst = Join-Path $folder $renames[$original]
+                  if (Test-Path -Path $src) {
+                    Copy-Item -Path $src -Destination $dst -Force
+                    Write-Host "Created $($renames[$original]) from $original"
+                  } else {
+                    Write-Host "Skipping: $src not found"
+                  }
+                }
+              shell: powershell
 
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
