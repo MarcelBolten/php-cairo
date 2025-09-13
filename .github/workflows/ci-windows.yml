@@ -111,7 +111,7 @@ jobs:
                   'bz2.lib',
                   'brotlidec.lib',
                   'brotlicommon.lib',
-                  'libexpatMT.lib'
+                  'libexpatMD.lib' # or libexpatMT.lib for dynamic linking
                 )
                 foreach ($libName in $libs) {
                   $srcPath = Join-Path $installPath "lib\$libName"
