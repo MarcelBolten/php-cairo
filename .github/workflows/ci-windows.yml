@@ -59,6 +59,9 @@ jobs:
                     .\bootstrap-vcpkg.bat
                 }
 
+                # Set architecture
+                $triplet = "x86-windows-php"
+
                 $tripletContent = @"
                 set(VCPKG_TARGET_ARCHITECTURE x86)
                 set(VCPKG_CRT_LINKAGE dynamic)
@@ -67,10 +70,8 @@ jobs:
                 #set(VCPKG_CMAKE_SYSTEM_NAME WindowsStore)
                 #set(VCPKG_CMAKE_SYSTEM_VERSION 10.0)
                 "@
-                New-Item -Path "C:\vcpkg\triplets\community" -Name "x86-windows-php.cmake" -Value $tripletContent -Force
 
-                # Set architecture
-                $triplet = "x86-windows-php"
+                New-Item -Path "C:\vcpkg\triplets\community" -Name "$triplet.cmake" -Value $tripletContent -Force
 
                 # Install all required packages
                 $packages = @(
@@ -88,7 +89,8 @@ jobs:
                 & .\vcpkg install @packages --allow-unsupported
 
                 Get-ChildItem ".\installed" | ForEach-Object { Write-Host $_.Name }
-                # Get-ChildItem ".\installed\$triplet\bin" | ForEach-Object { Write-Host $_.Name }
+                Get-ChildItem ".\installed\x64-windows" | ForEach-Object { Write-Host $_.Name }
+                Get-ChildItem ".\installed\$triplet" | ForEach-Object { Write-Host $_.Name }
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
