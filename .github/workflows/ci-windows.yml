@@ -85,7 +85,7 @@ jobs:
                     "brotli:$triplet",
                     "expat:$triplet"
                 )
-                & .\vcpkg install @packages
+                & .\vcpkg install @packages --allow-unsupported
 
                 Get-ChildItem ".\installed\$triplet\bin" | ForEach-Object { Write-Host $_.Name }
 
