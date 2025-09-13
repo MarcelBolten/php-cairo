@@ -60,7 +60,9 @@ if (PHP_CAIRO != "no") {
         AC_DEFINE("HAVE_CAIRO", 1);
         PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
 
-    } else if (CHECK_LIB("cairo.lib", "cairo", PHP_CAIRO + "\\lib")) {
+    }
+    // Dynamic lib version - link required dependencies
+    else if (CHECK_LIB("cairo.lib", "cairo", PHP_CAIRO + "\\lib")) {
         CHECK_LIB("pixman-1.lib", "cairo", PHP_CAIRO + "\\lib");
 
         if (CHECK_LIB("libpng16.lib", "cairo", PHP_CAIRO + "\\lib")) {
