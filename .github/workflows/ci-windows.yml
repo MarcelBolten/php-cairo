@@ -87,7 +87,8 @@ jobs:
                 )
                 & .\vcpkg install @packages --allow-unsupported
 
-                Get-ChildItem ".\installed\$triplet\bin" | ForEach-Object { Write-Host $_.Name }
+                Get-ChildItem ".\installed" | ForEach-Object { Write-Host $_.Name }
+                # Get-ChildItem ".\installed\$triplet\bin" | ForEach-Object { Write-Host $_.Name }
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
