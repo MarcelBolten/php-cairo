@@ -174,6 +174,26 @@ jobs:
                 Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\" -Recurse | Format-Table -Property Mode, Length, LastWriteTime, Name
               shell: powershell
 
+            - name: Check DLL dependencies
+              run: |
+                # Find the DLL dynamically
+                $dllPath = Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\php_cairo.dll" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+
+                if (-not $dllPath) {
+                  Write-Error "php_cairo.dll not found in any build directory"
+                  exit 1
+                }
+
+                Write-Host "Found DLL at: $dllPath"
+
+                # Use dumpbin to check dependencies
+                Write-Host "Checking dependencies of php_cairo.dll:"
+                dumpbin /DEPENDENTS "$dllPath"
+
+                Write-Host "`nChecking if the DLL is valid:"
+                dumpbin /HEADERS "$dllPath" | Select-String -Pattern "machine|magic"
+              shell: powershell
+
             - name: "Upload test outputs"
               if: ${{ always() }}
               uses: actions/upload-artifact@v4
