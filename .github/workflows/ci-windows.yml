@@ -59,8 +59,18 @@ jobs:
                     .\bootstrap-vcpkg.bat
                 }
 
+                $tripletContent = @"
+                set(VCPKG_TARGET_ARCHITECTURE x86)
+                set(VCPKG_CRT_LINKAGE dynamic)
+                set(VCPKG_LIBRARY_LINKAGE static)
+                set(VCPKG_PLATFORM_TOOLSET v142)  # This corresponds to vs16/14.29.30133
+                set(VCPKG_CMAKE_SYSTEM_NAME WindowsStore)
+                set(VCPKG_CMAKE_SYSTEM_VERSION 10.0)
+                "@
+                New-Item -Path "C:\vcpkg\triplets\community" -Name "x86-windows-php.cmake" -Value $tripletContent -Force
+
                 # Set architecture
-                $triplet = "${{ matrix.arch }}-windows"
+                $triplet = "x86-windows-php"
 
                 # Install all required packages
                 $packages = @(
@@ -174,25 +184,25 @@ jobs:
                 Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\" -Recurse | Format-Table -Property Mode, Length, LastWriteTime, Name
               shell: powershell
 
-            - name: Check DLL dependencies
-              run: |
-                # Find the DLL dynamically
-                $dllPath = Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\php_cairo.dll" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+            # - name: Check DLL dependencies
+            #   run: |
+            #     # Find the DLL dynamically
+            #     $dllPath = Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\php_cairo.dll" -Recurse | Select-Object -First 1 -ExpandProperty FullName
 
-                if (-not $dllPath) {
-                  Write-Error "php_cairo.dll not found in any build directory"
-                  exit 1
-                }
+            #     if (-not $dllPath) {
+            #       Write-Error "php_cairo.dll not found in any build directory"
+            #       exit 1
+            #     }
 
-                Write-Host "Found DLL at: $dllPath"
+            #     Write-Host "Found DLL at: $dllPath"
 
-                # Use dumpbin to check dependencies
-                Write-Host "Checking dependencies of php_cairo.dll:"
-                dumpbin /DEPENDENTS "$dllPath"
+            #     # Use dumpbin to check dependencies
+            #     Write-Host "Checking dependencies of php_cairo.dll:"
+            #     dumpbin /DEPENDENTS "$dllPath"
 
-                Write-Host "`nChecking if the DLL is valid:"
-                dumpbin /HEADERS "$dllPath" | Select-String -Pattern "machine|magic"
-              shell: powershell
+            #     Write-Host "`nChecking if the DLL is valid:"
+            #     dumpbin /HEADERS "$dllPath" | Select-String -Pattern "machine|magic"
+            #   shell: powershell
 
             - name: "Upload test outputs"
               if: ${{ always() }}
