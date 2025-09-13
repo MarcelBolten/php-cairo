@@ -88,13 +88,9 @@ jobs:
                 )
                 & .\vcpkg install @packages --allow-unsupported
 
-                Get-ChildItem ".\installed\" -Recurse -Filter "*.dll" | ForEach-Object {
+                Get-ChildItem ".\installed\" -Recurse -Filter "*.lib" | ForEach-Object {
                   Write-Host $_.FullName
                 }
-
-                #Get-ChildItem ".\installed" | ForEach-Object { Write-Host $_.Name }
-                #Get-ChildItem ".\installed\x64-windows" | ForEach-Object { Write-Host $_.Name }
-                #Get-ChildItem ".\installed\$triplet\debug" | ForEach-Object { Write-Host $_.Name }
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
@@ -133,26 +129,26 @@ jobs:
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
 
-            - name: Create simplified filename copies
-              run: |
-                $folder = "C:\vcpkg\installed\x86-windows\bin"
-                $renames = @{
-                  "cairo-2.dll" = "cairo.dll"
-                  "pixman-1-0.dll" = "pixman-1.dll"
-                  "fontconfig-1.dll" = "fontconfig.dll"
-                }
+            # - name: Create simplified filename copies
+            #   run: |
+            #     $folder = "C:\vcpkg\installed\x86-windows\bin"
+            #     $renames = @{
+            #       "cairo-2.dll" = "cairo.dll"
+            #       "pixman-1-0.dll" = "pixman-1.dll"
+            #       "fontconfig-1.dll" = "fontconfig.dll"
+            #     }
 
-                foreach ($original in $renames.Keys) {
-                  $src = Join-Path $folder $original
-                  $dst = Join-Path $folder $renames[$original]
-                  if (Test-Path -Path $src) {
-                    Copy-Item -Path $src -Destination $dst -Force
-                    Write-Host "Created $($renames[$original]) from $original"
-                  } else {
-                    Write-Host "Skipping: $src not found"
-                  }
-                }
-              shell: powershell
+            #     foreach ($original in $renames.Keys) {
+            #       $src = Join-Path $folder $original
+            #       $dst = Join-Path $folder $renames[$original]
+            #       if (Test-Path -Path $src) {
+            #         Copy-Item -Path $src -Destination $dst -Force
+            #         Write-Host "Created $($renames[$original]) from $original"
+            #       } else {
+            #         Write-Host "Skipping: $src not found"
+            #       }
+            #     }
+            #   shell: powershell
 
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
@@ -162,21 +158,21 @@ jobs:
                   C:\vcpkg\buildtrees
                 key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
 
-            - name: Add vcpkg bin to PATH
-              run: echo "C:\vcpkg\installed\x86-windows\bin" >> $GITHUB_PATH
-              shell: bash
+            # - name: Add vcpkg bin to PATH
+            #   run: echo "C:\vcpkg\installed\x86-windows\bin" >> $GITHUB_PATH
+            #   shell: bash
 
-            - name: Verify DLL accessibility
-              run: |
-                # Write-Output "Extension location:"
-                # Get-ChildItem "build\*\Release\php_cairo.dll" -Recurse
+            # - name: Verify DLL accessibility
+            #   run: |
+            #     # Write-Output "Extension location:"
+            #     # Get-ChildItem "build\*\Release\php_cairo.dll" -Recurse
 
-                Write-Output "Available DLLs in vcpkg bin:"
-                Get-ChildItem "C:\vcpkg\installed\x86-windows\bin\*.dll" | Select-Object Name
+            #     Write-Output "Available DLLs in vcpkg bin:"
+            #     Get-ChildItem "C:\vcpkg\installed\x86-windows\bin\*.dll" | Select-Object Name
 
-                Write-Output "PATH entries containing vcpkg:"
-                $env:PATH -split ';' | Where-Object { $_ -like "*vcpkg*" }
-              shell: pwsh
+            #     Write-Output "PATH entries containing vcpkg:"
+            #     $env:PATH -split ';' | Where-Object { $_ -like "*vcpkg*" }
+            #   shell: pwsh
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
