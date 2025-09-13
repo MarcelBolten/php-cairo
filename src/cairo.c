@@ -19,29 +19,29 @@
 #include <zend_exceptions.h>
 #include <ext/standard/info.h>
 
-#include <math.h>
-#include <float.h>
+// #include <math.h>
+// #include <float.h>
 
-// Convert double to unsigned long (legacy version)
-unsigned long __dtoul3_legacy(double d) {
-    if (d < 0.0) {
-        return 0UL;
-    }
-    if (d >= (double)ULONG_MAX) {
-        return ULONG_MAX;
-    }
-    return (unsigned long)d;
-}
+// // Convert double to unsigned long (legacy version)
+// unsigned long __dtoul3_legacy(double d) {
+//     if (d < 0.0) {
+//         return 0UL;
+//     }
+//     if (d >= (double)ULONG_MAX) {
+//         return ULONG_MAX;
+//     }
+//     return (unsigned long)d;
+// }
 
-// Convert long to float (legacy version)
-float __ltof3(long l) {
-    return (float)l;
-}
+// // Convert long to float (legacy version)
+// float __ltof3(long l) {
+//     return (float)l;
+// }
 
-// Convert unsigned long to float (legacy version)
-float __ultof3(unsigned long ul) {
-    return (float)ul;
-}
+// // Convert unsigned long to float (legacy version)
+// float __ultof3(unsigned long ul) {
+//     return (float)ul;
+// }
 
 #include <cairo.h>
 

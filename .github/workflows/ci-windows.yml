@@ -18,9 +18,9 @@ jobs:
           uses: php/php-windows-builder/extension-matrix@v1
           with:
             extension-url: https://github.com/MarcelBolten/php-cairo
-            php-version-list: '8.1, 8.2, 8.3'
-            arch-list: 'x86'
-            ts-list: 'nts'
+            php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5'
+            arch-list: 'x64, x86'
+            ts-list: 'nts, ts'
 
     build:
         needs: get-extension-matrix
@@ -60,18 +60,21 @@ jobs:
                 }
 
                 # Set architecture
-                $triplet = "x86-windows-php"
+                $triplet = "$arch-windows-static-md"
 
-                $tripletContent = @"
-                set(VCPKG_TARGET_ARCHITECTURE x86)
-                set(VCPKG_CRT_LINKAGE dynamic)
-                set(VCPKG_LIBRARY_LINKAGE static)
-                set(VCPKG_PLATFORM_TOOLSET v142)  # This corresponds to vs16/14.29.30133
-                #set(VCPKG_CMAKE_SYSTEM_NAME WindowsStore)
-                #set(VCPKG_CMAKE_SYSTEM_VERSION 10.0)
-                "@
+                # Custom triplet for x86 and PHP <= 8.3 to use v142 toolset (Visual Studio 2019 vs16/14.29.30133)
+                if (${{ matrix.arch }} -eq "x86" -and [version]"${{ matrix.php-version }}" -le [version]"8.3" ) {
+                  $triplet = "x86-windows-php"
 
-                New-Item -Path "C:\vcpkg\triplets\community" -Name "$triplet.cmake" -Value $tripletContent -Force
+                  $tripletContent = @"
+                  set(VCPKG_TARGET_ARCHITECTURE x86)
+                  set(VCPKG_CRT_LINKAGE dynamic)
+                  set(VCPKG_LIBRARY_LINKAGE static)
+                  set(VCPKG_PLATFORM_TOOLSET v142)
+                  "@
+
+                  New-Item -Path "C:\vcpkg\triplets\community" -Name "$triplet.cmake" -Value $tripletContent -Force
+                }
 
                 # Install all required packages
                 $packages = @(
@@ -86,11 +89,7 @@ jobs:
                     "brotli:$triplet",
                     "expat:$triplet"
                 )
-                & .\vcpkg install @packages --allow-unsupported
-
-                Get-ChildItem ".\installed\" -Recurse -Filter "*.lib" | ForEach-Object {
-                  Write-Host $_.FullName
-                }
+                & .\vcpkg install @packages
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
@@ -129,27 +128,6 @@ jobs:
                 Write-Host "Libraries installed:"
                 Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
 
-            # - name: Create simplified filename copies
-            #   run: |
-            #     $folder = "C:\vcpkg\installed\x86-windows\bin"
-            #     $renames = @{
-            #       "cairo-2.dll" = "cairo.dll"
-            #       "pixman-1-0.dll" = "pixman-1.dll"
-            #       "fontconfig-1.dll" = "fontconfig.dll"
-            #     }
-
-            #     foreach ($original in $renames.Keys) {
-            #       $src = Join-Path $folder $original
-            #       $dst = Join-Path $folder $renames[$original]
-            #       if (Test-Path -Path $src) {
-            #         Copy-Item -Path $src -Destination $dst -Force
-            #         Write-Host "Created $($renames[$original]) from $original"
-            #       } else {
-            #         Write-Host "Skipping: $src not found"
-            #       }
-            #     }
-            #   shell: powershell
-
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
               with:
@@ -158,22 +136,6 @@ jobs:
                   C:\vcpkg\buildtrees
                 key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
 
-            # - name: Add vcpkg bin to PATH
-            #   run: echo "C:\vcpkg\installed\x86-windows\bin" >> $GITHUB_PATH
-            #   shell: bash
-
-            # - name: Verify DLL accessibility
-            #   run: |
-            #     # Write-Output "Extension location:"
-            #     # Get-ChildItem "build\*\Release\php_cairo.dll" -Recurse
-
-            #     Write-Output "Available DLLs in vcpkg bin:"
-            #     Get-ChildItem "C:\vcpkg\installed\x86-windows\bin\*.dll" | Select-Object Name
-
-            #     Write-Output "PATH entries containing vcpkg:"
-            #     $env:PATH -split ';' | Where-Object { $_ -like "*vcpkg*" }
-            #   shell: pwsh
-
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
               with:
@@ -181,31 +143,6 @@ jobs:
                 arch: ${{ matrix.arch }}
                 ts: ${{ matrix.ts }}
                 args: --enable-debug --with-cairo=C:\cairo-deps
-
-            - name: List build output
-              run: |
-                Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\" -Recurse | Format-Table -Property Mode, Length, LastWriteTime, Name
-              shell: powershell
-
-            # - name: Check DLL dependencies
-            #   run: |
-            #     # Find the DLL dynamically
-            #     $dllPath = Get-ChildItem -Path "D:\a\php-cairo\php-cairo\build\*\Release\php_cairo.dll" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-
-            #     if (-not $dllPath) {
-            #       Write-Error "php_cairo.dll not found in any build directory"
-            #       exit 1
-            #     }
-
-            #     Write-Host "Found DLL at: $dllPath"
-
-            #     # Use dumpbin to check dependencies
-            #     Write-Host "Checking dependencies of php_cairo.dll:"
-            #     dumpbin /DEPENDENTS "$dllPath"
-
-            #     Write-Host "`nChecking if the DLL is valid:"
-            #     dumpbin /HEADERS "$dllPath" | Select-String -Pattern "machine|magic"
-            #   shell: powershell
 
             - name: "Upload test outputs"
               if: ${{ always() }}
