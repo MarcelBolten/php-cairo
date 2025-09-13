@@ -19,14 +19,14 @@ $s = new Image(ImageFormat::ARGB32, 1, 1);
 $s->createForData($color, ImageFormat::ARGB32, 1, 1);
 
 $pat = new PatternSurface($s);
-$pat->setExtend(Extend::REPEAT);
+$pat->setExtend(Extend::Repeat);
 
 for ($i = 0; $i < 5; $i++)
 {
 	switch ($i)
 	{
 		case 0:
-			$context->setSourceRgb(.6, .7, .8);
+			$context->setSourceRgba(.6, .7, .8);
 			break;
 		case 1:
 			$context->setSourceRgba(.2, .4, .6, .5);

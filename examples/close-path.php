@@ -8,7 +8,7 @@ $surface = new Image(ImageFormat::ARGB32, 32, 16);
 $context = new Context($surface);
 
 $context->save();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->restore();
 

@@ -9,7 +9,7 @@ function uniformRandom($state, $minValue, $maxValue)
 {
 	$poly = 0x9a795537;
 	$state = 2 * $state < $state ? (2 * $state ^ $poly) : 2 * $state;
-	
+
 	return floor($minValue + $state * ($maxValue - $minValue) / 4294967296.0);
 }
 
@@ -22,11 +22,11 @@ $state = 0x123456;
 $surface = new Image(ImageFormat::ARGB32, $size + 3, $size + 3);
 $context = new Context($surface);
 
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->paint();
 
 $context->translate(1, 1);
-$context->setFillRule(FillRule::EVEN_ODD);
+$context->setFillRule(FillRule::EvenOdd);
 $context->moveTo(0, 0);
 
 for ($i = 0; $i < $segments; $i++)
@@ -37,9 +37,9 @@ for ($i = 0; $i < $segments; $i++)
 }
 
 $context->closePath();
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->fillPreserve();
-$context->setSourceRgb(0, 1, 0);
+$context->setSourceRgba(0, 1, 0);
 $context->setLineWidth(0.5);
 $context->stroke();
 

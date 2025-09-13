@@ -7,7 +7,7 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 53, 53);
 $context = new Context($surface);
 
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->translate(1,1);
 $context->moveTo(0,0);
 $context->lineTo(25,50);

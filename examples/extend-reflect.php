@@ -14,7 +14,7 @@ $s->createFromPng(dirname(__FILE__).'/romedalen.png');
 $context->setSurface($s, 32, 32);
 
 $pat = $context->getPattern();
-$pat->setExtend(Extend::REFLECT);
+$pat->setExtend(Extend::Reflect);
 $context->paint();
 
 $surface->writeToPng(dirname(__FILE__).'/extend-reflect-php.png');

@@ -6,16 +6,16 @@ use Cairo\Surface\Ps;
 function drawPattern($surface, $size)
 {
 	$context = new Context($surface);
-	$context->setSourceRgb(1, 1, 1);
+	$context->setSourceRgba(1, 1, 1);
 	$context->rectangle(0, 0, $size / 2, $size / 2);
 	$context->fill();
-	$context->setSourceRgb(1, 0, 0);
+	$context->setSourceRgba(1, 0, 0);
 	$context->rectangle($size / 2, 0, $size / 2, $size / 2);
 	$context->fill();
-	$context->setSourceRgb(0, 1, 0);
+	$context->setSourceRgba(0, 1, 0);
 	$context->rectangle(0, $size / 2, $size / 2, $size / 2);
 	$context->fill();
-	$context->setSourceRgb(0, 0, 1);
+	$context->setSourceRgba(0, 0, 1);
 	$context->rectangle($size / 2, $size / 2, $size / 2, $size / 2);
 	$context->fill();
 }
@@ -24,7 +24,7 @@ $size = 90;
 $surface = new Ps('ps-surface-source.ps', $size, $size);
 $surface->setFallbackResolution(72, 72);
 $context = new Context($surface);
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->paint();
 
 $surfaceSize = $size - 30;

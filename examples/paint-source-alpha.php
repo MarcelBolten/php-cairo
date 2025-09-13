@@ -63,7 +63,7 @@ $s->createForData($data, ImageFormat::ARGB32, 4, 4);
 $context->scale(4, 4);
 $context->setSurface($s, 2, 2);
 $pat = $context->getPattern();
-$pat->setFilter(Filter::NEAREST);
+$pat->setFilter(Filter::Nearest);
 $context->paint();
 
 $surface->writeToPng(dirname(__FILE__).'/paint-source-alpha-php.png');

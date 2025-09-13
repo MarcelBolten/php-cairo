@@ -38,7 +38,7 @@ for ($i = 0; $i < 12; $i++)
 }
 
 $s->createForData($string, ImageFormat::ARGB32, $width, $height);
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 
 $context->setSurface($s, 0, 0);

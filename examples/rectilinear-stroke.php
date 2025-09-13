@@ -9,14 +9,14 @@ $size = 25;
 $surface = new Image(ImageFormat::ARGB32, $size, $size);
 $context = new Context($surface);
 /* Paint background white, then draw in black. */
-$context->setSourceRgb(1.0, 1.0, 1.0); /* white */
+$context->setSourceRgba(1.0, 1.0, 1.0); /* white */
 $context->paint();
-$context->setSourceRgb(0.0, 0.0, 0.0); /* black */
+$context->setSourceRgba(0.0, 0.0, 0.0); /* black */
 $context->setLineWidth(1.0);
 $context->translate(1, 1);
 
 /* Draw everything first with square caps. */
-$context->setLineCap(LineCap::SQUARE);
+$context->setLineCap(LineCap::Square);
 
 /* Draw horizontal and vertical segments, each in both
  * directions. */
@@ -57,7 +57,7 @@ $context->stroke();
 $context->translate(12, 0);
 
 /* Now draw the same results, but with butt caps. */
-$context->setLineCap(LineCap::BUTT);
+$context->setLineCap(LineCap::Butt);
 
 /* Draw horizontal and vertical segments, each in both
  * directions. */

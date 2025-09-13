@@ -12,21 +12,21 @@ $surface = new Image(ImageFormat::ARGB32, 192, 16);
 $context = new Context($surface);
 
 $context->save();
-$context->setSourceRgb(1, 1, 1); /* white */
+$context->setSourceRgba(1, 1, 1); /* white */
 $context->paint();
 $context->restore();
 
-$context->setSourceRgb(0, 0, 0); /* black */
-$context->selectFontFace('Bitstream Vera Serif', FontSlant::NORMAL, FontWeight::NORMAL);
+$context->setSourceRgba(0, 0, 0); /* black */
+$context->selectFontFace('Bitstream Vera Serif', FontSlant::Normal, FontWeight::Normal);
 $context->setFontSize($textSize);
 
 $context->moveTo(0, $textSize);
 $context->showText('i-am-serif');
 
-$context->selectFontFace('Bitstream Vera Sans', FontSlant::NORMAL, FontWeight::NORMAL);
+$context->selectFontFace('Bitstream Vera Sans', FontSlant::Normal, FontWeight::Normal);
 $context->showText(' i-am-sans');
 
-$context->selectFontFace('Bitstream Vera Sans Mono', FontSlant::NORMAL, FontWeight::NORMAL);
+$context->selectFontFace('Bitstream Vera Sans Mono', FontSlant::Normal, FontWeight::Normal);
 $context->showText(' i-am-mono');
 
 $surface->writeToPng(dirname(__FILE__).'/select-font-face-php.png');

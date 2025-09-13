@@ -32,18 +32,18 @@ $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 
 $context->translate($pad, $pad);
-$context->setSourceRgb(0, 1, 0);
-$context->setOperator(Operator::OVER);
+$context->setSourceRgba(0, 1, 0);
+$context->setOperator(Operator::Over);
 drawCircle($context, $cisize, $cisize * 0.5, $cisize * 1.5);
-$context->setSourceRgb(1, 0, 0);
-$context->setOperator(Operator::ADD);
+$context->setSourceRgba(1, 0, 0);
+$context->setOperator(Operator::Add);
 drawCircle($context, $cisize, $cisize * 0.75, $cisize * 1.75);
-$context->setSourceRgb(0, 1, 0);
-$context->setOperator(Operator::OVER);
+$context->setSourceRgba(0, 1, 0);
+$context->setOperator(Operator::Over);
 $context->translate($cisize * 2.5, $cisize * 0.6);
 drawCircles($context, $cisize);
-$context->setSourceRgb(1, 0, 0);
-$context->setOperator(Operator::ADD);
+$context->setSourceRgba(1, 0, 0);
+$context->setOperator(Operator::Add);
 $context->translate(0, $cisize * 2);
 drawCircles($context, $cisize);
 

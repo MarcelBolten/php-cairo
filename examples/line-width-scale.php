@@ -62,14 +62,14 @@ $height = ($scaleY * $spline * 2.0);
 
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
-$context->setSourceRgb(1.0, 1.0, 1.0); /* white */
+$context->setSourceRgba(1.0, 1.0, 1.0); /* white */
 $context->paint();
-$context->setSourceRgb(0.0, 0.0, 0.0); /* black */
+$context->setSourceRgba(0.0, 0.0, 0.0); /* black */
 
 for ($i = 0; $i < 4; $i++)
 {
 	$context->save();
-	
+
 	switch ($i)
 	{
 		case 0:
@@ -89,7 +89,7 @@ for ($i = 0; $i < 4; $i++)
 			scalePathNotLineWidth($context, $spline, $scaleX, $scaleY, $lineWidth);
 			break;
 	}
-	
+
 	$context->restore();
 }
 

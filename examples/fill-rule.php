@@ -27,22 +27,22 @@ function bigStarPath($context)
 $surface = new Image(ImageFormat::ARGB32, 163, 103);
 $context = new Context($surface);
 
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->translate(1, 1);
 littleStarPath($context);
-$context->setFillRule(FillRule::WINDING);
+$context->setFillRule(FillRule::Winding);
 $context->fill();
 $context->translate(21, 0);
 littleStarPath($context);
-$context->setFillRule(FillRule::EVEN_ODD);
+$context->setFillRule(FillRule::EvenOdd);
 $context->fill();
 $context->translate(-21, 21);
 bigStarPath($context);
-$context->setFillRule(FillRule::WINDING);
+$context->setFillRule(FillRule::Winding);
 $context->fill();
 $context->translate(81, 0);
 bigStarPath($context);
-$context->setFillRule(FillRule::EVEN_ODD);
+$context->setFillRule(FillRule::EvenOdd);
 $context->fill();
 
 $surface->writeToPng(dirname(__FILE__).'/fill-rule-php.png');

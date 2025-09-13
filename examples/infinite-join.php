@@ -8,11 +8,11 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 8, 8);
 $context = new Context($surface);
 
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 
-$context->setSourceRgb(0, 0, 0);
-$context->setLineJoin(LineJoin::ROUND);
+$context->setSourceRgba(0, 0, 0);
+$context->setLineJoin(LineJoin::Round);
 $context->scale(20.0 / 100.0, 20 / 100.);
 $context->scale(1. / 20, 1. / 20);
 $context->setLineWidth(20);

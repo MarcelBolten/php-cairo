@@ -7,7 +7,7 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 10, 20);
 $context = new Context($surface);
 $context->translate(1.0, 1.0);
-$context->setSourceRgb(1, 0, 0); /* red */
+$context->setSourceRgba(1, 0, 0); /* red */
 
 /* First draw the desired shape with a fill */
 $context->rectangle(0.5, 0.5, 4.0, 4.0);

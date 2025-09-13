@@ -11,12 +11,12 @@ $context = new Context($surface);
 $s = new Image(ImageFormat::ARGB32, 1, 1);
 $s->createFromPng(dirname(__FILE__).'/romedalen.png');
 
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->rectangle(0, 0, 100, 100);
 $context->fill();
 
 $context->translate(10, 10);
-$context->setOperator(Operator::SOURCE);
+$context->setOperator(Operator::Source);
 $context->setSurface($s, 0, 0);
 $context->rectangle(0, 0, 90, 90);
 $context->fill();

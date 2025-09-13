@@ -9,7 +9,7 @@ $starsize = 20;
 
 $surface = new Image(ImageFormat::ARGB32, $starsize * 2 + 2, $starsize + 2);
 $context = new Context($surface);
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->translate(1, 1);
 $context->save();
 
@@ -19,7 +19,7 @@ $context->relLineTo(-16, -12);
 $context->relLineTo(20, 0);
 $context->relLineTo(-16, 12);
 
-$context->setFillRule(FillRule::WINDING);
+$context->setFillRule(FillRule::Winding);
 $context->clip();
 $context->paint();
 
@@ -33,7 +33,7 @@ $context->relLineTo(-16, -12);
 $context->relLineTo(20, 0);
 $context->relLineTo(-16, 12);
 
-$context->setFillRule(FillRule::EVEN_ODD);
+$context->setFillRule(FillRule::EvenOdd);
 $context->clip();
 $context->paint();
 

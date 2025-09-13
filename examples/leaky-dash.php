@@ -10,9 +10,9 @@ $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 
 $dash = [8.0, 2.0];
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
-$context->setSourceRgb(0., 0., 0);
+$context->setSourceRgba(0., 0., 0);
 $context->setLineWidth(2); /* This is vital to reproduce the bug. */
 
 /* First check simple rectangles */

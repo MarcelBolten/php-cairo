@@ -11,7 +11,7 @@ use Cairo\Surface\ImageFormat;
 
 function setSolidPattern($context, $x, $y)
 {
-	$context->setSourceRgb(1.0, 0, 0.0);
+	$context->setSourceRgba(1.0, 0, 0.0);
 }
 
 function setGradientPttern($context, $width, $height, $x, $y)
@@ -30,9 +30,9 @@ function drawMask($surface, $context, $width, $height, $x, $y)
 	$x += 0.05 * $width;
 	$y += 0.05 * $height;
 
-	$s = $surface->createSimilar(Content::ALPHA, $wi, $he);
+	$s = $surface->createSimilar(Content::Alpha, $wi, $he);
 	$con2 = new Context($s);
-	$con2->setSourceRgb(1, 1, 1); /* white */
+	$con2->setSourceRgba(1, 1, 1); /* white */
 	$con2->arc(0.5 * $wi, 0.5 * $he, 0.45 * $he, 0, 2 * M_PI);
 	$con2->fill();
 
@@ -97,7 +97,7 @@ $imageHeight = 4 * ($height + $pad) + $pad;
 
 $surface = new Image(ImageFormat::ARGB32, $imageWidth, $imageHeight);
 $context = new Context($surface);
-$context->selectFontFace('Bitstream Vera Sans', FontSlant::NORMAL, FontWeight::NORMAL);
+$context->selectFontFace('Bitstream Vera Sans', FontSlant::Normal, FontWeight::Normal);
 
 for ($j = 0; $j < 4; $j++)
 {
@@ -117,7 +117,7 @@ for ($j = 0; $j < 4; $j++)
 		$context->fillPreserve();
 		$context->clip();
 
-		$context->setOperator(Operator::CLEAR);
+		$context->setOperator(Operator::Clear);
 
 		switch ($i)
 		{

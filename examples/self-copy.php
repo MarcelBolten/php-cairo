@@ -10,14 +10,14 @@ $size = 40;
 
 $surface = new Image(ImageFormat::ARGB32, $size, $size);
 $context = new Context($surface);
-$context->setSourceRgb(1, 1, 1);    /* White */
+$context->setSourceRgba(1, 1, 1);    /* White */
 $context->paint();
 
 $context->moveTo($size, 0);
 $context->lineTo($size, $size);
 $context->lineTo(0, $size);
 
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->fill();
 
 /* Create a pattern with the target surface as the source,

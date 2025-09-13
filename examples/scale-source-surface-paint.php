@@ -63,7 +63,7 @@ $s->createForData($data, ImageFormat::RGB24, 4, 4);
 $context->scale(2, 2);
 $context->setSurface($s, 1, 1);
 $pat = $context->getPattern();
-$pat->setFilter(Filter::NEAREST);
+$pat->setFilter(Filter::Nearest);
 $context->paint();
 
 $surface->writeToPng(dirname(__FILE__).'/scale-source-surface-paint-php.png');

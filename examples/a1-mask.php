@@ -26,9 +26,9 @@ echo $string . PHP_EOL;
 
 $s->createForData($string, ImageFormat::A1, $width, $height);
 
-$context->setSourceRgb(0, 0, 1);
+$context->setSourceRgba(0, 0, 1);
 $context->paint();
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->maskSurface($s, 0, 0);
 
 $surface->writeToPng(dirname(__FILE__).'/a1-mask-php.png');

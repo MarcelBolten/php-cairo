@@ -20,13 +20,13 @@ function boxText($context, $string, $x, $y)
 $surface = new Image(ImageFormat::ARGB32, 38, 34);
 $context = new Context($surface);
 
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->selectFontFace('Bitstream Vera Sans');
 $context->setFontSize(12);
 $context->translate(4, 4);
 $context->setLineWidth(1);
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 
 $ext = $context->getTextExtents('text');
 
@@ -36,7 +36,7 @@ $matrix = new Matrix();
 $matrix->translate(6, 16);
 $matrix->scale(12, 12);
 $context->setFontMatrix($matrix);
-$context->setSourceRgb(0, 0, 1);
+$context->setSourceRgba(0, 0, 1);
 
 boxText($context, 'text', 0, -$ext['y_bearing']);
 

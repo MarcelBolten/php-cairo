@@ -11,7 +11,7 @@ $s = new Image(ImageFormat::ARGB32, 100, 100);
 $s->createFromPng(dirname(__FILE__).'/romedalen.png');
 $context->setSurface($s, 32, 32);
 $pat = $context->getPattern();
-$pat->setExtend(Extend::REPEAT);
+$pat->setExtend(Extend::Repeat);
 $context->setPattern($pat);
 $context->paint();
 
