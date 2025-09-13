@@ -60,12 +60,14 @@ jobs:
                 }
 
                 $tripletContent = @"
-                set(VCPKG_TARGET_ARCHITECTURE x86)
-                set(VCPKG_CRT_LINKAGE dynamic)
+                include(`${CMAKE_CURRENT_LIST_DIR}/x86-windows.cmake`)
+                set(VCPKG_PLATFORM_TOOLSET v142)
                 set(VCPKG_LIBRARY_LINKAGE static)
-                set(VCPKG_PLATFORM_TOOLSET v142)  # This corresponds to vs16/14.29.30133
-                set(VCPKG_CMAKE_SYSTEM_NAME WindowsStore)
-                set(VCPKG_CMAKE_SYSTEM_VERSION 10.0)
+                # set(VCPKG_TARGET_ARCHITECTURE x86)
+                # set(VCPKG_CRT_LINKAGE dynamic)
+                # set(VCPKG_PLATFORM_TOOLSET v142)  # This corresponds to vs16/14.29.30133
+                # set(VCPKG_CMAKE_SYSTEM_NAME WindowsStore)
+                # set(VCPKG_CMAKE_SYSTEM_VERSION 10.0)
                 "@
                 New-Item -Path "C:\vcpkg\triplets\community" -Name "x86-windows-php.cmake" -Value $tripletContent -Force
 
