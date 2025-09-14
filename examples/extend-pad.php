@@ -13,8 +13,8 @@ $context->fill();
 
 $surfaceSize = (90 - 30) / 10;
 
-$surface = new Image(ImageFormat::RGB24, $surfaceSize, $surfaceSize);
-$con2 = new Context($surface);
+$surface2 = new Image(ImageFormat::RGB24, $surfaceSize, $surfaceSize);
+$con2 = new Context($surface2);
 $con2->setSourceRgba(1, 1, 1);
 $con2->rectangle(0, 0, $surfaceSize / 2, $surfaceSize / 2);
 $con2->fill();
@@ -29,7 +29,7 @@ $con2->rectangle($surfaceSize / 2, $surfaceSize / 2, $surfaceSize / 2, $surfaceS
 $con2->fill();
 
 $context->scale(10, 10);
-$context->setSurface($surface, 1.5, 1.5);
+$context->setSurface($surface2, 1.5, 1.5);
 
 /* Using EXTEND_Reflect makes this test pass for image and xlib backends */
 $pattern = $context->getPattern();
@@ -39,7 +39,3 @@ $context->clip();
 $context->setPattern($pattern);
 $context->paint();
 $surface->writeToPng(dirname(__FILE__).'/extend-pad-php.png');
-
-
-
-
