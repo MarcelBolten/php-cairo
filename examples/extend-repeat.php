@@ -7,8 +7,7 @@ use Cairo\Surface\ImageFormat;
 
 $surface = new Image(ImageFormat::ARGB32, 256 + 32 * 2, 192 + 32 * 2);
 $context = new Context($surface);
-$s = new Image(ImageFormat::ARGB32, 100, 100);
-$s->createFromPng(dirname(__FILE__).'/romedalen.png');
+$s = Image::createFromPng(dirname(__FILE__).'/romedalen.png');
 $context->setSurface($s, 32, 32);
 $pat = $context->getPattern();
 $pat->setExtend(Extend::Repeat);

@@ -151,7 +151,7 @@ for ($j = 0; $j < 4; $j++)
 				setGradientPattern($context, $width, $height, $x, $y);
 				break;
 			case 3:
-				//setSurfacePattern($surface, $context, $width, $height, $x,$y);
+				setSurfacePattern($surface, $context, $width, $height, $x,$y);
 				break;
 		}
 

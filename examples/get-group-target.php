@@ -24,7 +24,7 @@ $context->fill();
 $off = $s->getDeviceOffset();
 $te = $off['x'];
 
-echo $te . PHP_EOL;
+// echo $te . PHP_EOL;
 
 $context->rectangle(2, 2, 4, 4);
 $context->fill();

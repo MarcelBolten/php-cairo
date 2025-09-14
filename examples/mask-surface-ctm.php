@@ -17,8 +17,7 @@ for ($i = 0; $i < 4; $i++)
 	$data = $data.chr(0x00);
 }
 
-$s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createForData($data, ImageFormat::ARGB32, 2, 2);
+$s = Image::createForData($data, ImageFormat::ARGB32, 2, 2);
 
 $context->setSourceRgba(1, 0, 0);
 $context->save();

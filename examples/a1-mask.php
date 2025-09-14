@@ -11,24 +11,21 @@ $string = '';
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 
-$s = new Image(ImageFormat::A1, $width, $height);
-$stride = $s->getStride();
+$stride = ImageFormat::strideForWidth(ImageFormat::A1, $width);
+assert($stride === 4);
 
-echo 'Stride: ' . $stride . PHP_EOL;
+$string .= chr(0x14); // 00101000 opaque pixels: 3, 5
+$string .= chr(0x02); // 01000000 opaque pixels: 10
+$string .= chr(0x00); // padding byte for 4-byte alignment
+$string .= chr(0x00); // padding byte for 4-byte alignment
 
-for ($i = 0; $i < $height; $i++)
-{
-	$string .= chr(0x14);
-	$string .= chr(0xAA);
-}
+$string = str_repeat($string, $height);
 
-echo $string . PHP_EOL;
-
-$s->createForData($string, ImageFormat::A1, $width, $height);
+$mask = Image::createForData($string, ImageFormat::A1, $width, $height);
 
 $context->setSourceRgba(0, 0, 1);
 $context->paint();
 $context->setSourceRgba(1, 0, 0);
-$context->maskSurface($s, 0, 0);
+$context->maskSurface($mask, 0, 0);
 
 $surface->writeToPng(dirname(__FILE__).'/a1-mask-php.png');

@@ -6,45 +6,16 @@ use Cairo\Surface\ImageFormat;
 
 $surface = new Image(ImageFormat::RGB24, 2, 2);
 $context = new Context($surface);
-$s = new Image(ImageFormat::RGB24, 2, 2);
 
-$c = [];
+$c = array(
+	chr(0xff) . chr(0xff) . chr(0xff) . chr(0xff),
+	chr(0x00) . chr(0x00) . chr(0xff) . chr(0xff),
+	chr(0x00) . chr(0xff) . chr(0x00) . chr(0xff),
+	chr(0xff) . chr(0x00) . chr(0x00) . chr(0xff)
+);
 
-$color = '';
-$color .= chr(0xff);
-$color .= chr(0xff);
-$color .= chr(0xff);
-$color .= chr(0xff);
-
-$c[0] = $color;
-
-$color = '';
-$color .= chr(0x00);
-$color .= chr(0x00);
-$color .= chr(0xff);
-$color .= chr(0xff);
-
-$c[1] = $color;
-
-$color = '';
-$color .= chr(0x00);
-$color .= chr(0xff);
-$color .= chr(0x00);
-$color .= chr(0xff);
-
-$c[2] = $color;
-
-$color = '';
-$color .= chr(0xff);
-$color .= chr(0x00);
-$color .= chr(0x00);
-$color .= chr(0xff);
-
-$c[3] = $color;
-
-for ($i = 0; $i < 4; $i++)
-{
-	$s->createForData($c[$i], ImageFormat::RGB24, 1, 1);
+for ($i = 0; $i < 4; $i++) {
+	$s = Image::createForData($c[$i], ImageFormat::RGB24, 1, 1);
 	$context->setSurface($s, $i % 2, $i / 2);
 	$context->paint();
 }

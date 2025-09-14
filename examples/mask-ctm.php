@@ -11,16 +11,14 @@ $data = '';
 $surface = new Image(ImageFormat::ARGB32, 10, 10);
 $context = new Context($surface);
 
-for ($i = 0; $i < 4; $i++)
-{
-	$data = $data.chr(0x80);
-	$data = $data.chr(0x00);
-	$data = $data.chr(0x00);
-	$data = $data.chr(0x00);
+for ($i = 0; $i < 4; $i++) {
+	$data .= chr(0x80);
+	$data .= chr(0x00);
+	$data .= chr(0x00);
+	$data .= chr(0x00);
 }
 
-$s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createForData($data, ImageFormat::ARGB32, 2, 2);
+$s = Image::createForData($data, ImageFormat::ARGB32, 2, 2);
 $pat = new PatternSurface($s);
 
 $context->setSourceRgba(1, 0, 0);

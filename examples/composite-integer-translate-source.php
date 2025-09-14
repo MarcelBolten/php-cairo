@@ -8,8 +8,7 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 100, 100);
 $context = new Context($surface);
 
-$s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createFromPng(dirname(__FILE__).'/romedalen.png');
+$s = Image::createFromPng(dirname(__FILE__).'/romedalen.png');
 
 $context->setSourceRgba(0, 0, 0);
 $context->rectangle(0, 0, 100, 100);

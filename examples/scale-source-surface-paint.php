@@ -56,10 +56,7 @@ for ($i = 0; $i < 2; $i++)
 	$data .= chr(0xff);
 }
 
-echo $data . PHP_EOL;
-
-$s = new Image(ImageFormat::ARGB32, 100, 100);
-$s->createForData($data, ImageFormat::RGB24, 4, 4);
+$s = Image::createForData($data, ImageFormat::RGB24, 4, 4);
 $context->scale(2, 2);
 $context->setSurface($s, 1, 1);
 $pat = $context->getPattern();

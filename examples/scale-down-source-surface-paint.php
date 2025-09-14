@@ -59,8 +59,7 @@ for ($i = 0; $i < 2; $i++)
 $context->setSourceRgba(0, 0, 0);
 $context->paint();
 
-$s = new Image(ImageFormat::ARGB32, 100, 100);
-$s->createForData($data, ImageFormat::RGB24, 4, 4);
+$s = Image::createForData($data, ImageFormat::RGB24, 4, 4);
 $context->scale(0.5, 0.5);
 $context->setSurface($s, 4, 4);
 $pat = $context->getPattern();

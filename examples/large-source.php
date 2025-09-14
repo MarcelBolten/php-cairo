@@ -11,41 +11,35 @@ $surface = new Image(ImageFormat::ARGB32, 20, 20);
 $context = new Context($surface);
 $context->setSourceRgba(0, 0, 1);
 $context->paint();
+
 $s = new Image(ImageFormat::A1, 6400, 20);
-$stride = $s->getStride();
 $height = $s->getHeight();
 $width = $s->getWidth();
 
 $data = '';
-
-for ($y = 0; $y < $height; $y++)
-{
-	for ($x = 0; $x < ($width + 7) / 8; $x++)
-	{
-		$data = $data.chr(5);
+for ($y = 0; $y < $height; $y++) {
+	for ($x = 0; $x < ($width + 7) / 8; $x++) {
+		$data .= chr(5);
 	}
 }
 
-$s->createForData($data, ImageFormat::A1, $width, $height);
+$s = Image::createForData($data, ImageFormat::A1, $width, $height);
 $context->setSourceRgba(1, 0, 0);
 $context->maskSurface($s);
 $context->fill();
+
 $s = new Image(ImageFormat::A1, 20, 6400);
-$stride = $s->getStride();
 $height = $s->getHeight();
 $width = $s->getWidth();
 
 $data = '';
-
-for ($y = 0; $y < $height; $y++)
-{
-	for ($x = 0; $x < ($width + 7) / 8; $x++)
-	{
+for ($y = 0; $y < $height; $y++) {
+	for ($x = 0; $x < ($width + 7) / 8; $x++) {
 		$data = $data.chr(80);
 	}
 }
 
-$s->createForData($data, ImageFormat::A1, $width, $height);
+$s = Image::createForData($data, ImageFormat::A1, $width, $height);
 $context->setSourceRgba(0, 1, 0);
 $context->maskSurface($s, 0, 0);
 

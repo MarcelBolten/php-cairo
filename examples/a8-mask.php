@@ -11,28 +11,26 @@ $string = '';
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 
-$s = new Image(ImageFormat::A8, $width, $height);
-$stride = $s->getStride();
+$stride = ImageFormat::strideForWidth(ImageFormat::A8, $width);
 
-for ($i = 0; $i < 8; $i++)
-{
-	$string .= chr(0);
-	$string .= chr(0);
-	$string .= chr(255);
-	$string .= chr(0);
-	$string .= chr(255);
-	$string .= chr(0);
-	$string .= chr(0);
-	$string .= chr(0);
-}
+assert($stride === 8);
 
-echo $string . PHP_EOL;
+$string .= chr(0);
+$string .= chr(0);
+$string .= chr(255);
+$string .= chr(0);
+$string .= chr(255);
+$string .= chr(0);
+$string .= chr(0);
+$string .= chr(0);
 
-$s->createForData($string, ImageFormat::A8, $width, $height);
+$string = str_repeat($string, $height);
+
+$mask = Image::createForData($string, ImageFormat::A8, $width, $height);
 
 $context->setSourceRgba(0, 0, 1);
 $context->paint();
 $context->setSourceRgba(1, 0, 0);
-$context->maskSurface($s, 0, 0);
+$context->maskSurface($mask, 0, 0);
 
 $surface->writeToPng(dirname(__FILE__).'/a8-mask-php.png');
