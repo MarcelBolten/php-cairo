@@ -61,6 +61,7 @@ examples/*-php.png
 examples/temp.*
 examples/pdf-surface-source.pdf
 examples/ps-surface-source.ps
+examples/*-php-diff.png
 
 # code coverage
 coverage.info
