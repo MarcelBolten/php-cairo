@@ -802,7 +802,7 @@ cairo_status_t php_cairo_write_func(void *closure, const unsigned char *data, un
 
     cast_closure = (stream_closure *)closure;
 
-    written = php_stream_write(cast_closure->stream, data, length);
+    written = php_stream_write(cast_closure->stream, (char *)data, length);
     if (written == length) {
         return CAIRO_STATUS_SUCCESS;
     }
