@@ -162,7 +162,7 @@ PHP_METHOD(Cairo_Surface_Image, getData)
     height = cairo_image_surface_get_height(surface_object->surface);
     stride = cairo_image_surface_get_stride(surface_object->surface);
 
-    RETURN_STRINGL(data, height * stride);
+    RETURN_STRINGL((char *)data, height * stride);
 }
 /* }}} */
 
