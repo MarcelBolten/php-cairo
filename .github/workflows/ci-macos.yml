@@ -1,0 +1,92 @@
+name: Build on macOS
+
+on:
+    push:
+        branches:
+            - 'macOS-gh-action'
+
+jobs:
+    build:
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
+                os: [macos-latest]
+                phpts: [ts, nts]
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: "Checkout"
+              uses: actions/checkout@v5
+
+            - name: Install system dependencies
+              run: |
+                # Update Homebrew
+                brew update
+
+                # Install Cairo and its dependencies
+                brew install cairo
+                brew install pkg-config
+                brew install autoconf
+                brew install libtool
+                brew install re2c
+
+                # Ensure pkg-config can find Cairo
+                echo "PKG_CONFIG_PATH=$(brew --prefix)/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+                echo "LDFLAGS=-L$(brew --prefix)/lib" >> $GITHUB_ENV
+                echo "CPPFLAGS=-I$(brew --prefix)/include" >> $GITHUB_ENV
+
+            - name: "Set up PHP"
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  ini-values: extension=cairo.so
+                  tools: php-config, phpize
+              env:
+                debug: true
+                phpts: ${{ matrix.phpts }}
+
+            - name: "Build Cairo Extension"
+              run: |
+                phpize
+                ./configure --with-php-config=$(which php-config) \
+                    --with-cairo=$(brew --prefix)/lib \
+                    CFLAGS="-I$(brew --prefix)/include/cairo -I$(brew --prefix)/include" \
+                    LDFLAGS="-L$(brew --prefix)/lib"
+                make -j$(sysctl -n hw.ncpu)
+                sudo make install
+              env:
+                CFLAGS: "-ggdb3"
+
+            - name: "Enable extension"
+              run: |
+                # Get PHP extension directory and add cairo.so
+                EXT_DIR=$(php-config --extension-dir)
+                echo "extension_dir=$EXT_DIR"
+                echo "extension=cairo.so" >> $(php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||")
+
+            - name: "Verify extension loading"
+              run: |
+                php -m | grep cairo || echo "Cairo extension not loaded"
+                php -i | grep cairo || echo "No Cairo info found"
+
+            - name: "Run Tests"
+              run: |
+                # Run tests with proper error handling
+                if [ -f "./run-tests.php" ]; then
+                    php ./run-tests.php -j$(sysctl -n hw.ncpu) -q --show-diff
+                else
+                    echo "No run-tests.php found, running make test instead"
+                    make test
+                fi
+
+            - name: "Upload test outputs"
+              if: ${{ always() }}
+              uses: actions/upload-artifact@v4
+              with:
+                name: cairo-test-macos-${{ matrix.php-version }}-${{ matrix.phpts }}
+                path: |
+                  tests/**/*.log
+                  tests/**/*.out
+                  tests/**/*.diff
