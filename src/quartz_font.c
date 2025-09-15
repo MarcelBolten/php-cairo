@@ -61,7 +61,7 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
         Z_PARAM_OBJECT_OF_CLASS(language, ce_cairo_quartzatsufontnamelanguage)
     ZEND_PARSE_PARAMETERS_END();
 
-    ATSUFindFontFromName(
+    ATSFindFontFromName(
         (const char *)font_name,
         (int)font_name_length,
         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(code))),
