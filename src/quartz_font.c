@@ -45,10 +45,10 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
     // OSStatus error;
     char *font_name;
     size_t font_name_length;
-    zval code; // = kFontFullName;
-    zval platform; // = kFontNoPlatformCode;
-    zval script; // = kFontRomanScript;
-    zval language; // = kFontNoLanguageCode;
+    zval *code; // = kFontFullName;
+    zval *platform; // = kFontNoPlatformCode;
+    zval *script; // = kFontRomanScript;
+    zval *language; // = kFontNoLanguageCode;
 
     cairo_font_face_object *font_face_object;
 
