@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-15 05:31:33</td>
+            <td class="headerValue">2025-09-15 05:46:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -864,7 +864,7 @@
 <span id="L802"><span class="lineNum">     802</span>              : </span>
 <span id="L803"><span class="lineNum">     803</span> <span class="tlaGNC">         520 :     cast_closure = (stream_closure *)closure;</span></span>
 <span id="L804"><span class="lineNum">     804</span>              : </span>
-<span id="L805"><span class="lineNum">     805</span> <span class="tlaGNC">         520 :     written = php_stream_write(cast_closure-&gt;stream, data, length);</span></span>
+<span id="L805"><span class="lineNum">     805</span> <span class="tlaGNC">         520 :     written = php_stream_write(cast_closure-&gt;stream, (char *)data, length);</span></span>
 <span id="L806"><span class="lineNum">     806</span> <span class="tlaGNC">         520 :     if (written == length) {</span></span>
 <span id="L807"><span class="lineNum">     807</span> <span class="tlaGNC">         520 :         return CAIRO_STATUS_SUCCESS;</span></span>
 <span id="L808"><span class="lineNum">     808</span>              :     }</span>
