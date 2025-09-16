@@ -19,14 +19,17 @@ jobs:
           with:
             extension-url: https://github.com/MarcelBolten/php-cairo
             php-version-list: '8.1, 8.2, 8.3, 8.4, 8.5'
-            arch-list: 'x64'
+            arch-list: 'x64, x86'
             ts-list: 'nts, ts'
 
     build:
         needs: get-extension-matrix
-        runs-on: ${{ matrix.os }}
         strategy:
+            fail-fast: false
             matrix: ${{ fromJson(needs.get-extension-matrix.outputs.matrix) }}
+
+        runs-on: ${{ matrix.os }}
+
         steps:
             - name: Checkout
               uses: actions/checkout@v5
@@ -37,9 +40,10 @@ jobs:
                 path: |
                   C:\vcpkg\installed
                   C:\vcpkg\buildtrees
-                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
+                key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
                 restore-keys: |
-                  vcpkg-${{ matrix.arch }}-
+                  vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
+                  vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-
 
             - name: Setup vcpkg and install dependencies
               shell: powershell
@@ -56,21 +60,36 @@ jobs:
                 }
 
                 # Set architecture
-                $arch = "${{ matrix.arch }}"
-                if ($arch -eq "x86") { $arch = "x86" } else { $arch = "x64" }
-                $triplet = "$arch-windows-static"
+                $triplet = "${{ matrix.arch }}-windows-static-md"
+
+                # Custom triplet for x86 and PHP <= 8.3 to use v142 toolset (Visual Studio 2019 vs16/14.29.30133) to match PHP build
+                if ("${{ matrix.arch }}" -eq "x86" -and [version]"${{ matrix.php-version }}" -le [version]"8.3") {
+                  $triplet = "x86-windows-php"
+
+                  $tripletContent = @(
+                    "set(VCPKG_TARGET_ARCHITECTURE x86)"
+                    "set(VCPKG_CRT_LINKAGE dynamic)"
+                    "set(VCPKG_LIBRARY_LINKAGE static)"
+                    "set(VCPKG_PLATFORM_TOOLSET v142)"
+                  ) -join "`n"
+
+                  New-Item -Path "C:\vcpkg\triplets\community" -Name "$triplet.cmake" -Value $tripletContent -Force
+                }
 
                 # Install all required packages
-                .\vcpkg install cairo:$triplet
-                .\vcpkg install libpng:$triplet
-                .\vcpkg install freetype:$triplet
-                .\vcpkg install fontconfig:$triplet
-                .\vcpkg install pixman:$triplet
-                .\vcpkg install libjpeg-turbo:$triplet
-                .\vcpkg install zlib:$triplet
-                .\vcpkg install bzip2:$triplet
-                .\vcpkg install brotli:$triplet
-                .\vcpkg install expat:$triplet
+                $packages = @(
+                    "cairo:$triplet",
+                    "libpng:$triplet",
+                    "freetype:$triplet",
+                    "fontconfig:$triplet",
+                    "pixman:$triplet",
+                    "libjpeg-turbo:$triplet",
+                    "zlib:$triplet",
+                    "bzip2:$triplet",
+                    "brotli:$triplet",
+                    "expat:$triplet"
+                )
+                & .\vcpkg install @packages
 
                 # Create directory structure config.w32 expects
                 New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
@@ -79,18 +98,29 @@ jobs:
                 $installPath = ".\installed\$triplet"
 
                 # Copy libraries
-                Copy-Item -Path "$installPath\lib\cairo.lib" -Destination "C:\cairo-deps\lib\cairo_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\libpng16.lib" -Destination "C:\cairo-deps\lib\libpng_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\freetype.lib" -Destination "C:\cairo-deps\lib\freetype_a.lib" -Force
-                Copy-Item -Path "$installPath\lib\fontconfig.lib" -Destination "C:\cairo-deps\lib\fontconfig.lib" -Force
-                Copy-Item -Path "$installPath\lib\pixman-1.lib" -Destination "C:\cairo-deps\lib\pixman-1.lib" -Force
-                Copy-Item -Path "$installPath\lib\jpeg.lib" -Destination "C:\cairo-deps\lib\jpeg.lib" -Force
-                Copy-Item -Path "$installPath\lib\turbojpeg.lib" -Destination "C:\cairo-deps\lib\turbojpeg.lib" -Force
-                Copy-Item -Path "$installPath\lib\zlib.lib" -Destination "C:\cairo-deps\lib\zlib.lib" -Force
-                Copy-Item -Path "$installPath\lib\bz2.lib" -Destination "C:\cairo-deps\lib\bz2.lib" -Force
-                Copy-Item -Path "$installPath\lib\brotlidec.lib" -Destination "C:\cairo-deps\lib\brotlidec.lib" -Force
-                Copy-Item -Path "$installPath\lib\brotlicommon.lib" -Destination "C:\cairo-deps\lib\brotlicommon.lib" -Force
-                Copy-Item -Path "$installPath\lib\libexpatMT.lib" -Destination "C:\cairo-deps\lib\libexpatMT.lib" -Force
+                $libs = @(
+                  'cairo.lib',
+                  'libpng16.lib',
+                  'freetype.lib',
+                  'fontconfig.lib',
+                  'pixman-1.lib',
+                  'jpeg.lib',
+                  'turbojpeg.lib',
+                  'zlib.lib',
+                  'bz2.lib',
+                  'brotlidec.lib',
+                  'brotlicommon.lib',
+                  'libexpatMD.lib' # or libexpatMT.lib for dynamic linking
+                )
+                foreach ($libName in $libs) {
+                  $srcPath = Join-Path $installPath "lib\$libName"
+                  $dstPath = Join-Path 'C:\cairo-deps\lib' $libName
+                  if (Test-Path -Path $srcPath) {
+                      Copy-Item -Path $srcPath -Destination $dstPath -Force
+                  } else {
+                      Write-Host "Warning: $srcPath not found, skipping."
+                  }
+                }
 
                 # Copy all headers
                 Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
@@ -104,7 +134,7 @@ jobs:
                 path: |
                   C:\vcpkg\installed
                   C:\vcpkg\buildtrees
-                key: vcpkg-${{ matrix.arch }}-${{ hashFiles('**/vcpkg.json') }}
+                key: vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-${{ github.ref_name }}
 
             - name: Build the extension
               uses: php/php-windows-builder/extension@v1
