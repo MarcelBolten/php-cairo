@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-16 07:12:27</td>
+            <td class="headerValue">2025-09-16 07:19:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -224,7 +224,7 @@
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           2 :     height = cairo_image_surface_get_height(surface_object-&gt;surface);</span></span>
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           2 :     stride = cairo_image_surface_get_stride(surface_object-&gt;surface);</span></span>
 <span id="L164"><span class="lineNum">     164</span>              : </span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           4 :     RETURN_STRINGL(data, height * stride);</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           4 :     RETURN_STRINGL((char *)data, height * stride);</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : }</span>
 <span id="L167"><span class="lineNum">     167</span>              : /* }}} */</span>
 <span id="L168"><span class="lineNum">     168</span>              : </span>
@@ -353,104 +353,107 @@
 <span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           2 :         closure-&gt;owned_stream = owned_stream;</span></span>
 <span id="L292"><span class="lineNum">     292</span>              : </span>
 <span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           2 :         surface_object-&gt;closure = closure;</span></span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_png_stream((cairo_read_func_t) php_cairo_read_func, (void *)closure);</span></span>
-<span id="L295"><span class="lineNum">     295</span>              :     } else {</span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">           2 :         zend_throw_exception(ce_cairo_exception, &quot;Cairo\\Surface\\Image::createFromPng() expects parameter 1 to be a string or a stream resource&quot;, 0);</span></span>
-<span id="L297"><span class="lineNum">     297</span> <span class="tlaGNC">           2 :         RETURN_THROWS();</span></span>
-<span id="L298"><span class="lineNum">     298</span>              :     }</span>
-<span id="L299"><span class="lineNum">     299</span>              : </span>
-<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           4 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L302"><span class="lineNum">     302</span>              :     }</span>
-<span id="L303"><span class="lineNum">     303</span>              : }</span>
-<span id="L304"><span class="lineNum">     304</span>              : /* }}} */</span>
-<span id="L305"><span class="lineNum">     305</span>              : #endif</span>
-<span id="L306"><span class="lineNum">     306</span>              : </span>
-<span id="L307"><span class="lineNum">     307</span>              : </span>
-<span id="L308"><span class="lineNum">     308</span>              : #ifdef CAIRO_HAS_JPEG_FUNCTIONS</span>
-<span id="L309"><span class="lineNum">     309</span>              : /* {{{ proto \Cairo\Surface\Image object \Cairo\Surface\Image::createFromJpeg(file|resource file)</span>
-<span id="L310"><span class="lineNum">     310</span>              :        Creates a new image surface and initializes the contents to the given JPEG file. */</span>
-<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC tlaBgGNC">          10 : PHP_METHOD(Cairo_Surface_Image, createFromJpeg)</span></span>
-<span id="L312"><span class="lineNum">     312</span>              : {</span>
-<span id="L313"><span class="lineNum">     313</span>              :     cairo_surface_object *surface_object;</span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">          10 :     zval *stream_zval = NULL;</span></span>
-<span id="L315"><span class="lineNum">     315</span>              :     stream_closure *closure;</span>
-<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">          10 :     bool owned_stream = false;</span></span>
-<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">          10 :     php_stream *stream = NULL;</span></span>
-<span id="L318"><span class="lineNum">     318</span>              : </span>
-<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(1, 1)</span></span>
-<span id="L320"><span class="lineNum">     320</span> <span class="tlaGNC">           6 :         Z_PARAM_ZVAL(stream_zval)</span></span>
-<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_END();</span></span>
-<span id="L322"><span class="lineNum">     322</span>              : </span>
-<span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">           6 :     object_init_ex(return_value, ce_cairo_imagesurface);</span></span>
-<span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">           6 :     surface_object = Z_CAIRO_SURFACE_P(return_value);</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_png_stream(</span></span>
+<span id="L295"><span class="lineNum">     295</span>              :             (cairo_read_func_t) php_cairo_read_func,</span>
+<span id="L296"><span class="lineNum">     296</span>              :             (void *)closure</span>
+<span id="L297"><span class="lineNum">     297</span>              :         );</span>
+<span id="L298"><span class="lineNum">     298</span>              :     } else {</span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">           2 :         zend_throw_exception(ce_cairo_exception, &quot;Cairo\\Surface\\Image::createFromPng() Argument #1 ($file) must be of type string or a stream resource&quot;, 0);</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           2 :         RETURN_THROWS();</span></span>
+<span id="L301"><span class="lineNum">     301</span>              :     }</span>
+<span id="L302"><span class="lineNum">     302</span>              : </span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           4 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
+<span id="L304"><span class="lineNum">     304</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L305"><span class="lineNum">     305</span>              :     }</span>
+<span id="L306"><span class="lineNum">     306</span>              : }</span>
+<span id="L307"><span class="lineNum">     307</span>              : /* }}} */</span>
+<span id="L308"><span class="lineNum">     308</span>              : #endif</span>
+<span id="L309"><span class="lineNum">     309</span>              : </span>
+<span id="L310"><span class="lineNum">     310</span>              : </span>
+<span id="L311"><span class="lineNum">     311</span>              : #ifdef CAIRO_HAS_JPEG_FUNCTIONS</span>
+<span id="L312"><span class="lineNum">     312</span>              : /* {{{ proto \Cairo\Surface\Image object \Cairo\Surface\Image::createFromJpeg(file|resource file)</span>
+<span id="L313"><span class="lineNum">     313</span>              :        Creates a new image surface and initializes the contents to the given JPEG file. */</span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC tlaBgGNC">          10 : PHP_METHOD(Cairo_Surface_Image, createFromJpeg)</span></span>
+<span id="L315"><span class="lineNum">     315</span>              : {</span>
+<span id="L316"><span class="lineNum">     316</span>              :     cairo_surface_object *surface_object;</span>
+<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">          10 :     zval *stream_zval = NULL;</span></span>
+<span id="L318"><span class="lineNum">     318</span>              :     stream_closure *closure;</span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">          10 :     bool owned_stream = false;</span></span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaGNC">          10 :     php_stream *stream = NULL;</span></span>
+<span id="L321"><span class="lineNum">     321</span>              : </span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_START(1, 1)</span></span>
+<span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">           6 :         Z_PARAM_ZVAL(stream_zval)</span></span>
+<span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_END();</span></span>
 <span id="L325"><span class="lineNum">     325</span>              : </span>
-<span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          12 :     if (Z_TYPE_P(stream_zval) == IS_STRING) {</span></span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_jpeg(Z_STRVAL_P(stream_zval));</span></span>
-<span id="L328"><span class="lineNum">     328</span> <span class="tlaGNC">           8 :     } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE) {</span></span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           2 :         php_stream_from_zval(stream, stream_zval);</span></span>
-<span id="L330"><span class="lineNum">     330</span>              : </span>
-<span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">           2 :         if (!stream) {</span></span>
-<span id="L332"><span class="lineNum">     332</span> <span class="tlaUNC tlaBgUNC">           0 :             RETURN_NULL();</span></span>
-<span id="L333"><span class="lineNum">     333</span>              :         }</span>
-<span id="L334"><span class="lineNum">     334</span>              : </span>
-<span id="L335"><span class="lineNum">     335</span>              :         // Pack stream into struct</span>
-<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC tlaBgGNC">           2 :         closure = ecalloc(1, sizeof(stream_closure));</span></span>
-<span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           2 :         closure-&gt;stream = stream;</span></span>
-<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           2 :         closure-&gt;owned_stream = owned_stream;</span></span>
-<span id="L339"><span class="lineNum">     339</span>              : </span>
-<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           2 :         surface_object-&gt;closure = closure;</span></span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_jpeg_stream(</span></span>
-<span id="L342"><span class="lineNum">     342</span>              :             (cairo_read_func_t) php_cairo_read_func,</span>
-<span id="L343"><span class="lineNum">     343</span>              :             (void *)closure</span>
-<span id="L344"><span class="lineNum">     344</span>              :         );</span>
-<span id="L345"><span class="lineNum">     345</span>              :     } else {</span>
-<span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC">           2 :         zend_throw_exception(ce_cairo_exception, &quot;Cairo\\Surface\\Image::createFromJpeg() Argument #1 ($file) must be of type string or a stream resource&quot;, 0);</span></span>
-<span id="L347"><span class="lineNum">     347</span> <span class="tlaGNC">           2 :         RETURN_THROWS();</span></span>
-<span id="L348"><span class="lineNum">     348</span>              :     }</span>
-<span id="L349"><span class="lineNum">     349</span>              : </span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           4 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L352"><span class="lineNum">     352</span>              :     }</span>
-<span id="L353"><span class="lineNum">     353</span>              : }</span>
-<span id="L354"><span class="lineNum">     354</span>              : /* }}} */</span>
-<span id="L355"><span class="lineNum">     355</span>              : #endif</span>
-<span id="L356"><span class="lineNum">     356</span>              : </span>
-<span id="L357"><span class="lineNum">     357</span>              : /* {{{ proto int CairoFormat::strideForWidth(long format, long width)</span>
-<span id="L358"><span class="lineNum">     358</span>              :         This function provides a stride value that will respect all alignment</span>
-<span id="L359"><span class="lineNum">     359</span>              :         requirements of the accelerated image-rendering code within cairo. */</span>
-<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC tlaBgGNC">          12 : PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)</span></span>
-<span id="L361"><span class="lineNum">     361</span>              : {</span>
-<span id="L362"><span class="lineNum">     362</span>              :     zend_long width;</span>
-<span id="L363"><span class="lineNum">     363</span>              :     zval *format;</span>
-<span id="L364"><span class="lineNum">     364</span>              : </span>
-<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
-<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">          12 :         Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)</span></span>
-<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           8 :         Z_PARAM_LONG(width)</span></span>
-<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_END();</span></span>
-<span id="L369"><span class="lineNum">     369</span>              : </span>
-<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">           4 :     RETURN_LONG(cairo_format_stride_for_width(</span></span>
-<span id="L371"><span class="lineNum">     371</span>              :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),</span>
-<span id="L372"><span class="lineNum">     372</span>              :         (int) width</span>
-<span id="L373"><span class="lineNum">     373</span>              :     ));</span>
-<span id="L374"><span class="lineNum">     374</span>              : }</span>
-<span id="L375"><span class="lineNum">     375</span>              : /* }}} */</span>
-<span id="L376"><span class="lineNum">     376</span>              : </span>
-<span id="L377"><span class="lineNum">     377</span>              : </span>
-<span id="L378"><span class="lineNum">     378</span>              : /* ----------------------------------------------------------------</span>
-<span id="L379"><span class="lineNum">     379</span>              :     Cairo\FontOptions Definition and registration</span>
-<span id="L380"><span class="lineNum">     380</span>              : ------------------------------------------------------------------*/</span>
-<span id="L381"><span class="lineNum">     381</span>              : </span>
-<span id="L382"><span class="lineNum">     382</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">         854 : PHP_MINIT_FUNCTION(cairo_image_surface)</span></span>
-<span id="L384"><span class="lineNum">     384</span>              : {</span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">         854 :     ce_cairo_imagesurface = register_class_Cairo_Surface_Image(ce_cairo_surface);</span></span>
-<span id="L386"><span class="lineNum">     386</span>              : </span>
-<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">         854 :     ce_cairo_format = register_class_Cairo_Surface_ImageFormat();</span></span>
-<span id="L388"><span class="lineNum">     388</span>              : </span>
-<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">         854 :     return SUCCESS;</span></span>
-<span id="L390"><span class="lineNum">     390</span>              : }</span>
-<span id="L391"><span class="lineNum">     391</span>              : /* }}} */</span>
+<span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">           6 :     object_init_ex(return_value, ce_cairo_imagesurface);</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           6 :     surface_object = Z_CAIRO_SURFACE_P(return_value);</span></span>
+<span id="L328"><span class="lineNum">     328</span>              : </span>
+<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">          12 :     if (Z_TYPE_P(stream_zval) == IS_STRING) {</span></span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_jpeg(Z_STRVAL_P(stream_zval));</span></span>
+<span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">           8 :     } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE) {</span></span>
+<span id="L332"><span class="lineNum">     332</span> <span class="tlaGNC">           2 :         php_stream_from_zval(stream, stream_zval);</span></span>
+<span id="L333"><span class="lineNum">     333</span>              : </span>
+<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">           2 :         if (!stream) {</span></span>
+<span id="L335"><span class="lineNum">     335</span> <span class="tlaUNC tlaBgUNC">           0 :             RETURN_NULL();</span></span>
+<span id="L336"><span class="lineNum">     336</span>              :         }</span>
+<span id="L337"><span class="lineNum">     337</span>              : </span>
+<span id="L338"><span class="lineNum">     338</span>              :         // Pack stream into struct</span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC tlaBgGNC">           2 :         closure = ecalloc(1, sizeof(stream_closure));</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           2 :         closure-&gt;stream = stream;</span></span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           2 :         closure-&gt;owned_stream = owned_stream;</span></span>
+<span id="L342"><span class="lineNum">     342</span>              : </span>
+<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">           2 :         surface_object-&gt;closure = closure;</span></span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           2 :         surface_object-&gt;surface = cairo_image_surface_create_from_jpeg_stream(</span></span>
+<span id="L345"><span class="lineNum">     345</span>              :             (cairo_read_func_t) php_cairo_read_func,</span>
+<span id="L346"><span class="lineNum">     346</span>              :             (void *)closure</span>
+<span id="L347"><span class="lineNum">     347</span>              :         );</span>
+<span id="L348"><span class="lineNum">     348</span>              :     } else {</span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           2 :         zend_throw_exception(ce_cairo_exception, &quot;Cairo\\Surface\\Image::createFromJpeg() Argument #1 ($file) must be of type string or a stream resource&quot;, 0);</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           2 :         RETURN_THROWS();</span></span>
+<span id="L351"><span class="lineNum">     351</span>              :     }</span>
+<span id="L352"><span class="lineNum">     352</span>              : </span>
+<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC">           4 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
+<span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L355"><span class="lineNum">     355</span>              :     }</span>
+<span id="L356"><span class="lineNum">     356</span>              : }</span>
+<span id="L357"><span class="lineNum">     357</span>              : /* }}} */</span>
+<span id="L358"><span class="lineNum">     358</span>              : #endif</span>
+<span id="L359"><span class="lineNum">     359</span>              : </span>
+<span id="L360"><span class="lineNum">     360</span>              : /* {{{ proto int CairoFormat::strideForWidth(long format, long width)</span>
+<span id="L361"><span class="lineNum">     361</span>              :         This function provides a stride value that will respect all alignment</span>
+<span id="L362"><span class="lineNum">     362</span>              :         requirements of the accelerated image-rendering code within cairo. */</span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC tlaBgGNC">          12 : PHP_METHOD(Cairo_Surface_ImageFormat, strideForWidth)</span></span>
+<span id="L364"><span class="lineNum">     364</span>              : {</span>
+<span id="L365"><span class="lineNum">     365</span>              :     zend_long width;</span>
+<span id="L366"><span class="lineNum">     366</span>              :     zval *format;</span>
+<span id="L367"><span class="lineNum">     367</span>              : </span>
+<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_START(2, 2)</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          12 :         Z_PARAM_OBJECT_OF_CLASS(format, ce_cairo_format)</span></span>
+<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">           8 :         Z_PARAM_LONG(width)</span></span>
+<span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">          12 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L372"><span class="lineNum">     372</span>              : </span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           4 :     RETURN_LONG(cairo_format_stride_for_width(</span></span>
+<span id="L374"><span class="lineNum">     374</span>              :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(format))),</span>
+<span id="L375"><span class="lineNum">     375</span>              :         (int) width</span>
+<span id="L376"><span class="lineNum">     376</span>              :     ));</span>
+<span id="L377"><span class="lineNum">     377</span>              : }</span>
+<span id="L378"><span class="lineNum">     378</span>              : /* }}} */</span>
+<span id="L379"><span class="lineNum">     379</span>              : </span>
+<span id="L380"><span class="lineNum">     380</span>              : </span>
+<span id="L381"><span class="lineNum">     381</span>              : /* ----------------------------------------------------------------</span>
+<span id="L382"><span class="lineNum">     382</span>              :     Cairo\FontOptions Definition and registration</span>
+<span id="L383"><span class="lineNum">     383</span>              : ------------------------------------------------------------------*/</span>
+<span id="L384"><span class="lineNum">     384</span>              : </span>
+<span id="L385"><span class="lineNum">     385</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
+<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">         858 : PHP_MINIT_FUNCTION(cairo_image_surface)</span></span>
+<span id="L387"><span class="lineNum">     387</span>              : {</span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">         858 :     ce_cairo_imagesurface = register_class_Cairo_Surface_Image(ce_cairo_surface);</span></span>
+<span id="L389"><span class="lineNum">     389</span>              : </span>
+<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">         858 :     ce_cairo_format = register_class_Cairo_Surface_ImageFormat();</span></span>
+<span id="L391"><span class="lineNum">     391</span>              : </span>
+<span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">         858 :     return SUCCESS;</span></span>
+<span id="L393"><span class="lineNum">     393</span>              : }</span>
+<span id="L394"><span class="lineNum">     394</span>              : /* }}} */</span>
         </pre>
               </td>
             </tr>

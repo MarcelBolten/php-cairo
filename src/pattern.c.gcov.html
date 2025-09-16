@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-16 07:12:27</td>
+            <td class="headerValue">2025-09-16 07:19:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -1338,56 +1338,56 @@
 <span id="L1276"><span class="lineNum">    1276</span>              : ------------------------------------------------------------------*/</span>
 <span id="L1277"><span class="lineNum">    1277</span>              : </span>
 <span id="L1278"><span class="lineNum">    1278</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L1279"><span class="lineNum">    1279</span> <span class="tlaGNC">         854 : PHP_MINIT_FUNCTION(cairo_pattern)</span></span>
+<span id="L1279"><span class="lineNum">    1279</span> <span class="tlaGNC">         858 : PHP_MINIT_FUNCTION(cairo_pattern)</span></span>
 <span id="L1280"><span class="lineNum">    1280</span>              : {</span>
-<span id="L1281"><span class="lineNum">    1281</span> <span class="tlaGNC">         854 :     memcpy(</span></span>
+<span id="L1281"><span class="lineNum">    1281</span> <span class="tlaGNC">         858 :     memcpy(</span></span>
 <span id="L1282"><span class="lineNum">    1282</span>              :         &amp;cairo_pattern_object_handlers,</span>
 <span id="L1283"><span class="lineNum">    1283</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L1284"><span class="lineNum">    1284</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L1285"><span class="lineNum">    1285</span>              :     );</span>
 <span id="L1286"><span class="lineNum">    1286</span>              : </span>
 <span id="L1287"><span class="lineNum">    1287</span>              :     // Pattern</span>
-<span id="L1288"><span class="lineNum">    1288</span> <span class="tlaGNC">         854 :     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);</span></span>
-<span id="L1289"><span class="lineNum">    1289</span> <span class="tlaGNC">         854 :     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;</span></span>
+<span id="L1288"><span class="lineNum">    1288</span> <span class="tlaGNC">         858 :     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);</span></span>
+<span id="L1289"><span class="lineNum">    1289</span> <span class="tlaGNC">         858 :     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;</span></span>
 <span id="L1290"><span class="lineNum">    1290</span>              : </span>
-<span id="L1291"><span class="lineNum">    1291</span> <span class="tlaGNC">         854 :     ce_cairo_pattern = register_class_Cairo_Pattern();</span></span>
-<span id="L1292"><span class="lineNum">    1292</span> <span class="tlaGNC">         854 :     ce_cairo_pattern-&gt;create_object = cairo_pattern_create_object;</span></span>
+<span id="L1291"><span class="lineNum">    1291</span> <span class="tlaGNC">         858 :     ce_cairo_pattern = register_class_Cairo_Pattern();</span></span>
+<span id="L1292"><span class="lineNum">    1292</span> <span class="tlaGNC">         858 :     ce_cairo_pattern-&gt;create_object = cairo_pattern_create_object;</span></span>
 <span id="L1293"><span class="lineNum">    1293</span>              : </span>
 <span id="L1294"><span class="lineNum">    1294</span>              :     // Pattern\Solid</span>
-<span id="L1295"><span class="lineNum">    1295</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_solid = register_class_Cairo_Pattern_Solid(ce_cairo_pattern);</span></span>
+<span id="L1295"><span class="lineNum">    1295</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_solid = register_class_Cairo_Pattern_Solid(ce_cairo_pattern);</span></span>
 <span id="L1296"><span class="lineNum">    1296</span>              : </span>
 <span id="L1297"><span class="lineNum">    1297</span>              :     // Pattern\Gradient</span>
-<span id="L1298"><span class="lineNum">    1298</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_gradient = register_class_Cairo_Pattern_Gradient(ce_cairo_pattern);</span></span>
+<span id="L1298"><span class="lineNum">    1298</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_gradient = register_class_Cairo_Pattern_Gradient(ce_cairo_pattern);</span></span>
 <span id="L1299"><span class="lineNum">    1299</span>              : </span>
 <span id="L1300"><span class="lineNum">    1300</span>              :     // Pattern\Gradient\Radial</span>
-<span id="L1301"><span class="lineNum">    1301</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_gradient_radial = register_class_Cairo_Pattern_Gradient_Radial(ce_cairo_pattern_gradient);</span></span>
+<span id="L1301"><span class="lineNum">    1301</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_gradient_radial = register_class_Cairo_Pattern_Gradient_Radial(ce_cairo_pattern_gradient);</span></span>
 <span id="L1302"><span class="lineNum">    1302</span>              : </span>
 <span id="L1303"><span class="lineNum">    1303</span>              :     // Pattern\Gradient\Linear</span>
-<span id="L1304"><span class="lineNum">    1304</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_gradient_linear = register_class_Cairo_Pattern_Gradient_Linear(ce_cairo_pattern_gradient);</span></span>
+<span id="L1304"><span class="lineNum">    1304</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_gradient_linear = register_class_Cairo_Pattern_Gradient_Linear(ce_cairo_pattern_gradient);</span></span>
 <span id="L1305"><span class="lineNum">    1305</span>              : </span>
 <span id="L1306"><span class="lineNum">    1306</span>              :     // Pattern\Surface</span>
-<span id="L1307"><span class="lineNum">    1307</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_surface = register_class_Cairo_Pattern_Surface(ce_cairo_pattern);</span></span>
+<span id="L1307"><span class="lineNum">    1307</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_surface = register_class_Cairo_Pattern_Surface(ce_cairo_pattern);</span></span>
 <span id="L1308"><span class="lineNum">    1308</span>              : </span>
 <span id="L1309"><span class="lineNum">    1309</span>              :     // Pattern\Mesh</span>
-<span id="L1310"><span class="lineNum">    1310</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_mesh = register_class_Cairo_Pattern_Mesh(ce_cairo_pattern);</span></span>
+<span id="L1310"><span class="lineNum">    1310</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_mesh = register_class_Cairo_Pattern_Mesh(ce_cairo_pattern);</span></span>
 <span id="L1311"><span class="lineNum">    1311</span>              : </span>
 <span id="L1312"><span class="lineNum">    1312</span>              :     // Pattern\RasterSource</span>
 <span id="L1313"><span class="lineNum">    1313</span>              :     // not implemented yet</span>
 <span id="L1314"><span class="lineNum">    1314</span>              :     // ce_cairo_pattern_raster = register_class_Cairo_Pattern_RasterSource(ce_cairo_pattern);</span>
 <span id="L1315"><span class="lineNum">    1315</span>              : </span>
 <span id="L1316"><span class="lineNum">    1316</span>              :     // Pattern\Type</span>
-<span id="L1317"><span class="lineNum">    1317</span> <span class="tlaGNC">         854 :     ce_cairo_pattern_type = register_class_Cairo_Pattern_Type();</span></span>
+<span id="L1317"><span class="lineNum">    1317</span> <span class="tlaGNC">         858 :     ce_cairo_pattern_type = register_class_Cairo_Pattern_Type();</span></span>
 <span id="L1318"><span class="lineNum">    1318</span>              : </span>
 <span id="L1319"><span class="lineNum">    1319</span>              :     // Extend</span>
-<span id="L1320"><span class="lineNum">    1320</span> <span class="tlaGNC">         854 :     ce_cairo_extend = register_class_Cairo_Extend();</span></span>
+<span id="L1320"><span class="lineNum">    1320</span> <span class="tlaGNC">         858 :     ce_cairo_extend = register_class_Cairo_Extend();</span></span>
 <span id="L1321"><span class="lineNum">    1321</span>              : </span>
 <span id="L1322"><span class="lineNum">    1322</span>              :     // Filter</span>
-<span id="L1323"><span class="lineNum">    1323</span> <span class="tlaGNC">         854 :     ce_cairo_filter = register_class_Cairo_Filter();</span></span>
+<span id="L1323"><span class="lineNum">    1323</span> <span class="tlaGNC">         858 :     ce_cairo_filter = register_class_Cairo_Filter();</span></span>
 <span id="L1324"><span class="lineNum">    1324</span>              : </span>
 <span id="L1325"><span class="lineNum">    1325</span>              :     // Dither</span>
-<span id="L1326"><span class="lineNum">    1326</span> <span class="tlaGNC">         854 :     ce_cairo_dither = register_class_Cairo_Dither();</span></span>
+<span id="L1326"><span class="lineNum">    1326</span> <span class="tlaGNC">         858 :     ce_cairo_dither = register_class_Cairo_Dither();</span></span>
 <span id="L1327"><span class="lineNum">    1327</span>              : </span>
-<span id="L1328"><span class="lineNum">    1328</span> <span class="tlaGNC">         854 :     return SUCCESS;</span></span>
+<span id="L1328"><span class="lineNum">    1328</span> <span class="tlaGNC">         858 :     return SUCCESS;</span></span>
 <span id="L1329"><span class="lineNum">    1329</span>              : }</span>
         </pre>
               </td>
