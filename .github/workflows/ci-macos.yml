@@ -11,7 +11,7 @@ jobs:
             fail-fast: false
             matrix:
                 php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
-                os: [macos-13] #, macos-14, macos-15
+                os: [macos-14, macos-15]
                 phpts: [ts, nts]
 
         runs-on: ${{ matrix.os }}
@@ -24,7 +24,7 @@ jobs:
               run: |
                 # Update and upgrade Homebrew
                 brew update
-                brew upgrade
+                # brew upgrade
 
                 # Install Cairo and its dependencies
                 # brew install cairo
@@ -52,6 +52,7 @@ jobs:
               run: |
                 phpize
                 ./configure --with-php-config=$(which php-config) \
+                    --with-cairo=$(brew --prefix)/lib \
                 make -j$(sysctl -n hw.ncpu)
                 sudo make install
               # env:
