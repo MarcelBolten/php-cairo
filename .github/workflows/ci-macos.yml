@@ -54,8 +54,6 @@ jobs:
                 ./configure --with-php-config=$(which php-config)
                 make -j$(sysctl -n hw.ncpu)
                 sudo make install
-              # env:
-              #   CFLAGS: "-ggdb3"
 
             - name: "Run Tests"
               run: |
