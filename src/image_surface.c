@@ -291,9 +291,12 @@ PHP_METHOD(Cairo_Surface_Image, createFromPng)
         closure->owned_stream = owned_stream;
 
         surface_object->closure = closure;
-        surface_object->surface = cairo_image_surface_create_from_png_stream((cairo_read_func_t) php_cairo_read_func, (void *)closure);
+        surface_object->surface = cairo_image_surface_create_from_png_stream(
+            (cairo_read_func_t) php_cairo_read_func,
+            (void *)closure
+        );
     } else {
-        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromPng() expects parameter 1 to be a string or a stream resource", 0);
+        zend_throw_exception(ce_cairo_exception, "Cairo\\Surface\\Image::createFromPng() Argument #1 ($file) must be of type string or a stream resource", 0);
         RETURN_THROWS();
     }
 
