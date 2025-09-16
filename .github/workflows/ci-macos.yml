@@ -51,8 +51,7 @@ jobs:
             - name: "Build Cairo Extension"
               run: |
                 phpize
-                ./configure --with-php-config=$(which php-config) \
-                    --with-cairo=$(brew --prefix)/lib \
+                ./configure --with-php-config=$(which php-config)
                 make -j$(sysctl -n hw.ncpu)
                 sudo make install
               # env:
