@@ -128,23 +128,10 @@ PHP_METHOD(Cairo_FontFace_Quartz, createForCGFont)
 
 /* }}} */
 
-/* {{{ cairo_quartz_font_methods[] */
-const zend_function_entry cairo_quartz_font_methods[] = {
-    PHP_ME(Cairo_FontFace_Quartz, createForCGFont, arginfo_class_Cairo_FontFace_Quartz_createForCGFont, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    // PHP_ME(CairoQuartzFontFace, createForAtsuFontId, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    ZEND_FE_END
-};
-/* }}} */
-
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_quartz_font)
 {
-    zend_class_entry quartz_font_face_ce;
-
-    INIT_NS_CLASS_ENTRY(quartz_font_face_ce,
-        ZEND_NS_NAME(CAIRO_NAMESPACE, "FontFace"), "Quartz",
-        cairo_quartz_font_methods);
-    ce_cairo_quartzfont = zend_register_internal_class_ex(&quartz_font_face_ce, ce_cairo_fontface);
+    ce_cairo_quartzfont = register_class_Cairo_FontFace_Quartz(ce_cairo_fontface);
 
 //     /* FontNameCode */
 //     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontNameCode"), ce_cairo_quartzatsufontnamecode);
