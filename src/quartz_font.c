@@ -37,10 +37,11 @@ zend_class_entry *ce_cairo_quartzfont;
    */
 PHP_METHOD(Cairo_FontFace_Quartz, createForCGFont)
 {
-    CFStringRef font_name;
     char *c_font_name;
     size_t c_font_name_len;
     cairo_font_face_object *font_face_object;
+    CFStringRef font_name_cf;
+    CGFontRef cg_font = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_STRING(c_font_name, c_font_name_len)
@@ -49,24 +50,39 @@ PHP_METHOD(Cairo_FontFace_Quartz, createForCGFont)
     object_init_ex(return_value, ce_cairo_quartzfont);
     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
 
-    /* Create our CFStringRef for the call */
-    font_name = CFStringCreateWithCString(NULL, c_font_name, kCFStringEncodingMacRoman);
-
-    /* Try to grab our new font ref */
-    font_face_object->quartzref = CGFontCreateWithFontName(font_name);
-
-    /* We are done with our CFStringRef so we free it - the null check is so we don't crash*/
-    if (font_name != NULL) {
-        CFRelease(font_name);
+    font_name_cf = CFStringCreateWithCString(NULL, c_font_name, kCFStringEncodingUTF8);
+    if (!font_name_cf) {
+        font_name_cf = CFStringCreateWithCString(NULL, c_font_name, kCFStringEncodingMacRoman);
     }
 
-    /* Now actually do the cairo call */
+    if (!font_name_cf) {
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Cairo\\FontFace\\Quartz::createForCGFont(): Unable to create font face for '%s'",
+            c_font_name
+        );
+        RETURN_THROWS();
+    }
+
+    cg_font = CGFontCreateWithFontName(font_name_cf);
+    CFRelease(font_name_cf);
+
+    if (!cg_font) {
+        zend_throw_exception_ex(ce_cairo_exception, 0,
+            "Cairo\\FontFace\\Quartz::createForCGFont(): Unable to create font face for '%s'",
+            c_font_name
+        );
+        RETURN_THROWS();
+    }
+
+    font_face_object->quartzref = cg_font;
+
     font_face_object->font_face = cairo_quartz_font_face_create_for_cgfont(font_face_object->quartzref);
     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        CGFontRelease(cg_font);
+        font_face_object->quartzref = NULL;
         RETURN_THROWS();
     }
 }
-
 /* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION */
