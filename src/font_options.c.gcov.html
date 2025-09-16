@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-16 01:05:48</td>
+            <td class="headerValue">2025-09-16 06:33:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -735,40 +735,40 @@
 <span id="L673"><span class="lineNum">     673</span>              : ------------------------------------------------------------------*/</span>
 <span id="L674"><span class="lineNum">     674</span>              : </span>
 <span id="L675"><span class="lineNum">     675</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L676"><span class="lineNum">     676</span> <span class="tlaGNC tlaBgGNC">         854 : PHP_MINIT_FUNCTION(cairo_font_options)</span></span>
+<span id="L676"><span class="lineNum">     676</span> <span class="tlaGNC tlaBgGNC">         858 : PHP_MINIT_FUNCTION(cairo_font_options)</span></span>
 <span id="L677"><span class="lineNum">     677</span>              : {</span>
-<span id="L678"><span class="lineNum">     678</span> <span class="tlaGNC">         854 :     memcpy(</span></span>
+<span id="L678"><span class="lineNum">     678</span> <span class="tlaGNC">         858 :     memcpy(</span></span>
 <span id="L679"><span class="lineNum">     679</span>              :         &amp;cairo_font_options_object_handlers,</span>
 <span id="L680"><span class="lineNum">     680</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L681"><span class="lineNum">     681</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L682"><span class="lineNum">     682</span>              :     );</span>
 <span id="L683"><span class="lineNum">     683</span>              : </span>
 <span id="L684"><span class="lineNum">     684</span>              :     /* FontOptions */</span>
-<span id="L685"><span class="lineNum">     685</span> <span class="tlaGNC">         854 :     cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);</span></span>
-<span id="L686"><span class="lineNum">     686</span> <span class="tlaGNC">         854 :     cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;</span></span>
+<span id="L685"><span class="lineNum">     685</span> <span class="tlaGNC">         858 :     cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);</span></span>
+<span id="L686"><span class="lineNum">     686</span> <span class="tlaGNC">         858 :     cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;</span></span>
 <span id="L687"><span class="lineNum">     687</span>              : </span>
-<span id="L688"><span class="lineNum">     688</span> <span class="tlaGNC">         854 :     ce_cairo_fontoptions = register_class_Cairo_FontOptions();</span></span>
-<span id="L689"><span class="lineNum">     689</span> <span class="tlaGNC">         854 :     ce_cairo_fontoptions-&gt;create_object = cairo_font_options_create_object;</span></span>
+<span id="L688"><span class="lineNum">     688</span> <span class="tlaGNC">         858 :     ce_cairo_fontoptions = register_class_Cairo_FontOptions();</span></span>
+<span id="L689"><span class="lineNum">     689</span> <span class="tlaGNC">         858 :     ce_cairo_fontoptions-&gt;create_object = cairo_font_options_create_object;</span></span>
 <span id="L690"><span class="lineNum">     690</span>              : </span>
 <span id="L691"><span class="lineNum">     691</span>              : </span>
 <span id="L692"><span class="lineNum">     692</span>              :     /* Antialias */</span>
-<span id="L693"><span class="lineNum">     693</span> <span class="tlaGNC">         854 :     ce_cairo_antialias = register_class_Cairo_Antialias();</span></span>
+<span id="L693"><span class="lineNum">     693</span> <span class="tlaGNC">         858 :     ce_cairo_antialias = register_class_Cairo_Antialias();</span></span>
 <span id="L694"><span class="lineNum">     694</span>              : </span>
 <span id="L695"><span class="lineNum">     695</span>              :     /* SubPixelOrder */</span>
-<span id="L696"><span class="lineNum">     696</span> <span class="tlaGNC">         854 :     ce_cairo_subpixelorder = register_class_Cairo_SubPixelOrder();</span></span>
+<span id="L696"><span class="lineNum">     696</span> <span class="tlaGNC">         858 :     ce_cairo_subpixelorder = register_class_Cairo_SubPixelOrder();</span></span>
 <span id="L697"><span class="lineNum">     697</span>              : </span>
 <span id="L698"><span class="lineNum">     698</span>              :     /* HintStyle */</span>
-<span id="L699"><span class="lineNum">     699</span> <span class="tlaGNC">         854 :     ce_cairo_hintstyle = register_class_Cairo_HintStyle();</span></span>
+<span id="L699"><span class="lineNum">     699</span> <span class="tlaGNC">         858 :     ce_cairo_hintstyle = register_class_Cairo_HintStyle();</span></span>
 <span id="L700"><span class="lineNum">     700</span>              : </span>
 <span id="L701"><span class="lineNum">     701</span>              :     /* HintMetrics */</span>
-<span id="L702"><span class="lineNum">     702</span> <span class="tlaGNC">         854 :     ce_cairo_hintmetrics = register_class_Cairo_HintMetrics();</span></span>
+<span id="L702"><span class="lineNum">     702</span> <span class="tlaGNC">         858 :     ce_cairo_hintmetrics = register_class_Cairo_HintMetrics();</span></span>
 <span id="L703"><span class="lineNum">     703</span>              : </span>
 <span id="L704"><span class="lineNum">     704</span>              :     /* ColorMode */</span>
 <span id="L705"><span class="lineNum">     705</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 18, 0)</span>
-<span id="L706"><span class="lineNum">     706</span> <span class="tlaGNC">         854 :     ce_cairo_color_mode = register_class_Cairo_ColorMode();</span></span>
+<span id="L706"><span class="lineNum">     706</span> <span class="tlaGNC">         858 :     ce_cairo_color_mode = register_class_Cairo_ColorMode();</span></span>
 <span id="L707"><span class="lineNum">     707</span>              : #endif</span>
 <span id="L708"><span class="lineNum">     708</span>              : </span>
-<span id="L709"><span class="lineNum">     709</span> <span class="tlaGNC">         854 :     return SUCCESS;</span></span>
+<span id="L709"><span class="lineNum">     709</span> <span class="tlaGNC">         858 :     return SUCCESS;</span></span>
 <span id="L710"><span class="lineNum">     710</span>              : }</span>
 <span id="L711"><span class="lineNum">     711</span>              : /* }}} */</span>
         </pre>
