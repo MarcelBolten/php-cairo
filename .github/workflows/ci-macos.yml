@@ -88,5 +88,3 @@ jobs:
                 name: cairo-test-macos-${{ matrix.php-version }}-${{ matrix.phpts }}
                 path: |
                   tests/**/*.log
-                  tests/**/*.out
-                  tests/**/*.diff
