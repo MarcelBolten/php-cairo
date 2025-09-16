@@ -48,6 +48,6 @@ object(Cairo\FontFace\Quartz)#%d (0) {
 }
 enum(Cairo\FontType::Quartz)
 Cairo\FontFace\Quartz::createForCGFont(): Unable to create font face for 'non existing font'
-Cairo\FontFace\Quartz::createForCGFont(): expects exactly 1 argument, 0 given
-Cairo\FontFace\Quartz::createForCGFont(): expects exactly 1 argument, 2 given
-Cairo\FontFace\Quartz::createForCGFont(): expects parameter 1 to be string, array given
+Cairo\FontFace\Quartz::createForCGFont() expects exactly 1 argument, 0 given
+Cairo\FontFace\Quartz::createForCGFont() expects exactly 1 argument, 2 given
+Cairo\FontFace\Quartz::createForCGFont(): Argument #1 ($fontName) must be of type string, array given
