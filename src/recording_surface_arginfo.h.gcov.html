@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-16 07:08:35</td>
+            <td class="headerValue">2025-09-16 07:12:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -85,18 +85,18 @@
 <span id="L23"><span class="lineNum">      23</span>              :     ZEND_FE_END</span>
 <span id="L24"><span class="lineNum">      24</span>              : };</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         858 : static zend_class_entry *register_class_Cairo_Surface_Recording(zend_class_entry *class_entry_Cairo_Surface)</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         854 : static zend_class_entry *register_class_Cairo_Surface_Recording(zend_class_entry *class_entry_Cairo_Surface)</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : {</span>
 <span id="L28"><span class="lineNum">      28</span>              :     zend_class_entry ce, *class_entry;</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         858 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo\\Surface&quot;, &quot;Recording&quot;, class_Cairo_Surface_Recording_methods);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         854 :     INIT_NS_CLASS_ENTRY(ce, &quot;Cairo\\Surface&quot;, &quot;Recording&quot;, class_Cairo_Surface_Recording_methods);</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : #if (PHP_VERSION_ID &gt;= 80400)</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         858 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, class_entry_Cairo_Surface, 0);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         854 :     class_entry = zend_register_internal_class_with_flags(&amp;ce, class_entry_Cairo_Surface, 0);</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : #else</span>
 <span id="L34"><span class="lineNum">      34</span>              :     class_entry = zend_register_internal_class_ex(&amp;ce, class_entry_Cairo_Surface);</span>
 <span id="L35"><span class="lineNum">      35</span>              : #endif</span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         858 :     return class_entry;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         854 :     return class_entry;</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : }</span>
         </pre>
               </td>

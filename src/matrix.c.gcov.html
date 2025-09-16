@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-16 07:08:35</td>
+            <td class="headerValue">2025-09-16 07:12:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -633,26 +633,26 @@
 <span id="L571"><span class="lineNum">     571</span>              : ------------------------------------------------------------------*/</span>
 <span id="L572"><span class="lineNum">     572</span>              : </span>
 <span id="L573"><span class="lineNum">     573</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L574"><span class="lineNum">     574</span> <span class="tlaGNC">         858 : PHP_MINIT_FUNCTION(cairo_matrix)</span></span>
+<span id="L574"><span class="lineNum">     574</span> <span class="tlaGNC">         854 : PHP_MINIT_FUNCTION(cairo_matrix)</span></span>
 <span id="L575"><span class="lineNum">     575</span>              : {</span>
-<span id="L576"><span class="lineNum">     576</span> <span class="tlaGNC">         858 :     memcpy(</span></span>
+<span id="L576"><span class="lineNum">     576</span> <span class="tlaGNC">         854 :     memcpy(</span></span>
 <span id="L577"><span class="lineNum">     577</span>              :         &amp;cairo_matrix_object_handlers,</span>
 <span id="L578"><span class="lineNum">     578</span>              :         zend_get_std_object_handlers(),</span>
 <span id="L579"><span class="lineNum">     579</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L580"><span class="lineNum">     580</span>              :     );</span>
 <span id="L581"><span class="lineNum">     581</span>              : </span>
-<span id="L582"><span class="lineNum">     582</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.offset = XtOffsetOf(cairo_matrix_object, std);</span></span>
-<span id="L583"><span class="lineNum">     583</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.free_obj = cairo_matrix_free_obj;</span></span>
-<span id="L584"><span class="lineNum">     584</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.clone_obj = cairo_matrix_clone_obj;</span></span>
-<span id="L585"><span class="lineNum">     585</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.read_property = cairo_matrix_object_read_property;</span></span>
-<span id="L586"><span class="lineNum">     586</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.write_property = cairo_matrix_object_write_property;</span></span>
-<span id="L587"><span class="lineNum">     587</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.get_property_ptr_ptr = NULL;</span></span>
-<span id="L588"><span class="lineNum">     588</span> <span class="tlaGNC">         858 :     cairo_matrix_object_handlers.get_properties = cairo_matrix_object_get_properties;</span></span>
+<span id="L582"><span class="lineNum">     582</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.offset = XtOffsetOf(cairo_matrix_object, std);</span></span>
+<span id="L583"><span class="lineNum">     583</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.free_obj = cairo_matrix_free_obj;</span></span>
+<span id="L584"><span class="lineNum">     584</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.clone_obj = cairo_matrix_clone_obj;</span></span>
+<span id="L585"><span class="lineNum">     585</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.read_property = cairo_matrix_object_read_property;</span></span>
+<span id="L586"><span class="lineNum">     586</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.write_property = cairo_matrix_object_write_property;</span></span>
+<span id="L587"><span class="lineNum">     587</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.get_property_ptr_ptr = NULL;</span></span>
+<span id="L588"><span class="lineNum">     588</span> <span class="tlaGNC">         854 :     cairo_matrix_object_handlers.get_properties = cairo_matrix_object_get_properties;</span></span>
 <span id="L589"><span class="lineNum">     589</span>              : </span>
-<span id="L590"><span class="lineNum">     590</span> <span class="tlaGNC">         858 :     ce_cairo_matrix = register_class_Cairo_Matrix();</span></span>
-<span id="L591"><span class="lineNum">     591</span> <span class="tlaGNC">         858 :     ce_cairo_matrix-&gt;create_object = cairo_matrix_create_object;</span></span>
+<span id="L590"><span class="lineNum">     590</span> <span class="tlaGNC">         854 :     ce_cairo_matrix = register_class_Cairo_Matrix();</span></span>
+<span id="L591"><span class="lineNum">     591</span> <span class="tlaGNC">         854 :     ce_cairo_matrix-&gt;create_object = cairo_matrix_create_object;</span></span>
 <span id="L592"><span class="lineNum">     592</span>              : </span>
-<span id="L593"><span class="lineNum">     593</span> <span class="tlaGNC">         858 :     return SUCCESS;</span></span>
+<span id="L593"><span class="lineNum">     593</span> <span class="tlaGNC">         854 :     return SUCCESS;</span></span>
 <span id="L594"><span class="lineNum">     594</span>              : }</span>
 <span id="L595"><span class="lineNum">     595</span>              : /* }}} */</span>
         </pre>
