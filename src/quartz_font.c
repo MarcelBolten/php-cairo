@@ -26,6 +26,7 @@
 
 #include <cairo-quartz.h>
 #include <ApplicationServices/ApplicationServices.h>
+#include "quartz_font_arginfo.h"
 
 zend_class_entry *ce_cairo_quartzfont;
 zend_class_entry *ce_cairo_quartzatsufontnamecode;
@@ -95,7 +96,7 @@ PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
    If that is successful it creates a new quartz font face from the resulting Id
    http://developer.apple.com/documentation/graphicsimaging/Reference/CGFont/Reference/reference.html#/apple_ref/c/func/CGFontCreateWithFontName
    */
-PHP_METHOD(CairoQuartzFontFace, createForCgfont)
+PHP_METHOD(Cairo_FontFace_Quartz, createForCGFont)
 {
     CFStringRef font_name;
     char *c_font_name;
@@ -106,13 +107,8 @@ PHP_METHOD(CairoQuartzFontFace, createForCgfont)
         Z_PARAM_STRING(c_font_name, c_font_name_len)
     ZEND_PARSE_PARAMETERS_END();
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
-
-    if (!font_face_object) {
-        RETURN_NULL();
-    }
-
     object_init_ex(return_value, ce_cairo_quartzfont);
+    font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
 
     /* Create our CFStringRef for the call */
     font_name = CFStringCreateWithCString(NULL, c_font_name, kCFStringEncodingMacRoman);
@@ -121,8 +117,9 @@ PHP_METHOD(CairoQuartzFontFace, createForCgfont)
     font_face_object->quartzref = CGFontCreateWithFontName(font_name);
 
     /* We are done with our CFStringRef so we free it - the null check is so we don't crash*/
-    if (font_name != NULL)
+    if (font_name != NULL) {
         CFRelease(font_name);
+    }
 
     /* Now actually do the cairo call */
     font_face_object->font_face = cairo_quartz_font_face_create_for_cgfont(font_face_object->quartzref);
@@ -135,7 +132,7 @@ PHP_METHOD(CairoQuartzFontFace, createForCgfont)
 
 /* {{{ cairo_quartz_font_methods[] */
 const zend_function_entry cairo_quartz_font_methods[] = {
-    PHP_ME(CairoQuartzFontFace, createForCgfont, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+    PHP_ME(Cairo_FontFace_Quartz, createForCGFont, arginfo_class_Cairo_FontFace_Quartz_createForCGFont, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
     PHP_ME(CairoQuartzFontFace, createForAtsuFontId, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
     ZEND_FE_END
 };
