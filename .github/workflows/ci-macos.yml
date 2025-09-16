@@ -3,7 +3,7 @@ name: Build on macOS
 on:
     push:
         branches:
-            - 'macOS-gh-action'
+            - '*'
 
 jobs:
     build:
