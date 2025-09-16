@@ -29,67 +29,65 @@
 #include "quartz_font_arginfo.h"
 
 zend_class_entry *ce_cairo_quartzfont;
-zend_class_entry *ce_cairo_quartzatsufontnamecode;
-zend_class_entry *ce_cairo_quartzatsufontnameplatform;
-zend_class_entry *ce_cairo_quartzatsufontnamescript;
-zend_class_entry *ce_cairo_quartzatsufontnamelanguage;
+// zend_class_entry *ce_cairo_quartzatsufontnamecode;
+// zend_class_entry *ce_cairo_quartzatsufontnameplatform;
+// zend_class_entry *ce_cairo_quartzatsufontnamescript;
+// zend_class_entry *ce_cairo_quartzatsufontnamelanguage;
 
-/* {{{ proto CairoQuartzFontFace CairoQuartzFontFace::createForAtsuFontId(string font_name[, int code, int platform, int script, int language])
-   Takes parameters from the user an attempts to look up an atsu font id
-   If that is successful it creates a new quartz font face from the resulting Id
-   http://developer.apple.com/documentation/Carbon/Reference/ATSUI_Reference/Reference/reference.html#/apple_ref/c/func/ATSUFindFontFromName
-   https://developer.apple.com/documentation/applicationservices/applicationservices_functions
-   */
-PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
-{
-    ATSUFontID fontID;
-    // OSStatus error;
-    char *font_name;
-    size_t font_name_length;
-    zval *code; // = kFontFullName;
-    zval *platform; // = kFontNoPlatformCode;
-    zval *script; // = kFontRomanScript;
-    zval *language; // = kFontNoLanguageCode;
+// /* {{{ proto CairoQuartzFontFace CairoQuartzFontFace::createForAtsuFontId(string font_name[, int code, int platform, int script, int language])
+//    Takes parameters from the user an attempts to look up an atsu font id
+//    If that is successful it creates a new quartz font face from the resulting Id
+//    http://developer.apple.com/documentation/Carbon/Reference/ATSUI_Reference/Reference/reference.html#/apple_ref/c/func/ATSUFindFontFromName
+//    https://developer.apple.com/documentation/applicationservices/applicationservices_functions
+//    */
+// PHP_METHOD(CairoQuartzFontFace, createForAtsuFontId)
+// {
+//     ATSUFontID fontID;
+//     // OSStatus error;
+//     char *font_name;
+//     size_t font_name_length;
+//     zval *code; // = kFontFullName;
+//     zval *platform; // = kFontNoPlatformCode;
+//     zval *script; // = kFontRomanScript;
+//     zval *language; // = kFontNoLanguageCode;
 
-    cairo_font_face_object *font_face_object;
+//     cairo_font_face_object *font_face_object;
 
-    ZEND_PARSE_PARAMETERS_START(1, 5)
-        Z_PARAM_STRING(font_name, font_name_length)
-        Z_PARAM_OPTIONAL
-        Z_PARAM_OBJECT_OF_CLASS(code, ce_cairo_quartzatsufontnamecode)
-        Z_PARAM_OBJECT_OF_CLASS(platform, ce_cairo_quartzatsufontnameplatform)
-        Z_PARAM_OBJECT_OF_CLASS(script, ce_cairo_quartzatsufontnamescript)
-        Z_PARAM_OBJECT_OF_CLASS(language, ce_cairo_quartzatsufontnamelanguage)
-    ZEND_PARSE_PARAMETERS_END();
+//     ZEND_PARSE_PARAMETERS_START(1, 5)
+//         Z_PARAM_STRING(font_name, font_name_length)
+//         Z_PARAM_OPTIONAL
+//         Z_PARAM_OBJECT_OF_CLASS(code, ce_cairo_quartzatsufontnamecode)
+//         Z_PARAM_OBJECT_OF_CLASS(platform, ce_cairo_quartzatsufontnameplatform)
+//         Z_PARAM_OBJECT_OF_CLASS(script, ce_cairo_quartzatsufontnamescript)
+//         Z_PARAM_OBJECT_OF_CLASS(language, ce_cairo_quartzatsufontnamelanguage)
+//     ZEND_PARSE_PARAMETERS_END();
 
-    ATSUFindFontFromName(
-        (const char *)font_name,
-        (int)font_name_length,
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(code))),
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(platform))),
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(script))),
-        Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(language))),
-        &fontID
-    );
+//     // https://developer.apple.com/library/archive/documentation/StringsTextFonts/Conceptual/CoreText_Programming/Overview/Overview.html
+//     // https://developer.apple.com/documentation/coretext
+//     // https://developer.apple.com/documentation/coretext?language=objc
+//     ATSUFindFontFromName(
+//         (const char *)font_name,
+//         (int)font_name_length,
+//         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(code))),
+//         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(platform))),
+//         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(script))),
+//         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(language))),
+//         &fontID
+//     );
 
-    if (fontID == kATSUInvalidFontID) {
-        zend_throw_exception(ce_cairo_exception, "Atsu Font could not be retrieved", 0);
-        RETURN_THROWS();
-    }
+//     if (fontID == kATSUInvalidFontID) {
+//         zend_throw_exception(ce_cairo_exception, "Atsu Font could not be retrieved", 0);
+//         RETURN_THROWS();
+//     }
 
-    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+//     object_init_ex(return_value, ce_cairo_quartzfont);
+//     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);
 
-    if (!font_face_object) {
-        RETURN_NULL();
-    }
-
-    object_init_ex(return_value, ce_cairo_quartzfont);
-
-    font_face_object->font_face = cairo_quartz_font_face_create_for_atsu_font_id(fontID);
-    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
-        RETURN_THROWS();
-    }
-}
+//     font_face_object->font_face = cairo_quartz_font_face_create_for_atsu_font_id(fontID);
+//     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+//         RETURN_THROWS();
+//     }
+// }
 
 /* {{{ proto CairoQuartzFontFace CairoQuartzFontFace::createForCgfont(string font_name[, int code, int platform, int script, int language])
    Takes parameters from the user and attempts to create a ctfontref
@@ -133,7 +131,7 @@ PHP_METHOD(Cairo_FontFace_Quartz, createForCGFont)
 /* {{{ cairo_quartz_font_methods[] */
 const zend_function_entry cairo_quartz_font_methods[] = {
     PHP_ME(Cairo_FontFace_Quartz, createForCGFont, arginfo_class_Cairo_FontFace_Quartz_createForCGFont, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
-    PHP_ME(CairoQuartzFontFace, createForAtsuFontId, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
+    // PHP_ME(CairoQuartzFontFace, createForAtsuFontId, NULL, ZEND_ACC_PUBLIC | ZEND_ACC_STATIC)
     ZEND_FE_END
 };
 /* }}} */
@@ -148,211 +146,211 @@ PHP_MINIT_FUNCTION(cairo_quartz_font)
         cairo_quartz_font_methods);
     ce_cairo_quartzfont = zend_register_internal_class_ex(&quartz_font_face_ce, ce_cairo_fontface);
 
-    /* FontNameCode */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontNameCode"), ce_cairo_quartzatsufontnamecode);
+//     /* FontNameCode */
+//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontNameCode"), ce_cairo_quartzatsufontnamecode);
 
-#define CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(name) \
-    zval enum_case_ ## kFont ## _ ## name ## _value; \
-    ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
-    zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamecode, #name, &enum_case_ ## kFont ## _ ## name ## _value);
+// #define CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(name) \
+//     zval enum_case_ ## kFont ## _ ## name ## _value; \
+//     ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
+//     zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamecode, #name, &enum_case_ ## kFont ## _ ## name ## _value);
 
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(CopyrightName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(FamilyName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(StyleName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(UniqueName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(FullName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(VersionName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(PostscriptName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(TrademarkName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(ManufacturerName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DesignerName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DescriptionName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(VendorURLName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DesignerURLName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(LicenseDescriptionName);
-    CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(LicenseInfoURLName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(CopyrightName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(FamilyName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(StyleName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(UniqueName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(FullName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(VersionName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(PostscriptName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(TrademarkName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(ManufacturerName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DesignerName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DescriptionName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(VendorURLName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(DesignerURLName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(LicenseDescriptionName);
+//     CAIRO_QUARTZ_FONT_CODE_DECLARE_ENUM_CASE(LicenseInfoURLName);
 
-    /* PlatformCode */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontPlatformCode"), ce_cairo_quartzatsufontnamescript);
+//     /* PlatformCode */
+//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontPlatformCode"), ce_cairo_quartzatsufontnamescript);
 
-#define CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(name) \
-    zval enum_case_ ## kFont ## _ ## name ## _value; \
-    ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
-    zend_enum_add_case_cstr(ce_cairo_quartzatsufontnameplatform, #name, &enum_case_ ## kFont ## _ ## name ## _value);
+// #define CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(name) \
+//     zval enum_case_ ## kFont ## _ ## name ## _value; \
+//     ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
+//     zend_enum_add_case_cstr(ce_cairo_quartzatsufontnameplatform, #name, &enum_case_ ## kFont ## _ ## name ## _value);
 
-    CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(UnicodePlatform);
-    CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(MacintoshPlatform);
-    CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(ReservedPlatform);
-    CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(MicrosoftPlatform);
-    CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(CustomPlatform);
+//     CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(UnicodePlatform);
+//     CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(MacintoshPlatform);
+//     CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(ReservedPlatform);
+//     CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(MicrosoftPlatform);
+//     CAIRO_QUARTZ_FONT_PLATFORM_DECLARE_ENUM_CASE(CustomPlatform);
 
-    /* ScriptCode */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontScriptCode"), ce_cairo_quartzatsufontnamescript);
+//     /* ScriptCode */
+//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontScriptCode"), ce_cairo_quartzatsufontnamescript);
 
-#define CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(name) \
-    zval enum_case_ ## kFont ## _ ## name ## _value; \
-    ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
-    zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamescript, #name, &enum_case_ ## kFont ## _ ## name ## _value);
+// #define CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(name) \
+//     zval enum_case_ ## kFont ## _ ## name ## _value; \
+//     ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
+//     zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamescript, #name, &enum_case_ ## kFont ## _ ## name ## _value);
 
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(RomanScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(JapaneseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TraditionalChineseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ChineseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KoreanScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ArabicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(HebrewScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GreekScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(CyrillicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(Russian);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(RSymbolScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(DevanagariScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GurmukhiScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GujaratiScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(OriyaScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(BengaliScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TamilScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TeluguScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KannadaScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(MalayalamScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SinhaleseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(BurmeseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KhmerScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ThaiScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(LaotianScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GeorgianScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ArmenianScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SimpleChineseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TibetanScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(MongolianScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GeezScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(EthiopicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(AmharicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SlavicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(EastEuropeanRomanScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(VietnameseScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ExtendedArabicScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SindhiScript);
-    CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(UninterpretedScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(RomanScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(JapaneseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TraditionalChineseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ChineseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KoreanScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ArabicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(HebrewScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GreekScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(CyrillicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(Russian);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(RSymbolScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(DevanagariScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GurmukhiScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GujaratiScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(OriyaScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(BengaliScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TamilScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TeluguScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KannadaScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(MalayalamScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SinhaleseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(BurmeseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(KhmerScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ThaiScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(LaotianScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GeorgianScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ArmenianScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SimpleChineseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(TibetanScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(MongolianScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(GeezScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(EthiopicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(AmharicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SlavicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(EastEuropeanRomanScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(VietnameseScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(ExtendedArabicScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(SindhiScript);
+//     CAIRO_QUARTZ_FONT_SCRIPT_DECLARE_ENUM_CASE(UninterpretedScript);
 
-    /* LanguageCode */
-    CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontLanguageCode"), ce_cairo_quartzatsufontnamelanguage);
+//     /* LanguageCode */
+//     CAIRO_REGISTER_ENUM_LONG(ZEND_NS_NAME("Quartz", "AtsuFontLanguageCode"), ce_cairo_quartzatsufontnamelanguage);
 
-#define CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(name) \
-    zval enum_case_ ## kFont ## _ ## name ## _value; \
-    ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
-    zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamelanguage, #name, &enum_case_ ## kFont ## _ ## name ## _value);
+// #define CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(name) \
+//     zval enum_case_ ## kFont ## _ ## name ## _value; \
+//     ZVAL_LONG(&enum_case_ ## kFont ## _ ## name ## _value, kFont ## name); \
+//     zend_enum_add_case_cstr(ce_cairo_quartzatsufontnamelanguage, #name, &enum_case_ ## kFont ## _ ## name ## _value);
 
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EnglishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FrenchLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GermanLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ItalianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DutchLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SwedishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SpanishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DanishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PortugueseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(NorwegianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HebrewLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(JapaneseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ArabicLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FinnishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GreekLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IcelandicLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalteseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TurkishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CroatianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TradChineseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UrduLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HindiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ThaiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KoreanLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LithuanianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PolishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HungarianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EstonianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LettishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LatvianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SaamiskLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LappishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FaeroeseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FarsiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PersianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RussianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SimpChineseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FlemishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IrishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AlbanianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RomanianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CzechLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SlovakLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SlovenianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(YiddishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SerbianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MacedonianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BulgarianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UkrainianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ByelorussianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UzbekLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KazakhLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AzerbaijaniLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AzerbaijanArLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ArmenianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GeorgianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MoldavianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KirghizLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TajikiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TurkmenLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MongolianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MongolianCyrLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PashtoLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KurdishLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KashmiriLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SindhiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TibetanLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(NepaliLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SanskritLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MarathiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BengaliLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AssameseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GujaratiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PunjabiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(OriyaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayalamLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KannadaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TamilLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TeluguLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SinhaleseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BurmeseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KhmerLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LaoLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(VietnameseLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IndonesianLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TagalogLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayRomanLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayArabicLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AmharicLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TigrinyaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GallaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(OromoLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SomaliLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SwahiliLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RuandaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RundiLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ChewaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalagasyLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EsperantoLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(WelshLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BasqueLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CatalanLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LatinLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(QuechuaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GuaraniLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AymaraLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TatarLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UighurLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DzongkhaLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(JavaneseRomLanguage);
-    CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SundaneseRomLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EnglishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FrenchLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GermanLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ItalianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DutchLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SwedishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SpanishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DanishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PortugueseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(NorwegianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HebrewLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(JapaneseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ArabicLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FinnishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GreekLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IcelandicLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalteseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TurkishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CroatianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TradChineseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UrduLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HindiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ThaiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KoreanLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LithuanianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PolishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(HungarianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EstonianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LettishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LatvianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SaamiskLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LappishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FaeroeseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FarsiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PersianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RussianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SimpChineseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(FlemishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IrishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AlbanianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RomanianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CzechLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SlovakLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SlovenianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(YiddishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SerbianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MacedonianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BulgarianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UkrainianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ByelorussianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UzbekLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KazakhLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AzerbaijaniLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AzerbaijanArLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ArmenianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GeorgianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MoldavianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KirghizLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TajikiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TurkmenLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MongolianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MongolianCyrLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PashtoLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KurdishLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KashmiriLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SindhiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TibetanLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(NepaliLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SanskritLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MarathiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BengaliLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AssameseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GujaratiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(PunjabiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(OriyaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayalamLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KannadaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TamilLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TeluguLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SinhaleseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BurmeseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(KhmerLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LaoLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(VietnameseLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(IndonesianLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TagalogLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayRomanLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalayArabicLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AmharicLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TigrinyaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GallaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(OromoLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SomaliLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SwahiliLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RuandaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(RundiLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(ChewaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(MalagasyLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(EsperantoLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(WelshLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(BasqueLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(CatalanLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(LatinLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(QuechuaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(GuaraniLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(AymaraLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(TatarLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(UighurLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(DzongkhaLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(JavaneseRomLanguage);
+//     CAIRO_QUARTZ_FONT_LANGUAGE_DECLARE_ENUM_CASE(SundaneseRomLanguage);
 
     /* TODO: register these too - ugh
 enum {
