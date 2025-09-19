@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: bd5a2ee3bfe474f8ddbf26fdb7301a96195ac295 */
+ * Stub hash: 099b6106a48dc7af1672490d5b3b02c1673a308b */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontOptions___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -71,7 +71,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_FontOptions_setColor
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_FontOptions_setCustomPaletteColor, 0, 4, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, colorId, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, color_id, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, red, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, green, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, blue, IS_DOUBLE, 0)
@@ -79,7 +79,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_FontOptions_setCusto
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_FontOptions_getCustomPaletteColor, 0, 1, IS_ARRAY, 0)
-	ZEND_ARG_TYPE_INFO(0, colorId, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, color_id, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 #endif
 

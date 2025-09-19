@@ -27,7 +27,7 @@ namespace Cairo
          * the rectangle does not exist.
          */
         public function getRectangle(
-            int $rectId
+            int $rect_id
         ): Rectangle|false {}
 
         public function isEmpty(): bool {}

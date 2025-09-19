@@ -55,4 +55,4 @@ array(4) {
 invalid index passed to getter
 Cairo\FontOptions::getCustomPaletteColor() expects exactly 1 argument, 0 given
 Cairo\FontOptions::getCustomPaletteColor() expects exactly 1 argument, 2 given
-Cairo\FontOptions::getCustomPaletteColor(): Argument #1 ($colorId) must be of type int, array given
+Cairo\FontOptions::getCustomPaletteColor(): Argument #1 ($color_id) must be of type int, array given

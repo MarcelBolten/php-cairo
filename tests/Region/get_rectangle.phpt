@@ -66,4 +66,4 @@ object(Cairo\Rectangle)#%d (4) {
   float(100)
 }
 bool(false)
-Cairo\Region::getRectangle(): Argument #1 ($rectId) must be of type int, string given
+Cairo\Region::getRectangle(): Argument #1 ($rect_id) must be of type int, string given

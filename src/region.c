@@ -252,13 +252,13 @@ PHP_METHOD(Cairo_Region, getNumRectangles)
    Returns the nth rectangle in region or false if rectangle does not exist. */
 PHP_METHOD(Cairo_Region, getRectangle)
 {
-    zend_long rectId;
+    zend_long rect_id;
     cairo_region_object *region_object;
     cairo_rectangle_object *rectangle_object;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
-        Z_PARAM_LONG(rectId)
+        Z_PARAM_LONG(rect_id)
     ZEND_PARSE_PARAMETERS_END();
 
     region_object = cairo_region_object_get(getThis());
@@ -266,11 +266,11 @@ PHP_METHOD(Cairo_Region, getRectangle)
         RETURN_THROWS();
     }
 
-    if ((int) rectId > cairo_region_num_rectangles(region_object->region) - 1) {
+    if ((int) rect_id > cairo_region_num_rectangles(region_object->region) - 1) {
         RETURN_FALSE;
     }
 
-    cairo_region_get_rectangle(region_object->region, (int) rectId, &int_rect);
+    cairo_region_get_rectangle(region_object->region, (int) rect_id, &int_rect);
 
     object_init_ex(return_value, php_cairo_get_rectangle_ce());
     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);
