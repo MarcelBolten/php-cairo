@@ -10,6 +10,18 @@ namespace Cairo\FontFace;
 class Ft extends \Cairo\FontFace
 {
     /**
+     * @var int
+     * @cvalue CAIRO_FT_SYNTHESIZE_BOLD
+     */
+    public const SYNTHESIZE_BOLD = UNKNOWN;
+
+    /**
+     * @var int
+     * @cvalue CAIRO_FT_SYNTHESIZE_OBLIQUE
+     */
+    public const SYNTHESIZE_OBLIQUE = UNKNOWN;
+
+    /**
      * @param string|resource $stream
      */
     public function __construct(
@@ -17,9 +29,9 @@ class Ft extends \Cairo\FontFace
         int $flags = 0,
     ) {}
 
-    // TODO: implement missing from version 1.12.0
-    // cairo_ft_font_face_get_synthesize
-    // cairo_ft_font_face_set_synthesize
-    // cairo_ft_font_face_unset_synthesize
-    // enum cairo_ft_synthesize_t
+    public function getSynthesize(): int {}
+
+    public function setSynthesize(int $synthFlags): void {}
+
+    public function unsetSynthesize(int $synthFlags): void {}
 }
