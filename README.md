@@ -14,7 +14,7 @@ Requirements
  * PHP 8.1.0+
  * Cairo 1.12.0+
 
-Additional features are supported up to Cairo version 1.17.0.
+Additional features are supported up to Cairo version 1.18.4.
 
 Features are enabled at compile time based on the library version they are compiled against.
 
