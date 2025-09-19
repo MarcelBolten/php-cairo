@@ -151,7 +151,6 @@ PHP_METHOD(Cairo_Surface_Svg, getVersions)
 
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
-
 /* {{{ proto array \Cairo\Surface\Svg::setDocumentUnit(\Cairo\Surface\Svg\Unit unit)
        ... */
 PHP_METHOD(Cairo_Surface_Svg, setDocumentUnit)

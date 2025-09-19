@@ -175,6 +175,7 @@ PHP_METHOD(Cairo_Surface_Pdf, restrictToVersion)
 /* }}} */
 
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 /* {{{ proto int \Cairo\Surface\Pdf::addOutline(int parent_id, string name, string link_attr, int outline_flag])
        Add an item to the document outline hierarchy with a name that links to the location specified by link_attribs.
        Link attributes have the same keys and values as the Link Tag, excluding the "rect" attribute.
@@ -302,6 +303,7 @@ PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)
     }
 }
 /* }}} */
+#endif
 
 
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 18, 0)

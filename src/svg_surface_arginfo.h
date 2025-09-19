@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 81ed8981d2b96d5461fce10168150637d0792576 */
+ * Stub hash: 093b4565777555b0e49d0e72a1f0933ef64bc6fa */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Svg___construct, 0, 0, 3)
 	ZEND_ARG_INFO(0, file)
@@ -77,49 +77,71 @@ static zend_class_entry *register_class_Cairo_Surface_Svg_Version(void)
 	return class_entry;
 }
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 static zend_class_entry *register_class_Cairo_Surface_Svg_Unit(void)
 {
 	zend_class_entry *class_entry = zend_register_internal_enum("Cairo\\Surface\\Svg\\Unit", IS_LONG, NULL);
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_User_value;
 	ZVAL_LONG(&enum_case_User_value, CAIRO_SVG_UNIT_USER);
 	zend_enum_add_case_cstr(class_entry, "User", &enum_case_User_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_EM_value;
 	ZVAL_LONG(&enum_case_EM_value, CAIRO_SVG_UNIT_EM);
 	zend_enum_add_case_cstr(class_entry, "EM", &enum_case_EM_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_EX_value;
 	ZVAL_LONG(&enum_case_EX_value, CAIRO_SVG_UNIT_EX);
 	zend_enum_add_case_cstr(class_entry, "EX", &enum_case_EX_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_PX_value;
 	ZVAL_LONG(&enum_case_PX_value, CAIRO_SVG_UNIT_PX);
 	zend_enum_add_case_cstr(class_entry, "PX", &enum_case_PX_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_IN_value;
 	ZVAL_LONG(&enum_case_IN_value, CAIRO_SVG_UNIT_IN);
 	zend_enum_add_case_cstr(class_entry, "IN", &enum_case_IN_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_CM_value;
 	ZVAL_LONG(&enum_case_CM_value, CAIRO_SVG_UNIT_CM);
 	zend_enum_add_case_cstr(class_entry, "CM", &enum_case_CM_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_MM_value;
 	ZVAL_LONG(&enum_case_MM_value, CAIRO_SVG_UNIT_MM);
 	zend_enum_add_case_cstr(class_entry, "MM", &enum_case_MM_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_PT_value;
 	ZVAL_LONG(&enum_case_PT_value, CAIRO_SVG_UNIT_PT);
 	zend_enum_add_case_cstr(class_entry, "PT", &enum_case_PT_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_PC_value;
 	ZVAL_LONG(&enum_case_PC_value, CAIRO_SVG_UNIT_PC);
 	zend_enum_add_case_cstr(class_entry, "PC", &enum_case_PC_value);
+#endif
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
 	zval enum_case_Percent_value;
 	ZVAL_LONG(&enum_case_Percent_value, CAIRO_SVG_UNIT_PERCENT);
 	zend_enum_add_case_cstr(class_entry, "Percent", &enum_case_Percent_value);
+#endif
 
 	return class_entry;
 }
+#endif
