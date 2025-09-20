@@ -1,7 +1,7 @@
 Cairo for PHP 8.1+
 =============
 
-Cairo is a 2D graphics library with support for multiple output devices. Output
+[Cairo](https://www.cairographics.org/) is a 2D graphics library with support for multiple output devices. Output
 targets include the X Window System (via both Xlib and XCB), Quartz, Win32,
 image buffers, PostScript, PDF, and SVG files.
 
