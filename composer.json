@@ -1,9 +1,10 @@
 {
     "name": "marcelbolten/php-cairo",
-    "type": "php-ext",
     "description": "Cairo graphics library for PHP",
-    "keywords": ["cairo", "graphics", "drawing", "2d"],
+    "keywords": ["cairo", "graphics", "drawing", "2d", "php-extension"],
+    "type": "php-ext",
     "license": "MIT",
+    "homepage": "https://github.com/MarcelBolten/php-cairo",
     "require": {
         "php": ">=8.1"
     },
@@ -11,5 +12,23 @@
         "extension-name": "cairo",
         "priority": 90,
         "configure-options": []
-    }
+    },
+    "authors": [
+        {
+            "name": "Elizabeth M Smith",
+            "email": "auroraeosrose@gmail.com"
+        },
+        {
+            "name": "Swen Zanon",
+            "email": "swen.zanon@geoglis.de"
+        },
+        {
+            "name": "Marcel Bolten",
+            "email": "github@marcelbolten.de"
+        },
+        {
+            "name": "Bernhard R. Fischer",
+            "email": "bf@abenteuerland.at"
+        }
+    ]
 }
