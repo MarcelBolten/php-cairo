@@ -79,7 +79,7 @@ class FontOptions {
 	): void {}
 
 	public function setCustomPaletteColor(
-		int $colorId,
+		int $color_id,
 		float $red,
 		float $green,
 		float $blue,
@@ -90,7 +90,7 @@ class FontOptions {
 	 * @return array{red: float, green: float, blue: float, alpha: float}
 	 */
 	public function getCustomPaletteColor(
-		int $colorId
+		int $color_id
 	): array {}
 #endif
 }

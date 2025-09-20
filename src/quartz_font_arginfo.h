@@ -1,8 +1,8 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f146d8b2bb785841cce5ae1ecbade5b0c1ff2a46 */
+ * Stub hash: 578f27326cbd6ec3a6c426300ca14cee794a304f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_FontFace_Quartz_createForCGFont, 0, 1, Cairo\\FontFace\\Quartz, 0)
-	ZEND_ARG_TYPE_INFO(0, fontName, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, font_name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_METHOD(Cairo_FontFace_Quartz, createForCGFont);

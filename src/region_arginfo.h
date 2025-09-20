@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1323e58dca5539e0122ad551e98d2e398c727bbd */
+ * Stub hash: 7239204be0b0125c79370fa0fe19a3b7f2f94bd6 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Region___construct, 0, 0, 0)
 	ZEND_ARG_OBJ_TYPE_MASK(0, rectangles, Cairo\\Rectangle, MAY_BE_NULL|MAY_BE_ARRAY, "NULL")
@@ -15,7 +15,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_getNumRectang
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_Cairo_Region_getRectangle, 0, 1, Cairo\\Rectangle, MAY_BE_FALSE)
-	ZEND_ARG_TYPE_INFO(0, rectId, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, rect_id, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Region_isEmpty, 0, 0, _IS_BOOL, 0)

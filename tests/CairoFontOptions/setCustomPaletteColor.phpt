@@ -103,7 +103,7 @@ Cairo\FontOptions::setCustomPaletteColor() expects at least 4 arguments, 1 given
 Cairo\FontOptions::setCustomPaletteColor() expects at least 4 arguments, 2 given
 Cairo\FontOptions::setCustomPaletteColor() expects at least 4 arguments, 3 given
 Cairo\FontOptions::setCustomPaletteColor() expects at most 5 arguments, 6 given
-Cairo\FontOptions::setCustomPaletteColor(): Argument #1 ($colorId) must be of type int, array given
+Cairo\FontOptions::setCustomPaletteColor(): Argument #1 ($color_id) must be of type int, array given
 Cairo\FontOptions::setCustomPaletteColor(): Argument #2 ($red) must be of type float, array given
 Cairo\FontOptions::setCustomPaletteColor(): Argument #3 ($green) must be of type float, array given
 Cairo\FontOptions::setCustomPaletteColor(): Argument #4 ($blue) must be of type float, array given
