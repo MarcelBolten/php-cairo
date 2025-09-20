@@ -1,5 +1,5 @@
 --TEST--
-CairoFontType class constants
+Cairo\FontType class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';

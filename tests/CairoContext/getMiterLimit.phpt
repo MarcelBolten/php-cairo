@@ -1,5 +1,5 @@
 --TEST--
-Cairo->getMiterLimit() method
+Cairo\Context->getMiterLimit() method
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';

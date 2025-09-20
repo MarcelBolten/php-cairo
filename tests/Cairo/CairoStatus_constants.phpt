@@ -1,5 +1,5 @@
 --TEST--
-CairoStatus class constants
+Cairo\Status class constants
 --SKIPIF--
 <?php
 include __DIR__ . '/../skipif.inc';

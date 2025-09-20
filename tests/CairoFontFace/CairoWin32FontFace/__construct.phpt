@@ -1,5 +1,5 @@
 --TEST--
-CairoWin32Fontface::__construct() function
+Cairo\FontFace\Win32::__construct() function
 --SKIPIF--
 <?php
 include __DIR__ . '/../../skipif.inc';
