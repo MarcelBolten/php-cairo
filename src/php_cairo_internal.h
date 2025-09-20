@@ -303,9 +303,6 @@ PHP_MINIT_FUNCTION(cairo_text_cluster);
 
 
 /* Enum macros */
-#define CAIRO_REGISTER_ENUM_LONG(name, ce) \
-    ce = zend_register_internal_enum(ZEND_NS_NAME(CAIRO_NAMESPACE, name), IS_LONG, NULL);
-
 extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
 
 #define CAIRO_UNREF_AND_UNDEF(zv) \
