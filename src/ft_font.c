@@ -116,7 +116,7 @@ static bool php_cairo_create_ft_font_face(
     font_face_object->font_face = (cairo_font_face_t *)cairo_ft_font_face_create_for_ft_face(ft_container->ft_face, (int)load_flags);
 
     /* Set Cairo to automatically destroy the FT_Face when the cairo_font_face_t is destroyed */
-    error = cairo_font_face_set_user_data (
+    error = cairo_font_face_set_user_data(
         font_face_object->font_face,
         &font_face_object->key,
         ft_container,
@@ -211,6 +211,71 @@ PHP_METHOD(Cairo_FontFace_Ft, __construct)
     }
 }
 /* }}} */
+
+PHP_METHOD(Cairo_FontFace_Ft, getSynthesize)
+{
+    cairo_font_face_object *font_face_object;
+    zend_long synth_flags;
+
+    ZEND_PARSE_PARAMETERS_NONE();
+
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object) {
+        RETURN_NULL();
+    }
+
+    synth_flags = cairo_ft_font_face_get_synthesize(font_face_object->font_face);
+
+    RETURN_LONG(synth_flags);
+}
+
+PHP_METHOD(Cairo_FontFace_Ft, setSynthesize)
+{
+    cairo_font_face_object *font_face_object;
+    zend_long synth_flags;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_LONG(synth_flags);
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object) {
+        RETURN_NULL();
+    }
+
+    cairo_ft_font_face_set_synthesize(
+        font_face_object->font_face,
+        synth_flags
+    );
+
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        RETURN_THROWS();
+    }
+}
+
+PHP_METHOD(Cairo_FontFace_Ft, unsetSynthesize)
+{
+    cairo_font_face_object *font_face_object;
+    zend_long synth_flags;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_LONG(synth_flags);
+    ZEND_PARSE_PARAMETERS_END();
+
+    font_face_object = Z_CAIRO_FONT_FACE_P(getThis());
+    if (!font_face_object) {
+        RETURN_NULL();
+    }
+
+    cairo_ft_font_face_unset_synthesize(
+        font_face_object->font_face,
+        synth_flags
+    );
+
+    if (php_cairo_throw_exception(cairo_font_face_status(font_face_object->font_face))) {
+        RETURN_THROWS();
+    }
+}
 
 /* ----------------------------------------------------------------
     \Cairo\FontFace\Ft Definition and registration

@@ -52,6 +52,7 @@ namespace Cairo\Surface\Svg
         case Version_1_2 = UNKNOWN;
     }
 
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
     enum Unit: int
     {
         /** @cvalue CAIRO_SVG_UNIT_USER */
@@ -84,4 +85,5 @@ namespace Cairo\Surface\Svg
         /** @cvalue CAIRO_SVG_UNIT_PERCENT */
         case Percent = UNKNOWN;
     }
+#endif
 }
