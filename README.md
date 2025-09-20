@@ -22,8 +22,7 @@ Documentation and information about the underlying library can be found at [cair
 
 Installation
 =============
-There are plans to make this available via [pecl](http://pecl.php.net) and [pickle](https://github.com/FriendsOfPHP/pickle)
-But this is currently the unstable PHP7 version.
+There are plans to make this available via [PIE (PHP Installer for Extensions)](https://github.com/php/pie)
 
 Until then, please compile and install the cairo extensions and enable it in your php.ini file.
 
