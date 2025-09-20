@@ -27,12 +27,12 @@ $con2->rectangle(10, 10, 10, 10);
 $con2->fill();
 
 $pat = new PatternSurface($s);
-$pat->setExtend(Extend::REPEAT);
+$pat->setExtend(Extend::Repeat);
 $context->setSourceRgba(0, 0, 0, 1);
 $context->rectangle(0, 0, 100, 100);
 $context->fill();
 $context->translate(10, 10);
-$context->setOperator(Operator::OVER);
+$context->setOperator(Operator::Over);
 $context->setPattern($pat);
 $context->rectangle(0, 0, 90, 90);
 $context->fill();

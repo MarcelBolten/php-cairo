@@ -16,22 +16,22 @@ $context->selectFontFace('6x13.pcf');
 $context->setFontSize(11.5);
 
 $fo = new FontOptions();
-$fo->setHintMetrics(HintMetrics::ON);
+$fo->setHintMetrics(HintMetrics::On);
 
 $context->setFontOptions($fo);
 $fe = $context->getFontExtents();
 $context->moveTo(1, $fe['ascent'] - 1);
-$context->setSourceRgb(0, 0, 1);
-$fo->setHintStyle(HintStyle::NONE);
+$context->setSourceRgba(0, 0, 1);
+$fo->setHintStyle(HintStyle::None);
 $context->setFontOptions($fo);
 $context->showText('the ');
-$fo->setHintStyle(HintStyle::SLIGHT);
+$fo->setHintStyle(HintStyle::Slight);
 $context->setFontOptions($fo);
 $context->showText('quick ');
-$fo->setHintStyle(HintStyle::MEDIUM);
+$fo->setHintStyle(HintStyle::Medium);
 $context->setFontOptions($fo);
 $context->showText('brown');
-$fo->setHintStyle(HintStyle::FULL);
+$fo->setHintStyle(HintStyle::Full);
 $context->setFontOptions($fo);
 $context->showText(' fox');
 
@@ -42,17 +42,17 @@ $context->translate($width, $height);
 $context->rotate(M_PI);
 
 $context->moveTo(1, $fe['height'] - $fe['descent'] - 1);
-$fo->setHintMetrics(HintMetrics::OFF);
-$fo->setHintStyle(HintStyle::NONE);
+$fo->setHintMetrics(HintMetrics::Off);
+$fo->setHintStyle(HintStyle::None);
 $context->setFontOptions($fo);
 $context->showText('the ');
-$fo->setHintStyle(HintStyle::SLIGHT);
+$fo->setHintStyle(HintStyle::Slight);
 $context->setFontOptions($fo);
 $context->showText('quick');
-$fo->setHintStyle(HintStyle::MEDIUM);
+$fo->setHintStyle(HintStyle::Medium);
 $context->setFontOptions($fo);
 $context->showText(' brown');
-$fo->setHintStyle(HintStyle::FULL);
+$fo->setHintStyle(HintStyle::Full);
 $context->setFontOptions($fo);
 $context->showText(' fox');
 

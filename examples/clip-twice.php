@@ -21,7 +21,7 @@ $context->lineTo(3 * $width / 4, $height / 2);
 $context->lineTo($width, 0);
 $context->closePath();
 $context->clip();
-$context->setSourceRgb(0, 0, 0.6);
+$context->setSourceRgba(0, 0, 0.6);
 $context->newPath();
 $context->moveTo(0, 0);
 $context->lineTo(0, $height);
@@ -34,7 +34,7 @@ $context->fill();
 $context->newPath();
 $context->arc($width / 2, $height / 2, $width / 5, 0, 2 * M_PI);
 $context->clip();
-$context->setSourceRgb(1, 1, 0);
+$context->setSourceRgba(1, 1, 0);
 $context->paint();
 
 

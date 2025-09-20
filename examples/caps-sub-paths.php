@@ -9,12 +9,12 @@ $surface = new Image(ImageFormat::ARGB32, 20, 20);
 $context = new Context($surface);
 
 $context->save();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->restore();
 
 $context->setLineWidth(4);
-$context->setLineCap(LineCap::ROUND);
+$context->setLineCap(LineCap::Round);
 $context->moveTo(4, 4);
 $context->lineTo(4, 16);
 $context->moveTo(10, 4);

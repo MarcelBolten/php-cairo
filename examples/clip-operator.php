@@ -10,7 +10,7 @@ use Cairo\Surface\ImageFormat;
 $width = 16;
 $height = 16;
 $pad = 2;
-$noperator = 1 + Operator::SATURATE->value - Operator::CLEAR->value;
+$noperator = 1 + Operator::Saturate->value - Operator::Clear->value;
 $imagewidth = $noperator * ($width + $pad) + $pad;
 $imageheight = 4 * ($height + $pad) + $pad;
 $surface = new Image(ImageFormat::ARGB32, $imagewidth, $imageheight);
@@ -20,7 +20,7 @@ $context->setFontSize(0.9 * $height);
 
 for ($i = 0; $i < 4; $i++)
 {
-	for ($op = Operator::CLEAR->value; $op < $noperator; $op++)
+	for ($op = Operator::Clear->value; $op < $noperator; $op++)
 	{
 		$x = $op * ($width + $pad) + $pad;
 		$y = $i * ($height + $pad) + $pad;
@@ -34,7 +34,7 @@ for ($i = 0; $i < 4; $i++)
 		$context->rectangle($x, $y, $width, $height);
 		$context->fill();
 		$context->setOperator(Operator::from($op));
-		$context->setSourceRgb(1, 0, 0);
+		$context->setSourceRgba(1, 0, 0);
 		$context->moveTo($x, $y);
 		$context->lineTo($x + $width, $y);
 		$context->lineTo($x, $y + $height);
@@ -48,16 +48,16 @@ for ($i = 0; $i < 4; $i++)
 				$x += 0.05 * $width;
 				$y += 0.05 * $height;
 
-				$msur = $surface->createSimilar(Content::ALPHA, $wi, $he);
+				$msur = $surface->createSimilar(Content::Alpha, $wi, $he);
 
 				$c2 = new Context($msur);
 				$c2->save();
 				$c2->setSourceRgba(0, 0, 0, 0);
-				$c2->setOperator(Operator::SOURCE);
+				$c2->setOperator(Operator::Source);
 				$c2->paint();
 				$c2->restore();
 
-				$c2->setSourceRgb(1, 1, 1);
+				$c2->setSourceRgba(1, 1, 1);
 				$c2->arc(0.5 * $wi, 0.5 * $he, 0.45 * $he, 0, 2 * M_PI);
 				$c2->fill();
 

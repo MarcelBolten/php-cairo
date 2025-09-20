@@ -19,7 +19,7 @@ $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 $context->translate($pad, $pad);
 
-$patternSurface = $surface->createSimilar(Content::COLOR_ALPHA, $patternWidth, $patternHeight);
+$patternSurface = $surface->createSimilar(Content::ColorAlpha, $patternWidth, $patternHeight);
 
 $cr2 = new Context($patternSurface);
 
@@ -35,25 +35,25 @@ $cr2->setLineWidth(1);
 $cr2->moveTo($patternWidth / 6.0, 0);
 $cr2->lineTo(0, 0);
 $cr2->lineTo(0, $patternHeight / 6.0);
-$cr2->setSourceRgb(1, 0, 0);
+$cr2->setSourceRgba(1, 0, 0);
 $cr2->stroke();
 $cr2->moveTo($patternWidth / 6.0, $patternHeight);
 $cr2->lineTo(0, $patternHeight);
 $cr2->lineTo(0, 5 * $patternHeight / 6.0);
-$cr2->setSourceRgb(0, 1, 0);
+$cr2->setSourceRgba(0, 1, 0);
 $cr2->stroke();
 $cr2->moveTo(5 * $patternWidth / 6.0, 0);
 $cr2->lineTo($patternWidth, 0);
 $cr2->lineTo($patternWidth, $patternHeight / 6.0);
-$cr2->setSourceRgb(0, 0, 1);
+$cr2->setSourceRgba(0, 0, 1);
 $cr2->stroke();
 $cr2->moveTo(5 * $patternWidth / 6.0, $patternHeight);
 $cr2->lineTo($patternWidth, $patternHeight);
 $cr2->lineTo($patternWidth, 5 * $patternHeight / 6.0);
-$cr2->setSourceRgb(1, 1, 0);
+$cr2->setSourceRgba(1, 1, 0);
 $cr2->stroke();
 
-$cr2->setSourceRgb(0.5, 0.5, 0.5);
+$cr2->setSourceRgba(0.5, 0.5, 0.5);
 $cr2->setLineWidth($patternWidth / 10.0);
 
 $cr2->moveTo(0, $patternHeight / 4.0);
@@ -71,7 +71,7 @@ $matrix->scale(2, 1.5);
 $matrix->rotate(1);
 $matrix->translate(-$patternWidth / 4.0, -$patternWidth / 2.0);
 $pattern->setMatrix($matrix);
-$pattern->setExtend(Extend::NONE);
+$pattern->setExtend(Extend::None);
 
 $context->setPattern($pattern);
 $context->paint();

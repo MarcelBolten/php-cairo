@@ -19,7 +19,7 @@ $line[4] = ['len' => 10000.0, 'r' => 0, 'g' => 1, 'b' => 1];
 $line[5] = ['len' => 10000.0, 'r' => 1, 'g' => 0, 'b' => 1];
 
 $context->save();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->restore();
 $context->save();
@@ -29,7 +29,7 @@ for ($i = 0; $i < 6; $i++)
 {
 	$context->moveTo($position, -$line[$i]['len']);
 	$context->lineTo($position, $line[$i]['len']);
-	$context->setSourceRgb($line[$i]['r'], $line[$i]['g'], $line[$i]['b']);
+	$context->setSourceRgba($line[$i]['r'], $line[$i]['g'], $line[$i]['b']);
 	$context->stroke();
 	$position += 10;
 }

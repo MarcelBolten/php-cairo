@@ -13,11 +13,11 @@ $height = $width;
 
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->translate($pad, $pad);
-$context->setAntialias(Antialias::NONE);
+$context->setAntialias(Antialias::None);
 
 for ($i = 0; $i < $points; $i++)
 {
@@ -25,7 +25,7 @@ for ($i = 0; $i < $points; $i++)
 	{
 		$t1 = (2 * $i) + (($i + 1) * $step);
 		$t2 = (2 * $j) + (($j + 1) * $step);
-		
+
 		$context->rectangle($t1, $t2, 1, 1);
 		$context->fill();
 	}

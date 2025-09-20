@@ -15,7 +15,7 @@ $height = $pad + $size + $pad;
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 $context->save();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->restore();
 
@@ -31,8 +31,8 @@ $context->moveTo(2 * $linewidth, 0);
 $context->relLineTo(3 * $linewidth, 0);
 $context->relLineTo(0, 3 * $linewidth);
 
-$context->setLineCap(LineCap::BUTT);
-$context->setLineJoin(LineJoin::BEVEL);
+$context->setLineCap(LineCap::Butt);
+$context->setLineJoin(LineJoin::Bevel);
 $context->stroke();
 
 $context->translate($size + $pad, 0);
@@ -46,8 +46,8 @@ $context->moveTo(2 * $linewidth, 0);
 $context->relLineTo(3 * $linewidth, 0);
 $context->relLineTo(0, 3 * $linewidth);
 
-$context->setLineCap(LineCap::ROUND);
-$context->setLineJoin(LineJoin::ROUND);
+$context->setLineCap(LineCap::Round);
+$context->setLineJoin(LineJoin::Round);
 $context->stroke();
 
 $context->translate($size + $pad, 0);
@@ -61,8 +61,8 @@ $context->moveTo(2 * $linewidth, 0);
 $context->relLineTo(3 * $linewidth, 0);
 $context->relLineTo(0, 3 * $linewidth);
 
-$context->setLineCap(LineCap::SQUARE);
-$context->setLineJoin(LineJoin::MITER);
+$context->setLineCap(LineCap::Square);
+$context->setLineJoin(LineJoin::Miter);
 $context->stroke();
 $surface->writeToPng(dirname(__FILE__).'/caps-joins-php.png');
 

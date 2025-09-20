@@ -11,7 +11,7 @@ use Cairo\Surface\ImageFormat;
 
 function setSolidPattern($context, $x, $y)
 {
-	$context->setSourceRgb(1.0, 0, 0.0);
+	$context->setSourceRgba(1.0, 0, 0.0);
 }
 
 function setTranslucentPattern($context, $x, $y)
@@ -33,11 +33,11 @@ function setSurfacePattern($surface, $context, $width, $height, $x, $y)
 	$he = floor(0.6 * $height);
 	$x += 0.2 * $width;
 	$y += 0.2 * $height;
-	$s = $surface->createSimilar(Content::COLOR_ALPHA, $wi, $he);
+	$s = $surface->createSimilar(Content::ColorAlpha, $wi, $he);
 	$con2 = new Context($s);
-	$con2->setSourceRgb(1, 0, 0);
+	$con2->setSourceRgba(1, 0, 0);
 	$con2->paint();
-	$con2->setSourceRgb(1, 1, 1);
+	$con2->setSourceRgba(1, 1, 1);
 	$con2->arc(0.5 * $wi, 0.5 * $he, 0.5 * $he, 0, 2 * M_PI);
 	$con2->fill();
 	$s->writeToPng(dirname(__FILE__).'/temp.png');
@@ -51,9 +51,9 @@ function drawMask($surface, $context, $width, $height, $x, $y)
 	$he = floor(0.9 * $height);
 	$x += 0.05 * $width;
 	$y += 0.05 * $height;
-	$s = $surface->createSimilar(Content::ALPHA, $wi, $he);
+	$s = $surface->createSimilar(Content::Alpha, $wi, $he);
 	$con2 = new Context($s);
-	$con2->setSourceRgb(1, 1, 1); /* white */
+	$con2->setSourceRgba(1, 1, 1); /* white */
 	$con2->arc(0.5 * $wi, 0.5 * $he, 0.45 * $he, 0, 2 * M_PI);
 	$con2->fill();
 	$context->maskSurface($s, $x, $y);
@@ -119,7 +119,7 @@ $imageHeight = 4 * ($height + $pad) + $pad;
 $surface = new Image(ImageFormat::ARGB32, $imageWidth, $imageHeight);
 $context = new Context($surface);
 
-$context->selectFontFace('Bitstream Vera Sans', FontSlant::NORMAL, FontWeight::NORMAL);
+$context->selectFontFace('Bitstream Vera Sans', FontSlant::Normal, FontWeight::Normal);
 
 for ($j = 0; $j < 4; $j++)
 {
@@ -137,7 +137,7 @@ for ($j = 0; $j < 4; $j++)
 		$context->rectangle($x, $y, $width, $height);
 		$context->fillPreserve();
 		$context->clip();
-		$context->setOperator(Operator::SOURCE);
+		$context->setOperator(Operator::Source);
 
 		switch ($i)
 		{
@@ -151,7 +151,7 @@ for ($j = 0; $j < 4; $j++)
 				setGradientPattern($context, $width, $height, $x, $y);
 				break;
 			case 3:
-				//setSurfacePattern($surface, $context, $width, $height, $x,$y);
+				setSurfacePattern($surface, $context, $width, $height, $x,$y);
 				break;
 		}
 

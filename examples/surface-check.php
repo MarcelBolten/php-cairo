@@ -1,3 +1,3 @@
 <?php
 
-print_r(Cairo::availableSurfaces());
+Cairo\Cairo::availableSurfaces();

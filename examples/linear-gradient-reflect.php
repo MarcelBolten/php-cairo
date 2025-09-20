@@ -11,13 +11,13 @@ $height = 50;
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
 
-$context->setSourceRgb(0.5, 0.5, 0.5);
+$context->setSourceRgba(0.5, 0.5, 0.5);
 $context->paint();
 $context->save();
 $pattern = new Linear(0, 0, 10.0, 0);
 $pattern->addColorStopRgb(0.0, 0.0, 0.0, 1.0);
 $pattern->addColorStopRgb(1.0, 1.0, 0.0, 0.0);
-$pattern->setExtend(Extend::REFLECT);
+$pattern->setExtend(Extend::Reflect);
 $context->setPattern($pattern);
 $context->rectangle(0.0, 0.0, $width, $height);
 $context->fill();

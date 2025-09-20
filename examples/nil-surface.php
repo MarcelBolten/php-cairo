@@ -11,9 +11,9 @@ $context = new Context($surface);
 $con2 = new Context($surface);
 $s = new Image(ImageFormat::ARGB32, 0, 0);
 try {
-    $s->createFromPng('__THIS_FILE_DOES_NOT_EXIST');
+    Image::createFromPng('__THIS_FILE_DOES_NOT_EXIST');
 } catch (Cairo\Exception $e) {
-    echo $e->getMessage() . PHP_EOL;
+    // echo $e->getMessage() . PHP_EOL;
 }
 
 $patternSurface = new PatternSurface($s);
@@ -21,8 +21,8 @@ $con2->setPattern($patternSurface);
 $con2->paint();
 
 // $con2 = $context->getSurface();
-//$patternSurface = new PatternSurface(null);
-//$con2->setPattern($patternSurface);
-//$con2->paint();
+// $patternSurface = new PatternSurface(null);
+// $con2->setPattern($patternSurface);
+// $con2->paint();
 
 $surface->writeToPng(dirname(__FILE__).'/nil-surface-php.png');

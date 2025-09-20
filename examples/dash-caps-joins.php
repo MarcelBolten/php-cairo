@@ -17,7 +17,7 @@ $dash = [$linewidth, 1.5 * $linewidth];
 $dashoff = -2 * $linewidth;
 
 $context->save();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 $context->restore();
 
@@ -27,7 +27,7 @@ for ($i = 0; $i < 2; $i++)
 	$context->setLineWidth($linewidth);
 	$context->setDash($dash, $dashoff);
 	$context->translate($pad, $pad);
-	
+
 	$context->moveTo(0, 0);
 	$context->relLineTo(0, $size);
 	$context->relLineTo($size, 0);
@@ -35,13 +35,13 @@ for ($i = 0; $i < 2; $i++)
 	$context->moveTo(2 * $linewidth, 0);
 	$context->relLineTo(3 * $linewidth, 0);
 	$context->relLineTo(0, 3 * $linewidth);
-	
-	$context->setLineCap(LineCap::BUTT);
-	$context->setLineJoin(LineJoin::BEVEL);
+
+	$context->setLineCap(LineCap::Butt);
+	$context->setLineJoin(LineJoin::Bevel);
 	$context->stroke();
-	
+
 	$context->translate($size + $pad, 0);
-	
+
 	$context->moveTo(0, 0);
 	$context->relLineTo(0, $size);
 	$context->relLineTo($size, 0);
@@ -49,12 +49,12 @@ for ($i = 0; $i < 2; $i++)
 	$context->moveTo(2 * $linewidth, 0);
 	$context->relLineTo(3 * $linewidth, 0);
 	$context->relLineTo(0, 3 * $linewidth);
-	
-	$context->setLineCap(LineCap::ROUND);
-	$context->setLineJoin(LineJoin::ROUND);
+
+	$context->setLineCap(LineCap::Round);
+	$context->setLineJoin(LineJoin::Round);
 	$context->stroke();
 	$context->translate($size + $pad, 0);
-	
+
 	$context->moveTo(0, 0);
 	$context->relLineTo(0, $size);
 	$context->relLineTo($size, 0);
@@ -62,9 +62,9 @@ for ($i = 0; $i < 2; $i++)
 	$context->moveTo(2 * $linewidth, 0);
 	$context->relLineTo(3 * $linewidth, 0);
 	$context->relLineTo(0, 3 * $linewidth);
-	
-	$context->setLineCap(LineCap::SQUARE);
-	$context->setLineJoin(LineJoin::MITER);
+
+	$context->setLineCap(LineCap::Square);
+	$context->setLineJoin(LineJoin::Miter);
 	$context->stroke();
 	$context->restore();
 	$context->translate(0, $size + $pad);

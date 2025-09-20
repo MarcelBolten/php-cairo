@@ -9,24 +9,17 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 5, 5);
 $context = new Context($surface);
 
-$color = '';
-$color .= chr(0x4c);
-$color .= chr(0x33);
-$color .= chr(0x19);
-$color .= chr(0x80);
+$color = chr(0x4c) . chr(0x33) . chr(0x19) . chr(0x80);
 
-$s = new Image(ImageFormat::ARGB32, 1, 1);
-$s->createForData($color, ImageFormat::ARGB32, 1, 1);
+$s = Image::createForData($color, ImageFormat::ARGB32, 1, 1);
 
 $pat = new PatternSurface($s);
-$pat->setExtend(Extend::REPEAT);
+$pat->setExtend(Extend::Repeat);
 
-for ($i = 0; $i < 5; $i++)
-{
-	switch ($i)
-	{
+for ($i = 0; $i < 5; $i++) {
+	switch ($i) {
 		case 0:
-			$context->setSourceRgb(.6, .7, .8);
+			$context->setSourceRgba(.6, .7, .8);
 			break;
 		case 1:
 			$context->setSourceRgba(.2, .4, .6, .5);
@@ -34,7 +27,6 @@ for ($i = 0; $i < 5; $i++)
 		case 2:
 			$context->setSourceRgba(.2, .4, .6, .5);
 			break;
-		case 3:
 		default:
 			$context->setPattern($pat);
 	}

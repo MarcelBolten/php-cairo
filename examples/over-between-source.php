@@ -19,13 +19,13 @@ $context->relLineTo($size / 2, 0);
 $context->relLineTo($size / -2, $size / 2);
 $context->closePath();
 
-$context->setOperator(Operator::SOURCE);
+$context->setOperator(Operator::Source);
 $context->setSourceRgba(1, 0, 0, 0.5);
 
 $context->fill();
 
 $context->arc($size / 2, $size / 2, $size / 4, 0, 2 * M_PI);
-$context->setOperator(Operator::OVER);
+$context->setOperator(Operator::Over);
 $context->setSourceRgba(0, 1, 0, 0.5);
 
 $context->fill();
@@ -35,7 +35,7 @@ $context->relLineTo($size / 2, 0);
 $context->relLineTo($size / -2, $size / 2);
 $context->closePath();
 
-$context->setOperator(Operator::SOURCE);
+$context->setOperator(Operator::Source);
 $context->setSourceRgba(1, 0, 0, 0.5);
 
 $context->fill();

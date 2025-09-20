@@ -8,11 +8,11 @@ use Cairo\Surface\ImageFormat;
 $surface = new Image(ImageFormat::ARGB32, 40, 40);
 $context = new Context($surface);
 
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
-$context->setLineCap(LineCap::ROUND);
+$context->setLineCap(LineCap::Round);
 $context->setLineWidth(5);
-$context->setSourceRgb(0, 1, 0);
+$context->setSourceRgba(0, 1, 0);
 
 for ($n = 0; $n < 8; $n++)
 {
@@ -24,7 +24,7 @@ for ($n = 0; $n < 8; $n++)
 
 $context->stroke();
 $context->setLineWidth(2);
-$context->setSourceRgb(0, 0, 1);
+$context->setSourceRgba(0, 0, 1);
 
 for ($n = 0; $n < 8; $n++)
 {
@@ -35,7 +35,7 @@ for ($n = 0; $n < 8; $n++)
 }
 
 $context->stroke();
-$context->setSourceRgb(1, 0, 0);
+$context->setSourceRgba(1, 0, 0);
 $context->arc(20, 20, 2, 0, 2 * M_PI);
 $context->fill();
 

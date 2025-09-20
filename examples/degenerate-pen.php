@@ -9,10 +9,10 @@ $surface = new Image(ImageFormat::RGB24, 165, 30);
 $context = new Context($surface);
 $context->moveTo(0, 0);
 
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 $context->moveTo(0, 0);
 $context->translate(5, 5);
 
@@ -49,11 +49,11 @@ $context->scale(0.00001, 1.0);
 $context->stroke();
 
 $context->restore();
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
 
-$context->setSourceRgb(0, 0, 0);
-$context->setLineJoin(LineJoin::ROUND);
+$context->setSourceRgba(0, 0, 0);
+$context->setLineJoin(LineJoin::Round);
 
 $context->translate(5, 5);
 
@@ -91,5 +91,5 @@ $context->scale(0.00001, 1.0);
 $context->stroke();
 
 $context->restore();
-$surface->writeToPng(dirname(__FILE__).'/degenerate-pen-php.png'); 
+$surface->writeToPng(dirname(__FILE__).'/degenerate-pen-php.png');
 

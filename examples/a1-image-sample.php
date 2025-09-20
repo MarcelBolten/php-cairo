@@ -14,15 +14,15 @@ $height = $width;
 
 $surface = new Image(ImageFormat::ARGB32, $width, $height);
 $context = new Context($surface);
-$context->setSourceRgb(1, 1, 1);
+$context->setSourceRgba(1, 1, 1);
 $context->paint();
-$context->setSourceRgb(0, 0, 0);
+$context->setSourceRgba(0, 0, 0);
 // $context->translate($pad, $pad);
-$context->setAntialias(Antialias::NONE);
+$context->setAntialias(Antialias::None);
 
 $s = new Image(ImageFormat::ARGB32, 1, 1);
 $c = new Context($s);
-$c->setSourceRgb(0, 0, 0);
+$c->setSourceRgba(0, 0, 0);
 $c->paint();
 
 for ($x = 0; $x < $points; $x++) {
@@ -32,7 +32,7 @@ for ($x = 0; $x < $points; $x++) {
 
 		$context->setSurface($s, $tx, $ty);
 		$source = $context->getPattern();
-		$source->setFilter(Filter::NEAREST);
+		$source->setFilter(Filter::Nearest);
 		$context->paint();
 	}
 }
