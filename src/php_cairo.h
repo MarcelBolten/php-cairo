@@ -20,7 +20,7 @@
 extern zend_module_entry cairo_module_entry;
 #define phpext_cairo_ptr &cairo_module_entry
 
-#define PHP_CAIRO_VERSION "2.0.0"
+#define PHP_CAIRO_VERSION "2.0.0-dev"
 #define CAIRO_NAMESPACE "Cairo"
 
 #endif /* PHP_CAIRO_EXT_H */

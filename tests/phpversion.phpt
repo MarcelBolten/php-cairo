@@ -1,10 +1,10 @@
 --TEST--
-cairo extension phpversion value
+cairo extension phpversion value comply with semver
 --SKIPIF--
 <?php
 include __DIR__ . '/skipif.inc';
 --FILE--
 <?php
-var_dump(phpversion('cairo'));
---EXPECTF--
-string(%d) "%d.%d.%d"
+echo phpversion('cairo');
+--EXPECTREGEX--
+^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
