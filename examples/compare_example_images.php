@@ -1,5 +1,8 @@
 <?php
 
+use Cairo\Context;
+use Cairo\Surface\Image;
+
 final class RgbaPixel
 {
     public function __construct(
@@ -10,7 +13,7 @@ final class RgbaPixel
     ) {}
 }
 
-function getPixelData(Cairo\Surface\Image $image): array {
+function getPixelData(Image $image): array {
     $data = $image->getData();
     $width = $image->getWidth();
     $stride = $image->getStride();
@@ -30,8 +33,8 @@ function getPixelData(Cairo\Surface\Image $image): array {
 }
 
 function compareImages(string $case, string $exampleDir): void {
-    $expected = Cairo\Surface\Image::createFromPng("{$exampleDir}/{$case}-php-expected.png");
-    $observed = Cairo\Surface\Image::createFromPng("{$exampleDir}/{$case}-php.png");
+    $expected = Image::createFromPng("{$exampleDir}/{$case}-php-expected.png");
+    $observed = Image::createFromPng("{$exampleDir}/{$case}-php.png");
 
     $eWidth = $expected->getWidth();
     $eHeight = $expected->getHeight();
@@ -70,8 +73,8 @@ function compareImages(string $case, string $exampleDir): void {
 
     echo count($diffs), " different Pixels found.", PHP_EOL;
 
-    $diffImage = new Cairo\Surface\Image($observed->getFormat(), $eWidth, $eHeight);
-    $cr = new Cairo\Context($diffImage);
+    $diffImage = new Image($observed->getFormat(), $eWidth, $eHeight);
+    $cr = new Context($diffImage);
     $cr->setSourceRgba(1, 1, 1);
     $cr->paint();
 
