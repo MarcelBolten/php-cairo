@@ -11,13 +11,13 @@ if (PHP_CAIRO != "no") {
         PHP_CAIRO_SOURCES += basename + " ";
     }
 
-    var PHP_CAIRO_INSTALL_HEADERS_ARRAY = ["php_cairo_internal.h", "cairo_jpg.h"];
-    var PHP_CAIRO_INSTALL_HEADERS = "";
-    for (var i = 0; i < PHP_CAIRO_INSTALL_HEADERS_ARRAY.length; ++i) {
-        var path = configure_module_dirname + "\\" + PHP_CAIRO_INSTALL_HEADERS_ARRAY[i];
-        STDOUT.WriteLine(path);
-        PHP_CAIRO_INSTALL_HEADERS += path + " ";
-    }
+    // var PHP_CAIRO_INSTALL_HEADERS_ARRAY = ["php_cairo_internal.h", "cairo_jpg.h"];
+    // var PHP_CAIRO_INSTALL_HEADERS = "";
+    // for (var i = 0; i < PHP_CAIRO_INSTALL_HEADERS_ARRAY.length; ++i) {
+    //     var path = configure_module_dirname + "\\" + PHP_CAIRO_INSTALL_HEADERS_ARRAY[i];
+    //     STDOUT.WriteLine(path);
+    //     PHP_CAIRO_INSTALL_HEADERS += path + " ";
+    // }
 
     if (!(CHECK_HEADER_ADD_INCLUDE("cairo/cairo.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)
         && CHECK_HEADER_ADD_INCLUDE("ft2build.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\freetype"))
@@ -64,10 +64,10 @@ if (PHP_CAIRO != "no") {
         }
 
         EXTENSION("cairo", PHP_CAIRO_SOURCES);
-        ADD_FLAG("CFLAGS_CAIRO", "/D CAIRO_WIN32_STATIC_BUILD=1 /I" + configure_module_dirname);
+        ADD_FLAG("CFLAGS_CAIRO", "/D CAIRO_WIN32_STATIC_BUILD=1 /I " + configure_module_dirname);
 
         AC_DEFINE("HAVE_CAIRO", 1);
-        PHP_INSTALL_HEADERS("ext/cairo", PHP_CAIRO_INSTALL_HEADERS);
+        PHP_INSTALL_HEADERS("ext/cairo", "src/");
 
     }
     // Dynamic lib version - link required dependencies
@@ -108,10 +108,10 @@ if (PHP_CAIRO != "no") {
         }
 
         EXTENSION("cairo", PHP_CAIRO_SOURCES);
-        ADD_FLAG("CFLAGS_CAIRO", "/I" + configure_module_dirname);
+        ADD_FLAG("CFLAGS_CAIRO", "/I " + configure_module_dirname);
 
         AC_DEFINE("HAVE_CAIRO", 1);
-        PHP_INSTALL_HEADERS("ext/cairo", PHP_CAIRO_INSTALL_HEADERS);
+        PHP_INSTALL_HEADERS("ext/cairo", "src/");
 
     } else {
         WARNING('Could not find cairo.lib or cairo_a.lib; skipping');
