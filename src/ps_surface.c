@@ -295,8 +295,6 @@ PHP_METHOD(Cairo_Surface_Ps, levelToString)
 /* {{{ PHP_MINIT_FUNCTION */
 PHP_MINIT_FUNCTION(cairo_ps_surface)
 {
-    zend_class_entry pssurface_ce;
-
     ce_cairo_pssurface = register_class_Cairo_Surface_Ps(ce_cairo_surface);
 
     /* Ps Level */
