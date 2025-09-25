@@ -58,7 +58,7 @@ if (PHP_CAIRO != "no") {
         ADD_FLAG("CFLAGS_CAIRO", "/D CAIRO_WIN32_STATIC_BUILD=1 /I" + configure_module_dirname);
 
         AC_DEFINE("HAVE_CAIRO", 1);
-        PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
+        PHP_INSTALL_HEADERS("ext/cairo", "src/php_cairo_internal.h src/cairo_jpg.h");
 
     }
     // Dynamic lib version - link required dependencies
@@ -102,7 +102,7 @@ if (PHP_CAIRO != "no") {
         ADD_FLAG("CFLAGS_CAIRO", "/I" + configure_module_dirname);
 
         AC_DEFINE("HAVE_CAIRO", 1);
-        PHP_INSTALL_HEADERS("ext/cairo", "php_cairo_internal.h");
+        PHP_INSTALL_HEADERS("ext/cairo", "src/php_cairo_internal.h src/cairo_jpg.h");
 
     } else {
         WARNING('Could not find cairo.lib or cairo_a.lib; skipping');
