@@ -11,14 +11,6 @@ if (PHP_CAIRO != "no") {
         PHP_CAIRO_SOURCES += "src\\" + basename + " ";
     }
 
-    // var PHP_CAIRO_INSTALL_HEADERS_ARRAY = ["php_cairo_internal.h", "cairo_jpg.h"];
-    // var PHP_CAIRO_INSTALL_HEADERS = "";
-    // for (var i = 0; i < PHP_CAIRO_INSTALL_HEADERS_ARRAY.length; ++i) {
-    //     var path = configure_module_dirname + "\\" + PHP_CAIRO_INSTALL_HEADERS_ARRAY[i];
-    //     STDOUT.WriteLine(path);
-    //     PHP_CAIRO_INSTALL_HEADERS += path + " ";
-    // }
-
     if (!(CHECK_HEADER_ADD_INCLUDE("cairo/cairo.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)
         && CHECK_HEADER_ADD_INCLUDE("ft2build.h", "CFLAGS_CAIRO", PHP_CAIRO + ";" + PHP_CAIRO + "\\include" + ";" + PHP_PHP_BUILD + "\\include" + ";" + PHP_PHP_BUILD + "\\include\\freetype"))
     ) {
