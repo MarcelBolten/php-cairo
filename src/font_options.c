@@ -150,7 +150,7 @@ PHP_METHOD(Cairo_FontOptions, __construct)
 PHP_METHOD(Cairo_FontOptions, getStatus)
 {
     cairo_font_options_object *font_options_object;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -159,14 +159,13 @@ PHP_METHOD(Cairo_FontOptions, getStatus)
         RETURN_THROWS();
     }
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_font_options_status(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_font_options_status(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -273,7 +272,7 @@ PHP_METHOD(Cairo_FontOptions, setAntialias)
 PHP_METHOD(Cairo_FontOptions, getAntialias)
 {
     cairo_font_options_object *font_options_object;
-    zval antialias_case;
+    zend_object *antialias_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -282,14 +281,13 @@ PHP_METHOD(Cairo_FontOptions, getAntialias)
         RETURN_THROWS();
     }
 
-    antialias_case = php_enum_from_cairo_c_enum(
-        ce_cairo_antialias,
-        cairo_font_options_get_antialias(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &antialias_case, ce_cairo_antialias,
+        cairo_font_options_get_antialias(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(antialias_case) == IS_OBJECT) {
-        RETURN_ZVAL(&antialias_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(antialias_case);
 }
 /* }}} */
 
@@ -328,7 +326,7 @@ PHP_METHOD(Cairo_FontOptions, setSubpixelOrder)
 PHP_METHOD(Cairo_FontOptions, getSubpixelOrder)
 {
     cairo_font_options_object *font_options_object;
-    zval subpixel_order_case;
+    zend_object *subpixel_order_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -337,14 +335,13 @@ PHP_METHOD(Cairo_FontOptions, getSubpixelOrder)
         RETURN_THROWS();
     }
 
-    subpixel_order_case = php_enum_from_cairo_c_enum(
-        ce_cairo_subpixelorder,
-        cairo_font_options_get_subpixel_order(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &subpixel_order_case, ce_cairo_subpixelorder,
+        cairo_font_options_get_subpixel_order(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(subpixel_order_case) == IS_OBJECT) {
-        RETURN_ZVAL(&subpixel_order_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(subpixel_order_case);
 }
 /* }}} */
 
@@ -383,7 +380,7 @@ PHP_METHOD(Cairo_FontOptions, setHintStyle)
 PHP_METHOD(Cairo_FontOptions, getHintStyle)
 {
     cairo_font_options_object *font_options_object;
-    zval hint_style_case;
+    zend_object *hint_style_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -392,14 +389,13 @@ PHP_METHOD(Cairo_FontOptions, getHintStyle)
         RETURN_THROWS();
     }
 
-    hint_style_case = php_enum_from_cairo_c_enum(
-        ce_cairo_hintstyle,
-        cairo_font_options_get_hint_style(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &hint_style_case, ce_cairo_hintstyle,
+        cairo_font_options_get_hint_style(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(hint_style_case) == IS_OBJECT) {
-        RETURN_ZVAL(&hint_style_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(hint_style_case);
 }
 /* }}} */
 
@@ -438,7 +434,7 @@ PHP_METHOD(Cairo_FontOptions, setHintMetrics)
 PHP_METHOD(Cairo_FontOptions, getHintMetrics)
 {
     cairo_font_options_object *font_options_object;
-    zval hint_metrics_case;
+    zend_object *hint_metrics_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -447,14 +443,13 @@ PHP_METHOD(Cairo_FontOptions, getHintMetrics)
         RETURN_THROWS();
     }
 
-    hint_metrics_case = php_enum_from_cairo_c_enum(
-        ce_cairo_hintmetrics,
-        cairo_font_options_get_hint_metrics(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &hint_metrics_case, ce_cairo_hintmetrics,
+        cairo_font_options_get_hint_metrics(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(hint_metrics_case) == IS_OBJECT) {
-        RETURN_ZVAL(&hint_metrics_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(hint_metrics_case);
 }
 /* }}} */
 
@@ -514,7 +509,7 @@ PHP_METHOD(Cairo_FontOptions, getVariations)
 PHP_METHOD(Cairo_FontOptions, getColorMode)
 {
     cairo_font_options_object *font_options_object;
-    zval color_mode_case;
+    zend_object *color_mode_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -523,14 +518,13 @@ PHP_METHOD(Cairo_FontOptions, getColorMode)
         RETURN_THROWS();
     }
 
-    color_mode_case = php_enum_from_cairo_c_enum(
-        ce_cairo_color_mode,
-        cairo_font_options_get_color_mode(font_options_object->font_options)
+    zend_enum_get_case_by_value(
+        &color_mode_case, ce_cairo_color_mode,
+        cairo_font_options_get_color_mode(font_options_object->font_options),
+        NULL, false
     );
 
-    if (Z_TYPE(color_mode_case) == IS_OBJECT) {
-        RETURN_ZVAL(&color_mode_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(color_mode_case);
 }
 /* }}} */
 

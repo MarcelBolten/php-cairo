@@ -175,7 +175,7 @@ PHP_METHOD(Cairo_Context, __construct)
 PHP_METHOD(Cairo_Context, getStatus)
 {
     cairo_context_object *context_object;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -184,14 +184,13 @@ PHP_METHOD(Cairo_Context, getStatus)
         RETURN_THROWS();
     }
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_status(context_object->context)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_status(context_object->context),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -596,8 +595,7 @@ PHP_METHOD(Cairo_Context, setAntialias)
 PHP_METHOD(Cairo_Context, getAntialias)
 {
     cairo_context_object *context_object;
-    cairo_antialias_t antialias;
-    zval antialias_case;
+    zend_object *antialias_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -606,13 +604,13 @@ PHP_METHOD(Cairo_Context, getAntialias)
         RETURN_THROWS();
     }
 
-    antialias = cairo_get_antialias(context_object->context);
+    zend_enum_get_case_by_value(
+        &antialias_case, ce_cairo_antialias,
+        cairo_get_antialias(context_object->context),
+        NULL, false
+    );
 
-    antialias_case = php_enum_from_cairo_c_enum(ce_cairo_antialias, antialias);
-
-    if (Z_TYPE(antialias_case) == IS_OBJECT) {
-        RETURN_ZVAL(&antialias_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(antialias_case);
 }
 /* }}} */
 
@@ -748,8 +746,7 @@ PHP_METHOD(Cairo_Context, setFillRule)
 PHP_METHOD(Cairo_Context, getFillRule)
 {
     cairo_context_object *context_object;
-    cairo_fill_rule_t fillrule;
-    zval fillrule_case;
+    zend_object *fillrule_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -758,13 +755,13 @@ PHP_METHOD(Cairo_Context, getFillRule)
         RETURN_THROWS();
     }
 
-    fillrule = cairo_get_fill_rule(context_object->context);
+    zend_enum_get_case_by_value(
+        &fillrule_case, ce_cairo_fillrule,
+        cairo_get_fill_rule(context_object->context),
+        NULL, false
+    );
 
-    fillrule_case = php_enum_from_cairo_c_enum(ce_cairo_fillrule, fillrule);
-
-    if (Z_TYPE(fillrule_case) == IS_OBJECT) {
-        RETURN_ZVAL(&fillrule_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(fillrule_case);
 }
 /* }}} */
 
@@ -799,7 +796,7 @@ PHP_METHOD(Cairo_Context, setLineCap)
 PHP_METHOD(Cairo_Context, getLineCap)
 {
     cairo_context_object *context_object;
-    zval linecap_case;
+    zend_object *linecap_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -808,14 +805,13 @@ PHP_METHOD(Cairo_Context, getLineCap)
         RETURN_THROWS();
     }
 
-    linecap_case = php_enum_from_cairo_c_enum(
-        ce_cairo_linecap,
-        cairo_get_line_cap(context_object->context)
+    zend_enum_get_case_by_value(
+        &linecap_case, ce_cairo_linecap,
+        cairo_get_line_cap(context_object->context),
+        NULL, false
     );
 
-    if (Z_TYPE(linecap_case) == IS_OBJECT) {
-        RETURN_ZVAL(&linecap_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(linecap_case);
 }
 /* }}} */
 
@@ -850,8 +846,7 @@ PHP_METHOD(Cairo_Context, setLineJoin)
 PHP_METHOD(Cairo_Context, getLineJoin)
 {
     cairo_context_object *context_object;
-    cairo_line_join_t linejoin;
-    zval linejoin_case;
+    zend_object *linejoin_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -860,13 +855,13 @@ PHP_METHOD(Cairo_Context, getLineJoin)
         RETURN_THROWS();
     }
 
-    linejoin = cairo_get_line_join(context_object->context);
+    zend_enum_get_case_by_value(
+        &linejoin_case, ce_cairo_linejoin,
+        cairo_get_line_join(context_object->context),
+        NULL, false
+    );
 
-    linejoin_case = php_enum_from_cairo_c_enum(ce_cairo_linejoin, linejoin);
-
-    if (Z_TYPE(linejoin_case) == IS_OBJECT) {
-        RETURN_ZVAL(&linejoin_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(linejoin_case);
 }
 /* }}} */
 
@@ -982,8 +977,7 @@ PHP_METHOD(Cairo_Context, setOperator)
 PHP_METHOD(Cairo_Context, getOperator)
 {
     cairo_context_object *context_object;
-    cairo_operator_t operator;
-    zval operator_case;
+    zend_object *operator_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -992,13 +986,13 @@ PHP_METHOD(Cairo_Context, getOperator)
         RETURN_THROWS();
     }
 
-    operator = cairo_get_operator(context_object->context);
+    zend_enum_get_case_by_value(
+        &operator_case, ce_cairo_operator,
+        cairo_get_operator(context_object->context),
+        NULL, false
+    );
 
-    operator_case = php_enum_from_cairo_c_enum(ce_cairo_operator, operator);
-
-    if (Z_TYPE(operator_case) == IS_OBJECT) {
-        RETURN_ZVAL(&operator_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(operator_case);
 }
 /* }}} */
 

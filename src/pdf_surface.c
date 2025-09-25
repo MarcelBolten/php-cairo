@@ -109,16 +109,18 @@ PHP_METHOD(Cairo_Surface_Pdf, getVersions)
 {
     const cairo_pdf_version_t *versions = 0;
     int version_count = 0, i = 0;
-    zval pdf_version_case;
+    zend_object *pdf_version_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
     cairo_pdf_get_versions(&versions, &version_count);
-    array_init(return_value);
 
+    array_init(return_value);
     for (i = 0; i < version_count; i++) {
-        pdf_version_case = php_enum_from_cairo_c_enum(ce_cairo_pdfversion, versions[i]);
-        add_next_index_zval(return_value, &pdf_version_case);
+        if (zend_enum_get_case_by_value(&pdf_version_case, ce_cairo_pdfversion, versions[i], NULL, false) == SUCCESS) {
+            GC_ADDREF(pdf_version_case);
+            add_next_index_object(return_value, pdf_version_case);
+        }
     }
 }
 /* }}} */

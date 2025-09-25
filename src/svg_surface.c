@@ -135,16 +135,18 @@ PHP_METHOD(Cairo_Surface_Svg, getVersions)
 {
     const cairo_svg_version_t *versions = 0;
     int version_count = 0, i = 0;
-    zval svg_version_case;
+    zend_object *svg_version_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
     cairo_svg_get_versions(&versions, &version_count);
-    array_init(return_value);
 
+    array_init(return_value);
     for (i = 0; i < version_count; i++) {
-        svg_version_case = php_enum_from_cairo_c_enum(ce_cairo_svgversion, versions[i]);
-        add_next_index_zval(return_value, &svg_version_case);
+        if (zend_enum_get_case_by_value(&svg_version_case, ce_cairo_svgversion, versions[i], NULL, false) == SUCCESS) {
+            GC_ADDREF(svg_version_case);
+            add_next_index_object(return_value, svg_version_case);
+        }
     }
 }
 /* }}} */
@@ -179,7 +181,7 @@ PHP_METHOD(Cairo_Surface_Svg, setDocumentUnit)
 PHP_METHOD(Cairo_Surface_Svg, getDocumentUnit)
 {
     cairo_surface_object *surface_object;
-    zval svg_unit_case;
+    zend_object *svg_unit_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -188,14 +190,13 @@ PHP_METHOD(Cairo_Surface_Svg, getDocumentUnit)
         RETURN_THROWS();
     }
 
-    svg_unit_case = php_enum_from_cairo_c_enum(
-        ce_cairo_svgunit,
-        cairo_svg_surface_get_document_unit(surface_object->surface)
+    zend_enum_get_case_by_value(
+        &svg_unit_case, ce_cairo_svgunit,
+        cairo_svg_surface_get_document_unit(surface_object->surface),
+        NULL, false
     );
 
-    if (Z_TYPE(svg_unit_case) == IS_OBJECT) {
-        RETURN_ZVAL(&svg_unit_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(svg_unit_case);
 }
 /* }}} */
 #endif

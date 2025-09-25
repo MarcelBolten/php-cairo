@@ -122,7 +122,7 @@ PHP_METHOD(Cairo_Pattern, __construct)
 PHP_METHOD(Cairo_Pattern, getStatus)
 {
     cairo_pattern_object *pattern_object;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -131,14 +131,13 @@ PHP_METHOD(Cairo_Pattern, getStatus)
         RETURN_THROWS();
     }
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_pattern_status(pattern_object->pattern)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_pattern_status(pattern_object->pattern),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -147,7 +146,7 @@ PHP_METHOD(Cairo_Pattern, getStatus)
 PHP_METHOD(Cairo_Pattern, getType)
 {
     cairo_pattern_object *pattern_object;
-    zval pattern_case;
+    zend_object *pattern_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -156,14 +155,13 @@ PHP_METHOD(Cairo_Pattern, getType)
         RETURN_THROWS();
     }
 
-    pattern_case = php_enum_from_cairo_c_enum(
-        ce_cairo_pattern_type,
-        cairo_pattern_get_type(pattern_object->pattern)
+    zend_enum_get_case_by_value(
+        &pattern_case, ce_cairo_pattern_type,
+        cairo_pattern_get_type(pattern_object->pattern),
+        NULL, false
     );
 
-    if (Z_TYPE(pattern_case) == IS_OBJECT) {
-        RETURN_ZVAL(&pattern_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(pattern_case);
 }
 
 /* }}} */
@@ -173,7 +171,7 @@ PHP_METHOD(Cairo_Pattern, getType)
 PHP_METHOD(Cairo_Pattern, getExtend)
 {
     cairo_pattern_object *pattern_object;
-    zval extend_case;
+    zend_object *extend_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -182,14 +180,13 @@ PHP_METHOD(Cairo_Pattern, getExtend)
         RETURN_THROWS();
     }
 
-    extend_case = php_enum_from_cairo_c_enum(
-        ce_cairo_extend,
-        cairo_pattern_get_extend(pattern_object->pattern)
+    zend_enum_get_case_by_value(
+        &extend_case, ce_cairo_extend,
+        cairo_pattern_get_extend(pattern_object->pattern),
+        NULL, false
     );
 
-    if (Z_TYPE(extend_case) == IS_OBJECT) {
-        RETURN_ZVAL(&extend_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(extend_case);
 }
 /* }}} */
 
@@ -225,7 +222,7 @@ PHP_METHOD(Cairo_Pattern, setExtend)
 PHP_METHOD(Cairo_Pattern, getFilter)
 {
     cairo_pattern_object *pattern_object;
-    zval filter_case;
+    zend_object *filter_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -234,14 +231,13 @@ PHP_METHOD(Cairo_Pattern, getFilter)
         RETURN_THROWS();
     }
 
-    filter_case = php_enum_from_cairo_c_enum(
-        ce_cairo_filter,
-        cairo_pattern_get_filter(pattern_object->pattern)
+    zend_enum_get_case_by_value(
+        &filter_case, ce_cairo_filter,
+        cairo_pattern_get_filter(pattern_object->pattern),
+        NULL, false
     );
 
-    if (Z_TYPE(filter_case) == IS_OBJECT) {
-        RETURN_ZVAL(&filter_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(filter_case);
 }
 /* }}} */
 
@@ -349,7 +345,7 @@ PHP_METHOD(Cairo_Pattern, setMatrix)
 PHP_METHOD(Cairo_Pattern, getDither)
 {
     cairo_pattern_object *pattern_object;
-    zval dither_case;
+    zend_object *dither_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -358,14 +354,13 @@ PHP_METHOD(Cairo_Pattern, getDither)
         RETURN_THROWS();
     }
 
-    dither_case = php_enum_from_cairo_c_enum(
-        ce_cairo_dither,
-        cairo_pattern_get_dither(pattern_object->pattern)
+    zend_enum_get_case_by_value(
+        &dither_case, ce_cairo_dither,
+        cairo_pattern_get_dither(pattern_object->pattern),
+        NULL, false
     );
 
-    if (Z_TYPE(dither_case) == IS_OBJECT) {
-        RETURN_ZVAL(&dither_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(dither_case);
 }
 /* }}} */
 

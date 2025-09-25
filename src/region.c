@@ -188,7 +188,7 @@ PHP_METHOD(Cairo_Region, __construct)
 PHP_METHOD(Cairo_Region, getStatus)
 {
     cairo_region_object *region_object;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -197,14 +197,13 @@ PHP_METHOD(Cairo_Region, getStatus)
         RETURN_THROWS();
     }
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_status(region_object->region)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_status(region_object->region),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -326,7 +325,7 @@ PHP_METHOD(Cairo_Region, containsRectangle)
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
     zval *rectangle_zval;
-    zval region_overlap_case;
+    zend_object *region_overlap_case;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -345,14 +344,13 @@ PHP_METHOD(Cairo_Region, containsRectangle)
 
     cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
-    region_overlap_case = php_enum_from_cairo_c_enum(
-        ce_cairo_region_overlap,
-        cairo_region_contains_rectangle(region_object->region, &int_rect)
+    zend_enum_get_case_by_value(
+        &region_overlap_case, ce_cairo_region_overlap,
+        cairo_region_contains_rectangle(region_object->region, &int_rect),
+        NULL, false
     );
 
-    if (Z_TYPE(region_overlap_case) == IS_OBJECT) {
-        RETURN_ZVAL(&region_overlap_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(region_overlap_case);
 }
 /* }}} */
 
@@ -411,7 +409,7 @@ PHP_METHOD(Cairo_Region, intersect)
 {
     cairo_region_object *region_obj, *other_region_obj;
     zval *other_region;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(other_region, ce_cairo_region)
@@ -424,14 +422,13 @@ PHP_METHOD(Cairo_Region, intersect)
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_intersect(region_obj->region, other_region_obj->region)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_intersect(region_obj->region, other_region_obj->region),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -442,7 +439,7 @@ PHP_METHOD(Cairo_Region, intersectRectangle)
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
     zval *rectangle_zval;
-    zval status_case;
+    zend_object *status_case;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -461,14 +458,13 @@ PHP_METHOD(Cairo_Region, intersectRectangle)
 
     cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_intersect_rectangle(region_object->region, &int_rect)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_intersect_rectangle(region_object->region, &int_rect),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -478,7 +474,7 @@ PHP_METHOD(Cairo_Region, subtract)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(other_region, ce_cairo_region)
@@ -491,14 +487,13 @@ PHP_METHOD(Cairo_Region, subtract)
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_subtract(region_obj->region, other_region_obj->region)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_subtract(region_obj->region, other_region_obj->region),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -509,7 +504,7 @@ PHP_METHOD(Cairo_Region, subtractRectangle)
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
-    zval status_case;
+    zend_object *status_case;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -528,14 +523,13 @@ PHP_METHOD(Cairo_Region, subtractRectangle)
 
     cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_subtract_rectangle(region_object->region, &int_rect)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_subtract_rectangle(region_object->region, &int_rect),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -545,7 +539,7 @@ PHP_METHOD(Cairo_Region, union)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(other_region, ce_cairo_region)
@@ -558,14 +552,13 @@ PHP_METHOD(Cairo_Region, union)
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_union(region_obj->region, other_region_obj->region)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_union(region_obj->region, other_region_obj->region),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -576,7 +569,7 @@ PHP_METHOD(Cairo_Region, unionRectangle)
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
-    zval status_case;
+    zend_object *status_case;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -595,14 +588,13 @@ PHP_METHOD(Cairo_Region, unionRectangle)
 
     cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_union_rectangle(region_object->region, &int_rect)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_union_rectangle(region_object->region, &int_rect),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -613,7 +605,7 @@ PHP_METHOD(Cairo_Region, xor)
 {
     zval *other_region;
     cairo_region_object *region_obj, *other_region_obj;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_OBJECT_OF_CLASS(other_region, ce_cairo_region)
@@ -626,14 +618,13 @@ PHP_METHOD(Cairo_Region, xor)
 
     other_region_obj = Z_CAIRO_REGION_P(other_region);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_xor(region_obj->region, other_region_obj->region)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_xor(region_obj->region, other_region_obj->region),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -645,7 +636,7 @@ PHP_METHOD(Cairo_Region, xorRectangle)
     zval *rectangle_zval;
     cairo_rectangle_object *rectangle_object;
     cairo_region_object *region_object;
-    zval status_case;
+    zend_object *status_case;
     cairo_rectangle_int_t int_rect;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
@@ -664,14 +655,13 @@ PHP_METHOD(Cairo_Region, xorRectangle)
 
     cairo_expand_to_rectangle_int(rectangle_object->rect, &int_rect);
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_region_xor_rectangle(region_object->region, &int_rect)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_region_xor_rectangle(region_object->region, &int_rect),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 

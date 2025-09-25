@@ -258,7 +258,7 @@ PHP_METHOD(Cairo_Surface_Ps, getLevels)
 {
     const cairo_ps_level_t *levels;
     int num_levels, i;
-    zval ps_level_case;
+    zend_object *ps_level_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -266,8 +266,10 @@ PHP_METHOD(Cairo_Surface_Ps, getLevels)
 
     array_init(return_value);
     for (i = 0; i < num_levels; i++) {
-        ps_level_case = php_enum_from_cairo_c_enum(ce_cairo_pslevel, levels[i]);
-        add_next_index_zval(return_value, &ps_level_case);
+        if (zend_enum_get_case_by_value(&ps_level_case, ce_cairo_pslevel, levels[i], NULL, false) == SUCCESS) {
+            GC_ADDREF(ps_level_case);
+            add_next_index_object(return_value, ps_level_case);
+        }
     }
 }
 /* }}} */

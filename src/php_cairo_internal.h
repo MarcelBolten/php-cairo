@@ -302,9 +302,6 @@ PHP_MINIT_FUNCTION(cairo_context);
 PHP_MINIT_FUNCTION(cairo_text_cluster);
 
 
-/* Enum macros */
-extern zval php_enum_from_cairo_c_enum(zend_class_entry *enum_ce, long c_enum_value);
-
 #define CAIRO_UNREF_AND_UNDEF(zv) \
     do { \
         if (!(Z_ISNULL(zv) || Z_ISUNDEF(zv))) { \

@@ -171,7 +171,7 @@ PHP_METHOD(Cairo_Surface_Image, getData)
 PHP_METHOD(Cairo_Surface_Image, getFormat)
 {
     cairo_surface_object *surface_object;
-    zval format_case;
+    zend_object *format_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -184,14 +184,13 @@ PHP_METHOD(Cairo_Surface_Image, getFormat)
         RETURN_THROWS();
     }
 
-    format_case = php_enum_from_cairo_c_enum(
-        ce_cairo_format,
-        cairo_image_surface_get_format(surface_object->surface)
+    zend_enum_get_case_by_value(
+        &format_case, ce_cairo_format,
+        cairo_image_surface_get_format(surface_object->surface),
+        NULL, false
     );
 
-    if (Z_TYPE(format_case) == IS_OBJECT) {
-        RETURN_ZVAL(&format_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(format_case);
 }
 /* }}} */
 

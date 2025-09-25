@@ -177,7 +177,7 @@ PHP_METHOD(Cairo_Surface, createForRectangle)
 PHP_METHOD(Cairo_Surface, getStatus)
 {
     cairo_surface_object *surface_object;
-    zval status_case;
+    zend_object *status_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -186,14 +186,13 @@ PHP_METHOD(Cairo_Surface, getStatus)
         RETURN_THROWS();
     }
 
-    status_case = php_enum_from_cairo_c_enum(
-        ce_cairo_status,
-        cairo_surface_status(surface_object->surface)
+    zend_enum_get_case_by_value(
+        &status_case, ce_cairo_status,
+        cairo_surface_status(surface_object->surface),
+        NULL, false
     );
 
-    if (Z_TYPE(status_case) == IS_OBJECT) {
-        RETURN_ZVAL(&status_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(status_case);
 }
 /* }}} */
 
@@ -262,7 +261,7 @@ PHP_METHOD(Cairo_Surface, getFontOptions)
 PHP_METHOD(Cairo_Surface, getContent)
 {
     cairo_surface_object *surface_object;
-    zval content_case;
+    zend_object *content_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -271,14 +270,13 @@ PHP_METHOD(Cairo_Surface, getContent)
         RETURN_THROWS();
     }
 
-    content_case = php_enum_from_cairo_c_enum(
-        ce_cairo_content,
-        cairo_surface_get_content(surface_object->surface)
+    zend_enum_get_case_by_value(
+        &content_case, ce_cairo_content,
+        cairo_surface_get_content(surface_object->surface),
+        NULL, false
     );
 
-    if (Z_TYPE(content_case) == IS_OBJECT) {
-        RETURN_ZVAL(&content_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(content_case);
 }
 /* }}} */
 
@@ -463,7 +461,7 @@ PHP_METHOD(Cairo_Surface, getFallbackResolution)
 PHP_METHOD(Cairo_Surface, getType)
 {
     cairo_surface_object *surface_object;
-    zval surface_case;
+    zend_object *surface_case;
 
     ZEND_PARSE_PARAMETERS_NONE();
 
@@ -472,14 +470,13 @@ PHP_METHOD(Cairo_Surface, getType)
         RETURN_THROWS();
     }
 
-    surface_case = php_enum_from_cairo_c_enum(
-        ce_cairo_surfacetype,
-        cairo_surface_get_type(surface_object->surface)
+    zend_enum_get_case_by_value(
+        &surface_case, ce_cairo_surfacetype,
+        cairo_surface_get_type(surface_object->surface),
+        NULL, false
     );
 
-    if (Z_TYPE(surface_case) == IS_OBJECT) {
-        RETURN_ZVAL(&surface_case, 1, 1);
-    }
+    RETURN_OBJ_COPY(surface_case);
 }
 /* }}} */
 
