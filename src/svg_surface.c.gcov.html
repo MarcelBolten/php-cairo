@@ -31,13 +31,13 @@
             <td class="headerValue">PHP Cairo Extension Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">92.0&nbsp;%</td>
-            <td class="headerCovTableEntry">75</td>
-            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntryHi">92.1&nbsp;%</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntry">70</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-20 15:22:22</td>
+            <td class="headerValue">2025-09-25 18:27:40</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -197,91 +197,92 @@
 <span id="L135"><span class="lineNum">     135</span>              : {</span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           4 :     const cairo_svg_version_t *versions = 0;</span></span>
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           4 :     int version_count = 0, i = 0;</span></span>
-<span id="L138"><span class="lineNum">     138</span>              :     zval svg_version_case;</span>
+<span id="L138"><span class="lineNum">     138</span>              :     zend_object *svg_version_case;</span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           4 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
 <span id="L141"><span class="lineNum">     141</span>              : </span>
 <span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           2 :     cairo_svg_get_versions(&amp;versions, &amp;version_count);</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           2 :     array_init(return_value);</span></span>
-<span id="L144"><span class="lineNum">     144</span>              : </span>
+<span id="L143"><span class="lineNum">     143</span>              : </span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           2 :     array_init(return_value);</span></span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           6 :     for (i = 0; i &lt; version_count; i++) {</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           4 :         svg_version_case = php_enum_from_cairo_c_enum(ce_cairo_svgversion, versions[i]);</span></span>
-<span id="L147"><span class="lineNum">     147</span>              :         add_next_index_zval(return_value, &amp;svg_version_case);</span>
-<span id="L148"><span class="lineNum">     148</span>              :     }</span>
-<span id="L149"><span class="lineNum">     149</span>              : }</span>
-<span id="L150"><span class="lineNum">     150</span>              : /* }}} */</span>
-<span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span>              : </span>
-<span id="L153"><span class="lineNum">     153</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 16, 0)</span>
-<span id="L154"><span class="lineNum">     154</span>              : /* {{{ proto array \Cairo\Surface\Svg::setDocumentUnit(\Cairo\Surface\Svg\Unit unit)</span>
-<span id="L155"><span class="lineNum">     155</span>              :        ... */</span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           8 : PHP_METHOD(Cairo_Surface_Svg, setDocumentUnit)</span></span>
-<span id="L157"><span class="lineNum">     157</span>              : {</span>
-<span id="L158"><span class="lineNum">     158</span>              :     cairo_surface_object *surface_object;</span>
-<span id="L159"><span class="lineNum">     159</span>              :     zval *unit;</span>
-<span id="L160"><span class="lineNum">     160</span>              : </span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           8 :     ZEND_PARSE_PARAMETERS_START(1, 1)</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          12 :         Z_PARAM_OBJECT_OF_CLASS(unit, ce_cairo_svgunit)</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           8 :     ZEND_PARSE_PARAMETERS_END();</span></span>
-<span id="L164"><span class="lineNum">     164</span>              : </span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           4 :     surface_object = cairo_surface_object_get(getThis());</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           2 :     if (!surface_object) {</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L168"><span class="lineNum">     168</span>              :     }</span>
-<span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_svg_surface_set_document_unit(</span></span>
-<span id="L171"><span class="lineNum">     171</span>              :         surface_object-&gt;surface,</span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           4 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(unit)))</span></span>
-<span id="L173"><span class="lineNum">     173</span>              :     );</span>
-<span id="L174"><span class="lineNum">     174</span>              : }</span>
-<span id="L175"><span class="lineNum">     175</span>              : /* }}} */</span>
-<span id="L176"><span class="lineNum">     176</span>              : </span>
-<span id="L177"><span class="lineNum">     177</span>              : /* {{{ proto \Cairo\Surface\SVG\Unit \Cairo\Surface\Svg::getDocumentUnit()</span>
-<span id="L178"><span class="lineNum">     178</span>              :        ... */</span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           6 : PHP_METHOD(Cairo_Surface_Svg, getDocumentUnit)</span></span>
-<span id="L180"><span class="lineNum">     180</span>              : {</span>
-<span id="L181"><span class="lineNum">     181</span>              :     cairo_surface_object *surface_object;</span>
-<span id="L182"><span class="lineNum">     182</span>              :     zval svg_unit_case;</span>
-<span id="L183"><span class="lineNum">     183</span>              : </span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           4 :         if (zend_enum_get_case_by_value(&amp;svg_version_case, ce_cairo_svgversion, versions[i], NULL, false) == SUCCESS) {</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           4 :             GC_ADDREF(svg_version_case);</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           4 :             add_next_index_object(return_value, svg_version_case);</span></span>
+<span id="L149"><span class="lineNum">     149</span>              :         }</span>
+<span id="L150"><span class="lineNum">     150</span>              :     }</span>
+<span id="L151"><span class="lineNum">     151</span>              : }</span>
+<span id="L152"><span class="lineNum">     152</span>              : /* }}} */</span>
+<span id="L153"><span class="lineNum">     153</span>              : </span>
+<span id="L154"><span class="lineNum">     154</span>              : </span>
+<span id="L155"><span class="lineNum">     155</span>              : #if CAIRO_VERSION &gt;= CAIRO_VERSION_ENCODE(1, 16, 0)</span>
+<span id="L156"><span class="lineNum">     156</span>              : /* {{{ proto array \Cairo\Surface\Svg::setDocumentUnit(\Cairo\Surface\Svg\Unit unit)</span>
+<span id="L157"><span class="lineNum">     157</span>              :        ... */</span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           8 : PHP_METHOD(Cairo_Surface_Svg, setDocumentUnit)</span></span>
+<span id="L159"><span class="lineNum">     159</span>              : {</span>
+<span id="L160"><span class="lineNum">     160</span>              :     cairo_surface_object *surface_object;</span>
+<span id="L161"><span class="lineNum">     161</span>              :     zval *unit;</span>
+<span id="L162"><span class="lineNum">     162</span>              : </span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           8 :     ZEND_PARSE_PARAMETERS_START(1, 1)</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          12 :         Z_PARAM_OBJECT_OF_CLASS(unit, ce_cairo_svgunit)</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           8 :     ZEND_PARSE_PARAMETERS_END();</span></span>
+<span id="L166"><span class="lineNum">     166</span>              : </span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           4 :     surface_object = cairo_surface_object_get(getThis());</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           2 :     if (!surface_object) {</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L170"><span class="lineNum">     170</span>              :     }</span>
+<span id="L171"><span class="lineNum">     171</span>              : </span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_svg_surface_set_document_unit(</span></span>
+<span id="L173"><span class="lineNum">     173</span>              :         surface_object-&gt;surface,</span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           4 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(unit)))</span></span>
+<span id="L175"><span class="lineNum">     175</span>              :     );</span>
+<span id="L176"><span class="lineNum">     176</span>              : }</span>
+<span id="L177"><span class="lineNum">     177</span>              : /* }}} */</span>
+<span id="L178"><span class="lineNum">     178</span>              : </span>
+<span id="L179"><span class="lineNum">     179</span>              : /* {{{ proto \Cairo\Surface\SVG\Unit \Cairo\Surface\Svg::getDocumentUnit()</span>
+<span id="L180"><span class="lineNum">     180</span>              :        ... */</span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           6 : PHP_METHOD(Cairo_Surface_Svg, getDocumentUnit)</span></span>
+<span id="L182"><span class="lineNum">     182</span>              : {</span>
+<span id="L183"><span class="lineNum">     183</span>              :     cairo_surface_object *surface_object;</span>
+<span id="L184"><span class="lineNum">     184</span>              :     zend_object *svg_unit_case;</span>
 <span id="L185"><span class="lineNum">     185</span>              : </span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           8 :     surface_object = cairo_surface_object_get(getThis());</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           4 :     if (!surface_object) {</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
-<span id="L189"><span class="lineNum">     189</span>              :     }</span>
-<span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC tlaBgGNC">           4 :     svg_unit_case = php_enum_from_cairo_c_enum(</span></span>
-<span id="L192"><span class="lineNum">     192</span>              :         ce_cairo_svgunit,</span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           4 :         cairo_svg_surface_get_document_unit(surface_object-&gt;surface)</span></span>
-<span id="L194"><span class="lineNum">     194</span>              :     );</span>
-<span id="L195"><span class="lineNum">     195</span>              : </span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">           4 :     if (Z_TYPE(svg_unit_case) == IS_OBJECT) {</span></span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           8 :         RETURN_ZVAL(&amp;svg_unit_case, 1, 1);</span></span>
-<span id="L198"><span class="lineNum">     198</span>              :     }</span>
-<span id="L199"><span class="lineNum">     199</span>              : }</span>
-<span id="L200"><span class="lineNum">     200</span>              : /* }}} */</span>
-<span id="L201"><span class="lineNum">     201</span>              : #endif</span>
-<span id="L202"><span class="lineNum">     202</span>              : </span>
-<span id="L203"><span class="lineNum">     203</span>              : /* ----------------------------------------------------------------</span>
-<span id="L204"><span class="lineNum">     204</span>              :     \Cairo\Surface\Svg Definition and registration</span>
-<span id="L205"><span class="lineNum">     205</span>              : ------------------------------------------------------------------*/</span>
-<span id="L206"><span class="lineNum">     206</span>              : </span>
-<span id="L207"><span class="lineNum">     207</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">         866 : PHP_MINIT_FUNCTION(cairo_svg_surface)</span></span>
-<span id="L209"><span class="lineNum">     209</span>              : {</span>
-<span id="L210"><span class="lineNum">     210</span>              :     /* Svg-Surface */</span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">         866 :     ce_cairo_svgsurface = register_class_Cairo_Surface_Svg(ce_cairo_surface);</span></span>
-<span id="L212"><span class="lineNum">     212</span>              : </span>
-<span id="L213"><span class="lineNum">     213</span>              :     /* Svg-Version */</span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">         866 :     ce_cairo_svgversion = register_class_Cairo_Surface_Svg_Version();</span></span>
-<span id="L215"><span class="lineNum">     215</span>              : </span>
-<span id="L216"><span class="lineNum">     216</span>              :     /* Svg-Unit */</span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         866 :     ce_cairo_svgunit = register_class_Cairo_Surface_Svg_Unit();</span></span>
-<span id="L218"><span class="lineNum">     218</span>              : </span>
-<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">         866 :     return SUCCESS;</span></span>
-<span id="L220"><span class="lineNum">     220</span>              : }</span>
-<span id="L221"><span class="lineNum">     221</span>              : </span>
-<span id="L222"><span class="lineNum">     222</span>              : #endif</span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           6 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L187"><span class="lineNum">     187</span>              : </span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           8 :     surface_object = cairo_surface_object_get(getThis());</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           4 :     if (!surface_object) {</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L191"><span class="lineNum">     191</span>              :     }</span>
+<span id="L192"><span class="lineNum">     192</span>              : </span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC tlaBgGNC">           4 :     zend_enum_get_case_by_value(</span></span>
+<span id="L194"><span class="lineNum">     194</span>              :         &amp;svg_unit_case, ce_cairo_svgunit,</span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           4 :         cairo_svg_surface_get_document_unit(surface_object-&gt;surface),</span></span>
+<span id="L196"><span class="lineNum">     196</span>              :         NULL, false</span>
+<span id="L197"><span class="lineNum">     197</span>              :     );</span>
+<span id="L198"><span class="lineNum">     198</span>              : </span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           8 :     RETURN_OBJ_COPY(svg_unit_case);</span></span>
+<span id="L200"><span class="lineNum">     200</span>              : }</span>
+<span id="L201"><span class="lineNum">     201</span>              : /* }}} */</span>
+<span id="L202"><span class="lineNum">     202</span>              : #endif</span>
+<span id="L203"><span class="lineNum">     203</span>              : </span>
+<span id="L204"><span class="lineNum">     204</span>              : /* ----------------------------------------------------------------</span>
+<span id="L205"><span class="lineNum">     205</span>              :     \Cairo\Surface\Svg Definition and registration</span>
+<span id="L206"><span class="lineNum">     206</span>              : ------------------------------------------------------------------*/</span>
+<span id="L207"><span class="lineNum">     207</span>              : </span>
+<span id="L208"><span class="lineNum">     208</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">         866 : PHP_MINIT_FUNCTION(cairo_svg_surface)</span></span>
+<span id="L210"><span class="lineNum">     210</span>              : {</span>
+<span id="L211"><span class="lineNum">     211</span>              :     /* Svg-Surface */</span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">         866 :     ce_cairo_svgsurface = register_class_Cairo_Surface_Svg(ce_cairo_surface);</span></span>
+<span id="L213"><span class="lineNum">     213</span>              : </span>
+<span id="L214"><span class="lineNum">     214</span>              :     /* Svg-Version */</span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">         866 :     ce_cairo_svgversion = register_class_Cairo_Surface_Svg_Version();</span></span>
+<span id="L216"><span class="lineNum">     216</span>              : </span>
+<span id="L217"><span class="lineNum">     217</span>              :     /* Svg-Unit */</span>
+<span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">         866 :     ce_cairo_svgunit = register_class_Cairo_Surface_Svg_Unit();</span></span>
+<span id="L219"><span class="lineNum">     219</span>              : </span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">         866 :     return SUCCESS;</span></span>
+<span id="L221"><span class="lineNum">     221</span>              : }</span>
+<span id="L222"><span class="lineNum">     222</span>              : </span>
+<span id="L223"><span class="lineNum">     223</span>              : #endif</span>
         </pre>
               </td>
             </tr>
