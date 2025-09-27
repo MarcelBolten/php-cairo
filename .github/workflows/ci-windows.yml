@@ -46,6 +46,7 @@ jobs:
                   vcpkg-${{ matrix.arch }}-${{ matrix.php-version }}-
 
             - name: Setup vcpkg and install dependencies
+              id: build-deps
               shell: powershell
               run: |
                 # Clone vcpkg if not cached
@@ -91,42 +92,10 @@ jobs:
                 )
                 & .\vcpkg install @packages
 
-                # Create directory structure config.w32 expects
-                New-Item -ItemType Directory -Path "C:\cairo-deps\lib" -Force
-                New-Item -ItemType Directory -Path "C:\cairo-deps\include" -Force
+                $depsPath = "C:\vcpkg\installed\$triplet"
 
-                $installPath = ".\installed\$triplet"
-
-                # Copy libraries
-                $libs = @(
-                  'cairo.lib',
-                  'libpng16.lib',
-                  'freetype.lib',
-                  'fontconfig.lib',
-                  'pixman-1.lib',
-                  'jpeg.lib',
-                  'turbojpeg.lib',
-                  'zlib.lib',
-                  'bz2.lib',
-                  'brotlidec.lib',
-                  'brotlicommon.lib',
-                  'libexpatMD.lib' # or libexpatMT.lib for dynamic linking
-                )
-                foreach ($libName in $libs) {
-                  $srcPath = Join-Path $installPath "lib\$libName"
-                  $dstPath = Join-Path 'C:\cairo-deps\lib' $libName
-                  if (Test-Path -Path $srcPath) {
-                      Copy-Item -Path $srcPath -Destination $dstPath -Force
-                  } else {
-                      Write-Host "Warning: $srcPath not found, skipping."
-                  }
-                }
-
-                # Copy all headers
-                Copy-Item -Path "$installPath\include\*" -Destination "C:\cairo-deps\include\" -Recurse -Force
-
-                Write-Host "Libraries installed:"
-                Get-ChildItem "C:\cairo-deps\lib\" | ForEach-Object { Write-Host $_.Name }
+                # Export the path so it can be used in the extension build step
+                echo "CAIRO_DEPS_PATH=$depsPath" >> $env:GITHUB_OUTPUT
 
             - name: Save vcpkg cache
               uses: actions/cache/save@v4
@@ -142,7 +111,7 @@ jobs:
                 php-version: ${{ matrix.php-version }}
                 arch: ${{ matrix.arch }}
                 ts: ${{ matrix.ts }}
-                args: --enable-debug --with-cairo=C:\cairo-deps
+                args: --with-cairo=${{ steps.build-deps.outputs.CAIRO_DEPS_PATH }}
 
             - name: "Upload test outputs"
               if: ${{ always() }}
