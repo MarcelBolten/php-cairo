@@ -3,11 +3,13 @@
 ARG_WITH("cairo", "Cairo Graphics Library Bindings", "no");
 
 if (PHP_CAIRO != "no") {
-    var PHP_CAIRO_SRC_ARRAY = glob(configure_module_dirname + "/src/*.c");
+    STDOUT.WriteLine(configure_module_dirname);
+    var PHP_CAIRO_SRC_ARRAY = glob(configure_module_dirname + "\\src\\*.c");
     var PHP_CAIRO_SOURCES = "";
     for (var i = 0; i < PHP_CAIRO_SRC_ARRAY.length; ++i) {
         var basename = FSO.GetFileName(PHP_CAIRO_SRC_ARRAY[i]);
-        PHP_CAIRO_SOURCES += "src/" + basename + " ";
+        STDOUT.WriteLine(basename);
+        PHP_CAIRO_SOURCES += "src\\" + basename + " ";
     }
 
     if (!(CHECK_HEADER_ADD_INCLUDE("cairo/cairo.h", "CFLAGS_CAIRO", PHP_CAIRO + "\\include", null, true)
