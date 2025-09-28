@@ -12,10 +12,8 @@ if test "$PHP_CAIRO" != "no"; then
 
     PHP_NEW_EXTENSION(cairo, src/cairo.c src/pattern.c src/region.c src/exception.c src/matrix.c src/rectangle.c src/glyph.c src/text_cluster.c src/font.c src/font_face.c src/font_options.c src/scaled_font.c src/ft_font.c src/quartz_font.c src/win32_font.c src/cairo_jpg.c src/surface.c src/image_surface.c src/sub_surface.c src/recording_surface.c src/pdf_surface.c src/svg_surface.c src/ps_surface.c src/path.c src/context.c, $ext_shared)
 
-    EXT_CAIRO_HEADERS="php_cairo_internal.h"
-
     ifdef([PHP_INSTALL_HEADERS], [
-        PHP_INSTALL_HEADERS(ext/cairo, $EXT_CAIRO_HEADERS)
+        PHP_INSTALL_HEADERS([ext/cairo], [src/php_cairo_internal.h src/cairo_jpg.h])
     ])
 
     if test "$PHP_CAIRO" != "no"; then
