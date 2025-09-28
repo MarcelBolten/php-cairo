@@ -5,3 +5,5 @@
 
 # Collapse generated files within git and pull request diff.
 **/*_arginfo.h linguist-generated -diff
+
+**/*.w32 linguist-language=JavaScript
