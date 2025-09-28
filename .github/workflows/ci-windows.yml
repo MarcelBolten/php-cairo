@@ -47,7 +47,7 @@ jobs:
 
             - name: Setup vcpkg and install dependencies
               id: build-deps
-              shell: powershell
+              shell: pwsh
               run: |
                 # Clone vcpkg if not cached
                 if (!(Test-Path "C:\vcpkg")) {
