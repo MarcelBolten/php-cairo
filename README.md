@@ -1,4 +1,4 @@
-Cairo for PHP 8.1+
+Cairo for PHP 8.2+
 =============
 
 [Cairo](https://www.cairographics.org/) is a 2D graphics library with support for multiple output devices. Output
@@ -11,7 +11,7 @@ This extension provides access to Cairo functionality in PHP 8.1+ in the Cairo n
 
 Requirements
 =============
- * PHP 8.1.0+
+ * PHP 8.2.0+
  * Cairo 1.12.0+
 
 Additional features are supported up to Cairo version 1.18.4.
