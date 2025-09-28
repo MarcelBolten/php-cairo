@@ -64,7 +64,10 @@ jobs:
                 $triplet = "${{ matrix.arch }}-windows-static-md"
 
                 # Custom triplet for x86 and PHP <= 8.3 to use v142 toolset (Visual Studio 2019 vs16/14.29.30133) to match PHP build
-                if ("${{ matrix.arch }}" -eq "x86" -and [version]"${{ matrix.php-version }}" -le [version]"8.3") {
+                if ("${{ matrix.arch }}" -eq "x86" `
+                    -and "${{ matrix.php-version }}" -ne "master" `
+                    -and [version]"${{ matrix.php-version }}" -le [version]"8.3" `
+                ) {
                   $triplet = "x86-windows-php"
 
                   $tripletContent = @(
