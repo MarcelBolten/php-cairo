@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-09-25 18:29:47</td>
+            <td class="headerValue">2025-10-09 18:11:12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,18 +93,18 @@
 <span id="L31"><span class="lineNum">      31</span>              :     Cairo C API</span>
 <span id="L32"><span class="lineNum">      32</span>              : ------------------------------------------------------------------*/</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">        1548 : bool php_cairo_throw_exception(cairo_status_t status)</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         774 : bool php_cairo_throw_exception(cairo_status_t status)</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : {</span>
 <span id="L36"><span class="lineNum">      36</span>              :     char * error_message;</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        1548 :     if (status == CAIRO_STATUS_SUCCESS) {</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        1536 :         return false;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         774 :     if (status == CAIRO_STATUS_SUCCESS) {</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         768 :         return false;</span></span>
 <span id="L40"><span class="lineNum">      40</span>              :     }</span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          12 :     error_message = estrdup(cairo_status_to_string(status));</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          12 :     zend_throw_exception(ce_cairo_exception, error_message, status);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          12 :     efree(error_message);</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          12 :     return true;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           6 :     error_message = estrdup(cairo_status_to_string(status));</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           6 :     zend_throw_exception(ce_cairo_exception, error_message, status);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           6 :     efree(error_message);</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           6 :     return true;</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : }</span>
 <span id="L47"><span class="lineNum">      47</span>              : </span>
 <span id="L48"><span class="lineNum">      48</span>              : /* ----------------------------------------------------------------</span>
@@ -113,11 +113,11 @@
 <span id="L51"><span class="lineNum">      51</span>              : </span>
 <span id="L52"><span class="lineNum">      52</span>              : /* {{{ proto string CairoStatus-&gt;getMessage</span>
 <span id="L53"><span class="lineNum">      53</span>              :        Translates the current enums value to it's cairo status message value */</span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          10 : PHP_METHOD(Cairo_Status, getMessage)</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           5 : PHP_METHOD(Cairo_Status, getMessage)</span></span>
 <span id="L55"><span class="lineNum">      55</span>              : {</span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          10 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           5 :     ZEND_PARSE_PARAMETERS_NONE();</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          24 :     RETURN_STRING(cairo_status_to_string(</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          12 :     RETURN_STRING(cairo_status_to_string(</span></span>
 <span id="L59"><span class="lineNum">      59</span>              :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(getThis())))</span>
 <span id="L60"><span class="lineNum">      60</span>              :     ));</span>
 <span id="L61"><span class="lineNum">      61</span>              : }</span>
@@ -128,13 +128,13 @@
 <span id="L66"><span class="lineNum">      66</span>              : ------------------------------------------------------------------*/</span>
 <span id="L67"><span class="lineNum">      67</span>              : </span>
 <span id="L68"><span class="lineNum">      68</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         866 : PHP_MINIT_FUNCTION(cairo_exception)</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_exception)</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : {</span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         866 :     ce_cairo_exception = register_class_Cairo_Exception(zend_ce_exception);</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         433 :     ce_cairo_exception = register_class_Cairo_Exception(zend_ce_exception);</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         866 :     ce_cairo_status = register_class_Cairo_Status();</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         433 :     ce_cairo_status = register_class_Cairo_Status();</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         866 :     return SUCCESS;</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : }</span>
 <span id="L77"><span class="lineNum">      77</span>              : /* }}} */</span>
         </pre>
