@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Resetting coverage counters..."
+lcov --zerocounters --directory src/.libs --quiet
+
 echo "Running tests..."
 php run-tests.php -q -j$(nproc) --no-color > test_results.txt
 
