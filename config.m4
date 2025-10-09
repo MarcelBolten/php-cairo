@@ -45,9 +45,10 @@ if test "$PHP_CAIRO" != "no"; then
             AC_MSG_ERROR(Ooops ! no cairo detected in the system)
         fi
 
-        if ! $PKG_CONFIG --atleast-version=1.8 cairo; then
+        CAIRO_MIN_VERSION="1.12"
+        if ! $PKG_CONFIG --atleast-version=$CAIRO_MIN_VERSION cairo; then
             AC_MSG_RESULT(too old)
-            AC_MSG_ERROR(Ooops ! You need at least cairo 1.8)
+            AC_MSG_ERROR(Ooops ! You need at least cairo $CAIRO_MIN_VERSION)
         fi
 
         AC_MSG_RESULT(found)
