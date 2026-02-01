@@ -96,7 +96,7 @@ License
 PHP extension binding code released under the [MIT license](http://opensource.org/licenses/MIT)
 See [LICENSE](LICENSE)
 
-The Cairo Graphics library is is released under the [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
+The Cairo Graphics library is released under the [LGPL](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
 
 Documentation
 =====
