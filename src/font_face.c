@@ -62,6 +62,13 @@ zend_class_entry * php_cairo_get_fontface_ce()
 /* }}} */
 
 /* {{{ */
+zend_class_entry * php_ce_cairo_fonttype()
+{
+    return ce_cairo_fonttype;
+}
+/* }}} */
+
+/* {{{ */
 cairo_font_face_t *cairo_font_face_object_get_font_face(zval *zv)
 {
     return cairo_font_face_object_get(zv)->font_face;
