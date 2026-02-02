@@ -10,7 +10,7 @@
     },
     "php-ext": {
         "extension-name": "cairo",
-        "priority": 90,
+        "priority": 30,
         "configure-options": []
     },
     "authors": [
