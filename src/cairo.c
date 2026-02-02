@@ -230,25 +230,8 @@ PHP_MINIT_FUNCTION(cairo)
 /* {{{ PHP_MSHUTDOWN_FUNCTION */
 PHP_MSHUTDOWN_FUNCTION(cairo)
 {
-#if 0 && defined(ZEND_DEBUG) && ZEND_DEBUG == 1
-     cairo_debug_reset_static_data();
-    // ^^^ when running some tests with pango, this causes a crash
-    // This is what happens:
-    // Assertion failed: hash_table->live_entries == 0 (../src/cairo-hash.c: _cairo_hash_table_destroy: 217)
-    // bt
-    // #0  __restore_sigs (set=set@entry=0x7ffe66bfa860) at ./arch/x86_64/syscall_arch.h:40
-    // #1  0x00007688c4091e1b in raise (sig=sig@entry=6) at src/signal/raise.c:11
-    // #2  0x00007688c40759ad in abort () at src/exit/abort.c:11
-    // #3  0x00007688c4075a59 in __assert_fail (expr=<optimized out>, file=<optimized out>, line=<optimized out>, func=<optimized out>) at src/exit/assert.c:7
-    // #4  0x00007688c2c2cb50 in _cairo_hash_table_destroy (hash_table=<optimized out>) at ../src/cairo-hash.c:214
-    // #5  _cairo_hash_table_destroy (hash_table=<optimized out>) at ../src/cairo-hash.c:214
-    // #6  0x00007688c2c26a19 in _cairo_scaled_font_map_destroy () at ../src/cairo-scaled-font.c:451
-    // #7  cairo_debug_reset_static_data () at ../src/cairo-debug.c:67
-    // #8  0x00007688c2d24bbf in zm_shutdown_cairo (type=1, module_number=36) at /src/php-cairo/src/cairo.c:210
-    // cairo-scaled-font.c:451 _cairo_hash_table_destroy (font_map->hash_table);
-    // cairo-hash.c:217 assert (hash_table->live_entries == 0);
-    // So this means there are still references to scaled fonts somewhere.
-    // But where? I have no idea.
+#if defined(ZEND_DEBUG) && ZEND_DEBUG == 1
+    cairo_debug_reset_static_data();
 #endif
 
     return SUCCESS;
