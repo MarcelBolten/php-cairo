@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-02-01 22:58:39</td>
+            <td class="headerValue">2026-02-06 19:44:44</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -292,162 +292,145 @@
 <span id="L230"><span class="lineNum">     230</span>              : /* {{{ PHP_MSHUTDOWN_FUNCTION */</span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">         433 : PHP_MSHUTDOWN_FUNCTION(cairo)</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : {</span>
-<span id="L233"><span class="lineNum">     233</span>              : #if 0 &amp;&amp; defined(ZEND_DEBUG) &amp;&amp; ZEND_DEBUG == 1</span>
-<span id="L234"><span class="lineNum">     234</span>              :      cairo_debug_reset_static_data();</span>
-<span id="L235"><span class="lineNum">     235</span>              :     // ^^^ when running some tests with pango, this causes a crash</span>
-<span id="L236"><span class="lineNum">     236</span>              :     // This is what happens:</span>
-<span id="L237"><span class="lineNum">     237</span>              :     // Assertion failed: hash_table-&gt;live_entries == 0 (../src/cairo-hash.c: _cairo_hash_table_destroy: 217)</span>
-<span id="L238"><span class="lineNum">     238</span>              :     // bt</span>
-<span id="L239"><span class="lineNum">     239</span>              :     // #0  __restore_sigs (set=set@entry=0x7ffe66bfa860) at ./arch/x86_64/syscall_arch.h:40</span>
-<span id="L240"><span class="lineNum">     240</span>              :     // #1  0x00007688c4091e1b in raise (sig=sig@entry=6) at src/signal/raise.c:11</span>
-<span id="L241"><span class="lineNum">     241</span>              :     // #2  0x00007688c40759ad in abort () at src/exit/abort.c:11</span>
-<span id="L242"><span class="lineNum">     242</span>              :     // #3  0x00007688c4075a59 in __assert_fail (expr=&lt;optimized out&gt;, file=&lt;optimized out&gt;, line=&lt;optimized out&gt;, func=&lt;optimized out&gt;) at src/exit/assert.c:7</span>
-<span id="L243"><span class="lineNum">     243</span>              :     // #4  0x00007688c2c2cb50 in _cairo_hash_table_destroy (hash_table=&lt;optimized out&gt;) at ../src/cairo-hash.c:214</span>
-<span id="L244"><span class="lineNum">     244</span>              :     // #5  _cairo_hash_table_destroy (hash_table=&lt;optimized out&gt;) at ../src/cairo-hash.c:214</span>
-<span id="L245"><span class="lineNum">     245</span>              :     // #6  0x00007688c2c26a19 in _cairo_scaled_font_map_destroy () at ../src/cairo-scaled-font.c:451</span>
-<span id="L246"><span class="lineNum">     246</span>              :     // #7  cairo_debug_reset_static_data () at ../src/cairo-debug.c:67</span>
-<span id="L247"><span class="lineNum">     247</span>              :     // #8  0x00007688c2d24bbf in zm_shutdown_cairo (type=1, module_number=36) at /src/php-cairo/src/cairo.c:210</span>
-<span id="L248"><span class="lineNum">     248</span>              :     // cairo-scaled-font.c:451 _cairo_hash_table_destroy (font_map-&gt;hash_table);</span>
-<span id="L249"><span class="lineNum">     249</span>              :     // cairo-hash.c:217 assert (hash_table-&gt;live_entries == 0);</span>
-<span id="L250"><span class="lineNum">     250</span>              :     // So this means there are still references to scaled fonts somewhere.</span>
-<span id="L251"><span class="lineNum">     251</span>              :     // But where? I have no idea.</span>
-<span id="L252"><span class="lineNum">     252</span>              : #endif</span>
-<span id="L253"><span class="lineNum">     253</span>              : </span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
-<span id="L255"><span class="lineNum">     255</span>              : }</span>
-<span id="L256"><span class="lineNum">     256</span>              : </span>
-<span id="L257"><span class="lineNum">     257</span>              : /* {{{ PHP_MINFO_FUNCTION */</span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">           1 : PHP_MINFO_FUNCTION(cairo)</span></span>
-<span id="L259"><span class="lineNum">     259</span>              : {</span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">           1 :     php_info_print_table_start();</span></span>
-<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">           1 :     php_info_print_table_header(2, &quot;Cairo Graphics Library Bindings&quot;, &quot;enabled&quot;);</span></span>
-<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">           1 :     php_info_print_table_header(1,</span></span>
-<span id="L263"><span class="lineNum">     263</span>              : #ifdef COMPILE_DL_CAIRO</span>
-<span id="L264"><span class="lineNum">     264</span>              :         &quot;compiled as dynamic module&quot;</span>
-<span id="L265"><span class="lineNum">     265</span>              : #else</span>
-<span id="L266"><span class="lineNum">     266</span>              :         &quot;compiled as static module&quot;</span>
-<span id="L267"><span class="lineNum">     267</span>              : #endif</span>
-<span id="L268"><span class="lineNum">     268</span>              :     );</span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Cairo Library Version&quot;, CAIRO_VERSION_STRING);</span></span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Extension Version&quot;, PHP_CAIRO_VERSION);</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           1 :     php_info_print_table_row(1, &quot;Surface Backends Available&quot;);</span></span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Image Surface&quot;, &quot;enabled&quot;);</span></span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PNG Support&quot;,</span></span>
-<span id="L274"><span class="lineNum">     274</span>              : #ifdef CAIRO_HAS_PNG_FUNCTIONS</span>
-<span id="L275"><span class="lineNum">     275</span>              :         &quot;enabled&quot;</span>
-<span id="L276"><span class="lineNum">     276</span>              : #else</span>
-<span id="L277"><span class="lineNum">     277</span>              :         &quot;disabled&quot;</span>
-<span id="L278"><span class="lineNum">     278</span>              : #endif</span>
-<span id="L279"><span class="lineNum">     279</span>              :     );</span>
-<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;JPEG Support&quot;,</span></span>
-<span id="L281"><span class="lineNum">     281</span>              : #ifdef CAIRO_HAS_JPEG_FUNCTIONS</span>
-<span id="L282"><span class="lineNum">     282</span>              :         &quot;enabled&quot;</span>
-<span id="L283"><span class="lineNum">     283</span>              : #else</span>
-<span id="L284"><span class="lineNum">     284</span>              :         &quot;disabled&quot;</span>
-<span id="L285"><span class="lineNum">     285</span>              : #endif</span>
-<span id="L286"><span class="lineNum">     286</span>              :         );</span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PDF Surface&quot;,</span></span>
-<span id="L288"><span class="lineNum">     288</span>              : #ifdef CAIRO_HAS_PDF_SURFACE</span>
-<span id="L289"><span class="lineNum">     289</span>              :         &quot;enabled&quot;</span>
-<span id="L290"><span class="lineNum">     290</span>              : #else</span>
-<span id="L291"><span class="lineNum">     291</span>              :         &quot;disabled&quot;</span>
-<span id="L292"><span class="lineNum">     292</span>              : #endif</span>
-<span id="L293"><span class="lineNum">     293</span>              :     );</span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PS Surface&quot;,</span></span>
-<span id="L295"><span class="lineNum">     295</span>              : #ifdef CAIRO_HAS_PS_SURFACE</span>
-<span id="L296"><span class="lineNum">     296</span>              :         &quot;enabled&quot;</span>
-<span id="L297"><span class="lineNum">     297</span>              : #else</span>
-<span id="L298"><span class="lineNum">     298</span>              :         &quot;disabled&quot;</span>
-<span id="L299"><span class="lineNum">     299</span>              : #endif</span>
-<span id="L300"><span class="lineNum">     300</span>              :     );</span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Xlib (X11, X.org) Surface&quot;,</span></span>
-<span id="L302"><span class="lineNum">     302</span>              : #ifdef CAIRO_HAS_XLIB_SURFACE</span>
-<span id="L303"><span class="lineNum">     303</span>              :         &quot;enabled&quot;</span>
-<span id="L304"><span class="lineNum">     304</span>              : #else</span>
-<span id="L305"><span class="lineNum">     305</span>              :         &quot;disabled&quot;</span>
-<span id="L306"><span class="lineNum">     306</span>              : #endif</span>
-<span id="L307"><span class="lineNum">     307</span>              :     );</span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Quartz (MacOSX) Surface&quot;,</span></span>
-<span id="L309"><span class="lineNum">     309</span>              : #ifdef CAIRO_HAS_QUARTZ_SURFACE</span>
-<span id="L310"><span class="lineNum">     310</span>              :         &quot;enabled&quot;</span>
-<span id="L311"><span class="lineNum">     311</span>              : #else</span>
-<span id="L312"><span class="lineNum">     312</span>              :         &quot;disabled&quot;</span>
-<span id="L313"><span class="lineNum">     313</span>              : #endif</span>
-<span id="L314"><span class="lineNum">     314</span>              :     );</span>
-<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;SVG Surface&quot;,</span></span>
-<span id="L316"><span class="lineNum">     316</span>              : #ifdef CAIRO_HAS_SVG_SURFACE</span>
-<span id="L317"><span class="lineNum">     317</span>              :         &quot;enabled&quot;</span>
-<span id="L318"><span class="lineNum">     318</span>              : #else</span>
-<span id="L319"><span class="lineNum">     319</span>              :         &quot;disabled&quot;</span>
-<span id="L320"><span class="lineNum">     320</span>              : #endif</span>
-<span id="L321"><span class="lineNum">     321</span>              :     );</span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Win32 Surface&quot;,</span></span>
-<span id="L323"><span class="lineNum">     323</span>              : #ifdef CAIRO_HAS_WIN32_SURFACE</span>
-<span id="L324"><span class="lineNum">     324</span>              :         &quot;enabled&quot;</span>
-<span id="L325"><span class="lineNum">     325</span>              : #else</span>
-<span id="L326"><span class="lineNum">     326</span>              :         &quot;disabled&quot;</span>
-<span id="L327"><span class="lineNum">     327</span>              : #endif</span>
-<span id="L328"><span class="lineNum">     328</span>              :     );</span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Recording Surface&quot;,</span></span>
-<span id="L330"><span class="lineNum">     330</span>              : #ifdef CAIRO_HAS_RECORDING_SURFACE</span>
-<span id="L331"><span class="lineNum">     331</span>              :         &quot;enabled&quot;</span>
-<span id="L332"><span class="lineNum">     332</span>              : #else</span>
-<span id="L333"><span class="lineNum">     333</span>              :         &quot;disabled&quot;</span>
-<span id="L334"><span class="lineNum">     334</span>              : #endif</span>
-<span id="L335"><span class="lineNum">     335</span>              :     );</span>
-<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           1 :     php_info_print_table_row(1, &quot;Font Backends Available&quot;);</span></span>
-<span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Freetype Fonts&quot;,</span></span>
-<span id="L338"><span class="lineNum">     338</span>              : #if defined(CAIRO_HAS_FT_FONT) &amp;&amp; defined(HAVE_FREETYPE)</span>
-<span id="L339"><span class="lineNum">     339</span>              :         &quot;enabled&quot;</span>
-<span id="L340"><span class="lineNum">     340</span>              : #else</span>
-<span id="L341"><span class="lineNum">     341</span>              :         &quot;disabled&quot;</span>
-<span id="L342"><span class="lineNum">     342</span>              : #endif</span>
-<span id="L343"><span class="lineNum">     343</span>              :     );</span>
-<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Quartz Fonts&quot;,</span></span>
-<span id="L345"><span class="lineNum">     345</span>              : #ifdef CAIRO_HAS_QUARTZ_FONT</span>
-<span id="L346"><span class="lineNum">     346</span>              :         &quot;enabled&quot;</span>
-<span id="L347"><span class="lineNum">     347</span>              : #else</span>
-<span id="L348"><span class="lineNum">     348</span>              :         &quot;disabled&quot;</span>
-<span id="L349"><span class="lineNum">     349</span>              : #endif</span>
-<span id="L350"><span class="lineNum">     350</span>              :     );</span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Win32 Fonts&quot;,</span></span>
-<span id="L352"><span class="lineNum">     352</span>              : #ifdef CAIRO_HAS_WIN32_FONT</span>
-<span id="L353"><span class="lineNum">     353</span>              :         &quot;enabled&quot;</span>
-<span id="L354"><span class="lineNum">     354</span>              : #else</span>
-<span id="L355"><span class="lineNum">     355</span>              :         &quot;disabled&quot;</span>
-<span id="L356"><span class="lineNum">     356</span>              : #endif</span>
-<span id="L357"><span class="lineNum">     357</span>              :     );</span>
-<span id="L358"><span class="lineNum">     358</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;User Fonts&quot;,</span></span>
-<span id="L359"><span class="lineNum">     359</span>              : #ifdef CAIRO_HAS_USER_FONT</span>
-<span id="L360"><span class="lineNum">     360</span>              :         &quot;enabled&quot;</span>
-<span id="L361"><span class="lineNum">     361</span>              : #else</span>
-<span id="L362"><span class="lineNum">     362</span>              :         &quot;disabled&quot;</span>
-<span id="L363"><span class="lineNum">     363</span>              : #endif</span>
-<span id="L364"><span class="lineNum">     364</span>              :     );</span>
-<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">           1 :     php_info_print_table_end();</span></span>
-<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L233"><span class="lineNum">     233</span>              : #if defined(ZEND_DEBUG) &amp;&amp; ZEND_DEBUG == 1</span>
+<span id="L234"><span class="lineNum">     234</span>              :     cairo_debug_reset_static_data();</span>
+<span id="L235"><span class="lineNum">     235</span>              : #endif</span>
+<span id="L236"><span class="lineNum">     236</span>              : </span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         433 :     return SUCCESS;</span></span>
+<span id="L238"><span class="lineNum">     238</span>              : }</span>
+<span id="L239"><span class="lineNum">     239</span>              : </span>
+<span id="L240"><span class="lineNum">     240</span>              : /* {{{ PHP_MINFO_FUNCTION */</span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           1 : PHP_MINFO_FUNCTION(cairo)</span></span>
+<span id="L242"><span class="lineNum">     242</span>              : {</span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           1 :     php_info_print_table_start();</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">           1 :     php_info_print_table_header(2, &quot;Cairo Graphics Library Bindings&quot;, &quot;enabled&quot;);</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           1 :     php_info_print_table_header(1,</span></span>
+<span id="L246"><span class="lineNum">     246</span>              : #ifdef COMPILE_DL_CAIRO</span>
+<span id="L247"><span class="lineNum">     247</span>              :         &quot;compiled as dynamic module&quot;</span>
+<span id="L248"><span class="lineNum">     248</span>              : #else</span>
+<span id="L249"><span class="lineNum">     249</span>              :         &quot;compiled as static module&quot;</span>
+<span id="L250"><span class="lineNum">     250</span>              : #endif</span>
+<span id="L251"><span class="lineNum">     251</span>              :     );</span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Cairo Library Version&quot;, CAIRO_VERSION_STRING);</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Extension Version&quot;, PHP_CAIRO_VERSION);</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           1 :     php_info_print_table_row(1, &quot;Surface Backends Available&quot;);</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Image Surface&quot;, &quot;enabled&quot;);</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PNG Support&quot;,</span></span>
+<span id="L257"><span class="lineNum">     257</span>              : #ifdef CAIRO_HAS_PNG_FUNCTIONS</span>
+<span id="L258"><span class="lineNum">     258</span>              :         &quot;enabled&quot;</span>
+<span id="L259"><span class="lineNum">     259</span>              : #else</span>
+<span id="L260"><span class="lineNum">     260</span>              :         &quot;disabled&quot;</span>
+<span id="L261"><span class="lineNum">     261</span>              : #endif</span>
+<span id="L262"><span class="lineNum">     262</span>              :     );</span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;JPEG Support&quot;,</span></span>
+<span id="L264"><span class="lineNum">     264</span>              : #ifdef CAIRO_HAS_JPEG_FUNCTIONS</span>
+<span id="L265"><span class="lineNum">     265</span>              :         &quot;enabled&quot;</span>
+<span id="L266"><span class="lineNum">     266</span>              : #else</span>
+<span id="L267"><span class="lineNum">     267</span>              :         &quot;disabled&quot;</span>
+<span id="L268"><span class="lineNum">     268</span>              : #endif</span>
+<span id="L269"><span class="lineNum">     269</span>              :         );</span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PDF Surface&quot;,</span></span>
+<span id="L271"><span class="lineNum">     271</span>              : #ifdef CAIRO_HAS_PDF_SURFACE</span>
+<span id="L272"><span class="lineNum">     272</span>              :         &quot;enabled&quot;</span>
+<span id="L273"><span class="lineNum">     273</span>              : #else</span>
+<span id="L274"><span class="lineNum">     274</span>              :         &quot;disabled&quot;</span>
+<span id="L275"><span class="lineNum">     275</span>              : #endif</span>
+<span id="L276"><span class="lineNum">     276</span>              :     );</span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;PS Surface&quot;,</span></span>
+<span id="L278"><span class="lineNum">     278</span>              : #ifdef CAIRO_HAS_PS_SURFACE</span>
+<span id="L279"><span class="lineNum">     279</span>              :         &quot;enabled&quot;</span>
+<span id="L280"><span class="lineNum">     280</span>              : #else</span>
+<span id="L281"><span class="lineNum">     281</span>              :         &quot;disabled&quot;</span>
+<span id="L282"><span class="lineNum">     282</span>              : #endif</span>
+<span id="L283"><span class="lineNum">     283</span>              :     );</span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Xlib (X11, X.org) Surface&quot;,</span></span>
+<span id="L285"><span class="lineNum">     285</span>              : #ifdef CAIRO_HAS_XLIB_SURFACE</span>
+<span id="L286"><span class="lineNum">     286</span>              :         &quot;enabled&quot;</span>
+<span id="L287"><span class="lineNum">     287</span>              : #else</span>
+<span id="L288"><span class="lineNum">     288</span>              :         &quot;disabled&quot;</span>
+<span id="L289"><span class="lineNum">     289</span>              : #endif</span>
+<span id="L290"><span class="lineNum">     290</span>              :     );</span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Quartz (MacOSX) Surface&quot;,</span></span>
+<span id="L292"><span class="lineNum">     292</span>              : #ifdef CAIRO_HAS_QUARTZ_SURFACE</span>
+<span id="L293"><span class="lineNum">     293</span>              :         &quot;enabled&quot;</span>
+<span id="L294"><span class="lineNum">     294</span>              : #else</span>
+<span id="L295"><span class="lineNum">     295</span>              :         &quot;disabled&quot;</span>
+<span id="L296"><span class="lineNum">     296</span>              : #endif</span>
+<span id="L297"><span class="lineNum">     297</span>              :     );</span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;SVG Surface&quot;,</span></span>
+<span id="L299"><span class="lineNum">     299</span>              : #ifdef CAIRO_HAS_SVG_SURFACE</span>
+<span id="L300"><span class="lineNum">     300</span>              :         &quot;enabled&quot;</span>
+<span id="L301"><span class="lineNum">     301</span>              : #else</span>
+<span id="L302"><span class="lineNum">     302</span>              :         &quot;disabled&quot;</span>
+<span id="L303"><span class="lineNum">     303</span>              : #endif</span>
+<span id="L304"><span class="lineNum">     304</span>              :     );</span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Win32 Surface&quot;,</span></span>
+<span id="L306"><span class="lineNum">     306</span>              : #ifdef CAIRO_HAS_WIN32_SURFACE</span>
+<span id="L307"><span class="lineNum">     307</span>              :         &quot;enabled&quot;</span>
+<span id="L308"><span class="lineNum">     308</span>              : #else</span>
+<span id="L309"><span class="lineNum">     309</span>              :         &quot;disabled&quot;</span>
+<span id="L310"><span class="lineNum">     310</span>              : #endif</span>
+<span id="L311"><span class="lineNum">     311</span>              :     );</span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Recording Surface&quot;,</span></span>
+<span id="L313"><span class="lineNum">     313</span>              : #ifdef CAIRO_HAS_RECORDING_SURFACE</span>
+<span id="L314"><span class="lineNum">     314</span>              :         &quot;enabled&quot;</span>
+<span id="L315"><span class="lineNum">     315</span>              : #else</span>
+<span id="L316"><span class="lineNum">     316</span>              :         &quot;disabled&quot;</span>
+<span id="L317"><span class="lineNum">     317</span>              : #endif</span>
+<span id="L318"><span class="lineNum">     318</span>              :     );</span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">           1 :     php_info_print_table_row(1, &quot;Font Backends Available&quot;);</span></span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Freetype Fonts&quot;,</span></span>
+<span id="L321"><span class="lineNum">     321</span>              : #if defined(CAIRO_HAS_FT_FONT) &amp;&amp; defined(HAVE_FREETYPE)</span>
+<span id="L322"><span class="lineNum">     322</span>              :         &quot;enabled&quot;</span>
+<span id="L323"><span class="lineNum">     323</span>              : #else</span>
+<span id="L324"><span class="lineNum">     324</span>              :         &quot;disabled&quot;</span>
+<span id="L325"><span class="lineNum">     325</span>              : #endif</span>
+<span id="L326"><span class="lineNum">     326</span>              :     );</span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Quartz Fonts&quot;,</span></span>
+<span id="L328"><span class="lineNum">     328</span>              : #ifdef CAIRO_HAS_QUARTZ_FONT</span>
+<span id="L329"><span class="lineNum">     329</span>              :         &quot;enabled&quot;</span>
+<span id="L330"><span class="lineNum">     330</span>              : #else</span>
+<span id="L331"><span class="lineNum">     331</span>              :         &quot;disabled&quot;</span>
+<span id="L332"><span class="lineNum">     332</span>              : #endif</span>
+<span id="L333"><span class="lineNum">     333</span>              :     );</span>
+<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;Win32 Fonts&quot;,</span></span>
+<span id="L335"><span class="lineNum">     335</span>              : #ifdef CAIRO_HAS_WIN32_FONT</span>
+<span id="L336"><span class="lineNum">     336</span>              :         &quot;enabled&quot;</span>
+<span id="L337"><span class="lineNum">     337</span>              : #else</span>
+<span id="L338"><span class="lineNum">     338</span>              :         &quot;disabled&quot;</span>
+<span id="L339"><span class="lineNum">     339</span>              : #endif</span>
+<span id="L340"><span class="lineNum">     340</span>              :     );</span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           1 :     php_info_print_table_row(2, &quot;User Fonts&quot;,</span></span>
+<span id="L342"><span class="lineNum">     342</span>              : #ifdef CAIRO_HAS_USER_FONT</span>
+<span id="L343"><span class="lineNum">     343</span>              :         &quot;enabled&quot;</span>
+<span id="L344"><span class="lineNum">     344</span>              : #else</span>
+<span id="L345"><span class="lineNum">     345</span>              :         &quot;disabled&quot;</span>
+<span id="L346"><span class="lineNum">     346</span>              : #endif</span>
+<span id="L347"><span class="lineNum">     347</span>              :     );</span>
+<span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC">           1 :     php_info_print_table_end();</span></span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L350"><span class="lineNum">     350</span>              : /* }}} */</span>
+<span id="L351"><span class="lineNum">     351</span>              : </span>
+<span id="L352"><span class="lineNum">     352</span>              : /* {{{ cairo_module_entry */</span>
+<span id="L353"><span class="lineNum">     353</span>              : zend_module_entry cairo_module_entry = {</span>
+<span id="L354"><span class="lineNum">     354</span>              :     STANDARD_MODULE_HEADER_EX,</span>
+<span id="L355"><span class="lineNum">     355</span>              :     NULL,</span>
+<span id="L356"><span class="lineNum">     356</span>              :     NULL,</span>
+<span id="L357"><span class="lineNum">     357</span>              :     &quot;cairo&quot;,</span>
+<span id="L358"><span class="lineNum">     358</span>              :     ext_functions,</span>
+<span id="L359"><span class="lineNum">     359</span>              :     PHP_MINIT(cairo),</span>
+<span id="L360"><span class="lineNum">     360</span>              :     PHP_MSHUTDOWN(cairo),</span>
+<span id="L361"><span class="lineNum">     361</span>              :     NULL,</span>
+<span id="L362"><span class="lineNum">     362</span>              :     NULL,</span>
+<span id="L363"><span class="lineNum">     363</span>              :     PHP_MINFO(cairo),</span>
+<span id="L364"><span class="lineNum">     364</span>              :     PHP_CAIRO_VERSION,</span>
+<span id="L365"><span class="lineNum">     365</span>              :     STANDARD_MODULE_PROPERTIES</span>
+<span id="L366"><span class="lineNum">     366</span>              : };</span>
 <span id="L367"><span class="lineNum">     367</span>              : /* }}} */</span>
 <span id="L368"><span class="lineNum">     368</span>              : </span>
-<span id="L369"><span class="lineNum">     369</span>              : /* {{{ cairo_module_entry */</span>
-<span id="L370"><span class="lineNum">     370</span>              : zend_module_entry cairo_module_entry = {</span>
-<span id="L371"><span class="lineNum">     371</span>              :     STANDARD_MODULE_HEADER_EX,</span>
-<span id="L372"><span class="lineNum">     372</span>              :     NULL,</span>
-<span id="L373"><span class="lineNum">     373</span>              :     NULL,</span>
-<span id="L374"><span class="lineNum">     374</span>              :     &quot;cairo&quot;,</span>
-<span id="L375"><span class="lineNum">     375</span>              :     ext_functions,</span>
-<span id="L376"><span class="lineNum">     376</span>              :     PHP_MINIT(cairo),</span>
-<span id="L377"><span class="lineNum">     377</span>              :     PHP_MSHUTDOWN(cairo),</span>
-<span id="L378"><span class="lineNum">     378</span>              :     NULL,</span>
-<span id="L379"><span class="lineNum">     379</span>              :     NULL,</span>
-<span id="L380"><span class="lineNum">     380</span>              :     PHP_MINFO(cairo),</span>
-<span id="L381"><span class="lineNum">     381</span>              :     PHP_CAIRO_VERSION,</span>
-<span id="L382"><span class="lineNum">     382</span>              :     STANDARD_MODULE_PROPERTIES</span>
-<span id="L383"><span class="lineNum">     383</span>              : };</span>
-<span id="L384"><span class="lineNum">     384</span>              : /* }}} */</span>
-<span id="L385"><span class="lineNum">     385</span>              : </span>
-<span id="L386"><span class="lineNum">     386</span>              : #ifdef COMPILE_DL_CAIRO</span>
-<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">         433 :     ZEND_GET_MODULE(cairo)</span></span>
-<span id="L388"><span class="lineNum">     388</span>              : #endif</span>
+<span id="L369"><span class="lineNum">     369</span>              : #ifdef COMPILE_DL_CAIRO</span>
+<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">         433 :     ZEND_GET_MODULE(cairo)</span></span>
+<span id="L371"><span class="lineNum">     371</span>              : #endif</span>
         </pre>
               </td>
             </tr>
