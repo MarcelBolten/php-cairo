@@ -121,4 +121,10 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: cairo-test-${{ matrix.php-version }}-${{ matrix.arch }}-${{ matrix.ts }}
-                path: tests/**/*.log
+                path: |
+                  tests/**/*.log
+                  **/php_cairo.dll
+                  **/php_cairo.lib
+                  **/php_cairo.pdb
+                  **/php_cairo_internal.h
+                  **/php_cairo.h
