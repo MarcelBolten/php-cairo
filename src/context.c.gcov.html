@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-02-07 22:30:07</td>
+            <td class="headerValue">2026-02-08 01:19:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
@@ -95,7 +95,7 @@
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              : static zend_object_handlers cairo_context_object_handlers;</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC tlaBgGNC">         421 : cairo_context_object *cairo_context_fetch_object(zend_object *object) {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC tlaBgGNC">         421 : PHP_CAIRO_API cairo_context_object *cairo_context_fetch_object(zend_object *object) {</span></span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         421 :     return (cairo_context_object *) ((char*) (object) - XtOffsetOf(cairo_context_object, std));</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : }</span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
@@ -125,7 +125,7 @@
 <span id="L63"><span class="lineNum">      63</span>              : }</span>
 <span id="L64"><span class="lineNum">      64</span>              : /* }}} */</span>
 <span id="L65"><span class="lineNum">      65</span>              : </span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaUNC">           0 : zend_class_entry* php_cairo_get_context_ce() {</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaUNC">           0 : PHP_CAIRO_API zend_class_entry* php_cairo_get_context_ce() {</span></span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC">           0 :     return ce_cairo_context;</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : }</span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
