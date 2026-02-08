@@ -31,6 +31,14 @@
 #include "cairo_jpg.h"
 #endif
 
+#ifdef PHP_WIN32
+#    define PHP_CAIRO_API __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+#    define PHP_CAIRO_API __attribute__ ((visibility("default")))
+#else
+#    define PHP_CAIRO_API
+#endif
+
 extern zend_class_entry *ce_cairo_exception;
 extern zend_class_entry *ce_cairo_status;
 extern zend_class_entry *ce_cairo_matrix;
