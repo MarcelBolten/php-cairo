@@ -62,7 +62,7 @@ zend_class_entry * php_cairo_get_fontface_ce()
 /* }}} */
 
 /* {{{ */
-zend_class_entry * php_ce_cairo_fonttype()
+PHP_CAIRO_API zend_class_entry * php_cairo_get_fonttype_ce()
 {
     return ce_cairo_fonttype;
 }
@@ -78,7 +78,7 @@ cairo_font_face_t *cairo_font_face_object_get_font_face(zval *zv)
 /* ----------------------------------------------------------------
     \Cairo\FontOptions Class API
 ------------------------------------------------------------------*/
-/* {{{ proto void \Cairo\FontFace::__contruct()
+/* {{{ proto void \Cairo\FontFace::__construct()
    \Cairo\FontFace CANNOT be extended in userspace, this will throw an exception on use */
 PHP_METHOD(Cairo_FontFace, __construct)
 {

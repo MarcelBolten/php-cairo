@@ -441,7 +441,7 @@ PHP_METHOD(Cairo_ScaledFont, getType)
     }
 
     font_type_case = php_enum_from_cairo_c_enum(
-        ce_cairo_fonttype,
+        php_cairo_get_fonttype_ce(),
         cairo_scaled_font_get_type(scaled_font_object->scaled_font)
     );
 
