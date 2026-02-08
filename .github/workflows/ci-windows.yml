@@ -135,3 +135,4 @@ jobs:
                   **/php_cairo.pdb
                   **/php_cairo_internal.h
                   **/php_cairo.h
+                  **/cairo_jpg.h
