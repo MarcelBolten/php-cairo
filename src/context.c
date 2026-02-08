@@ -33,7 +33,7 @@ zend_class_entry *ce_cairo_operator;
 
 static zend_object_handlers cairo_context_object_handlers;
 
-cairo_context_object *cairo_context_fetch_object(zend_object *object) {
+PHP_CAIRO_API cairo_context_object *cairo_context_fetch_object(zend_object *object) {
     return (cairo_context_object *) ((char*) (object) - XtOffsetOf(cairo_context_object, std));
 }
 
@@ -63,7 +63,7 @@ cairo_t *cairo_context_object_get_context(zval *zv) {
 }
 /* }}} */
 
-zend_class_entry* php_cairo_get_context_ce() {
+PHP_CAIRO_API zend_class_entry* php_cairo_get_context_ce() {
     return ce_cairo_context;
 }
 

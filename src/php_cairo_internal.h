@@ -43,7 +43,6 @@ extern zend_class_entry *ce_cairo_exception;
 extern zend_class_entry *ce_cairo_status;
 extern zend_class_entry *ce_cairo_matrix;
 
-extern zend_class_entry *ce_cairo_context;
 extern zend_class_entry *ce_cairo_fillrule;
 extern zend_class_entry *ce_cairo_linecap;
 extern zend_class_entry *ce_cairo_linejoin;
@@ -114,7 +113,7 @@ extern zend_class_entry* php_cairo_get_toyfontface_ce();
 extern zend_class_entry* php_cairo_get_glyph_ce();
 extern zend_class_entry* php_cairo_get_text_cluster_ce();
 extern zend_class_entry* php_cairo_get_rectangle_ce();
-extern zend_class_entry* php_cairo_get_context_ce();
+PHP_CAIRO_API extern zend_class_entry* php_cairo_get_context_ce();
 extern zend_class_entry* php_cairo_get_subsurface_ce();
 extern zend_class_entry* php_cairo_get_imagesurface_ce();
 
@@ -246,7 +245,7 @@ typedef struct _cairo_context_object {
     cairo_t *context;
     zend_object std;
 } cairo_context_object;
-extern cairo_context_object *cairo_context_fetch_object(zend_object *object);
+PHP_CAIRO_API extern cairo_context_object *cairo_context_fetch_object(zend_object *object);
 #define Z_CAIRO_CONTEXT_P(zv) cairo_context_fetch_object(Z_OBJ_P(zv))
 
 /* Rectangle */
