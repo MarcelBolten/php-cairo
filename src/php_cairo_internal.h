@@ -102,7 +102,7 @@ extern zend_class_entry *ce_cairo_region_overlap;
 
 extern zend_class_entry* php_cairo_get_pattern_ce(cairo_pattern_t *pattern);
 extern zend_class_entry* php_cairo_get_surface_ce(cairo_surface_t *surface);
-extern zend_class_entry* php_cairo_get_fontoptions_ce();
+PHP_CAIRO_API extern zend_class_entry* php_cairo_get_fontoptions_ce();
 extern zend_class_entry* php_cairo_get_fontface_ce();
 PHP_CAIRO_API extern zend_class_entry* php_cairo_get_fonttype_ce();
 extern zend_class_entry* php_cairo_get_path_ce();
@@ -140,7 +140,7 @@ typedef struct _cairo_font_options_object {
     cairo_font_options_t *font_options;
     zend_object std;
 } cairo_font_options_object;
-extern cairo_font_options_object *cairo_font_options_fetch_object(zend_object *object);
+PHP_CAIRO_API extern cairo_font_options_object *cairo_font_options_fetch_object(zend_object *object);
 #define Z_CAIRO_FONT_OPTIONS_P(zv) cairo_font_options_fetch_object(Z_OBJ_P(zv))
 cairo_font_options_t *cairo_font_options_object_get_font_options(zval *zv);
 
