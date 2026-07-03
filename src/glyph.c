@@ -29,7 +29,7 @@ static zend_object_handlers cairo_glyph_object_handlers;
 
 cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)
 {
-    return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));
+    return (cairo_glyph_object *) ((char*)(object) - offsetof(cairo_glyph_object, std));
 }
 
 /*static inline double cairo_glyph_get_property_value(zend_object *object, char *name) {
@@ -273,7 +273,7 @@ PHP_MINIT_FUNCTION(cairo_glyph)
         sizeof(zend_object_handlers)
     );
 
-    cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);
+    cairo_glyph_object_handlers.offset = offsetof(cairo_glyph_object, std);
     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;
     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;
     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;

@@ -50,7 +50,7 @@ void cairo_pattern_destroy_func (void *data)
 
 cairo_pattern_object *cairo_pattern_fetch_object(zend_object *object)
 {
-    return (cairo_pattern_object *) ((char*)(object) - XtOffsetOf(cairo_pattern_object, std));
+    return (cairo_pattern_object *) ((char*)(object) - offsetof(cairo_pattern_object, std));
 }
 
 static inline cairo_pattern_object *cairo_pattern_object_get(zval *zv)
@@ -1285,7 +1285,7 @@ PHP_MINIT_FUNCTION(cairo_pattern)
     );
 
     // Pattern
-    cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);
+    cairo_pattern_object_handlers.offset = offsetof(cairo_pattern_object, std);
     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;
 
     ce_cairo_pattern = register_class_Cairo_Pattern();

@@ -32,7 +32,7 @@ static zend_object_handlers cairo_font_face_object_handlers;
 
 cairo_font_face_object *cairo_font_face_fetch_object(zend_object *object)
 {
-    return (cairo_font_face_object *) ((char*)(object) - XtOffsetOf(cairo_font_face_object, std));
+    return (cairo_font_face_object *) ((char*)(object) - offsetof(cairo_font_face_object, std));
 }
 
 cairo_font_face_object *cairo_font_face_object_get(zval *zv)
@@ -228,7 +228,7 @@ PHP_MINIT_FUNCTION(cairo_font_face)
     );
 
     /* FontFace */
-    cairo_font_face_object_handlers.offset = XtOffsetOf(cairo_font_face_object, std);
+    cairo_font_face_object_handlers.offset = offsetof(cairo_font_face_object, std);
     cairo_font_face_object_handlers.free_obj = cairo_font_face_free_obj;
     cairo_font_face_object_handlers.clone_obj = cairo_font_face_clone_obj;
 

@@ -36,7 +36,7 @@ typedef struct _cairo_region_object {
 
 static inline cairo_region_object *cairo_region_fetch_object(zend_object *object)
 {
-    return (cairo_region_object *) ((char*)(object) - XtOffsetOf(cairo_region_object, std));
+    return (cairo_region_object *) ((char*)(object) - offsetof(cairo_region_object, std));
 }
 
 #define Z_CAIRO_REGION_P(zv) cairo_region_fetch_object(Z_OBJ_P(zv))
@@ -690,7 +690,7 @@ PHP_MINIT_FUNCTION(cairo_region)
         sizeof(zend_object_handlers)
     );
 
-    cairo_region_object_handlers.offset = XtOffsetOf(cairo_region_object, std);
+    cairo_region_object_handlers.offset = offsetof(cairo_region_object, std);
     cairo_region_object_handlers.free_obj = cairo_region_free_obj;
     cairo_region_object_handlers.clone_obj = cairo_region_clone_obj;
 

@@ -33,7 +33,7 @@ static zend_object_handlers cairo_surface_object_handlers;
 
 cairo_surface_object *cairo_surface_fetch_object(zend_object *object)
 {
-    return (cairo_surface_object *) ((char*)(object) - XtOffsetOf(cairo_surface_object, std));
+    return (cairo_surface_object *) ((char*)(object) - offsetof(cairo_surface_object, std));
 }
 
 cairo_surface_object *cairo_surface_object_get(zval *zv)
@@ -902,7 +902,7 @@ PHP_MINIT_FUNCTION(cairo_surface)
     );
 
     /* Surface */
-    cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);
+    cairo_surface_object_handlers.offset = offsetof(cairo_surface_object, std);
     cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;
 
     ce_cairo_surface = register_class_Cairo_Surface();

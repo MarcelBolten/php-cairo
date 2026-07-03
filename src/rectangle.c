@@ -30,7 +30,7 @@ static zend_object_handlers cairo_rectangle_object_handlers;
 
 cairo_rectangle_object *cairo_rectangle_fetch_object(zend_object *object)
 {
-    return (cairo_rectangle_object *) ((char*)(object) - XtOffsetOf(cairo_rectangle_object, std));
+    return (cairo_rectangle_object *) ((char*)(object) - offsetof(cairo_rectangle_object, std));
 }
 
 static inline double cairo_rectangle_get_property_default(zend_class_entry *ce, char * name) {
@@ -335,7 +335,7 @@ PHP_MINIT_FUNCTION(cairo_rectangle)
         sizeof(zend_object_handlers)
     );
 
-    cairo_rectangle_object_handlers.offset = XtOffsetOf(cairo_rectangle_object, std);
+    cairo_rectangle_object_handlers.offset = offsetof(cairo_rectangle_object, std);
     cairo_rectangle_object_handlers.free_obj = cairo_rectangle_free_obj;
     cairo_rectangle_object_handlers.clone_obj = cairo_rectangle_clone_obj;
     cairo_rectangle_object_handlers.read_property = cairo_rectangle_object_read_property;

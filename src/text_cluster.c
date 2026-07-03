@@ -29,7 +29,7 @@ static zend_object_handlers cairo_text_cluster_object_handlers;
 
 cairo_text_cluster_object *cairo_text_cluster_fetch_object(zend_object *object)
 {
-    return (cairo_text_cluster_object *) ((char*)(object) - XtOffsetOf(cairo_text_cluster_object, std));
+    return (cairo_text_cluster_object *) ((char*)(object) - offsetof(cairo_text_cluster_object, std));
 }
 
 static inline long cairo_text_cluster_get_property_default(zend_class_entry *ce, char * name) {
@@ -268,7 +268,7 @@ PHP_MINIT_FUNCTION(cairo_text_cluster)
         sizeof(zend_object_handlers)
     );
 
-    cairo_text_cluster_object_handlers.offset = XtOffsetOf(cairo_text_cluster_object, std);
+    cairo_text_cluster_object_handlers.offset = offsetof(cairo_text_cluster_object, std);
     cairo_text_cluster_object_handlers.free_obj = cairo_text_cluster_free_obj;
     cairo_text_cluster_object_handlers.clone_obj = cairo_text_cluster_clone_obj;
     cairo_text_cluster_object_handlers.read_property = cairo_text_cluster_object_read_property;

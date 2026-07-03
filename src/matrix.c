@@ -30,7 +30,7 @@ static zend_object_handlers cairo_matrix_object_handlers;
 
 cairo_matrix_object *cairo_matrix_fetch_object(zend_object *object)
 {
-    return (cairo_matrix_object *) ((char*)(object) - XtOffsetOf(cairo_matrix_object, std));
+    return (cairo_matrix_object *) ((char*)(object) - offsetof(cairo_matrix_object, std));
 }
 
 static inline double cairo_matrix_get_property_default(zend_class_entry *ce, char * name) {
@@ -579,7 +579,7 @@ PHP_MINIT_FUNCTION(cairo_matrix)
         sizeof(zend_object_handlers)
     );
 
-    cairo_matrix_object_handlers.offset = XtOffsetOf(cairo_matrix_object, std);
+    cairo_matrix_object_handlers.offset = offsetof(cairo_matrix_object, std);
     cairo_matrix_object_handlers.free_obj = cairo_matrix_free_obj;
     cairo_matrix_object_handlers.clone_obj = cairo_matrix_clone_obj;
     cairo_matrix_object_handlers.read_property = cairo_matrix_object_read_property;

@@ -40,7 +40,7 @@ static zend_object_handlers cairo_font_options_object_handlers;
 
 PHP_CAIRO_API cairo_font_options_object *cairo_font_options_fetch_object(zend_object *object)
 {
-    return (cairo_font_options_object *) ((char*)(object) - XtOffsetOf(cairo_font_options_object, std));
+    return (cairo_font_options_object *) ((char*)(object) - offsetof(cairo_font_options_object, std));
 }
 
 static inline cairo_font_options_object *cairo_font_options_object_get(zval *zv)
@@ -682,7 +682,7 @@ PHP_MINIT_FUNCTION(cairo_font_options)
     );
 
     /* FontOptions */
-    cairo_font_options_object_handlers.offset = XtOffsetOf(cairo_font_options_object, std);
+    cairo_font_options_object_handlers.offset = offsetof(cairo_font_options_object, std);
     cairo_font_options_object_handlers.free_obj = cairo_font_options_free_obj;
 
     ce_cairo_fontoptions = register_class_Cairo_FontOptions();

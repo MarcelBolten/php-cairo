@@ -34,7 +34,7 @@ zend_class_entry *ce_cairo_operator;
 static zend_object_handlers cairo_context_object_handlers;
 
 PHP_CAIRO_API cairo_context_object *cairo_context_fetch_object(zend_object *object) {
-    return (cairo_context_object *) ((char*) (object) - XtOffsetOf(cairo_context_object, std));
+    return (cairo_context_object *) ((char*) (object) - offsetof(cairo_context_object, std));
 }
 
 cairo_context_object *cairo_context_object_get(zval *zv) {
@@ -2945,7 +2945,7 @@ PHP_MINIT_FUNCTION(cairo_context)
     );
 
     /* Context */
-    cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);
+    cairo_context_object_handlers.offset = offsetof(cairo_context_object, std);
     cairo_context_object_handlers.free_obj = cairo_context_free_obj;
 
     ce_cairo_context = register_class_Cairo_Context();

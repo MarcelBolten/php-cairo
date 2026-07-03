@@ -32,7 +32,7 @@ static zend_object_handlers cairo_path_object_handlers;
 
 cairo_path_object *cairo_path_fetch_object(zend_object *object)
 {
-    return (cairo_path_object *) ((char*)(object) - XtOffsetOf(cairo_path_object, std));
+    return (cairo_path_object *) ((char*)(object) - offsetof(cairo_path_object, std));
 }
 
 static inline cairo_path_object *cairo_path_object_get(zval *zv)
@@ -121,7 +121,7 @@ PHP_MINIT_FUNCTION(cairo_path)
     );
 
     /* Path */
-    cairo_path_object_handlers.offset = XtOffsetOf(cairo_path_object, std);
+    cairo_path_object_handlers.offset = offsetof(cairo_path_object, std);
     cairo_path_object_handlers.free_obj = cairo_path_free_obj;
 
     ce_cairo_path = register_class_Cairo_Path();

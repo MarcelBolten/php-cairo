@@ -31,7 +31,7 @@ static zend_object_handlers cairo_scaled_font_object_handlers;
 
 cairo_scaled_font_object *cairo_scaled_font_fetch_object(zend_object *object)
 {
-    return (cairo_scaled_font_object *) ((char*)(object) - XtOffsetOf(cairo_scaled_font_object, std));
+    return (cairo_scaled_font_object *) ((char*)(object) - offsetof(cairo_scaled_font_object, std));
 }
 
 static inline cairo_scaled_font_object *cairo_scaled_font_object_get(zval *zv)
@@ -561,7 +561,7 @@ PHP_MINIT_FUNCTION(cairo_scaled_font)
     );
 
     /* ScaledFont */
-    cairo_scaled_font_object_handlers.offset = XtOffsetOf(cairo_scaled_font_object, std);
+    cairo_scaled_font_object_handlers.offset = offsetof(cairo_scaled_font_object, std);
     cairo_scaled_font_object_handlers.free_obj = cairo_scaled_font_free_obj;
 
     ce_cairo_scaled_font = register_class_Cairo_ScaledFont();
