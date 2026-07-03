@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit win32_font.stub.php instead.
  * Stub hash: 8fef52b7ce4b72f58fdf18863f38f07ae1366155 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace_Win32___construct, 0, 0, 0)

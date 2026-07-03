@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit ft_font.stub.php instead.
  * Stub hash: 3817974b6275425adaecdb5c6ff0766921be8ba8 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace_Ft___construct, 0, 0, 1)
@@ -41,15 +41,15 @@ static zend_class_entry *register_class_Cairo_FontFace_Ft(zend_class_entry *clas
 
 	zval const_SYNTHESIZE_BOLD_value;
 	ZVAL_LONG(&const_SYNTHESIZE_BOLD_value, CAIRO_FT_SYNTHESIZE_BOLD);
-	zend_string *const_SYNTHESIZE_BOLD_name = zend_string_init_interned("SYNTHESIZE_BOLD", sizeof("SYNTHESIZE_BOLD") - 1, 1);
+	zend_string *const_SYNTHESIZE_BOLD_name = zend_string_init_interned("SYNTHESIZE_BOLD", sizeof("SYNTHESIZE_BOLD") - 1, true);
 	zend_declare_class_constant_ex(class_entry, const_SYNTHESIZE_BOLD_name, &const_SYNTHESIZE_BOLD_value, ZEND_ACC_PUBLIC, NULL);
-	zend_string_release(const_SYNTHESIZE_BOLD_name);
+	zend_string_release_ex(const_SYNTHESIZE_BOLD_name, true);
 
 	zval const_SYNTHESIZE_OBLIQUE_value;
 	ZVAL_LONG(&const_SYNTHESIZE_OBLIQUE_value, CAIRO_FT_SYNTHESIZE_OBLIQUE);
-	zend_string *const_SYNTHESIZE_OBLIQUE_name = zend_string_init_interned("SYNTHESIZE_OBLIQUE", sizeof("SYNTHESIZE_OBLIQUE") - 1, 1);
+	zend_string *const_SYNTHESIZE_OBLIQUE_name = zend_string_init_interned("SYNTHESIZE_OBLIQUE", sizeof("SYNTHESIZE_OBLIQUE") - 1, true);
 	zend_declare_class_constant_ex(class_entry, const_SYNTHESIZE_OBLIQUE_name, &const_SYNTHESIZE_OBLIQUE_value, ZEND_ACC_PUBLIC, NULL);
-	zend_string_release(const_SYNTHESIZE_OBLIQUE_name);
+	zend_string_release_ex(const_SYNTHESIZE_OBLIQUE_name, true);
 
 	return class_entry;
 }

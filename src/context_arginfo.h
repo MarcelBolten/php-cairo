@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit context.stub.php instead.
  * Stub hash: 732060a29a00b42f8d33359df4b0d8cec81cdc0e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Context___construct, 0, 0, 1)

@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit font_face.stub.php instead.
  * Stub hash: 532e2adfa394f0120b711d5a23894740b4bb9c5c */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace___construct, 0, 0, 0)

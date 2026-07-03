@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit pattern.stub.php instead.
  * Stub hash: 9bb89f595636e48fada2d96fb3253e29047c1538 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Pattern___construct, 0, 0, 0)

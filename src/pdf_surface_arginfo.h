@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit pdf_surface.stub.php instead.
  * Stub hash: 0c04b7887ca191c3e4dd5e0ff85cad2f43533c7e */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Pdf___construct, 0, 0, 3)
@@ -100,9 +100,9 @@ static zend_class_entry *register_class_Cairo_Surface_Pdf(zend_class_entry *clas
 
 	zval const_OUTLINE_ROOT_value;
 	ZVAL_LONG(&const_OUTLINE_ROOT_value, CAIRO_PDF_OUTLINE_ROOT);
-	zend_string *const_OUTLINE_ROOT_name = zend_string_init_interned("OUTLINE_ROOT", sizeof("OUTLINE_ROOT") - 1, 1);
+	zend_string *const_OUTLINE_ROOT_name = zend_string_init_interned("OUTLINE_ROOT", sizeof("OUTLINE_ROOT") - 1, true);
 	zend_declare_class_constant_ex(class_entry, const_OUTLINE_ROOT_name, &const_OUTLINE_ROOT_value, ZEND_ACC_PUBLIC, NULL);
-	zend_string_release(const_OUTLINE_ROOT_name);
+	zend_string_release_ex(const_OUTLINE_ROOT_name, true);
 #endif
 
 	return class_entry;

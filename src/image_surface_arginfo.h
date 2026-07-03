@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit image_surface.stub.php instead.
  * Stub hash: 2fa9fa43d013095c282e54cf4871bee6dc0d017d */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Image___construct, 0, 0, 3)

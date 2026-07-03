@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit quartz_font.stub.php instead.
  * Stub hash: 578f27326cbd6ec3a6c426300ca14cee794a304f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Cairo_FontFace_Quartz_createForCGFont, 0, 1, Cairo\\FontFace\\Quartz, 0)

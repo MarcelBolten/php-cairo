@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit cairo.stub.php instead.
  * Stub hash: 9159abebed4ae5a59101c2e885a0ac0fdfb77e0d */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_Cairo_version, 0, 0, IS_LONG, 0)

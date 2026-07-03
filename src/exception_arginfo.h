@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit exception.stub.php instead.
  * Stub hash: 19e2be5b6565fcc96ab61d08ac3904bff55a7088 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Cairo_Status_getMessage, 0, 0, IS_STRING, 0)

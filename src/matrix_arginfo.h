@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit matrix.stub.php instead.
  * Stub hash: 18d83f5066951849687728e21ffcdf4d73d22c1d */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Matrix___construct, 0, 0, 0)
@@ -101,39 +101,39 @@ static zend_class_entry *register_class_Cairo_Matrix(void)
 
 	zval property_xx_default_value;
 	ZVAL_DOUBLE(&property_xx_default_value, 1.0);
-	zend_string *property_xx_name = zend_string_init("xx", sizeof("xx") - 1, 1);
+	zend_string *property_xx_name = zend_string_init("xx", sizeof("xx") - 1, true);
 	zend_declare_typed_property(class_entry, property_xx_name, &property_xx_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_xx_name);
+	zend_string_release_ex(property_xx_name, true);
 
 	zval property_yx_default_value;
 	ZVAL_DOUBLE(&property_yx_default_value, 0.0);
-	zend_string *property_yx_name = zend_string_init("yx", sizeof("yx") - 1, 1);
+	zend_string *property_yx_name = zend_string_init("yx", sizeof("yx") - 1, true);
 	zend_declare_typed_property(class_entry, property_yx_name, &property_yx_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_yx_name);
+	zend_string_release_ex(property_yx_name, true);
 
 	zval property_xy_default_value;
 	ZVAL_DOUBLE(&property_xy_default_value, 0.0);
-	zend_string *property_xy_name = zend_string_init("xy", sizeof("xy") - 1, 1);
+	zend_string *property_xy_name = zend_string_init("xy", sizeof("xy") - 1, true);
 	zend_declare_typed_property(class_entry, property_xy_name, &property_xy_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_xy_name);
+	zend_string_release_ex(property_xy_name, true);
 
 	zval property_yy_default_value;
 	ZVAL_DOUBLE(&property_yy_default_value, 1.0);
-	zend_string *property_yy_name = zend_string_init("yy", sizeof("yy") - 1, 1);
+	zend_string *property_yy_name = zend_string_init("yy", sizeof("yy") - 1, true);
 	zend_declare_typed_property(class_entry, property_yy_name, &property_yy_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_yy_name);
+	zend_string_release_ex(property_yy_name, true);
 
 	zval property_x0_default_value;
 	ZVAL_DOUBLE(&property_x0_default_value, 0.0);
-	zend_string *property_x0_name = zend_string_init("x0", sizeof("x0") - 1, 1);
+	zend_string *property_x0_name = zend_string_init("x0", sizeof("x0") - 1, true);
 	zend_declare_typed_property(class_entry, property_x0_name, &property_x0_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_x0_name);
+	zend_string_release_ex(property_x0_name, true);
 
 	zval property_y0_default_value;
 	ZVAL_DOUBLE(&property_y0_default_value, 0.0);
-	zend_string *property_y0_name = zend_string_init("y0", sizeof("y0") - 1, 1);
+	zend_string *property_y0_name = zend_string_init("y0", sizeof("y0") - 1, true);
 	zend_declare_typed_property(class_entry, property_y0_name, &property_y0_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_y0_name);
+	zend_string_release_ex(property_y0_name, true);
 
 	return class_entry;
 }

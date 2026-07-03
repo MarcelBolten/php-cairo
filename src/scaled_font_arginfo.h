@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit scaled_font.stub.php instead.
  * Stub hash: 8570f608b0754bdf2919275180bf9d3bc17f5333 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_ScaledFont___construct, 0, 0, 4)

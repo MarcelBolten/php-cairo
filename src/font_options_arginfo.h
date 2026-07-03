@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit font_options.stub.php instead.
  * Stub hash: 099b6106a48dc7af1672490d5b3b02c1673a308b */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontOptions___construct, 0, 0, 0)
@@ -152,9 +152,9 @@ static zend_class_entry *register_class_Cairo_FontOptions(void)
 
 	zval const_PALETTE_DEFAULT_value;
 	ZVAL_LONG(&const_PALETTE_DEFAULT_value, CAIRO_COLOR_PALETTE_DEFAULT);
-	zend_string *const_PALETTE_DEFAULT_name = zend_string_init_interned("PALETTE_DEFAULT", sizeof("PALETTE_DEFAULT") - 1, 1);
+	zend_string *const_PALETTE_DEFAULT_name = zend_string_init_interned("PALETTE_DEFAULT", sizeof("PALETTE_DEFAULT") - 1, true);
 	zend_declare_class_constant_ex(class_entry, const_PALETTE_DEFAULT_name, &const_PALETTE_DEFAULT_value, ZEND_ACC_PUBLIC, NULL);
-	zend_string_release(const_PALETTE_DEFAULT_name);
+	zend_string_release_ex(const_PALETTE_DEFAULT_name, true);
 #endif
 
 	return class_entry;

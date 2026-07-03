@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit text_cluster.stub.php instead.
  * Stub hash: bb125598928ab30247e010e4a9dfdfd325be6f07 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_TextCluster___construct, 0, 0, 2)
@@ -27,15 +27,15 @@ static zend_class_entry *register_class_Cairo_TextCluster(void)
 
 	zval property_num_bytes_default_value;
 	ZVAL_LONG(&property_num_bytes_default_value, 0);
-	zend_string *property_num_bytes_name = zend_string_init("num_bytes", sizeof("num_bytes") - 1, 1);
+	zend_string *property_num_bytes_name = zend_string_init("num_bytes", sizeof("num_bytes") - 1, true);
 	zend_declare_typed_property(class_entry, property_num_bytes_name, &property_num_bytes_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
-	zend_string_release(property_num_bytes_name);
+	zend_string_release_ex(property_num_bytes_name, true);
 
 	zval property_num_glyphs_default_value;
 	ZVAL_LONG(&property_num_glyphs_default_value, 0);
-	zend_string *property_num_glyphs_name = zend_string_init("num_glyphs", sizeof("num_glyphs") - 1, 1);
+	zend_string *property_num_glyphs_name = zend_string_init("num_glyphs", sizeof("num_glyphs") - 1, true);
 	zend_declare_typed_property(class_entry, property_num_glyphs_name, &property_num_glyphs_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
-	zend_string_release(property_num_glyphs_name);
+	zend_string_release_ex(property_num_glyphs_name, true);
 
 	return class_entry;
 }

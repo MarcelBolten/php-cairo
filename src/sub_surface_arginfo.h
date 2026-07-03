@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit sub_surface.stub.php instead.
  * Stub hash: 2ee4272d6125fe28a502546c62a81bb7999580d3 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_SubSurface___construct, 0, 0, 0)

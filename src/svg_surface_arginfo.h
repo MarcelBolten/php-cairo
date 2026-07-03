@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit svg_surface.stub.php instead.
  * Stub hash: 093b4565777555b0e49d0e72a1f0933ef64bc6fa */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Svg___construct, 0, 0, 3)

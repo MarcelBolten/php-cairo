@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit rectangle.stub.php instead.
  * Stub hash: 712e7fe097074812a47bc4c96697f1f1a12f2cf3 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Rectangle___construct, 0, 0, 0)
@@ -28,27 +28,27 @@ static zend_class_entry *register_class_Cairo_Rectangle(void)
 
 	zval property_x_default_value;
 	ZVAL_LONG(&property_x_default_value, 0);
-	zend_string *property_x_name = zend_string_init("x", sizeof("x") - 1, 1);
+	zend_string *property_x_name = zend_string_init("x", sizeof("x") - 1, true);
 	zend_declare_typed_property(class_entry, property_x_name, &property_x_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_x_name);
+	zend_string_release_ex(property_x_name, true);
 
 	zval property_y_default_value;
 	ZVAL_LONG(&property_y_default_value, 0);
-	zend_string *property_y_name = zend_string_init("y", sizeof("y") - 1, 1);
+	zend_string *property_y_name = zend_string_init("y", sizeof("y") - 1, true);
 	zend_declare_typed_property(class_entry, property_y_name, &property_y_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_y_name);
+	zend_string_release_ex(property_y_name, true);
 
 	zval property_width_default_value;
 	ZVAL_LONG(&property_width_default_value, 0);
-	zend_string *property_width_name = zend_string_init("width", sizeof("width") - 1, 1);
+	zend_string *property_width_name = zend_string_init("width", sizeof("width") - 1, true);
 	zend_declare_typed_property(class_entry, property_width_name, &property_width_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_width_name);
+	zend_string_release_ex(property_width_name, true);
 
 	zval property_height_default_value;
 	ZVAL_LONG(&property_height_default_value, 0);
-	zend_string *property_height_name = zend_string_init("height", sizeof("height") - 1, 1);
+	zend_string *property_height_name = zend_string_init("height", sizeof("height") - 1, true);
 	zend_declare_typed_property(class_entry, property_height_name, &property_height_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_height_name);
+	zend_string_release_ex(property_height_name, true);
 
 	return class_entry;
 }

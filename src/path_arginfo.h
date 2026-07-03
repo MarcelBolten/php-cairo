@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit path.stub.php instead.
  * Stub hash: 4a5024f39563f96c88b68b67bc01a010cb5eb8b5 */
 
 static zend_class_entry *register_class_Cairo_Path(void)

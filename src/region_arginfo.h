@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit region.stub.php instead.
  * Stub hash: 7239204be0b0125c79370fa0fe19a3b7f2f94bd6 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Region___construct, 0, 0, 0)

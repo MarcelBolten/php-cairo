@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit recording_surface.stub.php instead.
  * Stub hash: 183583230876da13f92f7de792d3e0439b01837b */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Recording___construct, 0, 0, 1)

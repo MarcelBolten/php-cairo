@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit glyph.stub.php instead.
  * Stub hash: 73a8fb1f37e5b3c825a531363bc65b6fd0e2f359 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Glyph___construct, 0, 0, 1)
@@ -28,21 +28,21 @@ static zend_class_entry *register_class_Cairo_Glyph(void)
 
 	zval property_index_default_value;
 	ZVAL_LONG(&property_index_default_value, 0);
-	zend_string *property_index_name = zend_string_init("index", sizeof("index") - 1, 1);
+	zend_string *property_index_name = zend_string_init("index", sizeof("index") - 1, true);
 	zend_declare_typed_property(class_entry, property_index_name, &property_index_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
-	zend_string_release(property_index_name);
+	zend_string_release_ex(property_index_name, true);
 
 	zval property_x_default_value;
 	ZVAL_DOUBLE(&property_x_default_value, 0.0);
-	zend_string *property_x_name = zend_string_init("x", sizeof("x") - 1, 1);
+	zend_string *property_x_name = zend_string_init("x", sizeof("x") - 1, true);
 	zend_declare_typed_property(class_entry, property_x_name, &property_x_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_x_name);
+	zend_string_release_ex(property_x_name, true);
 
 	zval property_y_default_value;
 	ZVAL_DOUBLE(&property_y_default_value, 0.0);
-	zend_string *property_y_name = zend_string_init("y", sizeof("y") - 1, 1);
+	zend_string *property_y_name = zend_string_init("y", sizeof("y") - 1, true);
 	zend_declare_typed_property(class_entry, property_y_name, &property_y_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
-	zend_string_release(property_y_name);
+	zend_string_release_ex(property_y_name, true);
 
 	return class_entry;
 }

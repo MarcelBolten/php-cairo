@@ -1,4 +1,4 @@
-/* This is a generated file, edit the .stub.php file instead.
+/* This is a generated file, edit ps_surface.stub.php instead.
  * Stub hash: dac4e3e8bbc3b2275081f9561626a90981ebba53 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Surface_Ps___construct, 0, 0, 3)
