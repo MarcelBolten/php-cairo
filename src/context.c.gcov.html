@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
@@ -96,7 +96,7 @@
 <span id="L34"><span class="lineNum">      34</span>              : static zend_object_handlers cairo_context_object_handlers;</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC tlaBgGNC">         421 : PHP_CAIRO_API cairo_context_object *cairo_context_fetch_object(zend_object *object) {</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         421 :     return (cairo_context_object *) ((char*) (object) - XtOffsetOf(cairo_context_object, std));</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         421 :     return (cairo_context_object *) ((char*) (object) - offsetof(cairo_context_object, std));</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : }</span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         208 : cairo_context_object *cairo_context_object_get(zval *zv) {</span></span>
@@ -3007,7 +3007,7 @@
 <span id="L2945"><span class="lineNum">    2945</span>              :     );</span>
 <span id="L2946"><span class="lineNum">    2946</span>              : </span>
 <span id="L2947"><span class="lineNum">    2947</span>              :     /* Context */</span>
-<span id="L2948"><span class="lineNum">    2948</span> <span class="tlaGNC">         433 :     cairo_context_object_handlers.offset = XtOffsetOf(cairo_context_object, std);</span></span>
+<span id="L2948"><span class="lineNum">    2948</span> <span class="tlaGNC">         433 :     cairo_context_object_handlers.offset = offsetof(cairo_context_object, std);</span></span>
 <span id="L2949"><span class="lineNum">    2949</span> <span class="tlaGNC">         433 :     cairo_context_object_handlers.free_obj = cairo_context_free_obj;</span></span>
 <span id="L2950"><span class="lineNum">    2950</span>              : </span>
 <span id="L2951"><span class="lineNum">    2951</span> <span class="tlaGNC">         433 :     ce_cairo_context = register_class_Cairo_Context();</span></span>

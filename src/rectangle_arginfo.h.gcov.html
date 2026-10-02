@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -60,7 +60,7 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit the .stub.php file instead.</span>
+<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit rectangle.stub.php instead.</span>
 <span id="L2"><span class="lineNum">       2</span>              :  * Stub hash: 712e7fe097074812a47bc4c96697f1f1a12f2cf3 */</span>
 <span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_Rectangle___construct, 0, 0, 0)</span>
@@ -90,27 +90,27 @@
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     zval property_x_default_value;</span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;property_x_default_value, 0);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         433 :     zend_string *property_x_name = zend_string_init(&quot;x&quot;, sizeof(&quot;x&quot;) - 1, 1);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         433 :     zend_string *property_x_name = zend_string_init(&quot;x&quot;, sizeof(&quot;x&quot;) - 1, true);</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         433 :     zend_declare_typed_property(class_entry, property_x_name, &amp;property_x_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));</span></span>
-<span id="L33"><span class="lineNum">      33</span>              :     zend_string_release(property_x_name);</span>
+<span id="L33"><span class="lineNum">      33</span>              :     zend_string_release_ex(property_x_name, true);</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :     zval property_y_default_value;</span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;property_y_default_value, 0);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         433 :     zend_string *property_y_name = zend_string_init(&quot;y&quot;, sizeof(&quot;y&quot;) - 1, 1);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         433 :     zend_string *property_y_name = zend_string_init(&quot;y&quot;, sizeof(&quot;y&quot;) - 1, true);</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         433 :     zend_declare_typed_property(class_entry, property_y_name, &amp;property_y_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));</span></span>
-<span id="L39"><span class="lineNum">      39</span>              :     zend_string_release(property_y_name);</span>
+<span id="L39"><span class="lineNum">      39</span>              :     zend_string_release_ex(property_y_name, true);</span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span>              :     zval property_width_default_value;</span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;property_width_default_value, 0);</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         433 :     zend_string *property_width_name = zend_string_init(&quot;width&quot;, sizeof(&quot;width&quot;) - 1, 1);</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         433 :     zend_string *property_width_name = zend_string_init(&quot;width&quot;, sizeof(&quot;width&quot;) - 1, true);</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         433 :     zend_declare_typed_property(class_entry, property_width_name, &amp;property_width_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));</span></span>
-<span id="L45"><span class="lineNum">      45</span>              :     zend_string_release(property_width_name);</span>
+<span id="L45"><span class="lineNum">      45</span>              :     zend_string_release_ex(property_width_name, true);</span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              :     zval property_height_default_value;</span>
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;property_height_default_value, 0);</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         433 :     zend_string *property_height_name = zend_string_init(&quot;height&quot;, sizeof(&quot;height&quot;) - 1, 1);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         433 :     zend_string *property_height_name = zend_string_init(&quot;height&quot;, sizeof(&quot;height&quot;) - 1, true);</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         433 :     zend_declare_typed_property(class_entry, property_height_name, &amp;property_height_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));</span></span>
-<span id="L51"><span class="lineNum">      51</span>              :     zend_string_release(property_height_name);</span>
+<span id="L51"><span class="lineNum">      51</span>              :     zend_string_release_ex(property_height_name, true);</span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         433 :     return class_entry;</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : }</span>

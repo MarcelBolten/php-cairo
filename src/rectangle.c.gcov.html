@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -92,7 +92,7 @@
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC tlaBgGNC">         497 : cairo_rectangle_object *cairo_rectangle_fetch_object(zend_object *object)</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : {</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         497 :     return (cairo_rectangle_object *) ((char*)(object) - XtOffsetOf(cairo_rectangle_object, std));</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         497 :     return (cairo_rectangle_object *) ((char*)(object) - offsetof(cairo_rectangle_object, std));</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : }</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         364 : static inline double cairo_rectangle_get_property_default(zend_class_entry *ce, char * name) {</span></span>
@@ -397,7 +397,7 @@
 <span id="L335"><span class="lineNum">     335</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L336"><span class="lineNum">     336</span>              :     );</span>
 <span id="L337"><span class="lineNum">     337</span>              : </span>
-<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">         433 :     cairo_rectangle_object_handlers.offset = XtOffsetOf(cairo_rectangle_object, std);</span></span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">         433 :     cairo_rectangle_object_handlers.offset = offsetof(cairo_rectangle_object, std);</span></span>
 <span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">         433 :     cairo_rectangle_object_handlers.free_obj = cairo_rectangle_free_obj;</span></span>
 <span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">         433 :     cairo_rectangle_object_handlers.clone_obj = cairo_rectangle_clone_obj;</span></span>
 <span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">         433 :     cairo_rectangle_object_handlers.read_property = cairo_rectangle_object_read_property;</span></span>

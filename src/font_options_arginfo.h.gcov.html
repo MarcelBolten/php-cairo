@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -60,7 +60,7 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit the .stub.php file instead.</span>
+<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit font_options.stub.php instead.</span>
 <span id="L2"><span class="lineNum">       2</span>              :  * Stub hash: 099b6106a48dc7af1672490d5b3b02c1673a308b */</span>
 <span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontOptions___construct, 0, 0, 0)</span>
@@ -214,9 +214,9 @@
 <span id="L152"><span class="lineNum">     152</span>              : </span>
 <span id="L153"><span class="lineNum">     153</span>              :     zval const_PALETTE_DEFAULT_value;</span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;const_PALETTE_DEFAULT_value, CAIRO_COLOR_PALETTE_DEFAULT);</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">         433 :     zend_string *const_PALETTE_DEFAULT_name = zend_string_init_interned(&quot;PALETTE_DEFAULT&quot;, sizeof(&quot;PALETTE_DEFAULT&quot;) - 1, 1);</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">         433 :     zend_string *const_PALETTE_DEFAULT_name = zend_string_init_interned(&quot;PALETTE_DEFAULT&quot;, sizeof(&quot;PALETTE_DEFAULT&quot;) - 1, true);</span></span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         433 :     zend_declare_class_constant_ex(class_entry, const_PALETTE_DEFAULT_name, &amp;const_PALETTE_DEFAULT_value, ZEND_ACC_PUBLIC, NULL);</span></span>
-<span id="L157"><span class="lineNum">     157</span>              :     zend_string_release(const_PALETTE_DEFAULT_name);</span>
+<span id="L157"><span class="lineNum">     157</span>              :     zend_string_release_ex(const_PALETTE_DEFAULT_name, true);</span>
 <span id="L158"><span class="lineNum">     158</span>              : #endif</span>
 <span id="L159"><span class="lineNum">     159</span>              : </span>
 <span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">         433 :     return class_entry;</span></span>

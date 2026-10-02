@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -112,7 +112,7 @@
 <span id="L50"><span class="lineNum">      50</span>              : </span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         284 : cairo_pattern_object *cairo_pattern_fetch_object(zend_object *object)</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : {</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         284 :     return (cairo_pattern_object *) ((char*)(object) - XtOffsetOf(cairo_pattern_object, std));</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         284 :     return (cairo_pattern_object *) ((char*)(object) - offsetof(cairo_pattern_object, std));</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : }</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         139 : static inline cairo_pattern_object *cairo_pattern_object_get(zval *zv)</span></span>
@@ -1347,7 +1347,7 @@
 <span id="L1285"><span class="lineNum">    1285</span>              :     );</span>
 <span id="L1286"><span class="lineNum">    1286</span>              : </span>
 <span id="L1287"><span class="lineNum">    1287</span>              :     // Pattern</span>
-<span id="L1288"><span class="lineNum">    1288</span> <span class="tlaGNC">         433 :     cairo_pattern_object_handlers.offset = XtOffsetOf(cairo_pattern_object, std);</span></span>
+<span id="L1288"><span class="lineNum">    1288</span> <span class="tlaGNC">         433 :     cairo_pattern_object_handlers.offset = offsetof(cairo_pattern_object, std);</span></span>
 <span id="L1289"><span class="lineNum">    1289</span> <span class="tlaGNC">         433 :     cairo_pattern_object_handlers.free_obj = cairo_pattern_free_obj;</span></span>
 <span id="L1290"><span class="lineNum">    1290</span>              : </span>
 <span id="L1291"><span class="lineNum">    1291</span> <span class="tlaGNC">         433 :     ce_cairo_pattern = register_class_Cairo_Pattern();</span></span>

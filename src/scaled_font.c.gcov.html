@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,7 +93,7 @@
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">          70 : cairo_scaled_font_object *cairo_scaled_font_fetch_object(zend_object *object)</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : {</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          70 :     return (cairo_scaled_font_object *) ((char*)(object) - XtOffsetOf(cairo_scaled_font_object, std));</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          70 :     return (cairo_scaled_font_object *) ((char*)(object) - offsetof(cairo_scaled_font_object, std));</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : }</span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          18 : static inline cairo_scaled_font_object *cairo_scaled_font_object_get(zval *zv)</span></span>
@@ -623,7 +623,7 @@
 <span id="L561"><span class="lineNum">     561</span>              :     );</span>
 <span id="L562"><span class="lineNum">     562</span>              : </span>
 <span id="L563"><span class="lineNum">     563</span>              :     /* ScaledFont */</span>
-<span id="L564"><span class="lineNum">     564</span> <span class="tlaGNC">         433 :     cairo_scaled_font_object_handlers.offset = XtOffsetOf(cairo_scaled_font_object, std);</span></span>
+<span id="L564"><span class="lineNum">     564</span> <span class="tlaGNC">         433 :     cairo_scaled_font_object_handlers.offset = offsetof(cairo_scaled_font_object, std);</span></span>
 <span id="L565"><span class="lineNum">     565</span> <span class="tlaGNC">         433 :     cairo_scaled_font_object_handlers.free_obj = cairo_scaled_font_free_obj;</span></span>
 <span id="L566"><span class="lineNum">     566</span>              : </span>
 <span id="L567"><span class="lineNum">     567</span> <span class="tlaGNC">         433 :     ce_cairo_scaled_font = register_class_Cairo_ScaledFont();</span></span>

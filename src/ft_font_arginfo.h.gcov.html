@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -60,7 +60,7 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit the .stub.php file instead.</span>
+<span id="L1"><span class="lineNum">       1</span>              : /* This is a generated file, edit ft_font.stub.php instead.</span>
 <span id="L2"><span class="lineNum">       2</span>              :  * Stub hash: 3817974b6275425adaecdb5c6ff0766921be8ba8 */</span>
 <span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Cairo_FontFace_Ft___construct, 0, 0, 1)</span>
@@ -103,15 +103,15 @@
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              :     zval const_SYNTHESIZE_BOLD_value;</span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;const_SYNTHESIZE_BOLD_value, CAIRO_FT_SYNTHESIZE_BOLD);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         433 :     zend_string *const_SYNTHESIZE_BOLD_name = zend_string_init_interned(&quot;SYNTHESIZE_BOLD&quot;, sizeof(&quot;SYNTHESIZE_BOLD&quot;) - 1, 1);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         433 :     zend_string *const_SYNTHESIZE_BOLD_name = zend_string_init_interned(&quot;SYNTHESIZE_BOLD&quot;, sizeof(&quot;SYNTHESIZE_BOLD&quot;) - 1, true);</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         433 :     zend_declare_class_constant_ex(class_entry, const_SYNTHESIZE_BOLD_name, &amp;const_SYNTHESIZE_BOLD_value, ZEND_ACC_PUBLIC, NULL);</span></span>
-<span id="L46"><span class="lineNum">      46</span>              :     zend_string_release(const_SYNTHESIZE_BOLD_name);</span>
+<span id="L46"><span class="lineNum">      46</span>              :     zend_string_release_ex(const_SYNTHESIZE_BOLD_name, true);</span>
 <span id="L47"><span class="lineNum">      47</span>              : </span>
 <span id="L48"><span class="lineNum">      48</span>              :     zval const_SYNTHESIZE_OBLIQUE_value;</span>
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         433 :     ZVAL_LONG(&amp;const_SYNTHESIZE_OBLIQUE_value, CAIRO_FT_SYNTHESIZE_OBLIQUE);</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         433 :     zend_string *const_SYNTHESIZE_OBLIQUE_name = zend_string_init_interned(&quot;SYNTHESIZE_OBLIQUE&quot;, sizeof(&quot;SYNTHESIZE_OBLIQUE&quot;) - 1, 1);</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         433 :     zend_string *const_SYNTHESIZE_OBLIQUE_name = zend_string_init_interned(&quot;SYNTHESIZE_OBLIQUE&quot;, sizeof(&quot;SYNTHESIZE_OBLIQUE&quot;) - 1, true);</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         433 :     zend_declare_class_constant_ex(class_entry, const_SYNTHESIZE_OBLIQUE_name, &amp;const_SYNTHESIZE_OBLIQUE_value, ZEND_ACC_PUBLIC, NULL);</span></span>
-<span id="L52"><span class="lineNum">      52</span>              :     zend_string_release(const_SYNTHESIZE_OBLIQUE_name);</span>
+<span id="L52"><span class="lineNum">      52</span>              :     zend_string_release_ex(const_SYNTHESIZE_OBLIQUE_name, true);</span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         433 :     return class_entry;</span></span>
 <span id="L55"><span class="lineNum">      55</span>              : }</span>

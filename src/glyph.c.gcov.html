@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">         144 : cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : {</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         144 :     return (cairo_glyph_object *) ((char*)(object) - XtOffsetOf(cairo_glyph_object, std));</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         144 :     return (cairo_glyph_object *) ((char*)(object) - offsetof(cairo_glyph_object, std));</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : }</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              : /*static inline double cairo_glyph_get_property_value(zend_object *object, char *name) {</span>
@@ -335,7 +335,7 @@
 <span id="L273"><span class="lineNum">     273</span>              :         sizeof(zend_object_handlers)</span>
 <span id="L274"><span class="lineNum">     274</span>              :     );</span>
 <span id="L275"><span class="lineNum">     275</span>              : </span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         433 :     cairo_glyph_object_handlers.offset = XtOffsetOf(cairo_glyph_object, std);</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         433 :     cairo_glyph_object_handlers.offset = offsetof(cairo_glyph_object, std);</span></span>
 <span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         433 :     cairo_glyph_object_handlers.free_obj = cairo_glyph_free_obj;</span></span>
 <span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">         433 :     cairo_glyph_object_handlers.clone_obj = cairo_glyph_clone_obj;</span></span>
 <span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         433 :     cairo_glyph_object_handlers.read_property = cairo_glyph_object_read_property;</span></span>

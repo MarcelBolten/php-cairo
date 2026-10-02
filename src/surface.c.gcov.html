@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-02 02:12:59</td>
+            <td class="headerValue">2026-10-02 04:43:22</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -95,7 +95,7 @@
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">         608 : cairo_surface_object *cairo_surface_fetch_object(zend_object *object)</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : {</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         608 :     return (cairo_surface_object *) ((char*)(object) - XtOffsetOf(cairo_surface_object, std));</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         608 :     return (cairo_surface_object *) ((char*)(object) - offsetof(cairo_surface_object, std));</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : }</span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         186 : cairo_surface_object *cairo_surface_object_get(zval *zv)</span></span>
@@ -964,7 +964,7 @@
 <span id="L902"><span class="lineNum">     902</span>              :     );</span>
 <span id="L903"><span class="lineNum">     903</span>              : </span>
 <span id="L904"><span class="lineNum">     904</span>              :     /* Surface */</span>
-<span id="L905"><span class="lineNum">     905</span> <span class="tlaGNC">         433 :     cairo_surface_object_handlers.offset = XtOffsetOf(cairo_surface_object, std);</span></span>
+<span id="L905"><span class="lineNum">     905</span> <span class="tlaGNC">         433 :     cairo_surface_object_handlers.offset = offsetof(cairo_surface_object, std);</span></span>
 <span id="L906"><span class="lineNum">     906</span> <span class="tlaGNC">         433 :     cairo_surface_object_handlers.free_obj = cairo_surface_free_obj;</span></span>
 <span id="L907"><span class="lineNum">     907</span>              : </span>
 <span id="L908"><span class="lineNum">     908</span> <span class="tlaGNC">         433 :     ce_cairo_surface = register_class_Cairo_Surface();</span></span>
