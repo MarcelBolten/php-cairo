@@ -57,7 +57,7 @@ string(69) "Cairo\FontFace\Ft::__construct() expects at least 1 argument, 0 give
 object(Cairo\FontFace\Ft)#2 (0) {
 }
 
-Warning: Cairo\FontFace\Ft::__construct(NotARealFont): Failed to open stream: No such file or directory in %s__construct.php on line %s
+Warning: Cairo\FontFace\Ft::__construct(%S): Failed to open stream: No such file or directory in %s__construct.php on line %s
 object(Cairo\FontFace\Ft)#1 (0) {
 }
 string(88) "Cairo\FontFace\Ft::__construct() expects parameter 1 to be a string or a stream resource"
