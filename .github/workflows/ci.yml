@@ -35,7 +35,7 @@ jobs:
                 phpts: ${{ matrix.phpts }}
 
             - name: "Checkout"
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
 
             - name: "Build Cairo"
               run: |
@@ -52,7 +52,7 @@ jobs:
 
             - name: "Upload test outputs"
               if: ${{ always() }}
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: cairo-test-${{ matrix.php-version }}
                 path: tests/**/*.log
@@ -63,14 +63,14 @@ jobs:
 
             - name: "Publish on gh-pages"
               if: ${{ matrix.php-version == '8.5' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
-              uses: peaceiris/actions-gh-pages@v3
+              uses: peaceiris/actions-gh-pages@v4
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./coverage_html
 
             - name: "Upload coverage report artifacts"
               if: ${{ matrix.php-version == '8.5' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: cairo-coverage-8.5
                 path: coverage_html

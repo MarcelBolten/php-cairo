@@ -10,7 +10,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
+                php-version: [8.1, 8.2, 8.3, 8.4, 8.5, 8.6]
                 os: [macos-14, macos-15]
                 phpts: [ts, nts]
 
@@ -18,7 +18,7 @@ jobs:
 
         steps:
             - name: "Checkout"
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
 
             - name: Install system dependencies
               run: |
@@ -61,7 +61,7 @@ jobs:
 
             - name: "Upload test outputs"
               if: ${{ always() }}
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: cairo-test-macos-${{ matrix.php-version }}-${{ matrix.phpts }}
                 path: |

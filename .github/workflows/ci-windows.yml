@@ -12,7 +12,7 @@ jobs:
             matrix: ${{ steps.extension-matrix.outputs.matrix }}
         steps:
         - name: Checkout
-          uses: actions/checkout@v5
+          uses: actions/checkout@v7
         - name: Get the extension matrix
           id: extension-matrix
           uses: php/php-windows-builder/extension-matrix@v1
@@ -32,10 +32,10 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
 
             - name: Restore vcpkg cache
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v6
               with:
                 path: |
                   C:\vcpkg\installed
@@ -101,7 +101,7 @@ jobs:
                 echo "CAIRO_DEPS_PATH=$depsPath" >> $env:GITHUB_OUTPUT
 
             - name: Save vcpkg cache
-              uses: actions/cache/save@v4
+              uses: actions/cache/save@v6
               with:
                 path: |
                   C:\vcpkg\installed
@@ -118,7 +118,7 @@ jobs:
 
             - name: "Upload test outputs"
               if: ${{ always() }}
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: cairo-test-${{ matrix.php-version }}-${{ matrix.arch }}-${{ matrix.ts }}
                 path: |
@@ -126,7 +126,7 @@ jobs:
 
             - name: "Upload built extension"
               if: ${{ always() }}
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: cairo-extension-${{ matrix.php-version }}-${{ matrix.arch }}-${{ matrix.ts }}
                 path: |
