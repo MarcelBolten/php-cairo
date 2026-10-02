@@ -10,7 +10,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-version: [8.1, 8.2, 8.3, 8.4, 8.5]
+                php-version: [8.1, 8.2, 8.3, 8.4, 8.5, 8.6]
                 os: [ubuntu-latest]
                 phpts: [ts, nts]
 
@@ -58,19 +58,19 @@ jobs:
                 path: tests/**/*.log
 
             - name: "Create Coverage report"
-              if: ${{ matrix.php-version == '8.4' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
+              if: ${{ matrix.php-version == '8.5' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
               run: chmod +x ./coverage.sh && ./coverage.sh
 
             - name: "Publish on gh-pages"
-              if: ${{ matrix.php-version == '8.4' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
+              if: ${{ matrix.php-version == '8.5' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
               uses: peaceiris/actions-gh-pages@v3
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./coverage_html
 
             - name: "Upload coverage report artifacts"
-              if: ${{ matrix.php-version == '8.4' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
+              if: ${{ matrix.php-version == '8.5' && matrix.phpts == 'nts' && github.ref_name == 'overhaul' }}
               uses: actions/upload-artifact@v4
               with:
-                name: cairo-coverage-8.4
+                name: cairo-coverage-8.5
                 path: coverage_html
