@@ -124,15 +124,43 @@ jobs:
                 path: |
                   tests/**/*.log
 
+            - name: "Rename artifacts"
+              if: ${{ always() }}
+              id: rename-artifacts
+              shell: pwsh
+              run: |
+                $map = @{
+                    '8.2'    = 'vs16'
+                    '8.3'    = 'vs16'
+                    '8.4'    = 'vs17'
+                    '8.5'    = 'vs17'
+                    '8.6'    = 'vs18'
+                    'master' = 'vs18'
+                }
+                $vs   = $map['${{ matrix.php-version }}']
+                $arch = '${{ matrix.arch == 'x64' && 'x86_64' || 'x86' }}'
+
+                $commonName = "php_cairo-${{ github.ref_name }}-${{ matrix.php-version }}-${{ matrix.ts }}-$vs-$arch"
+
+                # export common name so it can be used in subsequent steps
+                "COMMON_NAME=$commonName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+                # copy files (php_cairo.dll, php_cairo.pdb) with a new name, next to the originals
+                foreach ($ext in 'dll', 'pdb') {
+                    Get-ChildItem -Path . -Recurse -Filter "php_cairo.$ext" | ForEach-Object {
+                        Copy-Item -Path $_.FullName -Destination (Join-Path $_.DirectoryName "$commonName.$ext") -Force
+                    }
+                }
+
             - name: "Upload built extension"
               if: ${{ always() }}
               uses: actions/upload-artifact@v7
               with:
                 name: cairo-extension-${{ matrix.php-version }}-${{ matrix.arch }}-${{ matrix.ts }}
                 path: |
-                  **/php_cairo.dll
+                  **/${{ steps.rename-artifacts.outputs.COMMON_NAME }}.dll
+                  **/${{ steps.rename-artifacts.outputs.COMMON_NAME }}.pdb
                   **/php_cairo.lib
-                  **/php_cairo.pdb
                   **/php_cairo_internal.h
                   **/php_cairo.h
                   **/cairo_jpg.h
