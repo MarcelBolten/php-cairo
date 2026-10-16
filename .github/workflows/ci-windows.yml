@@ -44,12 +44,6 @@ jobs:
         runs-on: ${{ matrix.os }}
 
         steps:
-            - name: Exclude x86 and PHP <= 8.3
-              if: ${{ matrix.arch == 'x86' && (matrix.php-version == '8.3' || matrix.php-version == '8.2' || matrix.php-version == '8.1') }}
-              run: |
-                echo "Skipping build for x86 and PHP <= 8.3 due to incompatibility of cairo with v142 toolset (Visual Studio 2019 vs16/14.29.30133)"
-                exit 1
-
             - name: Checkout
               uses: actions/checkout@v7
 
