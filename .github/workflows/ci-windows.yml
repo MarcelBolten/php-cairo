@@ -7,7 +7,7 @@ on:
 
 jobs:
     get-extension-matrix:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-26.04
         outputs:
             matrix: ${{ steps.filter.outputs.matrix }}
         steps:
