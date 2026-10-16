@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - glyph.c<span style="font-size: 80%;"> (source / <a href="glyph.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - glyph.c<span style="font-size: 80%;"> (source / <a href="glyph.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -89,7 +89,7 @@
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              : static zend_object_handlers cairo_glyph_object_handlers;</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">         144 : cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         144 : cairo_glyph_object *cairo_glyph_fetch_object(zend_object *object)</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : {</span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         144 :     return (cairo_glyph_object *) ((char*)(object) - offsetof(cairo_glyph_object, std));</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : }</span>
@@ -187,10 +187,10 @@
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          53 :     cairo_glyph_object *intern = cairo_glyph_fetch_object(zobj);</span></span>
 <span id="L126"><span class="lineNum">     126</span>              : </span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          53 :     if (!intern) {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L129"><span class="lineNum">     129</span>              :     }</span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC tlaBgGNC">          53 :     if (intern-&gt;glyph) {</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          53 :     if (intern-&gt;glyph) {</span></span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          53 :         efree(intern-&gt;glyph);</span></span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          53 :         intern-&gt;glyph = NULL;</span></span>
 <span id="L134"><span class="lineNum">     134</span>              :     }</span>
@@ -251,12 +251,12 @@
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           7 :     cairo_glyph_object *glyph_object = cairo_glyph_fetch_object(zobj);</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           7 :     if (!glyph_object) {</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC tlaBgUNC">           0 :         return rv;</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :         return rv;</span></span>
 <span id="L193"><span class="lineNum">     193</span>              :     }</span>
 <span id="L194"><span class="lineNum">     194</span>              : </span>
 <span id="L195"><span class="lineNum">     195</span>              :     do {</span>
 <span id="L196"><span class="lineNum">     196</span>              :         // break if struct member</span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC tlaBgGNC">           7 :         CAIRO_VALUE_FROM_STRUCT(index);</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           7 :         CAIRO_VALUE_FROM_STRUCT(index);</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           5 :         CAIRO_VALUE_FROM_STRUCT(x);</span></span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           3 :         CAIRO_VALUE_FROM_STRUCT(y);</span></span>
 <span id="L200"><span class="lineNum">     200</span>              : </span>
@@ -284,11 +284,11 @@
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           5 :     zval *retval = NULL;</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           5 :     if (!glyph_object) {</span></span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC tlaBgUNC">           0 :         return retval;</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC">           0 :         return retval;</span></span>
 <span id="L226"><span class="lineNum">     226</span>              :     }</span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     do {</span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC tlaBgGNC">           9 :         CAIRO_VALUE_TO_STRUCT(index);</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">           9 :         CAIRO_VALUE_TO_STRUCT(index);</span></span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           5 :         CAIRO_VALUE_TO_STRUCT(x);</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           4 :         CAIRO_VALUE_TO_STRUCT(y);</span></span>
 <span id="L232"><span class="lineNum">     232</span>              :     } while(0);</span>
@@ -311,10 +311,10 @@
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           5 :     props = zend_std_get_properties(zobj);</span></span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           5 :     if (!glyph_object-&gt;glyph) {</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaUNC tlaBgUNC">           0 :         return props;</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaUNC">           0 :         return props;</span></span>
 <span id="L253"><span class="lineNum">     253</span>              :     }</span>
 <span id="L254"><span class="lineNum">     254</span>              : </span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC tlaBgGNC">           5 :     CAIRO_ADD_STRUCT_VALUE(index);</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           5 :     CAIRO_ADD_STRUCT_VALUE(index);</span></span>
 <span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">           5 :     CAIRO_ADD_STRUCT_VALUE(x);</span></span>
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">           5 :     CAIRO_ADD_STRUCT_VALUE(y);</span></span>
 <span id="L258"><span class="lineNum">     258</span>              : </span>

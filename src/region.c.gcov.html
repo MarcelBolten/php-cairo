@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - region.c<span style="font-size: 80%;"> (source / <a href="region.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - region.c<span style="font-size: 80%;"> (source / <a href="region.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -96,7 +96,7 @@
 <span id="L34"><span class="lineNum">      34</span>              :     zend_object std;</span>
 <span id="L35"><span class="lineNum">      35</span>              : } cairo_region_object;</span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC tlaBgGNC">         197 : static inline cairo_region_object *cairo_region_fetch_object(zend_object *object)</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         197 : static inline cairo_region_object *cairo_region_fetch_object(zend_object *object)</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : {</span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         197 :     return (cairo_region_object *) ((char*)(object) - offsetof(cairo_region_object, std));</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : }</span>
@@ -107,12 +107,12 @@
 <span id="L45"><span class="lineNum">      45</span>              : {</span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          92 :     cairo_region_object *object = Z_CAIRO_REGION_P(zv);</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          92 :     if (object-&gt;region == NULL) {</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC tlaBgUNC">           0 :         zend_throw_exception_ex(ce_cairo_exception, 0,</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 :         zend_throw_exception_ex(ce_cairo_exception, 0,</span></span>
 <span id="L49"><span class="lineNum">      49</span>              :             &quot;Internal region object missing in %s, you must call parent::__construct in extended classes.&quot;,</span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :             ZSTR_VAL(Z_OBJCE_P(zv)-&gt;name));</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :         return NULL;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              :     }</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC tlaBgGNC">          92 :     return object;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          92 :     return object;</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : }</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span>              : /* ----------------------------------------------------------------</span>
@@ -125,10 +125,10 @@
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          47 :     cairo_region_object *intern = cairo_region_fetch_object(object);</span></span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          47 :     if (!intern) {</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L67"><span class="lineNum">      67</span>              :     }</span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC tlaBgGNC">          47 :     if (intern-&gt;region) {</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          47 :     if (intern-&gt;region) {</span></span>
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          44 :         cairo_region_destroy(intern-&gt;region);</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          44 :         intern-&gt;region = NULL;</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :     }</span>
@@ -204,10 +204,10 @@
 <span id="L142"><span class="lineNum">     142</span>              : </span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          88 :     region_object = Z_CAIRO_REGION_P(getThis());</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          44 :     if (!region_object) {</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L146"><span class="lineNum">     146</span>              :     }</span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC tlaBgGNC">          44 :     if (rectangles_zval == NULL) {</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          44 :     if (rectangles_zval == NULL) {</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          17 :         region_object-&gt;region = cairo_region_create();</span></span>
 <span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          54 :     } else if (Z_TYPE_P(rectangles_zval) == IS_OBJECT) {</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          19 :         rectangle = cairo_rectangle_object_get_rect(rectangles_zval);</span></span>
@@ -240,14 +240,14 @@
 <span id="L178"><span class="lineNum">     178</span>              :     }</span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          42 :     if (php_cairo_throw_exception(cairo_region_status(region_object-&gt;region))) {</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L182"><span class="lineNum">     182</span>              :     }</span>
 <span id="L183"><span class="lineNum">     183</span>              : }</span>
 <span id="L184"><span class="lineNum">     184</span>              : /* }}} */</span>
 <span id="L185"><span class="lineNum">     185</span>              : </span>
 <span id="L186"><span class="lineNum">     186</span>              : /* {{{ proto \Cairo\Status \Cairo\Region::getStatus()</span>
 <span id="L187"><span class="lineNum">     187</span>              :    Checks whether an error has previous occurred for this region object. Returns CAIRO_STATUS_SUCCESS or CAIRO_STATUS_NO_MEMORY */</span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_Region, getStatus)</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_Region, getStatus)</span></span>
 <span id="L189"><span class="lineNum">     189</span>              : {</span>
 <span id="L190"><span class="lineNum">     190</span>              :     cairo_region_object *region_object;</span>
 <span id="L191"><span class="lineNum">     191</span>              :     zval status_case;</span>
@@ -256,10 +256,10 @@
 <span id="L194"><span class="lineNum">     194</span>              : </span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           2 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">           1 :     if (!region_object) {</span></span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L198"><span class="lineNum">     198</span>              :     }</span>
 <span id="L199"><span class="lineNum">     199</span>              : </span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC tlaBgGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L201"><span class="lineNum">     201</span>              :         ce_cairo_status,</span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           1 :         cairo_region_status(region_object-&gt;region)</span></span>
 <span id="L203"><span class="lineNum">     203</span>              :     );</span>
@@ -282,10 +282,10 @@
 <span id="L220"><span class="lineNum">     220</span>              : </span>
 <span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">          52 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          26 :     if (!region_object) {</span></span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L224"><span class="lineNum">     224</span>              :     }</span>
 <span id="L225"><span class="lineNum">     225</span>              : </span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC tlaBgGNC">          26 :     cairo_region_get_extents(region_object-&gt;region, &amp;int_rect);</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">          26 :     cairo_region_get_extents(region_object-&gt;region, &amp;int_rect);</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          26 :     object_init_ex(return_value, php_cairo_get_rectangle_ce());</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">          26 :     rectangle_object = Z_CAIRO_RECTANGLE_P(return_value);</span></span>
@@ -303,10 +303,10 @@
 <span id="L241"><span class="lineNum">     241</span>              : </span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          52 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">          26 :     if (!region_object) {</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L245"><span class="lineNum">     245</span>              :     }</span>
 <span id="L246"><span class="lineNum">     246</span>              : </span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC tlaBgGNC">          26 :     RETVAL_LONG(cairo_region_num_rectangles(region_object-&gt;region));</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">          26 :     RETVAL_LONG(cairo_region_num_rectangles(region_object-&gt;region));</span></span>
 <span id="L248"><span class="lineNum">     248</span>              : }</span>
 <span id="L249"><span class="lineNum">     249</span>              : /* }}} */</span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
@@ -325,10 +325,10 @@
 <span id="L263"><span class="lineNum">     263</span>              : </span>
 <span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">           8 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">           4 :     if (!region_object) {</span></span>
-<span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L267"><span class="lineNum">     267</span>              :     }</span>
 <span id="L268"><span class="lineNum">     268</span>              : </span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC tlaBgGNC">           4 :     if ((int) rect_id &gt; cairo_region_num_rectangles(region_object-&gt;region) - 1) {</span></span>
+<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           4 :     if ((int) rect_id &gt; cairo_region_num_rectangles(region_object-&gt;region) - 1) {</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           1 :         RETURN_FALSE;</span></span>
 <span id="L271"><span class="lineNum">     271</span>              :     }</span>
 <span id="L272"><span class="lineNum">     272</span>              : </span>
@@ -350,10 +350,10 @@
 <span id="L288"><span class="lineNum">     288</span>              : </span>
 <span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           2 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           1 :     if (!region_object) {</span></span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L292"><span class="lineNum">     292</span>              :     }</span>
 <span id="L293"><span class="lineNum">     293</span>              : </span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC tlaBgGNC">           1 :     RETVAL_BOOL(cairo_region_is_empty(region_object-&gt;region));</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           1 :     RETVAL_BOOL(cairo_region_is_empty(region_object-&gt;region));</span></span>
 <span id="L295"><span class="lineNum">     295</span>              : }</span>
 <span id="L296"><span class="lineNum">     296</span>              : /* }}} */</span>
 <span id="L297"><span class="lineNum">     297</span>              : </span>
@@ -371,10 +371,10 @@
 <span id="L309"><span class="lineNum">     309</span>              : </span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">          18 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">           9 :     if (!region_object) {</span></span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L313"><span class="lineNum">     313</span>              :     }</span>
 <span id="L314"><span class="lineNum">     314</span>              : </span>
-<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC tlaBgGNC">           9 :     RETVAL_BOOL(cairo_region_contains_point(region_object-&gt;region, (int) x, (int) y));</span></span>
+<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC">           9 :     RETVAL_BOOL(cairo_region_contains_point(region_object-&gt;region, (int) x, (int) y));</span></span>
 <span id="L316"><span class="lineNum">     316</span>              : }</span>
 <span id="L317"><span class="lineNum">     317</span>              : /* }}} */</span>
 <span id="L318"><span class="lineNum">     318</span>              : </span>
@@ -397,15 +397,15 @@
 <span id="L335"><span class="lineNum">     335</span>              : </span>
 <span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           8 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           4 :     if (!region_object) {</span></span>
-<span id="L338"><span class="lineNum">     338</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L339"><span class="lineNum">     339</span>              :     }</span>
 <span id="L340"><span class="lineNum">     340</span>              : </span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC tlaBgGNC">           4 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           4 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
 <span id="L342"><span class="lineNum">     342</span> <span class="tlaGNC">           4 :     if (!rectangle_object) {</span></span>
-<span id="L343"><span class="lineNum">     343</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L343"><span class="lineNum">     343</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L344"><span class="lineNum">     344</span>              :     }</span>
 <span id="L345"><span class="lineNum">     345</span>              : </span>
-<span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC tlaBgGNC">           4 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
+<span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC">           4 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
 <span id="L347"><span class="lineNum">     347</span>              : </span>
 <span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC">           4 :     region_overlap_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L349"><span class="lineNum">     349</span>              :         ce_cairo_region_overlap,</span>
@@ -431,10 +431,10 @@
 <span id="L369"><span class="lineNum">     369</span>              : </span>
 <span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">          10 :     region_obj = cairo_region_object_get(getThis());</span></span>
 <span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">           5 :     if (!region_obj) {</span></span>
-<span id="L372"><span class="lineNum">     372</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L372"><span class="lineNum">     372</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L373"><span class="lineNum">     373</span>              :     }</span>
 <span id="L374"><span class="lineNum">     374</span>              : </span>
-<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC tlaBgGNC">           5 :     if (other_region == NULL) {</span></span>
+<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">           5 :     if (other_region == NULL) {</span></span>
 <span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           1 :         RETURN_TRUE;</span></span>
 <span id="L377"><span class="lineNum">     377</span>              :     }</span>
 <span id="L378"><span class="lineNum">     378</span>              : </span>
@@ -457,19 +457,19 @@
 <span id="L395"><span class="lineNum">     395</span>              : </span>
 <span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC">           4 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           2 :     if (!region_object) {</span></span>
-<span id="L398"><span class="lineNum">     398</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L399"><span class="lineNum">     399</span>              :     }</span>
 <span id="L400"><span class="lineNum">     400</span>              : </span>
-<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_region_translate(region_object-&gt;region, (int) dx, (int) dy);</span></span>
+<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">           2 :     cairo_region_translate(region_object-&gt;region, (int) dx, (int) dy);</span></span>
 <span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">           2 :     if (php_cairo_throw_exception(cairo_region_status(region_object-&gt;region))) {</span></span>
-<span id="L403"><span class="lineNum">     403</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L403"><span class="lineNum">     403</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L404"><span class="lineNum">     404</span>              :     }</span>
 <span id="L405"><span class="lineNum">     405</span>              : }</span>
 <span id="L406"><span class="lineNum">     406</span>              : /* }}} */</span>
 <span id="L407"><span class="lineNum">     407</span>              : </span>
 <span id="L408"><span class="lineNum">     408</span>              : /* {{{ proto \Cairo\Status \Cairo\Region::intersect(\Cairo\Region other_region)</span>
 <span id="L409"><span class="lineNum">     409</span>              :    Computes the intersection with other_region and stores the result. */</span>
-<span id="L410"><span class="lineNum">     410</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Region, intersect)</span></span>
+<span id="L410"><span class="lineNum">     410</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Region, intersect)</span></span>
 <span id="L411"><span class="lineNum">     411</span>              : {</span>
 <span id="L412"><span class="lineNum">     412</span>              :     cairo_region_object *region_obj, *other_region_obj;</span>
 <span id="L413"><span class="lineNum">     413</span>              :     zval *other_region;</span>
@@ -481,10 +481,10 @@
 <span id="L419"><span class="lineNum">     419</span>              : </span>
 <span id="L420"><span class="lineNum">     420</span> <span class="tlaGNC">           4 :     region_obj = cairo_region_object_get(getThis());</span></span>
 <span id="L421"><span class="lineNum">     421</span> <span class="tlaGNC">           2 :     if (!region_obj) {</span></span>
-<span id="L422"><span class="lineNum">     422</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L422"><span class="lineNum">     422</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L423"><span class="lineNum">     423</span>              :     }</span>
 <span id="L424"><span class="lineNum">     424</span>              : </span>
-<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC tlaBgGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
+<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
 <span id="L426"><span class="lineNum">     426</span>              : </span>
 <span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L428"><span class="lineNum">     428</span>              :         ce_cairo_status,</span>
@@ -513,15 +513,15 @@
 <span id="L451"><span class="lineNum">     451</span>              : </span>
 <span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">           2 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L453"><span class="lineNum">     453</span> <span class="tlaGNC">           1 :     if (!region_object) {</span></span>
-<span id="L454"><span class="lineNum">     454</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L454"><span class="lineNum">     454</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L455"><span class="lineNum">     455</span>              :     }</span>
 <span id="L456"><span class="lineNum">     456</span>              : </span>
-<span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC tlaBgGNC">           1 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
+<span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC">           1 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
 <span id="L458"><span class="lineNum">     458</span> <span class="tlaGNC">           1 :     if (!rectangle_object) {</span></span>
-<span id="L459"><span class="lineNum">     459</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L459"><span class="lineNum">     459</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L460"><span class="lineNum">     460</span>              :     }</span>
 <span id="L461"><span class="lineNum">     461</span>              : </span>
-<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
+<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC">           1 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
 <span id="L463"><span class="lineNum">     463</span>              : </span>
 <span id="L464"><span class="lineNum">     464</span> <span class="tlaGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L465"><span class="lineNum">     465</span>              :         ce_cairo_status,</span>
@@ -548,10 +548,10 @@
 <span id="L486"><span class="lineNum">     486</span>              : </span>
 <span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">           4 :     region_obj = cairo_region_object_get(getThis());</span></span>
 <span id="L488"><span class="lineNum">     488</span> <span class="tlaGNC">           2 :     if (!region_obj) {</span></span>
-<span id="L489"><span class="lineNum">     489</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L489"><span class="lineNum">     489</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L490"><span class="lineNum">     490</span>              :     }</span>
 <span id="L491"><span class="lineNum">     491</span>              : </span>
-<span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC tlaBgGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
+<span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
 <span id="L493"><span class="lineNum">     493</span>              : </span>
 <span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L495"><span class="lineNum">     495</span>              :         ce_cairo_status,</span>
@@ -580,15 +580,15 @@
 <span id="L518"><span class="lineNum">     518</span>              : </span>
 <span id="L519"><span class="lineNum">     519</span> <span class="tlaGNC">           2 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L520"><span class="lineNum">     520</span> <span class="tlaGNC">           1 :     if (!region_object) {</span></span>
-<span id="L521"><span class="lineNum">     521</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L521"><span class="lineNum">     521</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L522"><span class="lineNum">     522</span>              :     }</span>
 <span id="L523"><span class="lineNum">     523</span>              : </span>
-<span id="L524"><span class="lineNum">     524</span> <span class="tlaGNC tlaBgGNC">           1 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
+<span id="L524"><span class="lineNum">     524</span> <span class="tlaGNC">           1 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
 <span id="L525"><span class="lineNum">     525</span> <span class="tlaGNC">           1 :     if (!rectangle_object) {</span></span>
-<span id="L526"><span class="lineNum">     526</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L526"><span class="lineNum">     526</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L527"><span class="lineNum">     527</span>              :     }</span>
 <span id="L528"><span class="lineNum">     528</span>              : </span>
-<span id="L529"><span class="lineNum">     529</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
+<span id="L529"><span class="lineNum">     529</span> <span class="tlaGNC">           1 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
 <span id="L530"><span class="lineNum">     530</span>              : </span>
 <span id="L531"><span class="lineNum">     531</span> <span class="tlaGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L532"><span class="lineNum">     532</span>              :         ce_cairo_status,</span>
@@ -615,10 +615,10 @@
 <span id="L553"><span class="lineNum">     553</span>              : </span>
 <span id="L554"><span class="lineNum">     554</span> <span class="tlaGNC">           4 :     region_obj = cairo_region_object_get(getThis());</span></span>
 <span id="L555"><span class="lineNum">     555</span> <span class="tlaGNC">           2 :     if (!region_obj) {</span></span>
-<span id="L556"><span class="lineNum">     556</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L556"><span class="lineNum">     556</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L557"><span class="lineNum">     557</span>              :     }</span>
 <span id="L558"><span class="lineNum">     558</span>              : </span>
-<span id="L559"><span class="lineNum">     559</span> <span class="tlaGNC tlaBgGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
+<span id="L559"><span class="lineNum">     559</span> <span class="tlaGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
 <span id="L560"><span class="lineNum">     560</span>              : </span>
 <span id="L561"><span class="lineNum">     561</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L562"><span class="lineNum">     562</span>              :         ce_cairo_status,</span>
@@ -647,15 +647,15 @@
 <span id="L585"><span class="lineNum">     585</span>              : </span>
 <span id="L586"><span class="lineNum">     586</span> <span class="tlaGNC">           4 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L587"><span class="lineNum">     587</span> <span class="tlaGNC">           2 :     if (!region_object) {</span></span>
-<span id="L588"><span class="lineNum">     588</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L588"><span class="lineNum">     588</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L589"><span class="lineNum">     589</span>              :     }</span>
 <span id="L590"><span class="lineNum">     590</span>              : </span>
-<span id="L591"><span class="lineNum">     591</span> <span class="tlaGNC tlaBgGNC">           2 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
+<span id="L591"><span class="lineNum">     591</span> <span class="tlaGNC">           2 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
 <span id="L592"><span class="lineNum">     592</span> <span class="tlaGNC">           2 :     if (!rectangle_object) {</span></span>
-<span id="L593"><span class="lineNum">     593</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L593"><span class="lineNum">     593</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L594"><span class="lineNum">     594</span>              :     }</span>
 <span id="L595"><span class="lineNum">     595</span>              : </span>
-<span id="L596"><span class="lineNum">     596</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
+<span id="L596"><span class="lineNum">     596</span> <span class="tlaGNC">           2 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
 <span id="L597"><span class="lineNum">     597</span>              : </span>
 <span id="L598"><span class="lineNum">     598</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L599"><span class="lineNum">     599</span>              :         ce_cairo_status,</span>
@@ -683,10 +683,10 @@
 <span id="L621"><span class="lineNum">     621</span>              : </span>
 <span id="L622"><span class="lineNum">     622</span> <span class="tlaGNC">           4 :     region_obj = cairo_region_object_get(getThis());</span></span>
 <span id="L623"><span class="lineNum">     623</span> <span class="tlaGNC">           2 :     if (!region_obj) {</span></span>
-<span id="L624"><span class="lineNum">     624</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L624"><span class="lineNum">     624</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L625"><span class="lineNum">     625</span>              :     }</span>
 <span id="L626"><span class="lineNum">     626</span>              : </span>
-<span id="L627"><span class="lineNum">     627</span> <span class="tlaGNC tlaBgGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
+<span id="L627"><span class="lineNum">     627</span> <span class="tlaGNC">           2 :     other_region_obj = Z_CAIRO_REGION_P(other_region);</span></span>
 <span id="L628"><span class="lineNum">     628</span>              : </span>
 <span id="L629"><span class="lineNum">     629</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L630"><span class="lineNum">     630</span>              :         ce_cairo_status,</span>
@@ -716,15 +716,15 @@
 <span id="L654"><span class="lineNum">     654</span>              : </span>
 <span id="L655"><span class="lineNum">     655</span> <span class="tlaGNC">           4 :     region_object = cairo_region_object_get(getThis());</span></span>
 <span id="L656"><span class="lineNum">     656</span> <span class="tlaGNC">           2 :     if (!region_object) {</span></span>
-<span id="L657"><span class="lineNum">     657</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L657"><span class="lineNum">     657</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L658"><span class="lineNum">     658</span>              :     }</span>
 <span id="L659"><span class="lineNum">     659</span>              : </span>
-<span id="L660"><span class="lineNum">     660</span> <span class="tlaGNC tlaBgGNC">           2 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
+<span id="L660"><span class="lineNum">     660</span> <span class="tlaGNC">           2 :     rectangle_object = Z_CAIRO_RECTANGLE_P(rectangle_zval);</span></span>
 <span id="L661"><span class="lineNum">     661</span> <span class="tlaGNC">           2 :     if (!rectangle_object) {</span></span>
-<span id="L662"><span class="lineNum">     662</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L662"><span class="lineNum">     662</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L663"><span class="lineNum">     663</span>              :     }</span>
 <span id="L664"><span class="lineNum">     664</span>              : </span>
-<span id="L665"><span class="lineNum">     665</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
+<span id="L665"><span class="lineNum">     665</span> <span class="tlaGNC">           2 :     cairo_expand_to_rectangle_int(rectangle_object-&gt;rect, &amp;int_rect);</span></span>
 <span id="L666"><span class="lineNum">     666</span>              : </span>
 <span id="L667"><span class="lineNum">     667</span> <span class="tlaGNC">           2 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L668"><span class="lineNum">     668</span>              :         ce_cairo_status,</span>

@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - ft_font.c<span style="font-size: 80%;"> (source / <a href="ft_font.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - ft_font.c<span style="font-size: 80%;"> (source / <a href="ft_font.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -97,7 +97,7 @@
 <span id="L35"><span class="lineNum">      35</span>              : zend_class_entry *ce_cairo_ftfont;</span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span>              : /* Functions for stream handling */</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">         347 : static unsigned long php_cairo_ft_read_func(</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         347 : static unsigned long php_cairo_ft_read_func(</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :     FT_Stream stream,</span>
 <span id="L40"><span class="lineNum">      40</span>              :     unsigned long offset,</span>
 <span id="L41"><span class="lineNum">      41</span>              :     unsigned char* buffer,</span>
@@ -140,10 +140,10 @@
 <span id="L78"><span class="lineNum">      78</span>              :     int error;</span>
 <span id="L79"><span class="lineNum">      79</span>              : </span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           6 :     if (php_stream_stat(stream, &amp;ssbuf) &lt; 0) {</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC tlaBgUNC">           0 :         return 1;</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC">           0 :         return 1;</span></span>
 <span id="L82"><span class="lineNum">      82</span>              :     }</span>
 <span id="L83"><span class="lineNum">      83</span>              : </span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC tlaBgGNC">           6 :     ft_container-&gt;ft_face = NULL;</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           6 :     ft_container-&gt;ft_face = NULL;</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           6 :     ft_container-&gt;ft_stream = NULL;</span></span>
 <span id="L86"><span class="lineNum">      86</span>              : </span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           6 :     font_face_object-&gt;closure = NULL;</span></span>
@@ -187,13 +187,13 @@
 <span id="L125"><span class="lineNum">     125</span>              : </span>
 <span id="L126"><span class="lineNum">     126</span>              : </span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           5 :     if (error) {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC tlaBgUNC">           0 :         cairo_font_face_destroy (font_face_object-&gt;font_face);</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :         cairo_font_face_destroy (font_face_object-&gt;font_face);</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :         FT_Done_Face(ft_container-&gt;ft_face);</span></span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :         pefree(ft_stream, 1);</span></span>
 <span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :         return error;</span></span>
 <span id="L132"><span class="lineNum">     132</span>              :     }</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC tlaBgGNC">           5 :     return 0;</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           5 :     return 0;</span></span>
 <span id="L135"><span class="lineNum">     135</span>              : }</span>
 <span id="L136"><span class="lineNum">     136</span>              : </span>
 <span id="L137"><span class="lineNum">     137</span>              : /* ----------------------------------------------------------------</span>
@@ -224,9 +224,9 @@
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           7 :         stream = php_stream_open_wrapper(Z_STRVAL_P(stream_zval), &quot;rb&quot;, REPORT_ERRORS, NULL);</span></span>
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           7 :         owned_stream = 1;</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           2 :     } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE)  {</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC tlaBgUNC">           0 :         php_stream_from_zval(stream, stream_zval);</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC">           0 :         php_stream_from_zval(stream, stream_zval);</span></span>
 <span id="L166"><span class="lineNum">     166</span>              :     } else {</span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC tlaBgGNC">           1 :         zend_throw_exception(ce_cairo_exception,</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :         zend_throw_exception(ce_cairo_exception,</span></span>
 <span id="L168"><span class="lineNum">     168</span>              :             &quot;Cairo\\FontFace\\Ft::__construct() expects parameter 1 to be a string or a stream resource&quot;,</span>
 <span id="L169"><span class="lineNum">     169</span>              :             0</span>
 <span id="L170"><span class="lineNum">     170</span>              :         );</span>
@@ -238,25 +238,25 @@
 <span id="L176"><span class="lineNum">     176</span>              :     }</span>
 <span id="L177"><span class="lineNum">     177</span>              : </span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           6 :     if (php_stream_stat(stream, &amp;ssbuf) != 0) {</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC tlaBgUNC">           0 :         zend_throw_exception(ce_cairo_exception, &quot;Cannot determine size of stream&quot;, 0);</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :         zend_throw_exception(ce_cairo_exception, &quot;Cannot determine size of stream&quot;, 0);</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L181"><span class="lineNum">     181</span>              :     }</span>
 <span id="L182"><span class="lineNum">     182</span>              : </span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC tlaBgGNC">          12 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">          12 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
 <span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           6 :     if (!font_face_object) {</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L186"><span class="lineNum">     186</span>              :     }</span>
 <span id="L187"><span class="lineNum">     187</span>              : </span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC tlaBgGNC">           6 :     ft_container = pecalloc(1, sizeof(pecl_ft_container), 1);</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           6 :     ft_container = pecalloc(1, sizeof(pecl_ft_container), 1);</span></span>
 <span id="L189"><span class="lineNum">     189</span>              : </span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           6 :     error = FT_Init_FreeType(&amp;ft_container-&gt;ft_lib);</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           6 :     if (error) {</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC tlaBgUNC">           0 :         pefree(ft_container, 1);</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :         pefree(ft_container, 1);</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :         zend_throw_exception(ce_cairo_exception, &quot;Failed to initalise FreeType library&quot;, 0);</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L195"><span class="lineNum">     195</span>              :     }</span>
 <span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC tlaBgGNC">           6 :     error = php_cairo_create_ft_font_face(ft_container, font_face_object, stream, owned_stream, load_flags, 1);</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           6 :     error = php_cairo_create_ft_font_face(ft_container, font_face_object, stream, owned_stream, load_flags, 1);</span></span>
 <span id="L198"><span class="lineNum">     198</span>              : </span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           6 :     if (error) {</span></span>
 <span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 :         const char *err_string = php_cairo_get_ft_error(error);</span></span>
@@ -269,12 +269,12 @@
 <span id="L207"><span class="lineNum">     207</span>              :     }</span>
 <span id="L208"><span class="lineNum">     208</span>              : </span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           5 :     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object-&gt;font_face))) {</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L211"><span class="lineNum">     211</span>              :     }</span>
 <span id="L212"><span class="lineNum">     212</span>              : }</span>
 <span id="L213"><span class="lineNum">     213</span>              : /* }}} */</span>
 <span id="L214"><span class="lineNum">     214</span>              : </span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC tlaBgGNC">           7 : PHP_METHOD(Cairo_FontFace_Ft, getSynthesize)</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">           7 : PHP_METHOD(Cairo_FontFace_Ft, getSynthesize)</span></span>
 <span id="L216"><span class="lineNum">     216</span>              : {</span>
 <span id="L217"><span class="lineNum">     217</span>              :     cairo_font_face_object *font_face_object;</span>
 <span id="L218"><span class="lineNum">     218</span>              :     zend_long synth_flags;</span>
@@ -283,10 +283,10 @@
 <span id="L221"><span class="lineNum">     221</span>              : </span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          12 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
 <span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">           6 :     if (!font_face_object) {</span></span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L225"><span class="lineNum">     225</span>              :     }</span>
 <span id="L226"><span class="lineNum">     226</span>              : </span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC tlaBgGNC">           6 :     synth_flags = cairo_ft_font_face_get_synthesize(font_face_object-&gt;font_face);</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">           6 :     synth_flags = cairo_ft_font_face_get_synthesize(font_face_object-&gt;font_face);</span></span>
 <span id="L228"><span class="lineNum">     228</span>              : </span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">           6 :     RETURN_LONG(synth_flags);</span></span>
 <span id="L230"><span class="lineNum">     230</span>              : }</span>
@@ -302,20 +302,20 @@
 <span id="L240"><span class="lineNum">     240</span>              : </span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           6 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           3 :     if (!font_face_object) {</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L244"><span class="lineNum">     244</span>              :     }</span>
 <span id="L245"><span class="lineNum">     245</span>              : </span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC tlaBgGNC">           3 :     cairo_ft_font_face_set_synthesize(</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">           3 :     cairo_ft_font_face_set_synthesize(</span></span>
 <span id="L247"><span class="lineNum">     247</span>              :         font_face_object-&gt;font_face,</span>
 <span id="L248"><span class="lineNum">     248</span>              :         synth_flags</span>
 <span id="L249"><span class="lineNum">     249</span>              :     );</span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           3 :     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object-&gt;font_face))) {</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L253"><span class="lineNum">     253</span>              :     }</span>
 <span id="L254"><span class="lineNum">     254</span>              : }</span>
 <span id="L255"><span class="lineNum">     255</span>              : </span>
-<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC tlaBgGNC">           5 : PHP_METHOD(Cairo_FontFace_Ft, unsetSynthesize)</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">           5 : PHP_METHOD(Cairo_FontFace_Ft, unsetSynthesize)</span></span>
 <span id="L257"><span class="lineNum">     257</span>              : {</span>
 <span id="L258"><span class="lineNum">     258</span>              :     cairo_font_face_object *font_face_object;</span>
 <span id="L259"><span class="lineNum">     259</span>              :     zend_long synth_flags;</span>
@@ -326,16 +326,16 @@
 <span id="L264"><span class="lineNum">     264</span>              : </span>
 <span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">           4 :     font_face_object = Z_CAIRO_FONT_FACE_P(getThis());</span></span>
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">           2 :     if (!font_face_object) {</span></span>
-<span id="L267"><span class="lineNum">     267</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L267"><span class="lineNum">     267</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L268"><span class="lineNum">     268</span>              :     }</span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_ft_font_face_unset_synthesize(</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           2 :     cairo_ft_font_face_unset_synthesize(</span></span>
 <span id="L271"><span class="lineNum">     271</span>              :         font_face_object-&gt;font_face,</span>
 <span id="L272"><span class="lineNum">     272</span>              :         synth_flags</span>
 <span id="L273"><span class="lineNum">     273</span>              :     );</span>
 <span id="L274"><span class="lineNum">     274</span>              : </span>
 <span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           2 :     if (php_cairo_throw_exception(cairo_font_face_status(font_face_object-&gt;font_face))) {</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L277"><span class="lineNum">     277</span>              :     }</span>
 <span id="L278"><span class="lineNum">     278</span>              : }</span>
 <span id="L279"><span class="lineNum">     279</span>              : </span>
@@ -344,7 +344,7 @@
 <span id="L282"><span class="lineNum">     282</span>              : ------------------------------------------------------------------*/</span>
 <span id="L283"><span class="lineNum">     283</span>              : </span>
 <span id="L284"><span class="lineNum">     284</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC tlaBgGNC">         433 : PHP_MINIT_FUNCTION(cairo_ft_font)</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_ft_font)</span></span>
 <span id="L286"><span class="lineNum">     286</span>              : {</span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         433 :     ce_cairo_ftfont = register_class_Cairo_FontFace_Ft(php_cairo_get_fontface_ce());</span></span>
 <span id="L288"><span class="lineNum">     288</span>              : </span>

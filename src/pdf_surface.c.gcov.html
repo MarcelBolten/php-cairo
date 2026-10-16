@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - pdf_surface.c<span style="font-size: 80%;"> (source / <a href="pdf_surface.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - pdf_surface.c<span style="font-size: 80%;"> (source / <a href="pdf_surface.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -100,7 +100,7 @@
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span>              : /* {{{ proto void __construct(string|resource file, float width, float height)</span>
 <span id="L40"><span class="lineNum">      40</span>              :        Creates a PDF surface of the specified size in points to be written to filename. */</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC tlaBgGNC">          17 : PHP_METHOD(Cairo_Surface_Pdf, __construct)</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          17 : PHP_METHOD(Cairo_Surface_Pdf, __construct)</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : {</span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          17 :     zval *stream_zval = NULL;</span></span>
 <span id="L44"><span class="lineNum">      44</span>              :     stream_closure *closure;</span>
@@ -117,11 +117,11 @@
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          22 :     surface_object = Z_CAIRO_SURFACE_P(getThis());</span></span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          11 :     if (!surface_object) {</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L59"><span class="lineNum">      59</span>              :     }</span>
 <span id="L60"><span class="lineNum">      60</span>              : </span>
 <span id="L61"><span class="lineNum">      61</span>              :     /* special case - a NULL file is like an &quot;in memory&quot; PDF */</span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC tlaBgGNC">          22 :     if (Z_TYPE_P(stream_zval) == IS_NULL) {</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          22 :     if (Z_TYPE_P(stream_zval) == IS_NULL) {</span></span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           8 :         surface_object-&gt;surface = cairo_pdf_surface_create(NULL, width, height);</span></span>
 <span id="L64"><span class="lineNum">      64</span>              :     }</span>
 <span id="L65"><span class="lineNum">      65</span>              :     /* Otherwise it can be a filename or a PHP stream */</span>
@@ -146,14 +146,14 @@
 <span id="L84"><span class="lineNum">      84</span>              :     }</span>
 <span id="L85"><span class="lineNum">      85</span>              : </span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">          10 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L88"><span class="lineNum">      88</span>              :     }</span>
 <span id="L89"><span class="lineNum">      89</span>              : }</span>
 <span id="L90"><span class="lineNum">      90</span>              : /* }}} */</span>
 <span id="L91"><span class="lineNum">      91</span>              : </span>
 <span id="L92"><span class="lineNum">      92</span>              : /* {{{ proto string \Cairo\Surface\Pdf::versionToString(int version)</span>
 <span id="L93"><span class="lineNum">      93</span>              :        Get the string representation of the given version id. This function will return NULL if version isn't valid. */</span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, versionToString)</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, versionToString)</span></span>
 <span id="L95"><span class="lineNum">      95</span>              : {</span>
 <span id="L96"><span class="lineNum">      96</span>              :     zval *version;</span>
 <span id="L97"><span class="lineNum">      97</span>              : </span>
@@ -200,19 +200,19 @@
 <span id="L138"><span class="lineNum">     138</span>              : </span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           6 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           3 :     if (!surface_object) {</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L142"><span class="lineNum">     142</span>              :     }</span>
 <span id="L143"><span class="lineNum">     143</span>              : </span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC tlaBgGNC">           3 :     cairo_pdf_surface_set_size(surface_object-&gt;surface, width, height);</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           3 :     cairo_pdf_surface_set_size(surface_object-&gt;surface, width, height);</span></span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           3 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L147"><span class="lineNum">     147</span>              :     }</span>
 <span id="L148"><span class="lineNum">     148</span>              : }</span>
 <span id="L149"><span class="lineNum">     149</span>              : /* }}} */</span>
 <span id="L150"><span class="lineNum">     150</span>              : </span>
 <span id="L151"><span class="lineNum">     151</span>              : /* {{{ proto void \Cairo\Surface\Pdf::restrictToVersion(int version)</span>
 <span id="L152"><span class="lineNum">     152</span>              :        Restricts the generated PDF file to version. */</span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, restrictToVersion)</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, restrictToVersion)</span></span>
 <span id="L154"><span class="lineNum">     154</span>              : {</span>
 <span id="L155"><span class="lineNum">     155</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L156"><span class="lineNum">     156</span>              :     zval *version;</span>
@@ -223,15 +223,15 @@
 <span id="L161"><span class="lineNum">     161</span>              : </span>
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L165"><span class="lineNum">     165</span>              :     }</span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_pdf_surface_restrict_to_version(</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :     cairo_pdf_surface_restrict_to_version(</span></span>
 <span id="L168"><span class="lineNum">     168</span>              :         surface_object-&gt;surface,</span>
 <span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           2 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(version)))</span></span>
 <span id="L170"><span class="lineNum">     170</span>              :     );</span>
 <span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L173"><span class="lineNum">     173</span>              :     }</span>
 <span id="L174"><span class="lineNum">     174</span>              : }</span>
 <span id="L175"><span class="lineNum">     175</span>              : /* }}} */</span>
@@ -244,7 +244,7 @@
 <span id="L182"><span class="lineNum">     182</span>              :        The item will be a child of the item with id parent_id.</span>
 <span id="L183"><span class="lineNum">     183</span>              :        Use CAIRO_PDF_OUTLINE_ROOT as the parent id of top level items.</span>
 <span id="L184"><span class="lineNum">     184</span>              :        Returns the id for the added item. */</span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC tlaBgGNC">          11 : PHP_METHOD(Cairo_Surface_Pdf, addOutline)</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          11 : PHP_METHOD(Cairo_Surface_Pdf, addOutline)</span></span>
 <span id="L186"><span class="lineNum">     186</span>              : {</span>
 <span id="L187"><span class="lineNum">     187</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L188"><span class="lineNum">     188</span>              :     zend_long parent_id;</span>
@@ -261,10 +261,10 @@
 <span id="L199"><span class="lineNum">     199</span>              : </span>
 <span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           6 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">           3 :     if (!surface_object) {</span></span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L203"><span class="lineNum">     203</span>              :     }</span>
 <span id="L204"><span class="lineNum">     204</span>              : </span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC tlaBgGNC">           6 :     RETVAL_LONG(cairo_pdf_surface_add_outline(</span></span>
+<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">           6 :     RETVAL_LONG(cairo_pdf_surface_add_outline(</span></span>
 <span id="L206"><span class="lineNum">     206</span>              :         surface_object-&gt;surface,</span>
 <span id="L207"><span class="lineNum">     207</span>              :         parent_id,</span>
 <span id="L208"><span class="lineNum">     208</span>              :         (const char *)name,</span>
@@ -273,7 +273,7 @@
 <span id="L211"><span class="lineNum">     211</span>              :     ));</span>
 <span id="L212"><span class="lineNum">     212</span>              : </span>
 <span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">           3 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L215"><span class="lineNum">     215</span>              :     }</span>
 <span id="L216"><span class="lineNum">     216</span>              : }</span>
 <span id="L217"><span class="lineNum">     217</span>              : /* }}} */</span>
@@ -284,7 +284,7 @@
 <span id="L222"><span class="lineNum">     222</span>              :        The values for the CAIRO_PDF_METADATA_CREATE_DATE and CAIRO_PDF_METADATA_MOD_DATE fields must be in ISO-8601 format: YYYY-MM-DDThh:mm:ss.</span>
 <span id="L223"><span class="lineNum">     223</span>              :        An optional timezone of the form &quot;[+/-]hh:mm&quot; or &quot;Z&quot; for UTC time can be appended.</span>
 <span id="L224"><span class="lineNum">     224</span>              :        All other metadata values can be any UTF-8 string. */</span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC tlaBgGNC">           7 : PHP_METHOD(Cairo_Surface_Pdf, setMetadata)</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           7 : PHP_METHOD(Cairo_Surface_Pdf, setMetadata)</span></span>
 <span id="L226"><span class="lineNum">     226</span>              : {</span>
 <span id="L227"><span class="lineNum">     227</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L228"><span class="lineNum">     228</span>              :     zval *metadata_const;</span>
@@ -299,17 +299,17 @@
 <span id="L237"><span class="lineNum">     237</span>              : </span>
 <span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           6 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           3 :     if (!surface_object) {</span></span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L241"><span class="lineNum">     241</span>              :     }</span>
 <span id="L242"><span class="lineNum">     242</span>              : </span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC tlaBgGNC">           6 :     cairo_pdf_surface_set_metadata(</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           6 :     cairo_pdf_surface_set_metadata(</span></span>
 <span id="L244"><span class="lineNum">     244</span>              :         surface_object-&gt;surface,</span>
 <span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           6 :         Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(metadata_const))),</span></span>
 <span id="L246"><span class="lineNum">     246</span>              :         (const char *)metadata</span>
 <span id="L247"><span class="lineNum">     247</span>              :     );</span>
 <span id="L248"><span class="lineNum">     248</span>              : </span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           3 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L251"><span class="lineNum">     251</span>              :     }</span>
 <span id="L252"><span class="lineNum">     252</span>              : }</span>
 <span id="L253"><span class="lineNum">     253</span>              : /* }}} */</span>
@@ -317,7 +317,7 @@
 <span id="L255"><span class="lineNum">     255</span>              : </span>
 <span id="L256"><span class="lineNum">     256</span>              : /* {{{ proto void \Cairo\Surface\Pdf::setPageLabel(string label)</span>
 <span id="L257"><span class="lineNum">     257</span>              :        Set page label for the current page. */</span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, setPageLabel)</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Surface_Pdf, setPageLabel)</span></span>
 <span id="L259"><span class="lineNum">     259</span>              : {</span>
 <span id="L260"><span class="lineNum">     260</span>              :     char *label;</span>
 <span id="L261"><span class="lineNum">     261</span>              :     size_t label_len;</span>
@@ -329,13 +329,13 @@
 <span id="L267"><span class="lineNum">     267</span>              : </span>
 <span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L271"><span class="lineNum">     271</span>              :     }</span>
 <span id="L272"><span class="lineNum">     272</span>              : </span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_pdf_surface_set_page_label(surface_object-&gt;surface, (const char *)label);</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           1 :     cairo_pdf_surface_set_page_label(surface_object-&gt;surface, (const char *)label);</span></span>
 <span id="L274"><span class="lineNum">     274</span>              : </span>
 <span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L277"><span class="lineNum">     277</span>              :     }</span>
 <span id="L278"><span class="lineNum">     278</span>              : }</span>
 <span id="L279"><span class="lineNum">     279</span>              : /* }}} */</span>
@@ -344,7 +344,7 @@
 <span id="L282"><span class="lineNum">     282</span>              : /* {{{ proto void \Cairo\Surface\Pdf::setThumbnailSize(double width, double height)</span>
 <span id="L283"><span class="lineNum">     283</span>              :        Set the thumbnail image size for the current and all subsequent pages.</span>
 <span id="L284"><span class="lineNum">     284</span>              :        Setting a width or height of 0 disables thumbnails for the current and subsequent pages. */</span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC tlaBgGNC">           6 : PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">           6 : PHP_METHOD(Cairo_Surface_Pdf, setThumbnailSize)</span></span>
 <span id="L286"><span class="lineNum">     286</span>              : {</span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           6 :     zend_long width = 0, height = 0;</span></span>
 <span id="L288"><span class="lineNum">     288</span>              :     cairo_surface_object *surface_object;</span>
@@ -356,12 +356,12 @@
 <span id="L294"><span class="lineNum">     294</span>              : </span>
 <span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L297"><span class="lineNum">     297</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L297"><span class="lineNum">     297</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L298"><span class="lineNum">     298</span>              :     }</span>
 <span id="L299"><span class="lineNum">     299</span>              : </span>
-<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_pdf_surface_set_thumbnail_size(surface_object-&gt;surface, (int) width, (int) height);</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           1 :     cairo_pdf_surface_set_thumbnail_size(surface_object-&gt;surface, (int) width, (int) height);</span></span>
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L302"><span class="lineNum">     302</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L303"><span class="lineNum">     303</span>              :     }</span>
 <span id="L304"><span class="lineNum">     304</span>              : }</span>
 <span id="L305"><span class="lineNum">     305</span>              : /* }}} */</span>
@@ -373,7 +373,7 @@
 <span id="L311"><span class="lineNum">     311</span>              :        Set custom metadata for the PDF document.</span>
 <span id="L312"><span class="lineNum">     312</span>              :        field may be any string except for the following names reserved by PDF:</span>
 <span id="L313"><span class="lineNum">     313</span>              :        &quot;Title&quot;, &quot;Author&quot;, &quot;Subject&quot;, &quot;Keywords&quot;, &quot;Creator&quot;, &quot;Producer&quot;, &quot;CreationDate&quot;, &quot;ModDate&quot;, &quot;Trapped&quot; .*/</span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC tlaBgGNC">           6 : PHP_METHOD(Cairo_Surface_Pdf, setCustomMetadata)</span></span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           6 : PHP_METHOD(Cairo_Surface_Pdf, setCustomMetadata)</span></span>
 <span id="L315"><span class="lineNum">     315</span>              : {</span>
 <span id="L316"><span class="lineNum">     316</span>              :     char *field, *value;</span>
 <span id="L317"><span class="lineNum">     317</span>              :     size_t field_len, value_len;</span>
@@ -386,10 +386,10 @@
 <span id="L324"><span class="lineNum">     324</span>              : </span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">           4 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">           2 :     if (!surface_object) {</span></span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L328"><span class="lineNum">     328</span>              :     }</span>
 <span id="L329"><span class="lineNum">     329</span>              : </span>
-<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC tlaBgGNC">           2 :     if (strcasecmp(field, &quot;Title&quot;) == 0</span></span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">           2 :     if (strcasecmp(field, &quot;Title&quot;) == 0</span></span>
 <span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">           1 :         || strcasecmp(field, &quot;Author&quot;) == 0</span></span>
 <span id="L332"><span class="lineNum">     332</span> <span class="tlaGNC">           1 :         || strcasecmp(field, &quot;Subject&quot;) == 0</span></span>
 <span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">           1 :         || strcasecmp(field, &quot;Keywords&quot;) == 0</span></span>
@@ -414,7 +414,7 @@
 <span id="L352"><span class="lineNum">     352</span>              :     );</span>
 <span id="L353"><span class="lineNum">     353</span>              : </span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L356"><span class="lineNum">     356</span>              :     }</span>
 <span id="L357"><span class="lineNum">     357</span>              : }</span>
 <span id="L358"><span class="lineNum">     358</span>              : /* }}} */</span>
@@ -425,7 +425,7 @@
 <span id="L363"><span class="lineNum">     363</span>              : ------------------------------------------------------------------*/</span>
 <span id="L364"><span class="lineNum">     364</span>              : </span>
 <span id="L365"><span class="lineNum">     365</span>              : /* {{{ PHP_MINIT_FUNCTION */</span>
-<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC tlaBgGNC">         433 : PHP_MINIT_FUNCTION(cairo_pdf_surface)</span></span>
+<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">         433 : PHP_MINIT_FUNCTION(cairo_pdf_surface)</span></span>
 <span id="L367"><span class="lineNum">     367</span>              : {</span>
 <span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">         433 :     ce_cairo_pdfsurface = register_class_Cairo_Surface_Pdf(ce_cairo_surface);</span></span>
 <span id="L369"><span class="lineNum">     369</span>              : </span>

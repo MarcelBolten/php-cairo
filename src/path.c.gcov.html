@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - path.c<span style="font-size: 80%;"> (source / <a href="path.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - path.c<span style="font-size: 80%;"> (source / <a href="path.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -92,7 +92,7 @@
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span>              : static zend_object_handlers cairo_path_object_handlers;</span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC tlaBgGNC">           9 : cairo_path_object *cairo_path_fetch_object(zend_object *object)</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           9 : cairo_path_object *cairo_path_fetch_object(zend_object *object)</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : {</span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           9 :     return (cairo_path_object *) ((char*)(object) - offsetof(cairo_path_object, std));</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : }</span>
@@ -119,10 +119,10 @@
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           4 :     cairo_path_object *intern = cairo_path_fetch_object(object);</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           4 :     if (!intern) {</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L61"><span class="lineNum">      61</span>              :     }</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC tlaBgGNC">           4 :     if (intern-&gt;path) {</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           4 :     if (intern-&gt;path) {</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           4 :         cairo_path_destroy(intern-&gt;path);</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           4 :         intern-&gt;path = NULL;</span></span>
 <span id="L66"><span class="lineNum">      66</span>              :     }</span>

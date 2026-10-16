@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - scaled_font.c<span style="font-size: 80%;"> (source / <a href="scaled_font.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - scaled_font.c<span style="font-size: 80%;"> (source / <a href="scaled_font.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              : static zend_object_handlers cairo_scaled_font_object_handlers;</span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">          70 : cairo_scaled_font_object *cairo_scaled_font_fetch_object(zend_object *object)</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          70 : cairo_scaled_font_object *cairo_scaled_font_fetch_object(zend_object *object)</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : {</span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          70 :     return (cairo_scaled_font_object *) ((char*)(object) - offsetof(cairo_scaled_font_object, std));</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : }</span>
@@ -100,12 +100,12 @@
 <span id="L38"><span class="lineNum">      38</span>              : {</span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          18 :     cairo_scaled_font_object *object = Z_CAIRO_SCALED_FONT_P(zv);</span></span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          18 :     if (object-&gt;scaled_font == NULL) {</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC tlaBgUNC">           0 :         zend_throw_exception_ex(ce_cairo_exception, 0,</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :         zend_throw_exception_ex(ce_cairo_exception, 0,</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :             &quot;Internal scaled_font object missing in %s, you must call parent::__construct in extended classes.&quot;,</span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :             ZSTR_VAL(Z_OBJCE_P(zv)-&gt;name));</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :         return NULL;</span></span>
 <span id="L45"><span class="lineNum">      45</span>              :     }</span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC tlaBgGNC">          18 :     return object;</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          18 :     return object;</span></span>
 <span id="L47"><span class="lineNum">      47</span>              : }</span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
@@ -119,10 +119,10 @@
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          29 :     cairo_scaled_font_object *intern = cairo_scaled_font_fetch_object(object);</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          29 :     if (!intern) {</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L61"><span class="lineNum">      61</span>              :     }</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC tlaBgGNC">          29 :     zval_ptr_dtor(&amp;intern-&gt;font_face);</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          29 :     zval_ptr_dtor(&amp;intern-&gt;font_face);</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          29 :     zval_ptr_dtor(&amp;intern-&gt;matrix);</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          29 :     zval_ptr_dtor(&amp;intern-&gt;ctm);</span></span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          29 :     zval_ptr_dtor(&amp;intern-&gt;font_options);</span></span>
@@ -196,21 +196,21 @@
 <span id="L134"><span class="lineNum">     134</span>              : </span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          30 :     scaled_font_object = Z_CAIRO_SCALED_FONT_P(getThis());</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          15 :     if (!scaled_font_object) {</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L138"><span class="lineNum">     138</span>              :     }</span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC tlaBgGNC">          15 :     scaled_font_object-&gt;scaled_font = cairo_scaled_font_create(</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">          15 :     scaled_font_object-&gt;scaled_font = cairo_scaled_font_create(</span></span>
 <span id="L141"><span class="lineNum">     141</span>              :         cairo_font_face_object_get_font_face(font_face_zval),</span>
 <span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          15 :         cairo_matrix_object_get_matrix(matrix_zval),</span></span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          15 :         cairo_matrix_object_get_matrix(ctm_zval),</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          15 :         cairo_font_options_object_get_font_options(font_options_zval)</span></span>
 <span id="L145"><span class="lineNum">     145</span>              :     );</span>
 <span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          15 :     if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object-&gt;scaled_font))) {</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L148"><span class="lineNum">     148</span>              :     }</span>
 <span id="L149"><span class="lineNum">     149</span>              : </span>
 <span id="L150"><span class="lineNum">     150</span>              :     /* we need to be able to get these zvals out later, so store them */</span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC tlaBgGNC">          15 :     ZVAL_COPY(&amp;scaled_font_object-&gt;font_face, font_face_zval);</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          15 :     ZVAL_COPY(&amp;scaled_font_object-&gt;font_face, font_face_zval);</span></span>
 <span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          15 :     ZVAL_COPY(&amp;scaled_font_object-&gt;matrix, matrix_zval);</span></span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">          15 :     ZVAL_COPY(&amp;scaled_font_object-&gt;ctm, ctm_zval);</span></span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          15 :     ZVAL_COPY(&amp;scaled_font_object-&gt;font_options, font_options_zval);</span></span>
@@ -228,10 +228,10 @@
 <span id="L166"><span class="lineNum">     166</span>              : </span>
 <span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L170"><span class="lineNum">     170</span>              :     }</span>
 <span id="L171"><span class="lineNum">     171</span>              : </span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC tlaBgGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           1 :     status_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L173"><span class="lineNum">     173</span>              :         ce_cairo_status,</span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           1 :         cairo_scaled_font_status(scaled_font_object-&gt;scaled_font)</span></span>
 <span id="L175"><span class="lineNum">     175</span>              :     );</span>
@@ -254,10 +254,10 @@
 <span id="L192"><span class="lineNum">     192</span>              : </span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L196"><span class="lineNum">     196</span>              :     }</span>
 <span id="L197"><span class="lineNum">     197</span>              : </span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_scaled_font_extents(scaled_font_object-&gt;scaled_font, &amp;extents);</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           1 :     cairo_scaled_font_extents(scaled_font_object-&gt;scaled_font, &amp;extents);</span></span>
 <span id="L199"><span class="lineNum">     199</span>              : </span>
 <span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 :     array_init(return_value);</span></span>
 <span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">           1 :     add_assoc_double(return_value, &quot;ascent&quot;, extents.ascent);</span></span>
@@ -285,10 +285,10 @@
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L227"><span class="lineNum">     227</span>              :     }</span>
 <span id="L228"><span class="lineNum">     228</span>              : </span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_text = estrdup(text);</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">           1 :     cairo_text = estrdup(text);</span></span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           1 :     cairo_scaled_font_text_extents(scaled_font_object-&gt;scaled_font, cairo_text, &amp;extents);</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           1 :     efree(cairo_text);</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
@@ -324,11 +324,11 @@
 <span id="L262"><span class="lineNum">     262</span>              : </span>
 <span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">           4 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">           2 :     if (!scaled_font_object) {</span></span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L266"><span class="lineNum">     266</span>              :     }</span>
 <span id="L267"><span class="lineNum">     267</span>              : </span>
 <span id="L268"><span class="lineNum">     268</span>              :     /* Grab the zend hash and see how big our array will be */</span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC tlaBgGNC">           2 :     glyphs_hash = Z_ARRVAL_P(php_glyphs);</span></span>
+<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           2 :     glyphs_hash = Z_ARRVAL_P(php_glyphs);</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           2 :     num_glyphs = zend_hash_num_elements(glyphs_hash);</span></span>
 <span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           2 :     glyphs_array = ecalloc(num_glyphs, sizeof(cairo_glyph_t));</span></span>
 <span id="L272"><span class="lineNum">     272</span>              : </span>
@@ -367,20 +367,20 @@
 <span id="L305"><span class="lineNum">     305</span>              : </span>
 <span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L309"><span class="lineNum">     309</span>              :     }</span>
 <span id="L310"><span class="lineNum">     310</span>              : </span>
 <span id="L311"><span class="lineNum">     311</span>              :     /* Grab the font face properly */</span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC tlaBgGNC">           1 :     font_face = cairo_scaled_font_get_font_face(scaled_font_object-&gt;scaled_font);</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           1 :     font_face = cairo_scaled_font_get_font_face(scaled_font_object-&gt;scaled_font);</span></span>
 <span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object-&gt;scaled_font))) {</span></span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L315"><span class="lineNum">     315</span>              :     }</span>
 <span id="L316"><span class="lineNum">     316</span>              : </span>
 <span id="L317"><span class="lineNum">     317</span>              :     /* If we have a font face object stored, grab that zval to use */</span>
-<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC tlaBgGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;font_face);</span></span>
+<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;font_face);</span></span>
 <span id="L319"><span class="lineNum">     319</span>              : </span>
 <span id="L320"><span class="lineNum">     320</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC tlaBgUNC">           0 :     object_init_ex(return_value, php_cairo_get_toyfontface_ce());</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC">           0 :     object_init_ex(return_value, php_cairo_get_toyfontface_ce());</span></span>
 <span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :     font_face_object = Z_CAIRO_FONT_FACE_P(return_value);</span></span>
 <span id="L323"><span class="lineNum">     323</span> <span class="tlaUNC">           0 :     font_face_object-&gt;font_face = font_face;</span></span>
 <span id="L324"><span class="lineNum">     324</span>              : }</span>
@@ -388,7 +388,7 @@
 <span id="L326"><span class="lineNum">     326</span>              : </span>
 <span id="L327"><span class="lineNum">     327</span>              : /* {{{ proto \Cairo\FontOptions object \Cairo\ScaledFont::getFontOptions()</span>
 <span id="L328"><span class="lineNum">     328</span>              :        Retrieves the font options used to create the scaled font. */</span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getFontOptions)</span></span>
+<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getFontOptions)</span></span>
 <span id="L330"><span class="lineNum">     330</span>              : {</span>
 <span id="L331"><span class="lineNum">     331</span>              :     cairo_scaled_font_object *scaled_font_object;</span>
 <span id="L332"><span class="lineNum">     332</span>              :     cairo_font_options_object *font_options_object;</span>
@@ -398,20 +398,20 @@
 <span id="L336"><span class="lineNum">     336</span>              : </span>
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L339"><span class="lineNum">     339</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L340"><span class="lineNum">     340</span>              :     }</span>
 <span id="L341"><span class="lineNum">     341</span>              : </span>
 <span id="L342"><span class="lineNum">     342</span>              :     /* Grab the font options properly */</span>
-<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_scaled_font_get_font_options(scaled_font_object-&gt;scaled_font, font_options);</span></span>
+<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">           1 :     cairo_scaled_font_get_font_options(scaled_font_object-&gt;scaled_font, font_options);</span></span>
 <span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_scaled_font_status(scaled_font_object-&gt;scaled_font))) {</span></span>
-<span id="L345"><span class="lineNum">     345</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L345"><span class="lineNum">     345</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L346"><span class="lineNum">     346</span>              :     }</span>
 <span id="L347"><span class="lineNum">     347</span>              : </span>
 <span id="L348"><span class="lineNum">     348</span>              :     /* If we have a font options object stored, grab that zval to use */</span>
-<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC tlaBgGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;font_options);</span></span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;font_options);</span></span>
 <span id="L350"><span class="lineNum">     350</span>              : </span>
 <span id="L351"><span class="lineNum">     351</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC tlaBgUNC">           0 :     object_init_ex(return_value, php_cairo_get_fontoptions_ce());</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :     object_init_ex(return_value, php_cairo_get_fontoptions_ce());</span></span>
 <span id="L353"><span class="lineNum">     353</span> <span class="tlaUNC">           0 :     font_options_object = Z_CAIRO_FONT_OPTIONS_P(return_value);</span></span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC">           0 :     font_options_object-&gt;font_options = font_options;</span></span>
 <span id="L355"><span class="lineNum">     355</span>              : }</span>
@@ -419,7 +419,7 @@
 <span id="L357"><span class="lineNum">     357</span>              : </span>
 <span id="L358"><span class="lineNum">     358</span>              : /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getFontMatrix()</span>
 <span id="L359"><span class="lineNum">     359</span>              :        Returns the font matrix used when creating the scaled font */</span>
-<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getFontMatrix)</span></span>
+<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getFontMatrix)</span></span>
 <span id="L361"><span class="lineNum">     361</span>              : {</span>
 <span id="L362"><span class="lineNum">     362</span>              :     cairo_scaled_font_object *scaled_font_object;</span>
 <span id="L363"><span class="lineNum">     363</span>              :     cairo_matrix_object *matrix_object;</span>
@@ -428,14 +428,14 @@
 <span id="L366"><span class="lineNum">     366</span>              : </span>
 <span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L370"><span class="lineNum">     370</span>              :     }</span>
 <span id="L371"><span class="lineNum">     371</span>              : </span>
 <span id="L372"><span class="lineNum">     372</span>              :     /* If we have a matrix object stored, grab that zval to use */</span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC tlaBgGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;matrix);</span></span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;matrix);</span></span>
 <span id="L374"><span class="lineNum">     374</span>              : </span>
 <span id="L375"><span class="lineNum">     375</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaUNC tlaBgUNC">           0 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaUNC">           0 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
 <span id="L377"><span class="lineNum">     377</span> <span class="tlaUNC">           0 :     matrix_object = Z_CAIRO_MATRIX_P(return_value);</span></span>
 <span id="L378"><span class="lineNum">     378</span> <span class="tlaUNC">           0 :     cairo_scaled_font_get_font_matrix(scaled_font_object-&gt;scaled_font, matrix_object-&gt;matrix);</span></span>
 <span id="L379"><span class="lineNum">     379</span>              : }</span>
@@ -443,7 +443,7 @@
 <span id="L381"><span class="lineNum">     381</span>              : </span>
 <span id="L382"><span class="lineNum">     382</span>              : /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getCtm()</span>
 <span id="L383"><span class="lineNum">     383</span>              :         Returns the ctm matrix used when creating the scaled font */</span>
-<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getCtm)</span></span>
+<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getCtm)</span></span>
 <span id="L385"><span class="lineNum">     385</span>              : {</span>
 <span id="L386"><span class="lineNum">     386</span>              :     cairo_scaled_font_object *scaled_font_object;</span>
 <span id="L387"><span class="lineNum">     387</span>              :     cairo_matrix_object *matrix_object;</span>
@@ -452,14 +452,14 @@
 <span id="L390"><span class="lineNum">     390</span>              : </span>
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L393"><span class="lineNum">     393</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L393"><span class="lineNum">     393</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L394"><span class="lineNum">     394</span>              :     }</span>
 <span id="L395"><span class="lineNum">     395</span>              : </span>
 <span id="L396"><span class="lineNum">     396</span>              :     /* If we have a matrix object stored, grab that zval to use */</span>
-<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC tlaBgGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;ctm);</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           5 :     CAIRO_RETURN_IF_REF(scaled_font_object-&gt;ctm);</span></span>
 <span id="L398"><span class="lineNum">     398</span>              : </span>
 <span id="L399"><span class="lineNum">     399</span>              :     /* Otherwise we spawn a new object */</span>
-<span id="L400"><span class="lineNum">     400</span> <span class="tlaUNC tlaBgUNC">           0 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaUNC">           0 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
 <span id="L401"><span class="lineNum">     401</span> <span class="tlaUNC">           0 :     matrix_object = Z_CAIRO_MATRIX_P(return_value);</span></span>
 <span id="L402"><span class="lineNum">     402</span> <span class="tlaUNC">           0 :     cairo_scaled_font_get_ctm(scaled_font_object-&gt;scaled_font, matrix_object-&gt;matrix);</span></span>
 <span id="L403"><span class="lineNum">     403</span>              : }</span>
@@ -468,7 +468,7 @@
 <span id="L406"><span class="lineNum">     406</span>              : /* {{{ proto \Cairo\Matrix object \Cairo\ScaledFont::getScaleMatrix()</span>
 <span id="L407"><span class="lineNum">     407</span>              :        The scale matrix is product of the font matrix and the ctm associated with the scaled font,</span>
 <span id="L408"><span class="lineNum">     408</span>              :        and hence is the matrix mapping from font space to device space */</span>
-<span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getScaleMatrix)</span></span>
+<span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_ScaledFont, getScaleMatrix)</span></span>
 <span id="L410"><span class="lineNum">     410</span>              : {</span>
 <span id="L411"><span class="lineNum">     411</span>              :     cairo_scaled_font_object *scaled_font_object;</span>
 <span id="L412"><span class="lineNum">     412</span>              :     cairo_matrix_object *matrix_object;</span>
@@ -477,11 +477,11 @@
 <span id="L415"><span class="lineNum">     415</span>              : </span>
 <span id="L416"><span class="lineNum">     416</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L417"><span class="lineNum">     417</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L418"><span class="lineNum">     418</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L418"><span class="lineNum">     418</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L419"><span class="lineNum">     419</span>              :     }</span>
 <span id="L420"><span class="lineNum">     420</span>              : </span>
 <span id="L421"><span class="lineNum">     421</span>              :     /* This is never stored in the object, but created every time */</span>
-<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC tlaBgGNC">           1 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
+<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC">           1 :     object_init_ex(return_value, php_cairo_get_matrix_ce());</span></span>
 <span id="L423"><span class="lineNum">     423</span>              : </span>
 <span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">           1 :     matrix_object = Z_CAIRO_MATRIX_P(return_value);</span></span>
 <span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">           1 :     cairo_scaled_font_get_scale_matrix(scaled_font_object-&gt;scaled_font, matrix_object-&gt;matrix);</span></span>
@@ -499,10 +499,10 @@
 <span id="L437"><span class="lineNum">     437</span>              : </span>
 <span id="L438"><span class="lineNum">     438</span> <span class="tlaGNC">           2 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC">           1 :     if (!scaled_font_object) {</span></span>
-<span id="L440"><span class="lineNum">     440</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L440"><span class="lineNum">     440</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L441"><span class="lineNum">     441</span>              :     }</span>
 <span id="L442"><span class="lineNum">     442</span>              : </span>
-<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC tlaBgGNC">           1 :     font_type_case = php_enum_from_cairo_c_enum(</span></span>
+<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">           1 :     font_type_case = php_enum_from_cairo_c_enum(</span></span>
 <span id="L444"><span class="lineNum">     444</span>              :         php_cairo_get_fonttype_ce(),</span>
 <span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">           1 :         cairo_scaled_font_get_type(scaled_font_object-&gt;scaled_font)</span></span>
 <span id="L446"><span class="lineNum">     446</span>              :     );</span>
@@ -546,10 +546,10 @@
 <span id="L484"><span class="lineNum">     484</span>              : </span>
 <span id="L485"><span class="lineNum">     485</span> <span class="tlaGNC">          14 :     scaled_font_object = cairo_scaled_font_object_get(getThis());</span></span>
 <span id="L486"><span class="lineNum">     486</span> <span class="tlaGNC">           7 :     if (!scaled_font_object) {</span></span>
-<span id="L487"><span class="lineNum">     487</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L487"><span class="lineNum">     487</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L488"><span class="lineNum">     488</span>              :     }</span>
 <span id="L489"><span class="lineNum">     489</span>              : </span>
-<span id="L490"><span class="lineNum">     490</span> <span class="tlaGNC tlaBgGNC">          21 :     status = cairo_scaled_font_text_to_glyphs(</span></span>
+<span id="L490"><span class="lineNum">     490</span> <span class="tlaGNC">          21 :     status = cairo_scaled_font_text_to_glyphs(</span></span>
 <span id="L491"><span class="lineNum">     491</span>              :         scaled_font_object-&gt;scaled_font,</span>
 <span id="L492"><span class="lineNum">     492</span>              :         x, y,</span>
 <span id="L493"><span class="lineNum">     493</span>              :         utf8Str, utf8Str_len,</span>
@@ -560,14 +560,14 @@
 <span id="L498"><span class="lineNum">     498</span>              :     );</span>
 <span id="L499"><span class="lineNum">     499</span>              : </span>
 <span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC">           7 :     if (php_cairo_throw_exception(status)) {</span></span>
-<span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC tlaBgUNC">           0 :         cairo_glyph_free(glyphs);</span></span>
+<span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC">           0 :         cairo_glyph_free(glyphs);</span></span>
 <span id="L502"><span class="lineNum">     502</span> <span class="tlaUNC">           0 :         if (return_clusters) {</span></span>
 <span id="L503"><span class="lineNum">     503</span> <span class="tlaUNC">           0 :             cairo_text_cluster_free(clusters);</span></span>
 <span id="L504"><span class="lineNum">     504</span>              :         }</span>
 <span id="L505"><span class="lineNum">     505</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L506"><span class="lineNum">     506</span>              :     }</span>
 <span id="L507"><span class="lineNum">     507</span>              : </span>
-<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC tlaBgGNC">           7 :     array_init_size(&amp;glyphs_zv, num_glyphs);</span></span>
+<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC">           7 :     array_init_size(&amp;glyphs_zv, num_glyphs);</span></span>
 <span id="L509"><span class="lineNum">     509</span> <span class="tlaGNC">          49 :     for (int i = 0; i &lt; num_glyphs; i++) {</span></span>
 <span id="L510"><span class="lineNum">     510</span>              :         zval glyph;</span>
 <span id="L511"><span class="lineNum">     511</span> <span class="tlaGNC">          42 :         object_init_ex(&amp;glyph, php_cairo_get_glyph_ce());</span></span>
@@ -591,12 +591,12 @@
 <span id="L529"><span class="lineNum">     529</span>              :         }</span>
 <span id="L530"><span class="lineNum">     530</span>              : </span>
 <span id="L531"><span class="lineNum">     531</span> <span class="tlaGNC">           4 :         if (cluster_flags) {</span></span>
-<span id="L532"><span class="lineNum">     532</span> <span class="tlaUNC tlaBgUNC">           0 :             ZVAL_LONG(&amp;cluster_flags_zv, cluster_flags);</span></span>
+<span id="L532"><span class="lineNum">     532</span> <span class="tlaUNC">           0 :             ZVAL_LONG(&amp;cluster_flags_zv, cluster_flags);</span></span>
 <span id="L533"><span class="lineNum">     533</span>              :         }</span>
 <span id="L534"><span class="lineNum">     534</span>              :     }</span>
 <span id="L535"><span class="lineNum">     535</span>              : </span>
 <span id="L536"><span class="lineNum">     536</span>              :     // TODO: perhaps returning an object would be better</span>
-<span id="L537"><span class="lineNum">     537</span> <span class="tlaGNC tlaBgGNC">           7 :     array_init_size(return_value, 3);</span></span>
+<span id="L537"><span class="lineNum">     537</span> <span class="tlaGNC">           7 :     array_init_size(return_value, 3);</span></span>
 <span id="L538"><span class="lineNum">     538</span>              :     add_assoc_zval(return_value, &quot;glyphs&quot;, &amp;glyphs_zv);</span>
 <span id="L539"><span class="lineNum">     539</span>              :     add_assoc_zval(return_value, &quot;clusters&quot;, &amp;clusters_zv);</span>
 <span id="L540"><span class="lineNum">     540</span>              :     add_assoc_zval(return_value, &quot;cluster_flags&quot;, &amp;cluster_flags_zv);</span>

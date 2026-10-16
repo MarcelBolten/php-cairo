@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - ps_surface.c<span style="font-size: 80%;"> (source / <a href="ps_surface.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - ps_surface.c<span style="font-size: 80%;"> (source / <a href="ps_surface.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -98,7 +98,7 @@
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span>              : /* {{{ proto void CairoPsSurface-&gt;__construct(string|resource file, int|float width, int|float height)</span>
 <span id="L38"><span class="lineNum">      38</span>              :        Creates a PS surface of the specified size in points to be written to filename. */</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC tlaBgGNC">          17 : PHP_METHOD(Cairo_Surface_Ps, __construct)</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          17 : PHP_METHOD(Cairo_Surface_Ps, __construct)</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : {</span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          17 :     zval *stream_zval = NULL;</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :     stream_closure *closure;</span>
@@ -115,12 +115,12 @@
 <span id="L53"><span class="lineNum">      53</span>              : </span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          22 :     surface_object = Z_CAIRO_SURFACE_P(getThis());</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          11 :     if (!surface_object) {</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_NULL();</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaUNC">           0 :         RETURN_NULL();</span></span>
 <span id="L57"><span class="lineNum">      57</span>              :     }</span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     /* special case - a NULL file is like an &quot;in memory&quot; surface</span>
 <span id="L60"><span class="lineNum">      60</span>              :        notice it uses the regular create cairo method, not create for stream */</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC tlaBgGNC">          22 :     if (Z_TYPE_P(stream_zval) == IS_NULL) {</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          22 :     if (Z_TYPE_P(stream_zval) == IS_NULL) {</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           8 :         surface_object-&gt;surface = cairo_ps_surface_create(NULL, width, height);</span></span>
 <span id="L63"><span class="lineNum">      63</span>              :     }</span>
 <span id="L64"><span class="lineNum">      64</span>              :     /* Otherwise it can be a filename or a PHP stream */</span>
@@ -145,7 +145,7 @@
 <span id="L83"><span class="lineNum">      83</span>              :     }</span>
 <span id="L84"><span class="lineNum">      84</span>              : </span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          10 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L87"><span class="lineNum">      87</span>              :     }</span>
 <span id="L88"><span class="lineNum">      88</span>              : }</span>
 <span id="L89"><span class="lineNum">      89</span>              : /* }}} */</span>
@@ -153,7 +153,7 @@
 <span id="L91"><span class="lineNum">      91</span>              : /* {{{ proto void CairoPsSurface-&gt;setSize(double width, double height)</span>
 <span id="L92"><span class="lineNum">      92</span>              :        Changes the size of a PS surface for the current (and subsequent) pages.</span>
 <span id="L93"><span class="lineNum">      93</span>              :        This should be called before any drawing takes place on the surface */</span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC tlaBgGNC">           6 : PHP_METHOD(Cairo_Surface_Ps, setSize)</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           6 : PHP_METHOD(Cairo_Surface_Ps, setSize)</span></span>
 <span id="L95"><span class="lineNum">      95</span>              : {</span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           6 :     double width = 0.0, height = 0.0;</span></span>
 <span id="L97"><span class="lineNum">      97</span>              :     cairo_surface_object *surface_object;</span>
@@ -165,20 +165,20 @@
 <span id="L103"><span class="lineNum">     103</span>              : </span>
 <span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L107"><span class="lineNum">     107</span>              :     }</span>
 <span id="L108"><span class="lineNum">     108</span>              : </span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_ps_surface_set_size(surface_object-&gt;surface, width, height);</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">           1 :     cairo_ps_surface_set_size(surface_object-&gt;surface, width, height);</span></span>
 <span id="L110"><span class="lineNum">     110</span>              : </span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L113"><span class="lineNum">     113</span>              :     }</span>
 <span id="L114"><span class="lineNum">     114</span>              : }</span>
 <span id="L115"><span class="lineNum">     115</span>              : /* }}} */</span>
 <span id="L116"><span class="lineNum">     116</span>              : </span>
 <span id="L117"><span class="lineNum">     117</span>              : /* {{{ proto void CairoPsSurface-&gt;restrictToLevel(int level)</span>
 <span id="L118"><span class="lineNum">     118</span>              :        Restricts the generated PostScript file to level. */</span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Surface_Ps, restrictToLevel)</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Surface_Ps, restrictToLevel)</span></span>
 <span id="L120"><span class="lineNum">     120</span>              : {</span>
 <span id="L121"><span class="lineNum">     121</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           4 :     zval *level = NULL;</span></span>
@@ -190,10 +190,10 @@
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           4 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           2 :     if (!surface_object) {</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L132"><span class="lineNum">     132</span>              :     }</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC tlaBgGNC">           2 :     cairo_ps_surface_restrict_to_level(</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           2 :     cairo_ps_surface_restrict_to_level(</span></span>
 <span id="L135"><span class="lineNum">     135</span>              :         surface_object-&gt;surface,</span>
 <span id="L136"><span class="lineNum">     136</span>              :         level</span>
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           3 :             ? Z_LVAL_P(zend_enum_fetch_case_value(Z_OBJ_P(level)))</span></span>
@@ -201,14 +201,14 @@
 <span id="L139"><span class="lineNum">     139</span>              :     );</span>
 <span id="L140"><span class="lineNum">     140</span>              : </span>
 <span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           2 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L143"><span class="lineNum">     143</span>              :     }</span>
 <span id="L144"><span class="lineNum">     144</span>              : }</span>
 <span id="L145"><span class="lineNum">     145</span>              : /* }}} */</span>
 <span id="L146"><span class="lineNum">     146</span>              : </span>
 <span id="L147"><span class="lineNum">     147</span>              : /* {{{ proto void CairoPsSurface-&gt;setEps(boolean eps)</span>
 <span id="L148"><span class="lineNum">     148</span>              :        If eps is TRUE, the PostScript surface will output Encapsulated PostScript. */</span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC tlaBgGNC">           4 : PHP_METHOD(Cairo_Surface_Ps, setEps)</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           4 : PHP_METHOD(Cairo_Surface_Ps, setEps)</span></span>
 <span id="L150"><span class="lineNum">     150</span>              : {</span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           4 :     bool eps = false;</span></span>
 <span id="L152"><span class="lineNum">     152</span>              :     cairo_surface_object *surface_object;</span>
@@ -219,20 +219,20 @@
 <span id="L157"><span class="lineNum">     157</span>              : </span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L161"><span class="lineNum">     161</span>              :     }</span>
 <span id="L162"><span class="lineNum">     162</span>              : </span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_ps_surface_set_eps(surface_object-&gt;surface, eps);</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           1 :     cairo_ps_surface_set_eps(surface_object-&gt;surface, eps);</span></span>
 <span id="L164"><span class="lineNum">     164</span>              : </span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L167"><span class="lineNum">     167</span>              :     }</span>
 <span id="L168"><span class="lineNum">     168</span>              : }</span>
 <span id="L169"><span class="lineNum">     169</span>              : /* }}} */</span>
 <span id="L170"><span class="lineNum">     170</span>              : </span>
 <span id="L171"><span class="lineNum">     171</span>              : /* {{{ proto boolean CairoPsSurface-&gt;getEps(void)</span>
 <span id="L172"><span class="lineNum">     172</span>              :        Check whether the PostScript surface will output Encapsulated PostScript. */</span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_Surface_Ps, getEps)</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_Surface_Ps, getEps)</span></span>
 <span id="L174"><span class="lineNum">     174</span>              : {</span>
 <span id="L175"><span class="lineNum">     175</span>              :     cairo_surface_object *surface_object;</span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
@@ -240,10 +240,10 @@
 <span id="L178"><span class="lineNum">     178</span>              : </span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L182"><span class="lineNum">     182</span>              :     }</span>
 <span id="L183"><span class="lineNum">     183</span>              : </span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC tlaBgGNC">           1 :     RETURN_BOOL(cairo_ps_surface_get_eps(surface_object-&gt;surface));</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           1 :     RETURN_BOOL(cairo_ps_surface_get_eps(surface_object-&gt;surface));</span></span>
 <span id="L185"><span class="lineNum">     185</span>              : }</span>
 <span id="L186"><span class="lineNum">     186</span>              : /* }}} */</span>
 <span id="L187"><span class="lineNum">     187</span>              : </span>
@@ -258,10 +258,10 @@
 <span id="L196"><span class="lineNum">     196</span>              : </span>
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L200"><span class="lineNum">     200</span>              :     }</span>
 <span id="L201"><span class="lineNum">     201</span>              : </span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_ps_surface_dsc_begin_setup(surface_object-&gt;surface);</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           1 :     cairo_ps_surface_dsc_begin_setup(surface_object-&gt;surface);</span></span>
 <span id="L203"><span class="lineNum">     203</span>              : }</span>
 <span id="L204"><span class="lineNum">     204</span>              : /* }}} */</span>
 <span id="L205"><span class="lineNum">     205</span>              : </span>
@@ -280,10 +280,10 @@
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L222"><span class="lineNum">     222</span>              :     }</span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_ps_surface_dsc_begin_page_setup(surface_object-&gt;surface);</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           1 :     cairo_ps_surface_dsc_begin_page_setup(surface_object-&gt;surface);</span></span>
 <span id="L225"><span class="lineNum">     225</span>              : }</span>
 <span id="L226"><span class="lineNum">     226</span>              : /* }}} */</span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
@@ -301,22 +301,22 @@
 <span id="L239"><span class="lineNum">     239</span>              : </span>
 <span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">           2 :     surface_object = cairo_surface_object_get(getThis());</span></span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           1 :     if (!surface_object) {</span></span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L243"><span class="lineNum">     243</span>              :     }</span>
 <span id="L244"><span class="lineNum">     244</span>              : </span>
-<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC tlaBgGNC">           1 :     cairo_comment = estrdup(comment);</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           1 :     cairo_comment = estrdup(comment);</span></span>
 <span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">           1 :     cairo_ps_surface_dsc_comment(surface_object-&gt;surface, cairo_comment);</span></span>
 <span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">           1 :     efree(cairo_comment);</span></span>
 <span id="L248"><span class="lineNum">     248</span>              : </span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           1 :     if (php_cairo_throw_exception(cairo_surface_status(surface_object-&gt;surface))) {</span></span>
-<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC tlaBgUNC">           0 :         RETURN_THROWS();</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC">           0 :         RETURN_THROWS();</span></span>
 <span id="L251"><span class="lineNum">     251</span>              :     }</span>
 <span id="L252"><span class="lineNum">     252</span>              : }</span>
 <span id="L253"><span class="lineNum">     253</span>              : /* }}} */</span>
 <span id="L254"><span class="lineNum">     254</span>              : </span>
 <span id="L255"><span class="lineNum">     255</span>              : /* {{{ proto array CairoPsSurface::getLevels(void)</span>
 <span id="L256"><span class="lineNum">     256</span>              :        Used to retrieve the list of supported levels. See cairo_ps_surface_restrict_to_level(). */</span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC tlaBgGNC">           2 : PHP_METHOD(Cairo_Surface_Ps, getLevels)</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">           2 : PHP_METHOD(Cairo_Surface_Ps, getLevels)</span></span>
 <span id="L258"><span class="lineNum">     258</span>              : {</span>
 <span id="L259"><span class="lineNum">     259</span>              :     const cairo_ps_level_t *levels;</span>
 <span id="L260"><span class="lineNum">     260</span>              :     int num_levels, i;</span>

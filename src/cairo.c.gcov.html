@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - cairo.c<span style="font-size: 80%;"> (source / <a href="cairo.c.func-c.html">functions</a>)</span></td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - cairo.c<span style="font-size: 80%;"> (source / <a href="cairo.c.func-c.html" title="Click to go to function table">functions</a>)</span></td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-10-16 06:40:35</td>
+            <td class="headerValue">2026-10-16 23:19:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              : ------------------------------------------------------------------ */</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span>              : #if defined(CAIRO_HAS_FT_FONT) &amp;&amp; defined(HAVE_FREETYPE)</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">           1 : const char* php_cairo_get_ft_error(int error) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           1 : const char* php_cairo_get_ft_error(int error) {</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :     php_cairo_ft_error *current_error = php_cairo_ft_errors;</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
@@ -101,11 +101,11 @@
 <span id="L39"><span class="lineNum">      39</span>              :         }</span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           1 :         current_error++;</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :     }</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC tlaBgUNC">           0 :     return NULL;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     return NULL;</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : }</span>
 <span id="L44"><span class="lineNum">      44</span>              : #endif</span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC tlaBgGNC">          74 : zval php_enum_from_cairo_c_enum(</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          74 : zval php_enum_from_cairo_c_enum(</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :     zend_class_entry *enum_ce,</span>
 <span id="L48"><span class="lineNum">      48</span>              :     long c_enum_value</span>
 <span id="L49"><span class="lineNum">      49</span>              : ) {</span>
@@ -120,7 +120,7 @@
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          74 :     if (Z_TYPE(retval) == IS_OBJECT) {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          74 :         ZVAL_COPY(&amp;php_enum, &amp;retval);</span></span>
 <span id="L60"><span class="lineNum">      60</span>              :     } else {</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC tlaBgUNC">           0 :         ZVAL_NULL(&amp;php_enum);</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC">           0 :         ZVAL_NULL(&amp;php_enum);</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :         zend_throw_exception_ex(ce_cairo_exception, 0,</span></span>
 <span id="L63"><span class="lineNum">      63</span>              :             &quot;Failed to create %s enum from value: %ld&quot;,</span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaUNC">           0 :             ZSTR_VAL(enum_ce-&gt;name),</span></span>
@@ -128,7 +128,7 @@
 <span id="L66"><span class="lineNum">      66</span>              :         );</span>
 <span id="L67"><span class="lineNum">      67</span>              :     }</span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC tlaBgGNC">          74 :     zval_ptr_dtor(&amp;retval);</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          74 :     zval_ptr_dtor(&amp;retval);</span></span>
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          74 :     return php_enum;</span></span>
 <span id="L71"><span class="lineNum">      71</span>              : }</span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
