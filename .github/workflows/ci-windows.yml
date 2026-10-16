@@ -22,6 +22,19 @@ jobs:
             arch-list: 'x64, x86'
             ts-list: 'nts, ts'
 
+        - name: Exclude x86 if PHP < 8.4
+          id: filter
+          env:
+            MATRIX: ${{ steps.extension-matrix.outputs.matrix }}
+          run: |
+            filtered=$(echo "$MATRIX" | jq -c '
+              .include |= map(select(
+                .arch != "x86"
+                or ((.["php-version"] | split(".") | map(tonumber)) >= [8,4])
+              ))
+            ')
+            echo "matrix=$filtered" >> "$GITHUB_OUTPUT"
+
     build:
         needs: get-extension-matrix
         strategy:
