@@ -220,8 +220,6 @@ typedef struct _php_cairo_ft_error {
 
 extern php_cairo_ft_error php_cairo_ft_errors[];
 
-extern bool php_cairo_throw_exception(cairo_status_t status);
-
 /* Helper for getting FreeType error strings */
 const char* php_cairo_get_ft_error(int error);
 
@@ -231,6 +229,8 @@ const char* php_cairo_get_ft_error(int error);
 #define FT_ERROR_END_LIST { 0, 0 } };
 
 #endif
+
+extern bool php_cairo_throw_exception(cairo_status_t status);
 
 /* Context */
 typedef struct _cairo_context_object {
