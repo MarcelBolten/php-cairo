@@ -7,10 +7,11 @@ if (!in_array('JPEG', Cairo\Cairo::availableSurfaces()))
     die('skip - JPEG support not available');
 --FILE--
 <?php
-$surface = Cairo\Surface\Image::createFromJpeg(dirname(__FILE__) . '/red.jpg');
+$file = dirname(__FILE__) . '/red.jpg';
+$surface = Cairo\Surface\Image::createFromJpeg($file);
 var_dump($surface);
 
-$resource = fopen(dirname(__FILE__) . '/red.jpg', 'rb');
+$resource = fopen($file, 'rb');
 $surface = Cairo\Surface\Image::createFromJpeg($resource);
 var_dump($surface);
 fclose($resource);
