@@ -315,19 +315,16 @@ PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
 {
     cairo_surface_object *surface_object;
     zval *stream_zval = NULL;
-    stream_closure *closure;
-    bool owned_stream = false;
+    cairo_surface_t *surface = NULL;
+    stream_closure *closure = NULL;
     php_stream *stream = NULL;
 
     ZEND_PARSE_PARAMETERS_START(1, 1)
         Z_PARAM_ZVAL(stream_zval)
     ZEND_PARSE_PARAMETERS_END();
 
-    object_init_ex(return_value, ce_cairo_imagesurface);
-    surface_object = Z_CAIRO_SURFACE_P(return_value);
-
     if (Z_TYPE_P(stream_zval) == IS_STRING) {
-        surface_object->surface = cairo_image_surface_create_from_jpeg(Z_STRVAL_P(stream_zval));
+        surface = cairo_image_surface_create_from_jpeg(Z_STRVAL_P(stream_zval));
     } else if (Z_TYPE_P(stream_zval) == IS_RESOURCE) {
         php_stream_from_zval(stream, stream_zval);
 
@@ -338,10 +335,9 @@ PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
         // Pack stream into struct
         closure = ecalloc(1, sizeof(stream_closure));
         closure->stream = stream;
-        closure->owned_stream = owned_stream;
-
-        surface_object->closure = closure;
-        surface_object->surface = cairo_image_surface_create_from_jpeg_stream(
+        closure->owned_stream = false;
+        
+        surface = cairo_image_surface_create_from_jpeg_stream(
             (cairo_read_func_t) php_cairo_read_func,
             (void *)closure
         );
@@ -350,9 +346,18 @@ PHP_METHOD(Cairo_Surface_Image, createFromJpeg)
         RETURN_THROWS();
     }
 
-    if (php_cairo_throw_exception(cairo_surface_status(surface_object->surface))) {
+
+    if (php_cairo_throw_exception(cairo_surface_status(surface))) {
+        if (closure) {
+            efree(closure);
+        }
         RETURN_THROWS();
     }
+
+    object_init_ex(return_value, ce_cairo_imagesurface);
+    surface_object = Z_CAIRO_SURFACE_P(return_value);
+    surface_object->closure = closure;
+    surface_object->surface = surface;
 }
 /* }}} */
 #endif
