@@ -398,10 +398,9 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg_mem(void *data, size_t len
    jpeg_destroy_decompress(&cinfo);
 
    // set jpeg mime data
-   // cairo_surface_set_mime_data(sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, data);
-   // don't free data
-   cairo_surface_set_mime_data(sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, NULL);
-
+   cairo_surface_set_mime_data(
+      sfc, CAIRO_MIME_TYPE_JPEG, data, len, free, data
+   );
    return sfc;
 }
 
@@ -491,26 +490,41 @@ cairo_surface_t *cairo_image_surface_create_from_jpeg(const char *filename)
    void *data;
    int infile;
    struct stat stat;
+   cairo_surface_t *sfc;
 
    // open input file
-   if ((infile = open(filename, O_BINARY | O_RDONLY)) == -1)
+   if ((infile = open(filename, O_BINARY | O_RDONLY)) == -1) {
+      close(infile);
       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);
+   }
 
    // get stat structure for file size
-   if (fstat(infile, &stat) == -1)
+   if (fstat(infile, &stat) == -1) {
+      close(infile);
       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);
+   }
 
    // allocate memory
-   if ((data = malloc(stat.st_size)) == NULL)
+   if ((data = malloc(stat.st_size)) == NULL) {
+      close(infile);
       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);
+   }
 
    // read data
-   if (read(infile, data, stat.st_size) < stat.st_size)
+   if (read(infile, data, stat.st_size) < stat.st_size) {
+      free(data);
+      close(infile);
       return cairo_image_surface_create(CAIRO_FORMAT_INVALID, 0, 0);
+   }
 
    close(infile);
 
-   return cairo_image_surface_create_from_jpeg_mem(data, stat.st_size);
+   sfc = cairo_image_surface_create_from_jpeg_mem(data, stat.st_size);
+   if (cairo_surface_status(sfc) != CAIRO_STATUS_SUCCESS) {
+      free(data);
+   }
+
+   return sfc;
 }
 
 #else
