@@ -10,7 +10,7 @@ jobs:
     get-extension-matrix:
         runs-on: ubuntu-26.04
         outputs:
-            matrix: ${{ steps.get-extension-matrix.outputs.matrix }}
+            matrix: ${{ steps.extension-matrix.outputs.matrix }}
         steps:
         - name: Checkout
           uses: actions/checkout@v7
