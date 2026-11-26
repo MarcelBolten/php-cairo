@@ -77,6 +77,7 @@ jobs:
                     "set(VCPKG_LIBRARY_LINKAGE static)"
                     "set(VCPKG_PLATFORM_TOOLSET v142)"
                     "set(VCPKG_C_FLAGS `"/DUSE_EXPLICIT_TLS`")"
+                    "set(VCPKG_CXX_FLAGS `"`")"
                   ) -join "`n"
 
                   New-Item -Path "C:\vcpkg\triplets\community" -Name "$triplet.cmake" -Value $tripletContent -Force
